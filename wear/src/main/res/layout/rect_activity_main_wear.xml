@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pt.unl.fct.di.novalincs.yanuxscavenger.MainWearActivity"
+    tools:context="pt.unl.fct.di.novalincs.scavenger.MainWearActivity"
     tools:deviceIds="wear_square">
 
     <TextView

@@ -7,5 +7,5 @@
     android:layout_height="match_parent"
     app:rectLayout="@layout/rect_activity_main_wear"
     app:roundLayout="@layout/round_activity_main_wear"
-    tools:context="pt.unl.fct.di.novalincs.yanuxscavenger.MainWearActivity"
+    tools:context="pt.unl.fct.di.novalincs.scavenger.MainWearActivity"
     tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>

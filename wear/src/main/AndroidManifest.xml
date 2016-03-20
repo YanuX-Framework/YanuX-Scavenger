@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pt.unl.fct.di.novalincs.yanuxscavenger">
+    package="pt.unl.fct.di.novalincs.yanux.scavenger">
     <uses-sdk android:minSdkVersion="23" android:maxSdkVersion="23" android:targetSdkVersion="23" />
     <uses-feature android:name="android.hardware.type.watch" />
     <application
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
         <activity
-            android:name=".MainWearActivity"
+            android:name="pt.unl.fct.di.novalincs.yanux.scavenger.MainWearActivity"
             android:label="@string/title_activity_main_wear">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
