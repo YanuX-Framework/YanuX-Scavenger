@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2016 Pedro Albuquerque Santos
+ *
+ * This file is part of YanuX Scavenger.
+ *
+ * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ */
+
 package pt.unl.fct.di.novalincs.yanux.scavenger;
 
 import android.support.v7.app.AppCompatActivity;
@@ -8,18 +20,19 @@ import android.widget.Spinner;
 import java.util.LinkedList;
 import java.util.List;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
+
 public class SensorsActivity extends AppCompatActivity {
+    private SensorCollector sensorCollector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensors);
-        Spinner spinnerSensors = (Spinner) findViewById(R.id.spinner_sensors);
+        sensorCollector = new SensorCollector(this);
 
-        List<String> sensorList = new LinkedList<>();
-        sensorList.add("Accelerometer");
-        sensorList.add("Gyroscope");
-        sensorList.add("Magnetometer");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sensorList);
+        Spinner spinnerSensors = (Spinner) findViewById(R.id.spinner_sensors);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensorCollector.getDetectedSensorNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSensors.setAdapter(adapter);
     }
