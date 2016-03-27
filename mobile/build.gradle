@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 'Google Inc.:Google APIs:23'
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "pt.unl.fct.di.novalincs.yanuxscavenger"
+        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger.common.scavenger"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
@@ -23,12 +23,11 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     wearApp project(':wear')
     testCompile 'junit:junit:4.12'
+    compile project(':common')
     compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.android.support:design:24.0.0-alpha1'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-identity:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.android.support:support-v4:24.0.0-alpha1'
-    compile project(':common')
 }

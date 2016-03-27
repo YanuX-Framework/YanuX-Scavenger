@@ -1,4 +1,4 @@
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package pt.unl.fct.di.novalincs.yanux.scavenger.sensors;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -46,7 +46,7 @@ public class SensorCollector {
 
     public SensorCollector(Context context) {
         this.context = context;
-        this.mSensorManager = (SensorManager) this.context.getSystemService(context.SENSOR_SERVICE);
+        this.mSensorManager = (SensorManager) this.context.getSystemService(Context.SENSOR_SERVICE);
         this.mSensors = this.mSensorManager.getSensorList(Sensor.TYPE_ALL);
         this.mSensorCollectorListener = new SensorCollectorListener(this);
 

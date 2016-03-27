@@ -1,12 +1,10 @@
-package pt.unl.fct.di.novalincs.yanux.scavenger.sensors;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
 import java.text.DecimalFormat;
-
-import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 
 /**
  * Created by Pedro on 20/03/2016.

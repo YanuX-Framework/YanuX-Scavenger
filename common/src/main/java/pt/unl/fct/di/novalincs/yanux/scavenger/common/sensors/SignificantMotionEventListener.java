@@ -1,4 +1,4 @@
-package pt.unl.fct.di.novalincs.yanux.scavenger.sensors;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -7,7 +7,7 @@ import android.hardware.TriggerEvent;
 import android.hardware.TriggerEventListener;
 import android.widget.Toast;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 
 /**
  * Created by Pedro on 20/03/2016.
