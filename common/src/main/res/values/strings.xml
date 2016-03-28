@@ -12,5 +12,35 @@
 
 <resources>
     <string name="app_name">YanuX Scavenger Common</string>
-    <string name="significant_motion_detected">Significant motion detected.</string>
+
+    <string name="sensor_name">Name</string>
+    <string name="sensor_min_delay">Min Delay</string>
+    <string name="sensor_power">Power</string>
+    <string name="sensor_resolution">Power</string>
+    <string name="sensor_vendor">Vendor</string>
+    <string name="sensor_version">Version</string>
+
+    <string name="sensor_type_accelerometer">Accelerometer</string>
+    <string name="sensor_type_ambient_temperature">Ambient Temperature</string>
+    <string name="sensor_type_gravity">Gravity</string>
+    <string name="sensor_type_gyroscope">Gyroscope</string>
+    <string name="sensor_type_gyroscope_uncalibrated">Gyroscope (Uncalibrated)</string>
+    <string name="sensor_type_heart_rate">Heart Rate</string>
+    <string name="sensor_type_light">Light</string>
+    <string name="sensor_type_linear_acceleration">Linear Acceleration</string>
+    <string name="sensor_type_magnetic_field">Magnetic Field</string>
+    <string name="sensor_type_magnetic_field_uncalibrated">Magnetic Field (Uncalibrated)</string>
+    <string name="sensor_type_pressure">Pressure</string>
+    <string name="sensor_type_proximity">Proximity</string>
+    <string name="sensor_type_relative_humidity">Relative Humidity</string>
+    <string name="sensor_type_rotation_vector">Rotation Vector</string>
+    <string name="sensor_type_rotation_vector_game">Rotation Vector (Game)</string>
+    <string name="sensor_type_rotation_vector_geomagnetic">Rotation Vector (Geomagnetic)</string>
+    <string name="sensor_type_significant_motion">Significant Motion</string>
+    <string name="sensor_type_step_counter">Step Counter</string>
+    <string name="sensor_type_step_detector">Step Detector</string>
+    <string name="sensor_type_orientation">Orientation (Deprecated)</string>
+    <string name="sensor_type_temperature">Temperature (Deprecated)</string>
+    <string name="sensor_type_unknown">Unknown</string>
+    <string name="sensor_significant_motion_detected">Significant motion detected.</string>
 </resources>

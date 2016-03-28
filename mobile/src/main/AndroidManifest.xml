@@ -15,7 +15,6 @@
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
 
     <uses-sdk
-        android:maxSdkVersion="23"
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
 

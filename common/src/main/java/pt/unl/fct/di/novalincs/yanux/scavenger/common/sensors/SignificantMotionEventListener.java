@@ -35,7 +35,7 @@ public class SignificantMotionEventListener extends TriggerEventListener {
     @Override
     public void onTrigger(TriggerEvent event) {
         if(event.sensor == sensor) {
-            Toast.makeText(SignificantMotionEventListener.this.context, R.string.significant_motion_detected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignificantMotionEventListener.this.context, R.string.sensor_significant_motion_detected, Toast.LENGTH_SHORT).show();
             sensorManager.requestTriggerSensor(this, sensor);
         }
     }

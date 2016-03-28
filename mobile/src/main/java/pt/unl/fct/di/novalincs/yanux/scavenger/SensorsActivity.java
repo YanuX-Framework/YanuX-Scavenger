@@ -12,17 +12,19 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
-import java.util.LinkedList;
-import java.util.List;
+import android.widget.TextView;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
-public class SensorsActivity extends AppCompatActivity {
+public class SensorsActivity extends AppCompatActivity implements OnItemSelectedListener {
     private SensorCollector sensorCollector;
 
     @Override
@@ -32,8 +34,21 @@ public class SensorsActivity extends AppCompatActivity {
         sensorCollector = new SensorCollector(this);
 
         Spinner spinnerSensors = (Spinner) findViewById(R.id.spinner_sensors);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensorCollector.getDetectedSensorNames());
+        ArrayAdapter<SensorWrapper> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensorCollector.getAllSensors());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSensors.setAdapter(adapter);
+
+        spinnerSensors.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        SensorWrapper sensor = (SensorWrapper) parent.getItemAtPosition(position);
+        TextView sensorName = (TextView) findViewById(R.id.sensor_name);
+        sensorName.setText(sensor.getSensor().getName());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 }

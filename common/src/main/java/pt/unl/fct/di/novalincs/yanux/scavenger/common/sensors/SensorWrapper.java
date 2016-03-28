@@ -10,8 +10,33 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
-public class Constants {
-    public static final String LOG_TAG = "YANUX_SCAVENGER";
+import android.hardware.Sensor;
+
+public class SensorWrapper {
+    private final String name;
+    private final Sensor sensor;
+
+    public SensorWrapper(String name, Sensor sensor) {
+        this.name = name;
+        this.sensor = sensor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public boolean hasSensor() {
+        return sensor != null;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
