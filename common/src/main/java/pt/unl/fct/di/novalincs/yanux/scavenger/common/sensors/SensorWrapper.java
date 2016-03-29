@@ -13,14 +13,23 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
 import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.hardware.TriggerEventListener;
 
 public class SensorWrapper {
+    private final SensorManager sensorManager;
     private final String description;
     private final Sensor sensor;
 
-    public SensorWrapper(String type, Sensor sensor) {
+    public SensorWrapper(SensorManager sensorManager, String type, Sensor sensor) {
+        this.sensorManager = sensorManager;
         this.description = type;
         this.sensor = sensor;
+    }
+
+    public SensorManager getSensorManager() {
+        return sensorManager;
     }
 
     public String getDescription() {
@@ -33,6 +42,26 @@ public class SensorWrapper {
 
     public boolean hasSensor() {
         return sensor != null;
+    }
+
+    public boolean registerListener(SensorEventListener listener) {
+        return sensorManager.registerListener(listener, sensor, SensorCollector.SENSOR_DELAY);
+    }
+
+    public boolean registerListener(SensorEventListener listener, int delay) {
+        return sensorManager.registerListener(listener, sensor, delay);
+    }
+
+    public void unregisterListener(SensorEventListener listener) {
+        sensorManager.unregisterListener(listener, sensor);
+    }
+
+    public boolean registerTriggerListener(TriggerEventListener listener) {
+        return sensorManager.requestTriggerSensor(listener, sensor);
+    }
+
+    public boolean unregisterTriggerListener(TriggerEventListener listener) {
+        return sensorManager.cancelTriggerSensor(listener, sensor);
     }
 
     @Override

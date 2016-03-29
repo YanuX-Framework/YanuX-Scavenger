@@ -19,6 +19,9 @@
 
     <string name="select_sensor">Select sensor</string>
     <string name="unsupported_sensor">Unsupported sensor</string>
+    <string name="sensor_accuracy">Accuracy</string>
+    <string name="sensor_values">Values</string>
+    <string name="timestamp">Timestamp</string>
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

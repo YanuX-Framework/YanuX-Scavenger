@@ -12,31 +12,19 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
-import android.content.Context;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.hardware.TriggerEventListener;
-import android.widget.Toast;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
-
-public class SignificantMotionEventListener extends TriggerEventListener {
-    private final Context context;
+public abstract class CyclicTriggerEventListener extends TriggerEventListener {
     private final SensorManager sensorManager;
-    private final Sensor sensor;
 
-    public SignificantMotionEventListener(Context context, SensorManager sensorManager, Sensor sensor) {
-        this.context = context;
+    public CyclicTriggerEventListener(SensorManager sensorManager) {
         this.sensorManager = sensorManager;
-        this.sensor = sensor;
     }
 
     @Override
     public void onTrigger(TriggerEvent event) {
-        if(event.sensor == sensor) {
-            Toast.makeText(SignificantMotionEventListener.this.context, R.string.sensor_significant_motion_detected, Toast.LENGTH_SHORT).show();
-            sensorManager.requestTriggerSensor(this, sensor);
-        }
+        sensorManager.requestTriggerSensor(this, event.sensor);
     }
 }

@@ -20,12 +20,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.hardware.TriggerEvent;
-import android.hardware.TriggerEventListener;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -41,58 +35,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
     private final int REQUEST_LOCATION_ACCESS = 0;
 
     private WifiManager wifiManager;
     private IntentFilter wifiScanResultsIntentFilter;
     private BroadcastReceiver wifiScanResultsBroadcastReceiver;
-
-    private SensorManager sensorManager;
-    private final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
-
-    private List<Sensor> sensors;
-    private Sensor accelerometer;
-    private Sensor ambientTemperature;
-    private Sensor gravity;
-    private Sensor gyroscope;
-    private Sensor gyroscopeUncalibrated;
-    private Sensor heartRate;
-    private Sensor light;
-    private Sensor linearAcceleration;
-    private Sensor magneticField;
-    private Sensor magneticFieldUncalibrated;
-    private Sensor orientation;
-    private Sensor pressure;
-    private Sensor proximity;
-    private Sensor relativeHumidity;
-    private Sensor rotationVector;
-    private Sensor gameRotationVector;
-    private Sensor geomagneticRotationVector;
-    private Sensor significantMotion;
-    private Sensor stepCounter;
-    private Sensor stepDetector;
-    private Sensor temperature;
-
-    private TriggerEventListener mTriggerEventListener = new TriggerEventListener() {
-        @Override
-        public void onTrigger(TriggerEvent event) {
-            Toast.makeText(getApplicationContext(), "Significant motion detected", Toast.LENGTH_SHORT).show();
-            TextView textView = (TextView) findViewById(R.id.text_significant_motion);
-            textView.setText("Significant Motion\n");
-            DecimalFormat formatter = new DecimalFormat("#0.00");
-            for(int i = 0; i < event.values.length; i++) {
-                textView.setText(textView.getText()+Integer.toString(i)+": "+formatter.format(event.values[i]));
-                if(i < event.values.length - 1) {
-                    textView.setText(textView.getText()+" ");
-                }
-            }
-            sensorManager.requestTriggerSensor(this, significantMotion);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,42 +74,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /* Wi-Fi */
         wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifiScanning();
-        /* Sensors */
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        TextView textOutput = (TextView) findViewById(R.id.text_output);
-        textOutput.setText("Sensors: ");
-        for (Sensor sensor : sensors) {
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textOutput.setText(textOutput.getText() +"\n"+ sensor.getStringType()+": ");
-            } else {
-                textOutput.setText(textOutput.getText() +"\n");
-            }*/
-            textOutput.setText(textOutput.getText() + "\n" + sensor.getName());
-        }
-        /* Get a bunch of sensors */
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        ambientTemperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        gyroscopeUncalibrated = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED);
-        heartRate = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        linearAcceleration = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        magneticFieldUncalibrated = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED);
-        /* TODO: Deprecated... Replace if useful. Remove if not! */
-        orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-        pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        relativeHumidity = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        rotationVector = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        gameRotationVector = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
-        geomagneticRotationVector = sensorManager.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR);
-        significantMotion = sensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION);
-        stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        stepDetector = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        temperature = sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE);
     }
 
     @Override
@@ -195,26 +109,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, accelerometer, SENSOR_DELAY);
-        sensorManager.registerListener(this, ambientTemperature, SENSOR_DELAY);
-        sensorManager.registerListener(this, gravity, SENSOR_DELAY);
-        sensorManager.registerListener(this, gyroscope, SENSOR_DELAY);
-        sensorManager.registerListener(this, gyroscopeUncalibrated, SENSOR_DELAY);
-        sensorManager.registerListener(this, light, SENSOR_DELAY);
-        sensorManager.registerListener(this, linearAcceleration, SENSOR_DELAY);
-        sensorManager.registerListener(this, magneticField, SENSOR_DELAY);
-        sensorManager.registerListener(this, magneticFieldUncalibrated, SENSOR_DELAY);
-        sensorManager.registerListener(this, orientation, SENSOR_DELAY);
-        sensorManager.registerListener(this, pressure, SENSOR_DELAY);
-        sensorManager.registerListener(this, proximity, SENSOR_DELAY);
-        sensorManager.registerListener(this, relativeHumidity, SENSOR_DELAY);
-        sensorManager.registerListener(this, rotationVector, SENSOR_DELAY);
-        sensorManager.registerListener(this, gameRotationVector, SENSOR_DELAY);
-        sensorManager.registerListener(this, geomagneticRotationVector, SENSOR_DELAY);
-        sensorManager.registerListener(this, stepCounter, SENSOR_DELAY);
-        sensorManager.registerListener(this, stepDetector, SENSOR_DELAY);
-        sensorManager.registerListener(this, temperature, SENSOR_DELAY);
-        sensorManager.requestTriggerSensor(mTriggerEventListener, significantMotion);
         wifiScanning();
     }
 
@@ -222,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         unregisterReceiver(wifiScanResultsBroadcastReceiver);
-        sensorManager.cancelTriggerSensor(mTriggerEventListener, significantMotion);
-        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -243,87 +135,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // other 'case' lines to check for other
             // permissions this app might request
         }
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        TextView textView = null;
-        if(event.sensor == accelerometer) {
-            textView = (TextView) findViewById(R.id.text_accelerometer);
-            textView.setText("Accelerometer\n");
-        } else if(event.sensor == ambientTemperature) {
-            textView = (TextView) findViewById(R.id.text_ambient_temperature);
-            textView.setText("Ambient Temperature\n");
-        } else if(event.sensor == gravity) {
-            textView = (TextView) findViewById(R.id.text_gravity);
-            textView.setText("Gravity\n");
-        } else if(event.sensor == gyroscope) {
-            textView = (TextView) findViewById(R.id.text_gyroscope);
-            textView.setText("Gyroscope\n");
-        } else if(event.sensor == gyroscopeUncalibrated) {
-            textView = (TextView) findViewById(R.id.text_gyroscope_uncalibrated);
-            textView.setText("Gyroscope Uncalibrated\n");
-        } else if(event.sensor == heartRate) {
-            textView = (TextView) findViewById(R.id.text_heart_rate);
-            textView.setText("Heart Rate\n");
-        } else if(event.sensor == light) {
-            textView = (TextView) findViewById(R.id.text_light);
-            textView.setText("Light\n");
-        } else if(event.sensor == linearAcceleration) {
-            textView = (TextView) findViewById(R.id.text_linear_acceleration);
-            textView.setText("Linear Acceleration\n");
-        } else if(event.sensor == magneticField) {
-            textView = (TextView) findViewById(R.id.text_magnetic_field);
-            textView.setText("Magnetic Field\n");
-        } else if(event.sensor == magneticFieldUncalibrated) {
-            textView = (TextView) findViewById(R.id.text_magnetic_field_uncalibrated);
-            textView.setText("Magnetic Field Uncalibrated\n");
-        } else if(event.sensor == orientation) {
-            textView = (TextView) findViewById(R.id.text_orientation);
-            textView.setText("Orientation\n");
-        } else if(event.sensor == pressure) {
-            textView = (TextView) findViewById(R.id.text_pressure);
-            textView.setText("Pressure\n");
-        } else if(event.sensor == proximity) {
-            textView = (TextView) findViewById(R.id.text_proximity);
-            textView.setText("Proximity\n");
-        } else if(event.sensor == relativeHumidity) {
-            textView = (TextView) findViewById(R.id.text_relative_humidity);
-            textView.setText("Relative Humidity\n");
-        } else if(event.sensor == rotationVector) {
-            textView = (TextView) findViewById(R.id.text_rotation_vector);
-            textView.setText("Rotation Vector\n");
-        } else if(event.sensor == gameRotationVector) {
-            textView = (TextView) findViewById(R.id.text_game_rotation_vector);
-            textView.setText("Game Rotation Vector\n");
-        } else if(event.sensor == geomagneticRotationVector) {
-            textView = (TextView) findViewById(R.id.text_geomagnetic_rotation_vector);
-            textView.setText("Geomagnetic Rotation Vector\n");
-        } else if(event.sensor == stepCounter) {
-            textView = (TextView) findViewById(R.id.text_step_counter);
-            textView.setText("Step Counter\n");
-        } else if(event.sensor == stepDetector) {
-            Toast.makeText(getApplicationContext(), "Step detected", Toast.LENGTH_SHORT).show();
-            textView = (TextView) findViewById(R.id.text_step_detector);
-            textView.setText("Step Detector\n");
-        } else if(event.sensor == temperature) {
-            textView = (TextView) findViewById(R.id.text_temperature);
-            textView.setText("Temperature\n");
-        }
-        if(textView != null) {
-            DecimalFormat formatter = new DecimalFormat("#0.00");
-            for(int i = 0; i < event.values.length; i++) {
-                textView.setText(textView.getText()+Integer.toString(i)+": "+formatter.format(event.values[i]));
-                if(i < event.values.length - 1) {
-                    textView.setText(textView.getText()+" ");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {

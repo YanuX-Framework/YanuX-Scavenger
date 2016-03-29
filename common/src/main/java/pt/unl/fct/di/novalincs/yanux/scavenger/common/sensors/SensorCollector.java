@@ -14,7 +14,9 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.TriggerEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +27,7 @@ import java.util.Map;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 
 public class SensorCollector {
-    private static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
+    public static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
     private static final int NUM_SENSORS = 21;
 
     private final Context context;
@@ -33,9 +35,6 @@ public class SensorCollector {
 
     private final Map<Integer,SensorWrapper> detectedSensors;
     private final Collection<SensorWrapper> sensors;
-
-    private final SensorCollectorListener sensorCollectorListener;
-    private SignificantMotionEventListener significantMotionEventListener;
 
     public SensorCollector(Context context) {
         this.context = context;
@@ -47,8 +46,6 @@ public class SensorCollector {
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
         sensors = new ArrayList<>(sensorList.size());
         processSensorList(sensorList);
-
-        sensorCollectorListener = new SensorCollectorListener(this);
     }
 
     private void detectSensors() {
@@ -77,178 +74,173 @@ public class SensorCollector {
         Sensor orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
         Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE);
 
-        //Significant Motion Sensor it's the ONLY trigger-based sensor currently available on Android
-        significantMotionEventListener = new SignificantMotionEventListener(context, sensorManager, significantMotion);
-
         if(accelerometer != null) {
-            detectedSensors.put(Sensor.TYPE_ACCELEROMETER, new SensorWrapper(context.getString(R.string.sensor_type_accelerometer),accelerometer));
+            detectedSensors.put(Sensor.TYPE_ACCELEROMETER, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_accelerometer), accelerometer));
         }
         if(ambientTemperature != null) {
-            detectedSensors.put(Sensor.TYPE_AMBIENT_TEMPERATURE, new SensorWrapper(context.getString(R.string.sensor_type_ambient_temperature), ambientTemperature));
+            detectedSensors.put(Sensor.TYPE_AMBIENT_TEMPERATURE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_ambient_temperature), ambientTemperature));
         }
         if(gravity != null) {
-            detectedSensors.put(Sensor.TYPE_GRAVITY, new SensorWrapper(context.getString(R.string.sensor_type_gravity), gravity));
+            detectedSensors.put(Sensor.TYPE_GRAVITY, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gravity), gravity));
         }
         if(gyroscope != null) {
-            detectedSensors.put(Sensor.TYPE_GYROSCOPE, new SensorWrapper(context.getString(R.string.sensor_type_gyroscope), gyroscope));
+            detectedSensors.put(Sensor.TYPE_GYROSCOPE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gyroscope), gyroscope));
         }
         if(gyroscopeUncalibrated != null) {
-            detectedSensors.put(Sensor.TYPE_GYROSCOPE_UNCALIBRATED, new SensorWrapper(context.getString(R.string.sensor_type_gyroscope_uncalibrated), gyroscopeUncalibrated));
+            detectedSensors.put(Sensor.TYPE_GYROSCOPE_UNCALIBRATED, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gyroscope_uncalibrated), gyroscopeUncalibrated));
         }
         if(heartRate != null) {
-            detectedSensors.put(Sensor.TYPE_HEART_RATE, new SensorWrapper(context.getString(R.string.sensor_type_heart_rate), heartRate));
+            detectedSensors.put(Sensor.TYPE_HEART_RATE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_heart_rate), heartRate));
         }
         if(light != null) {
-            detectedSensors.put(Sensor.TYPE_LIGHT, new SensorWrapper(context.getString(R.string.sensor_type_light), light));
+            detectedSensors.put(Sensor.TYPE_LIGHT, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_light), light));
         }
         if(linearAcceleration != null){
-            detectedSensors.put(Sensor.TYPE_LINEAR_ACCELERATION, new SensorWrapper(context.getString(R.string.sensor_type_linear_acceleration), linearAcceleration));
+            detectedSensors.put(Sensor.TYPE_LINEAR_ACCELERATION, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_linear_acceleration), linearAcceleration));
         }
         if(magneticField != null) {
-            detectedSensors.put(Sensor.TYPE_MAGNETIC_FIELD, new SensorWrapper(context.getString(R.string.sensor_type_magnetic_field), magneticField));
+            detectedSensors.put(Sensor.TYPE_MAGNETIC_FIELD, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_magnetic_field), magneticField));
         }
         if(magneticFieldUncalibrated != null) {
-            detectedSensors.put(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED, new SensorWrapper(context.getString(R.string.sensor_type_magnetic_field_uncalibrated), magneticFieldUncalibrated));
+            detectedSensors.put(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_magnetic_field_uncalibrated), magneticFieldUncalibrated));
         }
         if(pressure != null) {
-            detectedSensors.put(Sensor.TYPE_PRESSURE, new SensorWrapper(context.getString(R.string.sensor_type_pressure), pressure));
+            detectedSensors.put(Sensor.TYPE_PRESSURE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_pressure), pressure));
         }
         if(proximity != null) {
-            detectedSensors.put(Sensor.TYPE_PROXIMITY, new SensorWrapper(context.getString(R.string.sensor_type_proximity), proximity));
+            detectedSensors.put(Sensor.TYPE_PROXIMITY, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_proximity), proximity));
         }
         if(relativeHumidity != null) {
-            detectedSensors.put(Sensor.TYPE_RELATIVE_HUMIDITY, new SensorWrapper(context.getString(R.string.sensor_type_relative_humidity), relativeHumidity));
+            detectedSensors.put(Sensor.TYPE_RELATIVE_HUMIDITY, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_relative_humidity), relativeHumidity));
         }
         if(rotationVector != null) {
-            detectedSensors.put(Sensor.TYPE_ROTATION_VECTOR, new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector), rotationVector));
+            detectedSensors.put(Sensor.TYPE_ROTATION_VECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector), rotationVector));
         }
         if(gameRotationVector != null) {
-            detectedSensors.put(Sensor.TYPE_GAME_ROTATION_VECTOR, new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector_game), gameRotationVector));
+            detectedSensors.put(Sensor.TYPE_GAME_ROTATION_VECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector_game), gameRotationVector));
         }
         if(geomagneticRotationVector != null) {
-            detectedSensors.put(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR, new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector_geomagnetic), geomagneticRotationVector));
+            detectedSensors.put(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector_geomagnetic), geomagneticRotationVector));
         }
         if(significantMotion != null) {
-            detectedSensors.put(Sensor.TYPE_SIGNIFICANT_MOTION, new SensorWrapper(context.getString(R.string.sensor_type_significant_motion), significantMotion));
+            detectedSensors.put(Sensor.TYPE_SIGNIFICANT_MOTION, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_significant_motion), significantMotion));
         }
         if(stepCounter != null) {
-            detectedSensors.put(Sensor.TYPE_STEP_COUNTER, new SensorWrapper(context.getString(R.string.sensor_type_step_counter), stepCounter));
+            detectedSensors.put(Sensor.TYPE_STEP_COUNTER, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_counter), stepCounter));
         }
         if(stepDetector != null) {
-            detectedSensors.put(Sensor.TYPE_STEP_DETECTOR, new SensorWrapper(context.getString(R.string.sensor_type_step_detector), stepDetector));
+            detectedSensors.put(Sensor.TYPE_STEP_DETECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_detector), stepDetector));
         }
         //TODO: Remove deprecated sensors
         if(orientation != null) {
-            detectedSensors.put(Sensor.TYPE_ORIENTATION, new SensorWrapper(context.getString(R.string.sensor_type_orientation), orientation));
+            detectedSensors.put(Sensor.TYPE_ORIENTATION, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_orientation), orientation));
         }
         if(temperature != null) {
-            detectedSensors.put(Sensor.TYPE_TEMPERATURE, new SensorWrapper(context.getString(R.string.sensor_type_temperature), temperature));
+            detectedSensors.put(Sensor.TYPE_TEMPERATURE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_temperature), temperature));
         }
     }
 
-    private void processSensorList(List<Sensor> sensorList) {
+    private void processSensorList(Collection<Sensor> sensorList) {
         for(Sensor sensor : sensorList) {
             switch(sensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_accelerometer), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_accelerometer), sensor));
                     break;
                 case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_ambient_temperature), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_ambient_temperature), sensor));
                     break;
                 case Sensor.TYPE_GRAVITY:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_gravity), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gravity), sensor));
                     break;
                 case Sensor.TYPE_GYROSCOPE:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_gyroscope), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gyroscope), sensor));
                     break;
                 case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_gyroscope_uncalibrated), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_gyroscope_uncalibrated), sensor));
                     break;
                 case Sensor.TYPE_HEART_RATE:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_heart_rate), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_heart_rate), sensor));
                     break;
                 case Sensor.TYPE_LIGHT:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_light), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_light), sensor));
                     break;
                 case Sensor.TYPE_LINEAR_ACCELERATION:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_linear_acceleration), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_linear_acceleration), sensor));
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_magnetic_field), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_magnetic_field), sensor));
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_magnetic_field_uncalibrated), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_magnetic_field_uncalibrated), sensor));
                     break;
                 case Sensor.TYPE_PRESSURE:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_pressure), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_pressure), sensor));
                     break;
                 case Sensor.TYPE_PROXIMITY:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_proximity), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_proximity), sensor));
                     break;
                 case Sensor.TYPE_RELATIVE_HUMIDITY:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_relative_humidity), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_relative_humidity), sensor));
                     break;
                 case Sensor.TYPE_ROTATION_VECTOR:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector), sensor));
                     break;
                 case Sensor.TYPE_GAME_ROTATION_VECTOR:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector_game), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector_game), sensor));
                     break;
                 case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_rotation_vector_geomagnetic), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_vector_geomagnetic), sensor));
                     break;
                 case Sensor.TYPE_SIGNIFICANT_MOTION:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_significant_motion), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_significant_motion), sensor));
                     break;
                 case Sensor.TYPE_STEP_COUNTER:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_step_counter), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_counter), sensor));
                     break;
                 case Sensor.TYPE_STEP_DETECTOR:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_step_detector), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_detector), sensor));
                     break;
                 //TODO: Remove deprecated sensors
                 case Sensor.TYPE_ORIENTATION:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_orientation), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_orientation), sensor));
                     break;
                 case Sensor.TYPE_TEMPERATURE:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_temperature), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_temperature), sensor));
                     break;
                 default:
-                    sensors.add(new SensorWrapper(context.getString(R.string.sensor_type_unknown), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_unknown), sensor));
                     break;
             }
         }
     }
 
-    /*public void registerSensors() {
-        sensorManager.registerListener(this.sensorCollectorListener, this.accelerometer.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.ambientTemperature.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.gravity.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.gyroscope.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.gyroscopeUncalibrated.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.light.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.linearAcceleration.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.magneticField.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.magneticFieldUncalibrated.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.pressure.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.proximity.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.relativeHumidity.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.rotationVector.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.gameRotationVector.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.geomagneticRotationVector.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.stepCounter.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.stepDetector.getSensor(), SensorCollector.SENSOR_DELAY);
-        //TODO: Remove deprecated sensors
-        sensorManager.registerListener(this.sensorCollectorListener, this.orientation.getSensor(), SensorCollector.SENSOR_DELAY);
-        sensorManager.registerListener(this.sensorCollectorListener, this.temperature.getSensor(), SensorCollector.SENSOR_DELAY);
-        //Significant Motion Sensor it's the ONLY trigger-based sensor currently available on Android
-        sensorManager.requestTriggerSensor(this.significantMotionEventListener, this.significantMotion.getSensor());
+    public void registerSensors(SensorEventListener listener) {
+        registerSensors(sensors, listener, SensorCollector.SENSOR_DELAY);
     }
 
-    public void unregisterSensors() {
-        sensorManager.cancelTriggerSensor(this.significantMotionEventListener, this.significantMotion.getSensor());
-        sensorManager.unregisterListener(this.sensorCollectorListener);
-    }*/
+    public void registerSensors(SensorEventListener listener, int delay) {
+        registerSensors(sensors, listener, SensorCollector.SENSOR_DELAY);
+    }
+
+    public void registerSensors(Collection<SensorWrapper> sensors, SensorEventListener listener) {
+        registerSensors(sensors, listener, SensorCollector.SENSOR_DELAY);
+    }
+
+    public void registerSensors(Collection<SensorWrapper> sensors, SensorEventListener listener, int delay) {
+        for (SensorWrapper sensor : sensors) {
+            sensor.registerListener(listener, delay);
+        }
+    }
+
+    public void unregisterAllSensors(SensorEventListener listener) {
+        sensorManager.unregisterListener(listener);
+    }
+
+    public void registerTriggerSensors(Collection<SensorWrapper> sensors, TriggerEventListener listener) {
+        for (SensorWrapper sensor : sensors) {
+            sensorManager.requestTriggerSensor(listener, sensor.getSensor());
+        }
+    }
 
     public SensorManager getSensorManager() {
         return sensorManager;
