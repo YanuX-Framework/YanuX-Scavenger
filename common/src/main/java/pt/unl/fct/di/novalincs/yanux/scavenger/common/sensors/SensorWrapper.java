@@ -15,16 +15,16 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors;
 import android.hardware.Sensor;
 
 public class SensorWrapper {
-    private final String name;
+    private final String description;
     private final Sensor sensor;
 
-    public SensorWrapper(String name, Sensor sensor) {
-        this.name = name;
+    public SensorWrapper(String type, Sensor sensor) {
+        this.description = type;
         this.sensor = sensor;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     public Sensor getSensor() {
@@ -37,6 +37,6 @@ public class SensorWrapper {
 
     @Override
     public String toString() {
-        return name;
+        return description;
     }
 }

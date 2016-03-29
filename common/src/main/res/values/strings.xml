@@ -14,11 +14,12 @@
     <string name="app_name">YanuX Scavenger Common</string>
 
     <string name="sensor_name">Name</string>
-    <string name="sensor_min_delay">Min Delay</string>
-    <string name="sensor_power">Power</string>
-    <string name="sensor_resolution">Power</string>
     <string name="sensor_vendor">Vendor</string>
     <string name="sensor_version">Version</string>
+    <string name="sensor_resolution">Resolution</string>
+    <string name="sensor_max_range">Maximum Range</string>
+    <string name="sensor_min_delay">Minimum Delay</string>
+    <string name="sensor_power">Power</string>
 
     <string name="sensor_type_accelerometer">Accelerometer</string>
     <string name="sensor_type_ambient_temperature">Ambient Temperature</string>
