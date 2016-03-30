@@ -12,10 +12,7 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,12 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-    private final int REQUEST_LOCATION_ACCESS = 0;
-
-    private WifiManager wifiManager;
-    private IntentFilter wifiScanResultsIntentFilter;
-    private BroadcastReceiver wifiScanResultsBroadcastReceiver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,23 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-        /* Permissions */
-        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION)) {
-                showMessageOKCancel("You need to allow access to Location",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
-                            }
-                        });
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
-            }
-        }
-        /* Wi-Fi */
-        //wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        //wifiScanning();
     }
 
     @Override
@@ -102,65 +76,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //wifiScanning();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //unregisterReceiver(wifiScanResultsBroadcastReceiver);
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_LOCATION_ACCESS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getApplicationContext(), "Access Location Granted!", Toast.LENGTH_SHORT).show();
-                    // Permission was granted, yay!
-                } else {
-                    // permission denied, boo! Disable the functionality that depends on this permission.
-                    Toast.makeText(getApplicationContext(), "Access Location Denied!", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }*/
-
-    /*private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(message)
-                .setPositiveButton("OK", okListener)
-                .setNegativeButton("Cancel", null)
-                .create()
-                .show();
-    }*/
-
-    /*private void wifiScanning() {
-        wifiManager.setWifiEnabled(true);
-        wifiManager.startScan();
-        wifiScanResultsIntentFilter = new IntentFilter();
-        wifiScanResultsIntentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        wifiScanResultsBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                TextView textView = (TextView) findViewById(R.id.text_wifi_list);
-                textView.setText("Results:\n");
-                List<ScanResult> results = wifiManager.getScanResults();
-                for (ScanResult result : results) {
-                    textView.setText(textView.getText()
-                                    + result.SSID
-                                    + " (" + result.BSSID + "): "
-                                    + result.level
-                                    + " [ "+ result.frequency
-                                    +" ]\n");
-                }
-                wifiManager.startScan();
-            }
-        };
-        registerReceiver(wifiScanResultsBroadcastReceiver, wifiScanResultsIntentFilter);
-    }*/
 }
