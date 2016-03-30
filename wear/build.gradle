@@ -17,7 +17,7 @@ android {
     compileSdkVersion 'Google Inc.:Google APIs:23'
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger.wear"
+        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
         minSdkVersion 23
         targetSdkVersion 23
         versionCode 1

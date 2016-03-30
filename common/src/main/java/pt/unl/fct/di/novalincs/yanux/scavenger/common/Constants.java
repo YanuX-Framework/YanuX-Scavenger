@@ -12,6 +12,9 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common;
 
+import android.os.Build;
+
 public class Constants {
     public static final String LOG_TAG = "YANUX_SCAVENGER";
+    public static final int API_LEVEL = Build.VERSION.SDK_INT;
 }

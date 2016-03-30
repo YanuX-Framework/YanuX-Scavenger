@@ -14,10 +14,17 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
+import java.util.List;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 public class WifiCollector {
@@ -32,30 +39,26 @@ public class WifiCollector {
     }
 
     public void scan() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         wifiManager.setWifiEnabled(true);
         wifiManager.startScan();
-        //wifiScanResultsIntentFilter = new IntentFilter();
-        //wifiScanResultsIntentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        //wifiScanResultsBroadcastReceiver = new BroadcastReceiver() {
-        //    @Override
-        //    public void onReceive(Context context, Intent intent) {
-        //        TextView textView = (TextView) findViewById(R.id.text_wifi_list);
-        //        textView.setText("Results:\n");
-        //        List<ScanResult> results = wifiManager.getScanResults();
-        //        for (ScanResult result : results) {
-        //            textView.setText(textView.getText()
-        //                    + result.SSID
-        //                    + " (" + result.BSSID + "): "
-        //                    + result.level
-        //                    + " [ "+ result.frequency
-        //                    +" ]\n");
-        //        }
-        //        wifiManager.startScan();
-        //    }
-        //};
-        //registerReceiver(wifiScanResultsBroadcastReceiver, wifiScanResultsIntentFilter);
+        IntentFilter wifiScanResultsIntentFilter = new IntentFilter();
+        wifiScanResultsIntentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        BroadcastReceiver wifiScanResultsBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                List<ScanResult> results = wifiManager.getScanResults();
+                for (ScanResult result : results) {
+                    //result.SSID;
+                    //result.BSSID;
+                    //result.level;
+                    //result.frequency;
+                }
+                wifiManager.startScan();
+            }
+        };
+        //activity.registerReceiver(wifiScanResultsBroadcastReceiver, wifiScanResultsIntentFilter);
     }
 }

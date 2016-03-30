@@ -27,6 +27,8 @@
     <string name="sensor_values">Values</string>
     <string name="timestamp">Timestamp</string>
 
+    <string name="wifi_access_points">Access Points</string>
+
     <!-- Strings related to Settings -->
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

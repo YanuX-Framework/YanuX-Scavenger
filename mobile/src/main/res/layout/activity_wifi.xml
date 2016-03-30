@@ -20,4 +20,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="pt.unl.fct.di.novalincs.yanux.scavenger.WifiActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/wifi_access_points"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>
