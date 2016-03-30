@@ -43,7 +43,6 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         sensorCollector = new SensorCollector(this);
         triggerEventListener = new CyclicTriggerEventListener(sensorCollector.getSensorManager()) {
             private int counter = 0;
-
             @Override
             public void onTrigger(TriggerEvent event) {
                 super.onTrigger(event);
@@ -69,25 +68,25 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
 
         selectedSensor = (SensorWrapper) parent.getItemAtPosition(position);
         TextView sensorName = (TextView) findViewById(R.id.sensor_name);
-        sensorName.setText(selectedSensor.getSensor().getName());
+        sensorName.setText(selectedSensor.getName());
 
         TextView sensorVendor = (TextView) findViewById(R.id.sensor_vendor);
-        sensorVendor.setText(selectedSensor.getSensor().getVendor());
+        sensorVendor.setText(selectedSensor.getVendor());
 
         TextView sensorVersion = (TextView) findViewById(R.id.sensor_version);
-        sensorVersion.setText(Integer.toString(selectedSensor.getSensor().getVersion()));
+        sensorVersion.setText(Integer.toString(selectedSensor.getVersion()));
 
         TextView sensorMaxRange = (TextView) findViewById(R.id.sensor_max_range);
-        sensorMaxRange.setText(Float.toString(selectedSensor.getSensor().getMaximumRange()));
+        sensorMaxRange.setText(Float.toString(selectedSensor.getMaximumRange()));
 
         TextView sensorResolution = (TextView) findViewById(R.id.sensor_resolution);
-        sensorResolution.setText(Float.toString(selectedSensor.getSensor().getResolution()));
+        sensorResolution.setText(Float.toString(selectedSensor.getResolution()));
 
         TextView sensorMinDelay = (TextView) findViewById(R.id.sensor_min_delay);
-        sensorMinDelay.setText(Integer.toString(selectedSensor.getSensor().getMinDelay()));
+        sensorMinDelay.setText(Integer.toString(selectedSensor.getMinDelay()));
 
         TextView sensorPower = (TextView) findViewById(R.id.sensor_power);
-        sensorPower.setText(Float.toString(selectedSensor.getSensor().getPower()));
+        sensorPower.setText(Float.toString(selectedSensor.getPower()));
 
         registerSensorListener();
     }
@@ -131,7 +130,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private void registerSensorListener() {
-        if (selectedSensor.getSensor().getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
+        if (selectedSensor.getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
             selectedSensor.registerListener(this);
         } else {
             selectedSensor.registerTriggerListener(triggerEventListener);
@@ -140,7 +139,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
 
     private void unregisterSensorListener() {
         if (selectedSensor != null) {
-            if (selectedSensor.getSensor().getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
+            if (selectedSensor.getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
                 selectedSensor.unregisterListener(this);
             } else {
                 selectedSensor.unregisterTriggerListener(triggerEventListener);

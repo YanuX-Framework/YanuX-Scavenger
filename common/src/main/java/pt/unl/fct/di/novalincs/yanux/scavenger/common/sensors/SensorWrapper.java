@@ -22,10 +22,14 @@ public class SensorWrapper {
     private final String description;
     private final Sensor sensor;
 
-    public SensorWrapper(SensorManager sensorManager, String type, Sensor sensor) {
+    public SensorWrapper(SensorManager sensorManager, String description, Sensor sensor) {
         this.sensorManager = sensorManager;
-        this.description = type;
+        this.description = description;
         this.sensor = sensor;
+    }
+
+    public SensorWrapper(SensorManager sensorManager, Sensor sensor) {
+        this(sensorManager, sensor.getName(), sensor);
     }
 
     public SensorManager getSensorManager() {
@@ -34,10 +38,6 @@ public class SensorWrapper {
 
     public String getDescription() {
         return description;
-    }
-
-    public Sensor getSensor() {
-        return sensor;
     }
 
     public boolean hasSensor() {
@@ -62,6 +62,38 @@ public class SensorWrapper {
 
     public boolean unregisterTriggerListener(TriggerEventListener listener) {
         return sensorManager.cancelTriggerSensor(listener, sensor);
+    }
+
+    public String getName() {
+        return sensor.getName();
+    }
+
+    public String getVendor() {
+        return sensor.getVendor();
+    }
+
+    public int getVersion() {
+        return sensor.getVersion();
+    }
+
+    public float getMaximumRange() {
+        return sensor.getMaximumRange();
+    }
+
+    public float getResolution() {
+        return sensor.getResolution();
+    }
+
+    public int getMinDelay() {
+        return sensor.getMinDelay();
+    }
+
+    public float getPower() {
+        return sensor.getPower();
+    }
+
+    public int getType() {
+        return sensor.getType();
     }
 
     @Override

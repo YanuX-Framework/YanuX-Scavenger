@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016 Pedro Albuquerque Santos
   ~
   ~ This file is part of YanuX Scavenger.
@@ -11,13 +10,25 @@
   ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
   -->
 
-<android.support.wearable.view.WatchViewStub xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/watch_view_stub"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:rectLayout="@layout/box_inset_activity_main_wear"
-    app:roundLayout="@layout/box_inset_activity_main_wear"
-    tools:context="pt.unl.fct.di.novalincs.scavenger.MainWearActivity"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="all">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.wearable.view.BoxInsetLayout>

@@ -17,6 +17,11 @@ import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
+import java.util.Collection;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
+
 public class MainWearActivity extends Activity {
 
     private TextView mTextView;
@@ -30,6 +35,13 @@ public class MainWearActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
+                Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
+                String text = new String();
+                for (SensorWrapper sensor : sensors) {
+                    text += ">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n";
+                }
+                mTextView.setText(mTextView.getText() + text);
             }
         });
     }

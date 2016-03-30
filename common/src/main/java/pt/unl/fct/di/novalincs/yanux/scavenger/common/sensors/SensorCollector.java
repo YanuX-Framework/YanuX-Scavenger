@@ -208,7 +208,7 @@ public class SensorCollector {
                     sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_temperature), sensor));
                     break;
                 default:
-                    sensors.add(new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_unknown), sensor));
+                    sensors.add(new SensorWrapper(sensorManager, sensor));
                     break;
             }
         }
@@ -238,7 +238,7 @@ public class SensorCollector {
 
     public void registerTriggerSensors(Collection<SensorWrapper> sensors, TriggerEventListener listener) {
         for (SensorWrapper sensor : sensors) {
-            sensorManager.requestTriggerSensor(listener, sensor.getSensor());
+            sensor.registerTriggerListener(listener);
         }
     }
 

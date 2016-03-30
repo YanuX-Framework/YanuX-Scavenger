@@ -17,7 +17,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger.common.scavenger"
+        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
