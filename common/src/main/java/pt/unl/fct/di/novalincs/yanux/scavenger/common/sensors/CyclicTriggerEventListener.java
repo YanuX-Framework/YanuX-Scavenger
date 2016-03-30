@@ -18,13 +18,16 @@ import android.hardware.TriggerEventListener;
 
 public abstract class CyclicTriggerEventListener extends TriggerEventListener {
     private final SensorManager sensorManager;
+    protected int cycle;
 
     public CyclicTriggerEventListener(SensorManager sensorManager) {
         this.sensorManager = sensorManager;
+        cycle = 0;
     }
 
     @Override
     public void onTrigger(TriggerEvent event) {
         sensorManager.requestTriggerSensor(this, event.sensor);
+        cycle++;
     }
 }

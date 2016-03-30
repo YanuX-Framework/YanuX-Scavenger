@@ -12,9 +12,13 @@
 
 <resources>
     <string name="app_name">YanuX Scavenger</string>
+
     <string name="action_sensors">Sensors</string>
+    <string name="action_wifi">Wi-Fi</string>
     <string name="action_settings">Settings</string>
+
     <string name="title_activity_sensors">Sensors</string>
+    <string name="title_activity_wifi">Wi-Fi</string>
     <string name="title_activity_settings">Settings</string>
 
     <string name="select_sensor">Select sensor</string>

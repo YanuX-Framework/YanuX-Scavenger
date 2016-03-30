@@ -42,14 +42,12 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         setContentView(R.layout.activity_sensors);
         sensorCollector = new SensorCollector(this);
         triggerEventListener = new CyclicTriggerEventListener(sensorCollector.getSensorManager()) {
-            private int counter = 0;
             @Override
             public void onTrigger(TriggerEvent event) {
                 super.onTrigger(event);
-                counter++;
                 fillTimestamp(event.timestamp);
                 TextView sensorValues = (TextView) SensorsActivity.this.findViewById(R.id.sensor_values);
-                sensorValues.setText(SensorsActivity.this.getString(R.string.sensor_significant_motion_detected) + ":" + counter);
+                sensorValues.setText(SensorsActivity.this.getString(R.string.sensor_significant_motion_detected) + ":" + cycle);
             }
         };
 
@@ -59,6 +57,18 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectSensorSpinner.setAdapter(sensorsAdapter);
         selectSensorSpinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerSensorListener();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterSensorListener();
     }
 
     @Override

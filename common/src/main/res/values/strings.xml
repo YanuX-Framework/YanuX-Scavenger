@@ -13,6 +13,17 @@
 <resources>
     <string name="app_name">YanuX Scavenger Common</string>
 
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="permission_rationale_generic">Please allow the application to access this permission. It is needed in order to provide you the full experience.</string>
+    <string name="permission_rationale_location">Please allow the application to access your location. It is needed in order to allow cross-device interaction.</string>
+
+    <string name="permission_location_allowed">Thank you for allowing access to your location.</string>
+    <string name="permission_location_denied">You haven\'t allowed access to your location. The application will be enabled to provide you the full experience.</string>
+
     <string name="sensor_name">Name</string>
     <string name="sensor_vendor">Vendor</string>
     <string name="sensor_version">Version</string>
