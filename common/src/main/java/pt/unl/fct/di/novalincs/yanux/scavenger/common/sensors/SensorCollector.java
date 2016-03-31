@@ -20,7 +20,7 @@ import android.hardware.TriggerEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public class SensorCollector {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
-        detectedSensors = new HashMap<>(NUM_SENSORS);
+        detectedSensors = new LinkedHashMap<>(NUM_SENSORS);
         detectSensors();
 
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);

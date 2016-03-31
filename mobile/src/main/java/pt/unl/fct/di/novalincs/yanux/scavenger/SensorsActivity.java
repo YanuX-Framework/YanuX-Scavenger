@@ -140,10 +140,12 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private void registerSensorListener() {
-        if (selectedSensor.getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
-            selectedSensor.registerListener(this);
-        } else {
-            selectedSensor.registerTriggerListener(triggerEventListener);
+        if (selectedSensor != null) {
+            if (selectedSensor.getType() != Sensor.TYPE_SIGNIFICANT_MOTION) {
+                selectedSensor.registerListener(this);
+            } else {
+                selectedSensor.registerTriggerListener(triggerEventListener);
+            }
         }
     }
 
