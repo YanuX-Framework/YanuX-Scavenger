@@ -52,10 +52,10 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         };
 
         Spinner selectSensorSpinner = (Spinner) findViewById(R.id.select_sensor);
-        ArrayAdapter<SensorWrapper> sensorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-        sensorsAdapter.addAll(sensorCollector.getSensors());
-        sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectSensorSpinner.setAdapter(sensorsAdapter);
+        ArrayAdapter<SensorWrapper> selectSensorSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        selectSensorSpinnerAdapter.addAll(sensorCollector.getSensors());
+        selectSensorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectSensorSpinner.setAdapter(selectSensorSpinnerAdapter);
         selectSensorSpinner.setOnItemSelectedListener(this);
     }
 

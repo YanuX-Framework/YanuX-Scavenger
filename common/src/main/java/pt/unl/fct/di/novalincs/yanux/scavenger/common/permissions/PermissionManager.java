@@ -32,6 +32,15 @@ public class PermissionManager {
         this.activity = activity;
     }
 
+    public static boolean werePermissionsGranted(int[] grantResults) {
+        for (int grantResult : grantResults) {
+            if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return grantResults.length > 0;
+    }
+
     public void requestPermission(final String permission) {
         final String rationaleMessage;
         final int requestCode;

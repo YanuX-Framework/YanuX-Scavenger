@@ -16,18 +16,22 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 public class WifiCollector {
+    public static final int REQUEST_CODE_SCAN_ALWAYS_AVAILABLE = 0;
+    public static final String ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE = WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE;
     private final Activity activity;
     private final WifiManager wifiManager;
     private final PermissionManager permissionManager;
@@ -38,27 +42,46 @@ public class WifiCollector {
         permissionManager = new PermissionManager(activity);
     }
 
-    public void scan() {
+    public static String getIpAddress(int ipAddress) {
+        return String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
+    }
+
+    public void scan(BroadcastReceiver broadcastReceiver) {
         if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        wifiManager.setWifiEnabled(true);
+        if (!wifiManager.isScanAlwaysAvailable()) {
+            wifiManager.setWifiEnabled(true);
+        }
         wifiManager.startScan();
-        IntentFilter wifiScanResultsIntentFilter = new IntentFilter();
-        wifiScanResultsIntentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        BroadcastReceiver wifiScanResultsBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                List<ScanResult> results = wifiManager.getScanResults();
-                for (ScanResult result : results) {
-                    //result.SSID;
-                    //result.BSSID;
-                    //result.level;
-                    //result.frequency;
-                }
-                wifiManager.startScan();
-            }
-        };
-        //activity.registerReceiver(wifiScanResultsBroadcastReceiver, wifiScanResultsIntentFilter);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        activity.registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    public void cancelScan(BroadcastReceiver broadcastReceiver) {
+        activity.unregisterReceiver(broadcastReceiver);
+    }
+
+    public boolean isScanAlwaysAvailable() {
+        return wifiManager.isScanAlwaysAvailable();
+    }
+
+    public List<WifiResult> getScanResults() {
+        List<ScanResult> scanResults = wifiManager.getScanResults();
+        List<WifiResult> wifiResults = new ArrayList<>(wifiManager.getScanResults().size());
+        for (ScanResult scanResult : scanResults) {
+            wifiResults.add(new WifiResult(scanResult));
+        }
+        return wifiResults;
+    }
+
+    //TODO: Should I encapsulate the connection info and DHCP info into a dedicated wrapper class?
+    public WifiInfo getConnectionInfo() {
+        return wifiManager.getConnectionInfo();
+    }
+
+    public DhcpInfo getDhcpInfo() {
+        return wifiManager.getDhcpInfo();
     }
 }
