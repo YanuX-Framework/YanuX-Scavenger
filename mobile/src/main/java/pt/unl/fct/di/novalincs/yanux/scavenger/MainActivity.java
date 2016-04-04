@@ -67,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
+            case R.id.action_bluetooth_classic: {
+                Intent intent = new Intent(this, BluetoothClassicActivity.class);
+                startActivity(intent);
+                return true;
+            }
             default:
                 break;
         }

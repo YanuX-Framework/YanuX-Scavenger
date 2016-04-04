@@ -32,10 +32,10 @@ public class SensorCollectorListener implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         String output = event.sensor.getName();
         DecimalFormat formatter = new DecimalFormat("#0.00");
-        for(int i = 0; i < event.values.length; i++) {
-            output += i+": "+formatter.format(event.values[i]);
-            if(i < event.values.length - 1) {
-                output+=" ";
+        for (int i = 0; i < event.values.length; i++) {
+            output += i + ": " + formatter.format(event.values[i]);
+            if (i < event.values.length - 1) {
+                output += " ";
             }
         }
     }

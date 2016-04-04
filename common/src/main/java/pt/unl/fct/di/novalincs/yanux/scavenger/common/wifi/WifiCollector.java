@@ -16,6 +16,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -28,19 +29,21 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 public class WifiCollector {
-    public static final int REQUEST_CODE_SCAN_ALWAYS_AVAILABLE = 0;
+    public static final int REQUEST_CODE_SCAN_ALWAYS_AVAILABLE = 100;
     public static final String ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE = WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE;
-
     private final Context context;
     private final WifiManager wifiManager;
     private PermissionManager permissionManager;
-
     public WifiCollector(Context context) {
         this.context = context;
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (context instanceof Activity) {
             permissionManager = new PermissionManager((Activity) context);
         }
+    }
+
+    public static void enableScanIsAlwaysAvailable(Activity activity) {
+        activity.startActivityForResult(new Intent(ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE), REQUEST_CODE_SCAN_ALWAYS_AVAILABLE);
     }
 
     //TODO: Should I encapsulate the connection info and DHCP info into a dedicated wrapper class?

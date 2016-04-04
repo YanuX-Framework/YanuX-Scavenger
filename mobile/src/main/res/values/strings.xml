@@ -15,10 +15,12 @@
 
     <string name="action_sensors">Sensors</string>
     <string name="action_wifi">Wi-Fi</string>
+    <string name="action_bluetooth_classic">Bluetooth Classic</string>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_sensors">Sensors</string>
     <string name="title_activity_wifi">Wi-Fi</string>
+    <string name="title_activity_bluetooth_classic">Bluetooth Classic</string>
     <string name="title_activity_settings">Settings</string>
 
     <string name="select_sensor">Select sensor</string>
@@ -32,6 +34,18 @@
     <string name="wifi_access_points">Access Points</string>
     <string name="wifi_scan_always_available_enabled">Thank you for allowing Wi-Fi scanning to be always available.</string>
     <string name="wifi_scan_always_available_not_enabled">You haven\'t enabled Wi-Fi scanning to be always enable. The application will have to forcefully enable Wi-Fi.</string>
+
+    <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
+    <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>
+
+    <string name="bluetooth_discoverability_enabled">Thank you for enabling Bluetooth Discoverability.</string>
+    <string name="bluetooth_discoverability_not_enabled">You haven\'t enabled Bluetooth Discoverability. The system will not be able to detect your device\'s presence to improve your experience.</string>
+
+    <string name="bluetooth_name">Name</string>
+    <string name="bluetooth_address">Address</string>
+    <string name="bluetooth_discovery_elapsed_time">Elapsed time</string>
+    <string name="bluetooth_devices">Bluetooth Devices</string>
+
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

@@ -32,8 +32,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 public class WifiActivity extends AppCompatActivity {
     private WifiCollector wifiCollector;
     private Preferences preferences;
-    private ListView wifiAccessPointList;
-    private ArrayAdapter<WifiResult> wifiAccessPointListAdapter;
+    private ListView wifiAccessPoints;
+    private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
     private BroadcastReceiver broadcastReceiver;
 
     @Override
@@ -41,24 +41,23 @@ public class WifiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
 
-        wifiAccessPointList = (ListView) findViewById(R.id.wifi_access_points);
-        wifiAccessPointListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        wifiAccessPointList.setAdapter(wifiAccessPointListAdapter);
+        wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
+        wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
         wifiCollector = new WifiCollector(this);
         preferences = new Preferences(this);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                wifiAccessPointListAdapter.clear();
-                wifiAccessPointListAdapter.addAll(wifiCollector.getScanResults());
+                wifiAccessPointsAdapter.clear();
+                wifiAccessPointsAdapter.addAll(wifiCollector.getScanResults());
                 wifiCollector.scan(broadcastReceiver);
                 updateConnectionInfo();
             }
         };
         if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
                 && !wifiCollector.isScanAlwaysAvailable()) {
-            startActivityForResult(new Intent(WifiCollector.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE),
-                    WifiCollector.REQUEST_CODE_SCAN_ALWAYS_AVAILABLE);
+            WifiCollector.enableScanIsAlwaysAvailable(this);
         }
         updateConnectionInfo();
     }
@@ -100,6 +99,7 @@ public class WifiActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case WifiCollector.REQUEST_CODE_SCAN_ALWAYS_AVAILABLE:
                 preferences.setHasAskedForWifiScanningAlwaysAvailable(true);
