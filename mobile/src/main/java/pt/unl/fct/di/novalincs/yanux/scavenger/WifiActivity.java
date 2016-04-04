@@ -15,7 +15,6 @@ package pt.unl.fct.di.novalincs.yanux.scavenger;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +26,7 @@ import android.widget.Toast;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 
 public class WifiActivity extends AppCompatActivity {
@@ -53,7 +53,6 @@ public class WifiActivity extends AppCompatActivity {
                 wifiAccessPointListAdapter.addAll(wifiCollector.getScanResults());
                 wifiCollector.scan(broadcastReceiver);
                 updateConnectionInfo();
-                updateDhcpInfo();
             }
         };
         if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
@@ -62,7 +61,6 @@ public class WifiActivity extends AppCompatActivity {
                     WifiCollector.REQUEST_CODE_SCAN_ALWAYS_AVAILABLE);
         }
         updateConnectionInfo();
-        updateDhcpInfo();
     }
 
     @Override
@@ -70,7 +68,6 @@ public class WifiActivity extends AppCompatActivity {
         super.onResume();
         wifiCollector.scan(broadcastReceiver);
         updateConnectionInfo();
-        updateDhcpInfo();
     }
 
     @Override
@@ -118,33 +115,31 @@ public class WifiActivity extends AppCompatActivity {
     }
 
     private void updateConnectionInfo() {
-        WifiInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
+        WifiConnectionInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
+
         TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
         String wifiConnectionInfoText = new String();
-        wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSSID() + "\n";
-        wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.getHiddenSSID() + "\n";
-        wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBSSID() + "\n";
+        wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
+        wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.isSsidHidden() + "\n";
+        wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBssid() + "\n";
         wifiConnectionInfoText += "MAC Address: " + wifiConnectionInfo.getMacAddress() + "\n";
-        wifiConnectionInfoText += "IP Address: " + WifiCollector.getIpAddress(wifiConnectionInfo.getIpAddress()) + "\n";
+        wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
         wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
         wifiConnectionInfoText += "Link Speed: " + wifiConnectionInfo.getLinkSpeed() + " " + WifiInfo.LINK_SPEED_UNITS + "\n";
         wifiConnectionInfoText += "Network ID: " + wifiConnectionInfo.getNetworkId() + "\n";
         wifiConnectionInfoText += "Supplicant State: " + wifiConnectionInfo.getSupplicantState() + "\n";
+        wifiConnectionInfoText += "Detailed State: " + wifiConnectionInfo.getDetailedState() + "\n";
         wifiConnectionInfoView.setText(wifiConnectionInfoText);
-    }
 
-    private void updateDhcpInfo() {
-        DhcpInfo dhcpInfo = wifiCollector.getDhcpInfo();
         TextView dhcpInfoView = (TextView) findViewById(R.id.wifi_dhcp_info);
         String dhcpInfoText = new String();
-        dhcpInfoText += "IP Address: " + WifiCollector.getIpAddress(dhcpInfo.ipAddress) + "\n";
-        dhcpInfoText += "Subnet Mask: " + WifiCollector.getIpAddress(dhcpInfo.netmask) + "\n";
-        dhcpInfoText += "Gateway: " + WifiCollector.getIpAddress(dhcpInfo.gateway) + "\n";
-        dhcpInfoText += "DHCP Server: " + WifiCollector.getIpAddress(dhcpInfo.serverAddress) + "\n";
-        dhcpInfoText += "DNS 1: " + WifiCollector.getIpAddress(dhcpInfo.dns1) + "\n";
-        dhcpInfoText += "DNS 2: " + WifiCollector.getIpAddress(dhcpInfo.dns2) + "\n";
-        dhcpInfoText += "Lease Duration: " + dhcpInfo.leaseDuration + "\n";
+        dhcpInfoText += "IP Address: " + wifiConnectionInfo.getIpAdress().getHostAddress() + "\n";
+        dhcpInfoText += "Subnet Mask: " + wifiConnectionInfo.getNetmask().getHostAddress() + "\n";
+        dhcpInfoText += "Gateway: " + wifiConnectionInfo.getGateway().getHostAddress() + "\n";
+        dhcpInfoText += "DHCP Server: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
+        dhcpInfoText += "DNS 1: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
+        dhcpInfoText += "DNS 2: " + wifiConnectionInfo.getDns2().getHostAddress() + "\n";
+        dhcpInfoText += "Lease Duration: " + wifiConnectionInfo.getLeaseDuration() + "\n";
         dhcpInfoView.setText(dhcpInfoText);
     }
-
 }

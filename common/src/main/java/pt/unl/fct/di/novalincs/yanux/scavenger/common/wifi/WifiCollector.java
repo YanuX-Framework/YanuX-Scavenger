@@ -17,9 +17,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
@@ -32,22 +30,26 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionMana
 public class WifiCollector {
     public static final int REQUEST_CODE_SCAN_ALWAYS_AVAILABLE = 0;
     public static final String ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE = WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE;
-    private final Activity activity;
-    private final WifiManager wifiManager;
-    private final PermissionManager permissionManager;
 
-    public WifiCollector(Activity activity) {
-        this.activity = activity;
-        wifiManager = (WifiManager) activity.getSystemService(Context.WIFI_SERVICE);
-        permissionManager = new PermissionManager(activity);
+    private final Context context;
+    private final WifiManager wifiManager;
+    private PermissionManager permissionManager;
+
+    public WifiCollector(Context context) {
+        this.context = context;
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if (context instanceof Activity) {
+            permissionManager = new PermissionManager((Activity) context);
+        }
     }
 
-    public static String getIpAddress(int ipAddress) {
-        return String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
+    //TODO: Should I encapsulate the connection info and DHCP info into a dedicated wrapper class?
+    public WifiConnectionInfo getConnectionInfo() {
+        return new WifiConnectionInfo(wifiManager.getConnectionInfo(), wifiManager.getDhcpInfo());
     }
 
     public void scan(BroadcastReceiver broadcastReceiver) {
-        if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
+        if (permissionManager != null && Constants.API_LEVEL >= Build.VERSION_CODES.M) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (!wifiManager.isScanAlwaysAvailable()) {
@@ -56,11 +58,11 @@ public class WifiCollector {
         wifiManager.startScan();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        activity.registerReceiver(broadcastReceiver, intentFilter);
+        context.registerReceiver(broadcastReceiver, intentFilter);
     }
 
     public void cancelScan(BroadcastReceiver broadcastReceiver) {
-        activity.unregisterReceiver(broadcastReceiver);
+        context.unregisterReceiver(broadcastReceiver);
     }
 
     public boolean isScanAlwaysAvailable() {
@@ -74,14 +76,5 @@ public class WifiCollector {
             wifiResults.add(new WifiResult(scanResult));
         }
         return wifiResults;
-    }
-
-    //TODO: Should I encapsulate the connection info and DHCP info into a dedicated wrapper class?
-    public WifiInfo getConnectionInfo() {
-        return wifiManager.getConnectionInfo();
-    }
-
-    public DhcpInfo getDhcpInfo() {
-        return wifiManager.getDhcpInfo();
     }
 }
