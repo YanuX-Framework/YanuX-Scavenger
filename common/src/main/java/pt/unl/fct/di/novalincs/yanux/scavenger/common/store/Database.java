@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Pedro Albuquerque Santos
+ * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -28,19 +28,15 @@ public class Database {
 
     public Database(Context context) {
         this.context = context;
-        this.databaseHelper = new DatabaseHelper(context);
+        this.databaseHelper = new DatabaseHelper(this.context);
     }
 
     private void openDatabase() throws SQLException {
-        if (database == null || (database != null && !database.isOpen())) {
-            database = databaseHelper.getWritableDatabase();
-        }
+        database = databaseHelper.getWritableDatabase();
     }
 
     private void closeDatabase() {
-        if (database == null) {
-            databaseHelper.close();
-        }
+        databaseHelper.close();
     }
 
     public void addLocation(double latitude, double longitude, String description) {

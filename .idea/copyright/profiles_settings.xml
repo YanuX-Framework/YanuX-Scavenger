@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="YanuX Scavenger">
+    <module2copyright>
+      <element module="Project Files" copyright="YanuX Scavenger" />
+    </module2copyright>
+  </settings>
 </component>

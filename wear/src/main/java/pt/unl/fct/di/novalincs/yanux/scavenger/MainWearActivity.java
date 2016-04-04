@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Pedro Albuquerque Santos
+ * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -37,7 +37,7 @@ public class MainWearActivity extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
                 SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
                 Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
-                String text = new String();
+                String text = "";
                 for (SensorWrapper sensor : sensors) {
                     text += ">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n";
                 }

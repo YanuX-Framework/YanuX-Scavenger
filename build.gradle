@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Pedro Albuquerque Santos
+ * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Pedro Albuquerque Santos
+ * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -118,28 +118,26 @@ public class WifiActivity extends AppCompatActivity {
         WifiConnectionInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
 
         TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
-        String wifiConnectionInfoText = new String();
+        String wifiConnectionInfoText = "";
         wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
         wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.isSsidHidden() + "\n";
         wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBssid() + "\n";
         wifiConnectionInfoText += "MAC Address: " + wifiConnectionInfo.getMacAddress() + "\n";
-        wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
+        wifiConnectionInfoText += "Wi-Fi IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
         wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
         wifiConnectionInfoText += "Link Speed: " + wifiConnectionInfo.getLinkSpeed() + " " + WifiInfo.LINK_SPEED_UNITS + "\n";
         wifiConnectionInfoText += "Network ID: " + wifiConnectionInfo.getNetworkId() + "\n";
         wifiConnectionInfoText += "Supplicant State: " + wifiConnectionInfo.getSupplicantState() + "\n";
         wifiConnectionInfoText += "Detailed State: " + wifiConnectionInfo.getDetailedState() + "\n";
-        wifiConnectionInfoView.setText(wifiConnectionInfoText);
 
-        TextView dhcpInfoView = (TextView) findViewById(R.id.wifi_dhcp_info);
-        String dhcpInfoText = new String();
-        dhcpInfoText += "IP Address: " + wifiConnectionInfo.getIpAdress().getHostAddress() + "\n";
-        dhcpInfoText += "Subnet Mask: " + wifiConnectionInfo.getNetmask().getHostAddress() + "\n";
-        dhcpInfoText += "Gateway: " + wifiConnectionInfo.getGateway().getHostAddress() + "\n";
-        dhcpInfoText += "DHCP Server: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
-        dhcpInfoText += "DNS 1: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
-        dhcpInfoText += "DNS 2: " + wifiConnectionInfo.getDns2().getHostAddress() + "\n";
-        dhcpInfoText += "Lease Duration: " + wifiConnectionInfo.getLeaseDuration() + "\n";
-        dhcpInfoView.setText(dhcpInfoText);
+        wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getIpAdress().getHostAddress() + "\n";
+        wifiConnectionInfoText += "Subnet Mask: " + wifiConnectionInfo.getNetmask().getHostAddress() + "\n";
+        wifiConnectionInfoText += "Gateway: " + wifiConnectionInfo.getGateway().getHostAddress() + "\n";
+        wifiConnectionInfoText += "DHCP Server: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
+        wifiConnectionInfoText += "DNS 1: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
+        wifiConnectionInfoText += "DNS 2: " + wifiConnectionInfo.getDns2().getHostAddress() + "\n";
+        wifiConnectionInfoText += "Lease Duration: " + wifiConnectionInfo.getLeaseDuration() + "\n";
+
+        wifiConnectionInfoView.setText(wifiConnectionInfoText);
     }
 }

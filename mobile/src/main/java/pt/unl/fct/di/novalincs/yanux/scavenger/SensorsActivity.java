@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Pedro Albuquerque Santos
+ * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -126,7 +126,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
 
     private void fillValues(float[] values) {
         TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
-        String valuesText = new String();
+        String valuesText = "";
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         for (int i = 0; i < values.length; i++) {
             valuesText += "[" + i + "] => " + decimalFormat.format(values[i]) + "\n";
@@ -161,33 +161,33 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
 
     private void clear() {
         TextView sensorName = (TextView) findViewById(R.id.sensor_name);
-        sensorName.setText(new String());
+        sensorName.setText("");
 
         TextView sensorVendor = (TextView) findViewById(R.id.sensor_vendor);
-        sensorVendor.setText(new String());
+        sensorVendor.setText("");
 
         TextView sensorVersion = (TextView) findViewById(R.id.sensor_version);
-        sensorVersion.setText(new String());
+        sensorVersion.setText("");
 
         TextView sensorMaxRange = (TextView) findViewById(R.id.sensor_max_range);
-        sensorMaxRange.setText(new String());
+        sensorMaxRange.setText("");
 
         TextView sensorResolution = (TextView) findViewById(R.id.sensor_resolution);
-        sensorResolution.setText(new String());
+        sensorResolution.setText("");
 
         TextView sensorMinDelay = (TextView) findViewById(R.id.sensor_min_delay);
-        sensorMinDelay.setText(new String());
+        sensorMinDelay.setText("");
 
         TextView sensorPower = (TextView) findViewById(R.id.sensor_power);
-        sensorPower.setText(new String());
+        sensorPower.setText("");
 
         TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
-        sensorValues.setText(new String());
+        sensorValues.setText("");
 
         TextView sensorAccuracy = (TextView) findViewById(R.id.sensor_accuracy);
-        sensorAccuracy.setText(new String());
+        sensorAccuracy.setText("");
 
         TextView sensorTimestamp = (TextView) findViewById(R.id.sensor_timestamp);
-        sensorTimestamp.setText(new String());
+        sensorTimestamp.setText("");
     }
 }
