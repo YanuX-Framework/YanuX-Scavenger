@@ -14,10 +14,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,71 +26,68 @@ import android.widget.Toast;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.le.BluetoothLeCollector;
 
-public class BluetoothClassicActivity extends AppCompatActivity {
+public class BluetoothLeActivity extends AppCompatActivity {
 
-    private BluetoothCollector bluetoothCollector;
-    private ListView bluetoothDevices;
-    private ArrayAdapter<BluetoothDetectedDevice> bluetoothDevicesAdapter;
-    private BroadcastReceiver broadcastReceiver;
+    private BluetoothLeCollector bluetoothLeCollector;
+    private ListView bluetoothLeDevices;
+    private ArrayAdapter<BluetoothDetectedDevice> bluetoothLeDevicesAdapter;
+    private BluetoothAdapter.LeScanCallback leScanCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_classic);
+        setContentView(R.layout.activity_bluetooth_le);
 
-        bluetoothDevices = (ListView) findViewById(R.id.bluetooth_devices);
-        bluetoothDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        bluetoothDevices.setAdapter(bluetoothDevicesAdapter);
+        bluetoothLeDevices = (ListView) findViewById(R.id.bluetooth_le_devices);
+        bluetoothLeDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        bluetoothLeDevices.setAdapter(bluetoothLeDevicesAdapter);
 
-        bluetoothCollector = new BluetoothCollector(this);
-        if (!bluetoothCollector.isEnabled()) {
-            BluetoothCollector.enableBluetooth(this);
-        }
-        broadcastReceiver = new BroadcastReceiver() {
+        leScanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                switch (intent.getAction()) {
-                    // When discovery finds a device
-                    case BluetoothDevice.ACTION_FOUND:
-                        // Get the BluetoothDevice object from the Intent
-                        BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                        // Get the measured RSSI from the intent
-                        short rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE);
-                        // Add the details into a wrapper object and display it in a list view through the adapter
-                        bluetoothDevicesAdapter.add(new BluetoothDetectedDevice(device, rssi));
-                        break;
-                    case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
-                        bluetoothDevicesAdapter.clear();
-                        TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_discovery_elapsed_time);
-                        bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getDiscoveryElapsedTimeMilli() + " ms");
-                        bluetoothCollector.startDiscovery();
+            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                bluetoothLeDevicesAdapter.add(new BluetoothDetectedDevice(device, rssi));
+            }
+        };
+        bluetoothLeCollector = new BluetoothLeCollector(this, new Handler() {
+            @Override
+            public void handleMessage(Message message) {
+                switch (message.what) {
+                    case BluetoothLeCollector.BLUETOOTH_LE_SCAN_FINISHED_MESSAGE_CODE:
+                        bluetoothLeDevicesAdapter.clear();
+                        TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_le_discovery_elapsed_time);
+                        bluetoothDiscoveryElapsedTime.setText(bluetoothLeCollector.getLeScanElapsedTimeMilli() + " ms");
+                        bluetoothLeCollector.startLeDiscovery(leScanCallback);
                         break;
                     default:
                         break;
                 }
             }
-        };
-        bluetoothCollector.startDiscovery(broadcastReceiver);
+        });
+        bluetoothLeCollector.startLeDiscovery(leScanCallback);
 
+        if (!bluetoothLeCollector.isEnabled()) {
+            BluetoothCollector.enableBluetooth(this);
+        }
 
-        TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_name);
-        bluetoothName.setText(bluetoothCollector.getName());
+        TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_le_name);
+        bluetoothName.setText(bluetoothLeCollector.getName());
 
-        TextView bluetoothAddress = (TextView) findViewById(R.id.bluetooth_address);
-        bluetoothAddress.setText(bluetoothCollector.getAddress());
+        TextView bluetoothAddress = (TextView) findViewById(R.id.bluetooth_le_address);
+        bluetoothAddress.setText(bluetoothLeCollector.getAddress());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bluetoothCollector.startDiscovery(broadcastReceiver);
+        bluetoothLeCollector.startLeDiscovery(leScanCallback);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bluetoothCollector.cancelDiscovery(broadcastReceiver);
+        bluetoothLeCollector.cancelLeDiscovery(leScanCallback);
     }
 
     @Override

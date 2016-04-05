@@ -18,16 +18,17 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import java.util.Set;
 
-public abstract class BluetoothCollector {
+public class BluetoothCollector {
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH = 200;
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY = 201;
     public static final int BLUETOOTH_DISCOVERABILITY_TIME = 3600;
-    protected final Context context;
     protected final BluetoothAdapter bluetoothAdapter;
-    protected long discoveryStartTime;
+    private final Context context;
+    private long discoveryStartTime;
 
     public BluetoothCollector(Context context) {
         this.context = context;
@@ -45,16 +46,51 @@ public abstract class BluetoothCollector {
         activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY);
     }
 
-    public abstract boolean startDiscovery();
+    public boolean startDiscovery() {
+        discoveryStartTime = System.nanoTime();
+        return bluetoothAdapter.startDiscovery();
+    }
 
-    public abstract boolean startDiscovery(BroadcastReceiver broadcastReceiver);
+    public boolean startDiscovery(BroadcastReceiver broadcastReceiver) {
+        if (startDiscovery()) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
+            intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+            context.registerReceiver(broadcastReceiver, intentFilter); // Don't forget to unregister during onDestroy
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    public abstract boolean cancelDiscovery();
+    public boolean cancelDiscovery() {
+        return bluetoothAdapter.cancelDiscovery();
+    }
 
-    public abstract boolean cancelDiscovery(BroadcastReceiver broadcastReceiver);
+    public boolean cancelDiscovery(BroadcastReceiver broadcastReceiver) {
+        if (cancelDiscovery()) {
+            context.unregisterReceiver(broadcastReceiver);
+            return true;
+        } else {
+            context.unregisterReceiver(broadcastReceiver);
+            return false;
+        }
+    }
 
-    public long getDiscoveryStartTime() {
-        return discoveryStartTime;
+    public long getDiscoveryElapsedTimeNano() {
+        return System.nanoTime() - discoveryStartTime;
+    }
+
+    public long getDiscoveryElapsedTimeMicro() {
+        return getDiscoveryElapsedTimeNano() / 1000;
+    }
+
+    public long getDiscoveryElapsedTimeMilli() {
+        return getDiscoveryElapsedTimeMicro() / 1000;
+    }
+
+    public long getDiscoveryElapsedTimeSec() {
+        return getDiscoveryElapsedTimeMilli() / 1000;
     }
 
     public String getName() {

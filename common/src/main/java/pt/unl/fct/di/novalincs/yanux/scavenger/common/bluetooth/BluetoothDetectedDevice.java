@@ -15,10 +15,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 import android.bluetooth.BluetoothDevice;
 
 public class BluetoothDetectedDevice {
-    private final short rssi;
     private final BluetoothDevice bluetoothDevice;
+    private final int rssi;
 
-    public BluetoothDetectedDevice(BluetoothDevice bluetoothDevice, short rssi) {
+    public BluetoothDetectedDevice(BluetoothDevice bluetoothDevice, int rssi) {
         this.bluetoothDevice = bluetoothDevice;
         this.rssi = rssi;
     }
@@ -31,12 +31,14 @@ public class BluetoothDetectedDevice {
         return bluetoothDevice.getAddress();
     }
 
-    public short getRssi() {
+    public int getRssi() {
         return rssi;
     }
 
     @Override
     public String toString() {
-        return "Name: " + getName() + " Address: " + getAddress() + " RSSI: " + getRssi();
+        return "Name: " + getName() +
+                "\nAddress: " + getAddress() +
+                "\nRSSI: " + getRssi();
     }
 }

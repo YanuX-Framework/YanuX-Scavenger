@@ -30,6 +30,11 @@
         android:title="@string/action_bluetooth_classic"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_bluetooth_le"
+        android:orderInCategory="100"
+        android:title="@string/action_bluetooth_le"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

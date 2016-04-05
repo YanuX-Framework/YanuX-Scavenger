@@ -57,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.action_settings: {
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            }
             case R.id.action_wifi: {
                 Intent intent = new Intent(this, WifiActivity.class);
                 startActivity(intent);
@@ -69,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.action_bluetooth_classic: {
                 Intent intent = new Intent(this, BluetoothClassicActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_bluetooth_le: {
+                Intent intent = new Intent(this, BluetoothLeActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_settings: {
+                Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             }
