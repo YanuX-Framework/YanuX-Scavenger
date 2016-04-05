@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.le.BluetoothLeCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector;
 
 public class BluetoothLeActivity extends AppCompatActivity {
 

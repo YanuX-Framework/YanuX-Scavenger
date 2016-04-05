@@ -34,6 +34,7 @@ public class WifiCollector {
     private final Context context;
     private final WifiManager wifiManager;
     private PermissionManager permissionManager;
+
     public WifiCollector(Context context) {
         this.context = context;
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
