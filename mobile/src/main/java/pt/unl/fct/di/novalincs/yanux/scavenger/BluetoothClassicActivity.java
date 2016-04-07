@@ -32,7 +32,6 @@ public class BluetoothClassicActivity extends AppCompatActivity {
     private BluetoothCollector bluetoothCollector;
     private ListView bluetoothDevices;
     private ArrayAdapter<BluetoothDetectedDevice> bluetoothDevicesAdapter;
-    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +41,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
         bluetoothDevices = (ListView) findViewById(R.id.bluetooth_devices);
         bluetoothDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         bluetoothDevices.setAdapter(bluetoothDevicesAdapter);
-
-        bluetoothCollector = new BluetoothCollector(this);
-        if (!bluetoothCollector.isEnabled()) {
-            BluetoothCollector.enableBluetooth(this);
-        }
-        broadcastReceiver = new BroadcastReceiver() {
+        bluetoothCollector = new BluetoothCollector(this, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 switch (intent.getAction()) {
@@ -63,16 +57,18 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                     case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                         bluetoothDevicesAdapter.clear();
                         TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_discovery_elapsed_time);
-                        bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getDiscoveryElapsedTimeMilli() + " ms");
-                        bluetoothCollector.startDiscovery();
+                        bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getScanElapsedTime() + " ms");
+                        bluetoothCollector.scan();
                         break;
                     default:
                         break;
                 }
             }
-        };
-        bluetoothCollector.startDiscovery(broadcastReceiver);
-
+        });
+        if (!bluetoothCollector.isEnabled()) {
+            BluetoothCollector.enableBluetooth(this);
+        }
+        bluetoothCollector.scan();
 
         TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_name);
         bluetoothName.setText(bluetoothCollector.getName());
@@ -84,13 +80,13 @@ public class BluetoothClassicActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bluetoothCollector.startDiscovery(broadcastReceiver);
+        bluetoothCollector.scan();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bluetoothCollector.cancelDiscovery(broadcastReceiver);
+        bluetoothCollector.cancelScan();
     }
 
     @Override

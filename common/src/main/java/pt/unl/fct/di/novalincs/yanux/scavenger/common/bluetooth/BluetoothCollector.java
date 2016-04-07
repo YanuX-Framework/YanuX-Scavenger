@@ -19,20 +19,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
-import java.util.Set;
+import android.os.SystemClock;
 
 public class BluetoothCollector {
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH = 200;
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY = 201;
     public static final int BLUETOOTH_DISCOVERABILITY_TIME = 3600;
-    protected final BluetoothAdapter bluetoothAdapter;
-    private final Context context;
-    private long discoveryStartTime;
 
-    public BluetoothCollector(Context context) {
+    protected final Context context;
+    protected final BluetoothAdapter bluetoothAdapter;
+    protected BroadcastReceiver broadcastReceiver;
+    protected boolean scanning;
+    protected long scanStartTime;
+
+    public BluetoothCollector(Context context, BroadcastReceiver broadcastReceiver) {
         this.context = context;
+        this.broadcastReceiver = broadcastReceiver;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        scanning = false;
     }
 
     public static void enableBluetooth(Activity activity) {
@@ -46,13 +50,10 @@ public class BluetoothCollector {
         activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY);
     }
 
-    public boolean startDiscovery() {
-        discoveryStartTime = System.nanoTime();
-        return bluetoothAdapter.startDiscovery();
-    }
-
-    public boolean startDiscovery(BroadcastReceiver broadcastReceiver) {
-        if (startDiscovery()) {
+    public boolean scan() {
+        if (bluetoothAdapter.startDiscovery()) {
+            scanning = true;
+            scanStartTime = SystemClock.elapsedRealtime();
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
             intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
@@ -63,42 +64,18 @@ public class BluetoothCollector {
         }
     }
 
-    public boolean cancelDiscovery() {
+    public boolean cancelScan() {
+        scanning = false;
+        context.unregisterReceiver(broadcastReceiver);
         return bluetoothAdapter.cancelDiscovery();
     }
 
-    public boolean cancelDiscovery(BroadcastReceiver broadcastReceiver) {
-        if (cancelDiscovery()) {
-            context.unregisterReceiver(broadcastReceiver);
-            return true;
-        } else {
-            context.unregisterReceiver(broadcastReceiver);
-            return false;
-        }
-    }
-
-    public long getDiscoveryElapsedTimeNano() {
-        return System.nanoTime() - discoveryStartTime;
-    }
-
-    public long getDiscoveryElapsedTimeMicro() {
-        return getDiscoveryElapsedTimeNano() / 1000;
-    }
-
-    public long getDiscoveryElapsedTimeMilli() {
-        return getDiscoveryElapsedTimeMicro() / 1000;
-    }
-
-    public long getDiscoveryElapsedTimeSec() {
-        return getDiscoveryElapsedTimeMilli() / 1000;
+    public long getScanElapsedTime() {
+        return SystemClock.elapsedRealtime() - scanStartTime;
     }
 
     public String getName() {
         return bluetoothAdapter.getName();
-    }
-
-    public boolean setName(String name) {
-        return bluetoothAdapter.setName(name);
     }
 
     public String getAddress() {
@@ -109,19 +86,7 @@ public class BluetoothCollector {
         return bluetoothAdapter.isEnabled();
     }
 
-    public boolean isDiscovering() {
-        return bluetoothAdapter.isDiscovering();
-    }
-
-    public int getState() {
-        return bluetoothAdapter.getState();
-    }
-
-    public int getScanMode() {
-        return bluetoothAdapter.getScanMode();
-    }
-
-    public Set<BluetoothDevice> getPairedDevices() {
-        return bluetoothAdapter.getBondedDevices();
+    public boolean isScanning() {
+        return scanning;
     }
 }

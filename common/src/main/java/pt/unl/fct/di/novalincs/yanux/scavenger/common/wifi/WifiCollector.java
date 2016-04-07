@@ -47,9 +47,8 @@ public class WifiCollector {
         activity.startActivityForResult(new Intent(ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE), REQUEST_CODE_SCAN_ALWAYS_AVAILABLE);
     }
 
-    //TODO: Should I encapsulate the connection info and DHCP info into a dedicated wrapper class?
     public WifiConnectionInfo getConnectionInfo() {
-        return new WifiConnectionInfo(wifiManager.getConnectionInfo(), wifiManager.getDhcpInfo());
+        return new WifiConnectionInfo(wifiManager);
     }
 
     public void scan(BroadcastReceiver broadcastReceiver) {

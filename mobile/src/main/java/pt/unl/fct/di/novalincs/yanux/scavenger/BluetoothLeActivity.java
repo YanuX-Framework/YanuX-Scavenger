@@ -12,12 +12,10 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -33,7 +31,6 @@ public class BluetoothLeActivity extends AppCompatActivity {
     private BluetoothLeCollector bluetoothLeCollector;
     private ListView bluetoothLeDevices;
     private ArrayAdapter<BluetoothDetectedDevice> bluetoothLeDevicesAdapter;
-    private BluetoothAdapter.LeScanCallback leScanCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,50 +41,52 @@ public class BluetoothLeActivity extends AppCompatActivity {
         bluetoothLeDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         bluetoothLeDevices.setAdapter(bluetoothLeDevicesAdapter);
 
-        leScanCallback = new BluetoothAdapter.LeScanCallback() {
+        bluetoothLeCollector = new BluetoothLeCollector(this, new BroadcastReceiver() {
             @Override
-            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                bluetoothLeDevicesAdapter.add(new BluetoothDetectedDevice(device, rssi));
-            }
-        };
-        bluetoothLeCollector = new BluetoothLeCollector(this, new Handler() {
-            @Override
-            public void handleMessage(Message message) {
-                switch (message.what) {
-                    case BluetoothLeCollector.BLUETOOTH_LE_SCAN_FINISHED_MESSAGE_CODE:
+            public void onReceive(Context context, Intent intent) {
+                switch (intent.getAction()) {
+                    case BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND:
+                        BluetoothDetectedDevice bluetoothDetectedDevice = intent.getParcelableExtra(BluetoothLeCollector.EXTRA_BLUETOOTH_LE_DEVICE);
+                        bluetoothLeDevicesAdapter.remove(bluetoothDetectedDevice);
+                        bluetoothLeDevicesAdapter.add(bluetoothDetectedDevice);
+                        break;
+                    case BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED:
                         bluetoothLeDevicesAdapter.clear();
                         TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_le_discovery_elapsed_time);
-                        bluetoothDiscoveryElapsedTime.setText(bluetoothLeCollector.getLeScanElapsedTimeMilli() + " ms");
-                        bluetoothLeCollector.startLeDiscovery(leScanCallback);
+                        bluetoothDiscoveryElapsedTime.setText(intent.getLongExtra(BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, 0) + " ms");
+                        bluetoothLeCollector.scan();
                         break;
                     default:
                         break;
+
                 }
             }
         });
-        bluetoothLeCollector.startLeDiscovery(leScanCallback);
 
         if (!bluetoothLeCollector.isEnabled()) {
             BluetoothCollector.enableBluetooth(this);
         }
+
+        bluetoothLeCollector.scan();
 
         TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_le_name);
         bluetoothName.setText(bluetoothLeCollector.getName());
 
         TextView bluetoothAddress = (TextView) findViewById(R.id.bluetooth_le_address);
         bluetoothAddress.setText(bluetoothLeCollector.getAddress());
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bluetoothLeCollector.startLeDiscovery(leScanCallback);
+        bluetoothLeCollector.scan();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bluetoothLeCollector.cancelLeDiscovery(leScanCallback);
+        bluetoothLeCollector.cancelScan();
     }
 
     @Override

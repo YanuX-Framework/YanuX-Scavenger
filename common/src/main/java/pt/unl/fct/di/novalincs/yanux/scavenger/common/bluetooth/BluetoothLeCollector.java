@@ -13,71 +13,78 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.SystemClock;
 
 public class BluetoothLeCollector extends BluetoothCollector {
-    public static final int BLUETOOTH_LE_SCAN_PERIOD = 10000;
-    public static final int BLUETOOTH_LE_SCAN_FINISHED_MESSAGE_CODE = 300;
+    public static final int SCAN_PERIOD = 10000;
+    public static final String ACTION_BLUETOOTH_LE_DEVICE_FOUND = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND";
+    public static final String ACTION_BLUETOOTH_LE_SCAN_FINISHED = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED";
 
-    private final Handler leHandler;
-    private boolean leScanning;
-    private long leScanStartTime;
+    public static final String EXTRA_BLUETOOTH_LE_DEVICE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_DEVICE";
+    public static final String EXTRA_BLUETOOTH_LE_SCAN_RECORD = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_RECORD";
+    public static final String EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME";
+    private final IntentFilter intentFilter;
+    private final Handler handler;
+    private BluetoothAdapter.LeScanCallback leScanCallback;
 
-    public BluetoothLeCollector(Context context) {
-        super(context);
-        this.leHandler = new Handler();
-        this.leScanning = false;
-    }
-
-    public BluetoothLeCollector(Context context, Handler leHandler) {
-        super(context);
-        this.leHandler = leHandler;
-        this.leScanning = false;
+    public BluetoothLeCollector(final Context context, BroadcastReceiver broadcastReceiver) {
+        super(context, broadcastReceiver);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BLUETOOTH_LE_DEVICE_FOUND);
+        intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
+        this.leScanCallback = new BluetoothAdapter.LeScanCallback() {
+            @Override
+            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                Intent intent = new Intent();
+                intent.setAction(ACTION_BLUETOOTH_LE_DEVICE_FOUND);
+                intent.putExtra(EXTRA_BLUETOOTH_LE_DEVICE, new BluetoothDetectedDevice(device, rssi));
+                intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RECORD, scanRecord);
+                context.sendBroadcast(intent);
+            }
+        };
+        this.handler = new Handler();
     }
 
     //TODO #1: Replace and/or create conditional code that allows me to drop the use of deprecated code on Android 5.0+
-    //TODO #2: I think I may be able to replace the BluetoothAdapter.LeScanCallback with a BroadcastReceiver, of course that I still have to receive the broadcasts locally (i.e., on this class) before I can broadcast them through Android's Intents. That should also allow me to remove the Handler from the constructor and to consolidate in order to @Override the superclass methods.
-    public boolean startLeDiscovery(final BluetoothAdapter.LeScanCallback leScanCallback) {
-        if (!isLeScanning()) {
-            leHandler.postDelayed(new Runnable() {
+    @Override
+    public boolean scan() {
+        if (!isScanning()) {
+            context.registerReceiver(broadcastReceiver, intentFilter);
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    scanning = false;
                     bluetoothAdapter.stopLeScan(leScanCallback);
-                    leScanning = false;
-                    leHandler.sendEmptyMessage(BLUETOOTH_LE_SCAN_FINISHED_MESSAGE_CODE);
+                    Intent intent = new Intent();
+                    intent.setAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
+                    intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, getScanElapsedTime());
+                    context.sendBroadcast(intent);
                 }
-            }, BLUETOOTH_LE_SCAN_PERIOD);
-            leScanning = true;
-            leScanStartTime = System.nanoTime();
+            }, SCAN_PERIOD);
+            scanning = true;
+            scanStartTime = SystemClock.elapsedRealtime();
             return bluetoothAdapter.startLeScan(leScanCallback);
         } else {
             return false;
         }
     }
 
-    public boolean isLeScanning() {
-        return leScanning;
+    @Override
+    public boolean cancelScan() {
+        if (isScanning()) {
+            scanning = false;
+            bluetoothAdapter.stopLeScan(leScanCallback);
+            context.unregisterReceiver(broadcastReceiver);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void cancelLeDiscovery(final BluetoothAdapter.LeScanCallback leScanCallback) {
-        leScanning = false;
-        bluetoothAdapter.stopLeScan(leScanCallback);
-    }
-
-    public long getLeScanElapsedTimeNano() {
-        return System.nanoTime() - leScanStartTime;
-    }
-
-    public long getLeScanElapsedTimeMicro() {
-        return getLeScanElapsedTimeNano() / 1000;
-    }
-
-    public long getLeScanElapsedTimeMilli() {
-        return getLeScanElapsedTimeMicro() / 1000;
-    }
-
-    public long getLeScanElapsedTimeSec() {
-        return getLeScanElapsedTimeMilli() / 1000;
-    }
 }

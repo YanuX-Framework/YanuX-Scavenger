@@ -16,6 +16,7 @@ import android.net.DhcpInfo;
 import android.net.NetworkInfo;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -41,7 +42,10 @@ public class WifiConnectionInfo {
     private InetAddress dns2;
     private int leaseDuration;
 
-    public WifiConnectionInfo(WifiInfo wifiInfo, DhcpInfo dhcpInfo) {
+    public WifiConnectionInfo(WifiManager wifiManager) {
+        final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        final DhcpInfo dhcpInfo = wifiManager.getDhcpInfo();
+
         this.ssid = wifiInfo.getSSID();
         this.ssidHidden = wifiInfo.getHiddenSSID();
         this.bssid = wifiInfo.getBSSID();
@@ -50,7 +54,7 @@ public class WifiConnectionInfo {
         this.linkSpeed = wifiInfo.getLinkSpeed();
         this.networkId = wifiInfo.getNetworkId();
         this.supplicantState = wifiInfo.getSupplicantState();
-        this.detailedState = wifiInfo.getDetailedStateOf(this.supplicantState);
+        this.detailedState = WifiInfo.getDetailedStateOf(this.supplicantState);
         try {
             this.wifiIpAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(wifiInfo.getIpAddress()).array());
             this.ipAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.ipAddress).array());

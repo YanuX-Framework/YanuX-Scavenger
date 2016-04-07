@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
@@ -20,6 +19,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="pt.unl.fct.di.novalincs.yanux.scavenger.SensorsActivity">
+
     <TextView
         android:id="@+id/select_sensor_label"
         android:layout_width="wrap_content"
@@ -28,12 +28,14 @@
         android:layout_alignParentTop="true"
         android:text="@string/select_sensor"
         android:textStyle="bold" />
+
     <Spinner
         android:id="@+id/select_sensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/select_sensor_label" />
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,112 +43,132 @@
         android:layout_below="@+id/select_sensor"
         android:layout_marginTop="8dp"
         android:columnCount="2">
+
         <TextView
             android:id="@+id/sensor_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_name"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_vendor_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_vendor"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_vendor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_version_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_version"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_resolution_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_resolution"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_resolution"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_max_range_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_max_range"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_max_range"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_min_delay_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_min_delay"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_min_delay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_power_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_power"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_power"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_accuracy_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_accuracy"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_accuracy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:typeface="monospace" />
+
         <TextView
             android:id="@+id/sensor_timestamp_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/timestamp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp" />
+
         <TextView
             android:id="@+id/sensor_values_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_values"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/sensor_values"
             android:layout_width="wrap_content"
