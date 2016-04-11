@@ -10,18 +10,20 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
-import org.junit.Test;
+public interface IBluetoothCollector {
+    boolean scan();
 
-import static org.junit.Assert.assertEquals;
+    boolean cancelScan();
 
-/**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+    long getScanElapsedTime();
+
+    String getName();
+
+    String getAddress();
+
+    boolean isEnabled();
+
+    boolean isScanning();
 }

@@ -72,7 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            /*case R.id.action_settings: {
+            case R.id.action_beacon: {
+                Intent intent = new Intent(this, BeaconActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            /* TODO: Disabled until I need to set some application settings/preferences
+            case R.id.action_settings: {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;

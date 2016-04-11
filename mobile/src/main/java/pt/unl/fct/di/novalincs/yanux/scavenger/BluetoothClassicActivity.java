@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
 
@@ -66,7 +67,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
             }
         });
         if (!bluetoothCollector.isEnabled()) {
-            BluetoothCollector.enableBluetooth(this);
+            BluetoothBase.enableBluetooth(this);
         }
         bluetoothCollector.scan();
 
@@ -93,7 +94,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case BluetoothCollector.REQUEST_CODE_ENABLE_BLUETOOTH:
+            case BluetoothBase.REQUEST_CODE_ENABLE_BLUETOOTH:
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, R.string.bluetooth_enabled, Toast.LENGTH_SHORT).show();
                 } else {
@@ -101,7 +102,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
-            case BluetoothCollector.REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY:
+            case BluetoothBase.REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY:
                 if (resultCode != RESULT_CANCELED) {
                     Toast.makeText(this, R.string.bluetooth_discoverability_enabled, Toast.LENGTH_SHORT).show();
                 } else {

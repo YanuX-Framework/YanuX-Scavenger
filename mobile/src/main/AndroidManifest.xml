@@ -18,7 +18,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -79,6 +78,14 @@
         <activity
             android:name=".BluetoothLeActivity"
             android:label="@string/title_activity_bluetooth_le"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BeaconActivity"
+            android:label="@string/title_activity_beacon"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -31,7 +31,7 @@ import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 
-public class BluetoothLeCollector extends BluetoothCollector {
+public class BluetoothLeCollector extends BluetoothCollector implements IBluetoothCollector {
     public static final int SCAN_PERIOD = 10000;
     public static final String ACTION_BLUETOOTH_LE_DEVICE_FOUND = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND";
     public static final String ACTION_BLUETOOTH_LE_BATCH_RESULTS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_BATCH_RESULTS";

@@ -34,7 +34,12 @@
         android:orderInCategory="100"
         android:title="@string/action_bluetooth_le"
         app:showAsAction="never" />
-    <!--
+    <item
+        android:id="@+id/action_beacon"
+        android:orderInCategory="100"
+        android:title="@string/action_beacon"
+        app:showAsAction="never" />
+    <!-- TODO: Disabled until I need to set some application settings/preferences
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

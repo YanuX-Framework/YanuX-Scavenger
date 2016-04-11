@@ -12,19 +12,14 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.SystemClock;
 
-public class BluetoothCollector {
-    public static final int REQUEST_CODE_ENABLE_BLUETOOTH = 200;
-    public static final int REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY = 201;
-    public static final int BLUETOOTH_DISCOVERABILITY_TIME = 3600;
+public class BluetoothCollector extends BluetoothBase implements IBluetoothCollector {
 
     protected final Context context;
     protected final BluetoothAdapter bluetoothAdapter;
@@ -37,17 +32,6 @@ public class BluetoothCollector {
         this.broadcastReceiver = broadcastReceiver;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         scanning = false;
-    }
-
-    public static void enableBluetooth(Activity activity) {
-        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH);
-    }
-
-    public static void enableBluetoothDiscoverability(Activity activity) {
-        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, BLUETOOTH_DISCOVERABILITY_TIME);
-        activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY);
     }
 
     public boolean scan() {
