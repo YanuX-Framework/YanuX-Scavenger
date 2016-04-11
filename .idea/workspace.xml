@@ -29,26 +29,13 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc0bc3dc-0e9b-4cd8-b75b-2abe27ab8a4e" name="Default" comment="- Nothing worth noting">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" />
+    <list default="true" id="dc0bc3dc-0e9b-4cd8-b75b-2abe27ab8a4e" name="Default" comment="- Beacon Scanning implemented using the AltBeacon library">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BluetoothClassicActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BluetoothClassicActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BluetoothLeActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BluetoothLeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/store/DatabaseHelper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/store/DatabaseHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java" />
     </list>
     <list id="1627bafe-a4ae-40d6-a9c2-da37f046c732" name="Failed commit: Default" comment="- Bluetooth LE scanning is now supported" />
     <ignored path="Scavenger.iws" />
@@ -81,9 +68,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Singleton" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -3502,9 +3489,11 @@
         <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BluetoothLeActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" />
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
-        <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" />
       </list>
     </option>
   </component>
@@ -4228,7 +4217,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460131368081</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- Beacon Scanning implemented using the AltBeacon library">
+      <created>1460393871493</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1460393871493</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -4275,38 +4270,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8434983" sideWeight="0.19437653" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23617512" sideWeight="0.8056235" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39930955" sideWeight="0.49022004" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29262674" sideWeight="0.48655257" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294621" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328341" sideWeight="0.49755502" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.49511003" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.49755502" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21577017" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.49266502" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="UpdateCopyrightCheckinHandler">
     <option name="UPDATE_COPYRIGHT" value="true" />
@@ -4335,53 +4298,33 @@
     <MESSAGE value="- Bluetooth LE Collector now supports both the old Bluetooth LE Android API first introduced on Android 4.3 Lollipop (aka API Level 18) and the newer (much better) API that was added on Android 5.0 Lollipop (aka API Level 23). It detects which version of Android you are running and chooses the best implementation accordingly. However, I still need to test on older devices to make sure it really works gracefully." />
     <MESSAGE value="- Project updated to the latest Android development tools (i.e., Android Studio 2.0, etc.)" />
     <MESSAGE value="- Nothing worth noting" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Nothing worth noting" />
+    <MESSAGE value="- Beacon Scanning implemented using the AltBeacon library" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Beacon Scanning implemented using the AltBeacon library" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="41" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/CurveFittedDistanceCalculator.class</url>
+          <line>29</line>
+          <properties />
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/CurveFittedDistanceCalculator.class</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096958175">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/DevelopmentTools/Android/SDK/sources/android-23/android/content/IntentFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="146" column="19" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/DevelopmentTools/Android/SDK/sources/android-23/android/bluetooth/BluetoothAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57735246">
-          <caret line="2116" column="21" selection-start-line="2116" selection-start-column="21" selection-end-line="2116" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/DevelopmentTools/Android/SDK/sources/android-23/android/bluetooth/le/ScanCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53907496">
-          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4568,14 +4511,14 @@
         <state vertical-scroll-proportion="0.9458128">
           <caret line="87" column="56" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
           <folding>
-            <element signature="e#1509#1527#0" expanded="true" />
-            <element signature="e#1689#1707#0" expanded="true" />
-            <element signature="e#2093#2132#0" expanded="true" />
-            <element signature="e#2226#2259#0" expanded="true" />
-            <element signature="e#2598#2630#0" expanded="true" />
-            <element signature="e#2966#2995#0" expanded="true" />
-            <element signature="e#3343#3385#0" expanded="true" />
-            <element signature="e#3728#3765#0" expanded="true" />
+            <element signature="e#1511#1529#0" expanded="true" />
+            <element signature="e#1691#1709#0" expanded="true" />
+            <element signature="e#2095#2134#0" expanded="true" />
+            <element signature="e#2228#2261#0" expanded="true" />
+            <element signature="e#2600#2632#0" expanded="true" />
+            <element signature="e#2968#2997#0" expanded="true" />
+            <element signature="e#3345#3387#0" expanded="true" />
+            <element signature="e#3730#3767#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4601,25 +4544,6 @@
         <state vertical-scroll-proportion="0.16776316">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/DistanceCalculator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16666667">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/Beacon.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.125">
-          <caret line="50" column="52" selection-start-line="50" selection-start-column="52" selection-end-line="50" selection-end-column="52" />
-          <folding>
-            <element signature="e#2067#2068#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4680,13 +4604,13 @@
         <state vertical-scroll-proportion="2.2474403">
           <caret line="104" column="30" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2155#3352#0" expanded="true" />
-            <element signature="e#3351#3352#0" expanded="true" />
-            <element signature="e#4392#4418#0" expanded="true" />
-            <element signature="e#4514#4544#0" expanded="true" />
-            <element signature="e#4817#4859#0" expanded="true" />
-            <element signature="e#4955#5001#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2077#3274#0" expanded="true" />
+            <element signature="e#3273#3274#0" expanded="true" />
+            <element signature="e#4314#4340#0" expanded="true" />
+            <element signature="e#4436#4466#0" expanded="true" />
+            <element signature="e#4739#4781#0" expanded="true" />
+            <element signature="e#4877#4923#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4728,12 +4652,12 @@
         <state vertical-scroll-proportion="0.39363056">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
-            <element signature="e#1030#1063#0" expanded="true" />
-            <element signature="e#1088#1123#0" expanded="true" />
-            <element signature="e#1149#1184#0" expanded="true" />
-            <element signature="e#1208#1241#0" expanded="true" />
-            <element signature="e#1443#1480#0" expanded="true" />
-            <element signature="e#2180#2201#0" expanded="true" />
+            <element signature="e#1029#1062#0" expanded="true" />
+            <element signature="e#1087#1122#0" expanded="true" />
+            <element signature="e#1148#1183#0" expanded="true" />
+            <element signature="e#1207#1240#0" expanded="true" />
+            <element signature="e#1466#1480#0" expanded="true" />
+            <element signature="e#2174#2180#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -4773,19 +4697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#2828#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#1949#2560#0" expanded="true" />
-            <element signature="e#2559#2560#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.157068">
@@ -4794,16 +4705,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java">
+    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/DistanceCalculator.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6068966">
-          <caret line="119" column="51" selection-start-line="119" selection-start-column="51" selection-end-line="119" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.254818">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/BeaconActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3906883">
+          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#2710#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2545#2546#0" expanded="true" />
+            <element signature="e#2591#2592#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/AndroidModel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3104925">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/ModelSpecificDistanceCalculator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.92348284">
+          <caret line="290" column="9" selection-start-line="290" selection-start-column="9" selection-end-line="290" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/distance/CurveFittedDistanceCalculator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.87152034">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/common/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7/jars/classes.jar!/org/altbeacon/beacon/Beacon.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.8310502">
+          <caret line="178" column="21" selection-start-line="178" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding>
+            <element signature="e#1963#1964#0" expanded="true" />
+            <element signature="e#2003#2004#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23448277">
+          <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
+          <folding>
+            <element signature="e#1013#1014#0" expanded="true" />
+            <element signature="e#1040#1041#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3678161">
+          <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5332#6483#0" expanded="true" />
-            <element signature="e#6482#6483#0" expanded="true" />
-            <element signature="e#8621#8622#0" expanded="true" />
-            <element signature="e#8673#8674#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.383908">
+          <caret line="71" column="27" selection-start-line="71" selection-start-column="27" selection-end-line="71" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5463#6172#0" expanded="true" />
+            <element signature="e#6171#6172#0" expanded="true" />
+            <element signature="e#8585#8586#0" expanded="true" />
+            <element signature="e#8615#8616#0" expanded="true" />
+            <element signature="e#8652#8653#0" expanded="true" />
+            <element signature="e#8685#8686#0" expanded="true" />
           </folding>
         </state>
       </provider>

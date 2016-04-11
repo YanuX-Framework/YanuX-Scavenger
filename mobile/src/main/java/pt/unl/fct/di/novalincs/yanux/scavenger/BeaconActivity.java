@@ -30,7 +30,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacon.BeaconCollector;
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
 
     private BeaconCollector beaconCollector;
-    private boolean beaconCollectorReady;
     private ListView beaconList;
     private ArrayAdapter<Beacon> beaconListAdapter;
 
@@ -38,7 +37,6 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
-        beaconCollectorReady = false;
         beaconList = (ListView) findViewById(R.id.beacon_list);
         beaconListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         beaconList.setAdapter(beaconListAdapter);
@@ -60,13 +58,12 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
 
     @Override
     public void onBeaconServiceConnect() {
-        beaconCollectorReady = true;
         beaconCollector.startRanging();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        beaconCollector.destroy();
+        beaconCollector.unbind();
     }
 }

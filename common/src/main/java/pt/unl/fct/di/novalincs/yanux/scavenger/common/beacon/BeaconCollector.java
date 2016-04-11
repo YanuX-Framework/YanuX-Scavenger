@@ -53,6 +53,8 @@ public class BeaconCollector {
     private Region region;
 
     private long startRangingTime;
+    private boolean ranging;
+    private boolean monitoring;
 
     public BeaconCollector(BeaconConsumer beaconConsumer, BroadcastReceiver broadcastReceiver) {
         this.beaconConsumer = beaconConsumer;
@@ -67,6 +69,7 @@ public class BeaconCollector {
         beaconManager = BeaconManager.getInstanceForApplication(context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(IBEACON_LAYOUT));
         beaconManager.bind(this.beaconConsumer);
+        Beacon.setDistanceCalculator(new CustomDistanceCalculator());
 
         //Monitor Notifier
         setMonitorNotifier(new MonitorNotifier() {
@@ -102,27 +105,21 @@ public class BeaconCollector {
         setRangeNotifier(new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                ArrayList<BeaconWrapper> beaconWrapperArrayList = new ArrayList<>(beacons.size());
                 for (Beacon beacon : beacons) {
-                    Log.d(TAG, "Beacon Name: " + beacon.getBluetoothName()
-                            + " Address: " + beacon.getBluetoothAddress()
-                            + " ID1: " + beacon.getId1()
-                            + " ID2: " + beacon.getId2()
-                            + " ID3: " + beacon.getId3()
-                            + " RSSI: " + beacon.getRssi()
-                            + " TX Power: " + beacon.getTxPower()
-                            + " Distance: " + beacon.getDistance() + " m "
-                    );
+                    beaconWrapperArrayList.add(new BeaconWrapper(beacon));
                 }
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_RANGE_BEACONS);
-                ArrayList<Beacon> beaconsArrayList = new ArrayList<>(beacons);
-                intent.putParcelableArrayListExtra(EXTRA_BEACONS, beaconsArrayList);
+                intent.putParcelableArrayListExtra(EXTRA_BEACONS, beaconWrapperArrayList);
                 intent.putExtra(EXTRA_BEACON_REGION, region);
                 context.sendBroadcast(intent);
             }
         });
         setRegion(new Region(BEACON_UUID, Identifier.parse(BEACON_UUID), null, null));
         startRangingTime = -1;
+        ranging = false;
+        monitoring = false;
     }
 
     public void setRangeNotifier(RangeNotifier notifier) {
@@ -169,6 +166,7 @@ public class BeaconCollector {
         try {
             beaconManager.startMonitoringBeaconsInRegion(region);
             context.registerReceiver(broadcastReceiver, intentFilter);
+            monitoring = true;
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -176,6 +174,7 @@ public class BeaconCollector {
 
     public void stopMonitoring(Region region) {
         try {
+            monitoring = false;
             context.unregisterReceiver(broadcastReceiver);
             beaconManager.stopMonitoringBeaconsInRegion(region);
         } catch (RemoteException e) {
@@ -187,6 +186,8 @@ public class BeaconCollector {
         try {
             beaconManager.startRangingBeaconsInRegion(region);
             context.registerReceiver(broadcastReceiver, intentFilter);
+            startRangingTime = SystemClock.elapsedRealtime();
+            ranging = true;
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -194,6 +195,8 @@ public class BeaconCollector {
 
     public void stopRanging(Region region) {
         try {
+            ranging = false;
+            startRangingTime = -1;
             context.unregisterReceiver(broadcastReceiver);
             beaconManager.stopRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
@@ -201,7 +204,15 @@ public class BeaconCollector {
         }
     }
 
-    public void destroy() {
+    public boolean isRanging() {
+        return ranging;
+    }
+
+    public boolean isMonitoring() {
+        return monitoring;
+    }
+
+    public void unbind() {
         beaconManager.unbind(beaconConsumer);
     }
 }
