@@ -10,30 +10,8 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-apply plugin: 'com.android.library'
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion '24.0.0 rc2'
-
-    defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'org.apache.commons:commons-csv:1.2'
-    compile 'org.altbeacon:android-beacon-library:2.7'
+public interface ILoggable {
+    Object[] getFieldValues();
 }

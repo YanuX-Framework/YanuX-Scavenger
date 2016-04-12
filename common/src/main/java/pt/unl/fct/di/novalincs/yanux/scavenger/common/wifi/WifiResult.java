@@ -14,13 +14,14 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi;
 
 import android.net.wifi.ScanResult;
 
-public class WifiResult {
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILoggable;
+
+public class WifiResult implements ILoggable {
     public long timestamp;
     private String ssid;
     private String macAddress;
     private int signalStrength;
     private int frequency;
-
     public WifiResult(ScanResult scanResult) {
         this(scanResult.SSID, scanResult.BSSID, scanResult.level, scanResult.frequency);
     }
@@ -35,6 +36,11 @@ public class WifiResult {
         this.macAddress = macAddress;
         this.signalStrength = signalStrength;
         this.frequency = frequency;
+    }
+
+    public static String[] getFieldNames() {
+        String[] r = {"Timestamp", "SSID", "MAC Address", "Signal Strength", "Frequency"};
+        return r;
     }
 
     public String getSsid() {
@@ -90,5 +96,11 @@ public class WifiResult {
     @Override
     public String toString() {
         return ssid + " [" + macAddress + "] Channel: " + getChannel() + " Signal Strength: " + signalStrength + " dBm";
+    }
+
+    @Override
+    public Object[] getFieldValues() {
+        Object[] r = {getTimestamp(), getSsid(), getMacAddress(), getSignalStrength(), getFrequency()};
+        return r;
     }
 }
