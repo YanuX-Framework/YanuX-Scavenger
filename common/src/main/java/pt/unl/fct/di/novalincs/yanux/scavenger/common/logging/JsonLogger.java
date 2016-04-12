@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +29,7 @@ public class JsonLogger extends AbstractLogger {
     private final ObjectMapper mapper;
     private String name;
     private JsonNode rootNode;
-    private ArrayNode longEntries;
+    private ArrayNode entries;
     private Writer writer;
 
     public JsonLogger(String name, String directory, String filename) throws IOException {
@@ -48,31 +48,31 @@ public class JsonLogger extends AbstractLogger {
         if (isExternalStorageWritable()) {
             File file = new File(getExternalStoragePath());
             rootNode = mapper.createObjectNode();
-            if (file.exists()) {
-                try {
-                    Reader reader = new FileReader(file);
-                    rootNode = mapper.readTree(reader);
-                    reader.close();
-                } catch (IOException e) {
-                }
+            try {
+                Reader reader = new FileReader(file);
+                rootNode = mapper.readTree(reader);
+                reader.close();
+            } catch (IOException e) {
             }
             writer = new FileWriter(file);
-            ObjectNode obj = (ObjectNode) rootNode;
-            obj.put("filename", filename);
-            obj.put("creationTimestamp", System.currentTimeMillis());
-            ArrayNode logsNode;
-            if (obj.has("logs")) {
-                logsNode = (ArrayNode) obj.get("logs");
-            } else {
-                logsNode = mapper.createArrayNode();
-                obj.set("logs", logsNode);
+            ObjectNode root = (ObjectNode) rootNode;
+            root.put("filename", filename);
+            if (!root.has("creationTime")) {
+                root.put("creationTime", System.currentTimeMillis());
             }
+            ArrayNode logs;
+            if (root.has("logs")) {
+                logs = (ArrayNode) root.get("logs");
+            } else {
+                logs = mapper.createArrayNode();
+            }
+            root.set("logs", logs);
             ObjectNode log = mapper.createObjectNode();
+            logs.add(log);
             log.put("name", name);
             log.put("timestamp", System.currentTimeMillis());
-            longEntries = mapper.createArrayNode();
-            log.set("logEntries", longEntries);
-            logsNode.add(log);
+            entries = mapper.createArrayNode();
+            log.set("entries", entries);
         } else {
             throw new IOException("External Storage is not writable");
         }
@@ -80,13 +80,13 @@ public class JsonLogger extends AbstractLogger {
 
     @Override
     public void log(ILoggable object) {
-        longEntries.add(mapper.valueToTree(object));
+        entries.add(mapper.valueToTree(object));
     }
 
     @Override
     public void log(Iterable<ILoggable> objects) {
         for (ILoggable object : objects) {
-            longEntries.add(mapper.valueToTree(object));
+            entries.add(mapper.valueToTree(object));
         }
     }
 

@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;

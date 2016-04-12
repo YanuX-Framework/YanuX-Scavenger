@@ -16,7 +16,7 @@ import android.net.wifi.ScanResult;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILoggable;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILoggable;
 
 public class WifiResult implements ILoggable {
     public long timestamp;

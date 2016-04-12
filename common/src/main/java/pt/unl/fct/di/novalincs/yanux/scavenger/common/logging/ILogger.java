@@ -10,10 +10,16 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-public interface ILoggable {
-    Object[] getFieldValues();
+import java.io.IOException;
 
-    String[] getFieldValuesText();
+public interface ILogger {
+    void open() throws IOException;
+
+    void close() throws IOException;
+
+    void log(ILoggable object);
+
+    void log(Iterable<ILoggable> object);
 }

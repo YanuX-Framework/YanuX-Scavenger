@@ -29,10 +29,10 @@ import java.io.IOException;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILogger;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.JsonLogger;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.Preferences;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
