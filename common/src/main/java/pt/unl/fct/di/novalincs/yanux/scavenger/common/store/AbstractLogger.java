@@ -14,36 +14,26 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
 
 import android.os.Environment;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
-public class LoggerCSV {
+public abstract class AbstractLogger implements ILogger {
     public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
-    public static final String DEFAULT_FILENAME = "log.csv";
+    protected String directory;
+    protected String filename;
 
-    private String directory;
-    private String filename;
-    private CSVFormat csvFileFormat;
-    private CSVPrinter csvPrinter;
-
-    public LoggerCSV(String directory, String filename) throws IOException {
+    public AbstractLogger(String directory, String filename) throws IOException {
         this.directory = directory;
         this.filename = filename;
-        csvFileFormat = CSVFormat.DEFAULT;
         File file = new File(getExternalStorageDirectory());
         if (!file.exists() && !file.mkdirs()) {
             throw new IOException("Couldn't create the log directory");
-        } else {
-            open();
         }
     }
 
-    public LoggerCSV() throws IOException {
-        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
+    protected static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     public String getDirectory() {
@@ -72,39 +62,5 @@ public class LoggerCSV {
 
     public String getExternalStoragePath() {
         return getExternalStorageDirectory() + "/" + filename;
-    }
-
-    public CSVFormat getCsvFileFormat() {
-        return csvFileFormat;
-    }
-
-    public void setCsvFileFormat(CSVFormat csvFileFormat) {
-        this.csvFileFormat = csvFileFormat;
-    }
-
-    public void open() throws IOException {
-        csvPrinter = new CSVPrinter(new FileWriter(getExternalStoragePath()), csvFileFormat);
-    }
-
-    public void setFieldNames(String[] fieldNames) throws IOException {
-        csvPrinter.printRecord(fieldNames);
-    }
-
-    public void log(ILoggable loggable) throws IOException {
-        if (isExternalStorageWritable()) {
-            csvPrinter.printRecord(loggable.getFieldValues());
-        } else {
-            throw new IOException("External Storage is not writable");
-        }
-    }
-
-    public void close() throws IOException {
-        csvPrinter.flush();
-        csvPrinter.close();
-    }
-
-    private boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
     }
 }

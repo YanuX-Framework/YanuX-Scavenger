@@ -12,8 +12,14 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.store;
 
-public interface ILoggable {
-    Object[] getFieldValues();
+import java.io.IOException;
 
-    String[] getFieldValuesText();
+public interface ILogger {
+    void open() throws IOException;
+
+    void close() throws IOException;
+
+    void log(ILoggable object);
+
+    void log(Iterable<ILoggable> object);
 }

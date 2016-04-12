@@ -30,7 +30,8 @@ import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.LoggerCSV;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.JsonLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
@@ -43,7 +44,7 @@ public class WifiActivity extends AppCompatActivity {
     private ListView wifiAccessPoints;
     private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
     private BroadcastReceiver broadcastReceiver;
-    private LoggerCSV loggerCSV;
+    private ILogger logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,7 @@ public class WifiActivity extends AppCompatActivity {
         }
 
         try {
-            loggerCSV = new LoggerCSV();
-            loggerCSV.setFieldNames(WifiResult.getFieldNames());
+            logger = new JsonLogger("wifi-activity-incremental");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,13 +73,9 @@ public class WifiActivity extends AppCompatActivity {
                 wifiAccessPointsAdapter.clear();
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
                 wifiAccessPointsAdapter.addAll(wifiResults);
-                if (loggerCSV != null) {
+                if (logger != null) {
                     for (WifiResult wifiResult : wifiResults) {
-                        try {
-                            loggerCSV.log(wifiResult);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        logger.log(wifiResult);
                     }
                 }
                 wifiCollector.scan(broadcastReceiver);
@@ -96,6 +92,13 @@ public class WifiActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (logger != null) {
+            try {
+                logger.open();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         wifiCollector.scan(broadcastReceiver);
         updateConnectionInfo();
     }
@@ -103,17 +106,14 @@ public class WifiActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        wifiCollector.cancelScan(broadcastReceiver);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            loggerCSV.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (logger != null) {
+            try {
+                logger.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        wifiCollector.cancelScan(broadcastReceiver);
     }
 
     @Override
@@ -161,16 +161,18 @@ public class WifiActivity extends AppCompatActivity {
         TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
         String wifiConnectionInfoText = "";
         wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
-        //wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.isSsidHidden() + "\n";
         wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBssid() + "\n";
-        //wifiConnectionInfoText += "MAC Address: " + wifiConnectionInfo.getMacAddress() + "\n";
         wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
         wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
         wifiConnectionInfoText += "Link Speed: " + wifiConnectionInfo.getLinkSpeed() + " " + WifiInfo.LINK_SPEED_UNITS + "\n";
+
         //wifiConnectionInfoText += "Network ID: " + wifiConnectionInfo.getNetworkId() + "\n";
+        //wifiConnectionInfoText += "MAC Address: " + wifiConnectionInfo.getMacAddress() + "\n";
+        //wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.isSsidHidden() + "\n";
         //wifiConnectionInfoText += "Supplicant State: " + wifiConnectionInfo.getSupplicantState() + "\n";
         //wifiConnectionInfoText += "Detailed State: " + wifiConnectionInfo.getDetailedState() + "\n";
 
+        /* DHCP Information */
         //wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getIpAdress().getHostAddress() + "\n";
         //wifiConnectionInfoText += "Subnet Mask: " + wifiConnectionInfo.getNetmask().getHostAddress() + "\n";
         //wifiConnectionInfoText += "Gateway: " + wifiConnectionInfo.getGateway().getHostAddress() + "\n";

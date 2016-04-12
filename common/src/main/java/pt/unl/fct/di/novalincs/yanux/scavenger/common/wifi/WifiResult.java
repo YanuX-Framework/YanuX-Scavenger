@@ -14,6 +14,8 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi;
 
 import android.net.wifi.ScanResult;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILoggable;
 
 public class WifiResult implements ILoggable {
@@ -22,25 +24,29 @@ public class WifiResult implements ILoggable {
     private String macAddress;
     private int signalStrength;
     private int frequency;
+
     public WifiResult(ScanResult scanResult) {
-        this(scanResult.SSID, scanResult.BSSID, scanResult.level, scanResult.frequency);
+        this(scanResult.SSID, scanResult.BSSID, scanResult.level, scanResult.frequency, scanResult.timestamp);
     }
 
     public WifiResult(String ssid, String macAddress, int signalStrength, int frequency, long timestamp) {
-        this(ssid, macAddress, signalStrength, frequency);
-        this.timestamp = timestamp;
-    }
-
-    public WifiResult(String ssid, String macAddress, int signalStrength, int frequency) {
         this.ssid = ssid;
         this.macAddress = macAddress;
         this.signalStrength = signalStrength;
         this.frequency = frequency;
+        this.timestamp = timestamp;
+    }
+
+    public WifiResult(String ssid, String macAddress, int signalStrength, int frequency) {
+        this(ssid, macAddress, signalStrength, frequency, -1);
     }
 
     public static String[] getFieldNames() {
-        String[] r = {"Timestamp", "SSID", "MAC Address", "Signal Strength", "Frequency"};
-        return r;
+        return new String[]{"SSID",
+                "MAC Address",
+                "Signal Strength",
+                "Frequency",
+                "Timestamp"};
     }
 
     public String getSsid() {
@@ -75,6 +81,7 @@ public class WifiResult implements ILoggable {
         this.frequency = frequency;
     }
 
+    @JsonIgnore
     public int getChannel() {
         if (frequency == 2484) {
             return 14;
@@ -99,8 +106,22 @@ public class WifiResult implements ILoggable {
     }
 
     @Override
+    @JsonIgnore
     public Object[] getFieldValues() {
-        Object[] r = {getTimestamp(), getSsid(), getMacAddress(), getSignalStrength(), getFrequency()};
-        return r;
+        return new Object[]{getSsid(),
+                getMacAddress(),
+                getSignalStrength(),
+                getFrequency(),
+                Long.toString(getTimestamp())};
+    }
+
+    @Override
+    @JsonIgnore
+    public String[] getFieldValuesText() {
+        return new String[]{getSsid(),
+                getMacAddress(),
+                Integer.toString(getSignalStrength()),
+                Integer.toString(getFrequency()),
+                Long.toString(getTimestamp())};
     }
 }

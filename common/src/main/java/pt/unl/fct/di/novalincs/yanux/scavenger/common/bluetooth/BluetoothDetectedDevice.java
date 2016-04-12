@@ -16,34 +16,45 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BluetoothDetectedDevice implements Parcelable {
-    public static final Parcelable.Creator<BluetoothDetectedDevice> CREATOR = new Parcelable.Creator<BluetoothDetectedDevice>() {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.store.ILoggable;
+
+public class BluetoothDetectedDevice implements Parcelable, ILoggable {
+    @JsonIgnore
+    public static final Parcelable.Creator<BluetoothDetectedDevice> CREATOR = new Parcelable.Creator<BluetoothDetectedDevice>() {
         public BluetoothDetectedDevice createFromParcel(Parcel in) {
             return new BluetoothDetectedDevice(in);
         }
-
         public BluetoothDetectedDevice[] newArray(int size) {
             return new BluetoothDetectedDevice[size];
         }
     };
+
+    private final BluetoothDevice bluetoothDevice;
     private final String name;
     private final String address;
     private final int rssi;
-    private final BluetoothDevice bluetoothDevice;
+    public long timestamp;
 
     public BluetoothDetectedDevice(Parcel in) {
+        bluetoothDevice = in.readParcelable(BluetoothDevice.class.getClassLoader());
         name = in.readString();
         address = in.readString();
         rssi = in.readInt();
-        bluetoothDevice = in.readParcelable(BluetoothDevice.class.getClassLoader());
+        timestamp = in.readLong();
     }
 
-    public BluetoothDetectedDevice(BluetoothDevice bluetoothDevice, int rssi) {
+    public BluetoothDetectedDevice(BluetoothDevice bluetoothDevice, int rssi, long timestamp) {
         this.name = bluetoothDevice.getName();
         this.address = bluetoothDevice.getAddress();
         this.rssi = rssi;
         this.bluetoothDevice = bluetoothDevice;
+        this.timestamp = timestamp;
+    }
+
+    public BluetoothDetectedDevice(BluetoothDevice bluetoothDevice, int rssi) {
+        this(bluetoothDevice, rssi, -1);
     }
 
     /**
@@ -54,6 +65,7 @@ public class BluetoothDetectedDevice implements Parcelable {
      * by the Parcelable.
      */
     @Override
+    @JsonIgnore
     public int describeContents() {
         return 0;
     }
@@ -66,11 +78,13 @@ public class BluetoothDetectedDevice implements Parcelable {
      *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
      */
     @Override
+    @JsonIgnore
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(bluetoothDevice, 0);
         dest.writeString(name);
         dest.writeString(address);
         dest.writeInt(rssi);
-        dest.writeParcelable(bluetoothDevice, 0);
+        dest.writeLong(timestamp);
     }
 
     public String getName() {
@@ -85,6 +99,11 @@ public class BluetoothDetectedDevice implements Parcelable {
         return rssi;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    @JsonIgnore
     public BluetoothDevice getBluetoothDevice() {
         return bluetoothDevice;
     }
@@ -113,5 +132,15 @@ public class BluetoothDetectedDevice implements Parcelable {
         return "Name: " + name +
                 "\nAddress: " + address +
                 "\nRSSI: " + rssi;
+    }
+
+    @Override
+    public Object[] getFieldValues() {
+        return new Object[0];
+    }
+
+    @Override
+    public String[] getFieldValuesText() {
+        return new String[0];
     }
 }
