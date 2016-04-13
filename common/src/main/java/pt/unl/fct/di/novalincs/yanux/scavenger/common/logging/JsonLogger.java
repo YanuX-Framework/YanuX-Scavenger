@@ -36,7 +36,6 @@ public class JsonLogger extends AbstractLogger {
         super(directory, filename);
         this.name = name;
         mapper = new ObjectMapper();
-        open();
     }
 
     public JsonLogger(String name) throws IOException {
@@ -45,16 +44,15 @@ public class JsonLogger extends AbstractLogger {
 
     @Override
     public void open() throws IOException {
+        super.open();
         if (isExternalStorageWritable()) {
             File file = new File(getExternalStoragePath());
-            if (rootNode == null) {
-                rootNode = mapper.createObjectNode();
-                try {
-                    Reader reader = new FileReader(file);
-                    rootNode = mapper.readTree(reader);
-                    reader.close();
-                } catch (IOException e) {
-                }
+            rootNode = mapper.createObjectNode();
+            try {
+                Reader reader = new FileReader(file);
+                rootNode = mapper.readTree(reader);
+                reader.close();
+            } catch (IOException e) {
             }
             writer = new FileWriter(file);
             ObjectNode root = (ObjectNode) rootNode;
@@ -76,7 +74,7 @@ public class JsonLogger extends AbstractLogger {
             entries = mapper.createArrayNode();
             log.set("entries", entries);
         } else {
-            throw new IOException("External Storage is not writable");
+            throw new IOException("External Storage is not writable.");
         }
     }
 
@@ -94,7 +92,7 @@ public class JsonLogger extends AbstractLogger {
 
     @Override
     public void close() throws IOException {
+        super.close();
         mapper.writeValue(writer, rootNode);
-        rootNode = null;
     }
 }

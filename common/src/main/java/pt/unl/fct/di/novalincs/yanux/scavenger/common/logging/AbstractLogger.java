@@ -19,10 +19,12 @@ import java.io.IOException;
 
 public abstract class AbstractLogger implements ILogger {
     public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
+    protected boolean open;
     protected String directory;
     protected String filename;
 
     public AbstractLogger(String directory, String filename) throws IOException {
+        open = false;
         this.directory = directory;
         this.filename = filename;
         File file = new File(getExternalStorageDirectory());
@@ -34,6 +36,29 @@ public abstract class AbstractLogger implements ILogger {
     protected static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    @Override
+    public void open() throws IOException {
+        if (isOpen()) {
+            throw new IOException("The logger is already open.");
+        } else {
+            open = true;
+        }
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (isOpen()) {
+            open = false;
+        } else {
+            throw new IOException("The logger is already closed.");
+        }
+    }
+
+    @Override
+    public boolean isOpen() {
+        return open;
     }
 
     public String getDirectory() {

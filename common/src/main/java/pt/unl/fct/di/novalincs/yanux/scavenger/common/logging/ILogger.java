@@ -19,6 +19,8 @@ public interface ILogger {
 
     void close() throws IOException;
 
+    boolean isOpen();
+
     void log(ILoggable object);
 
     void log(Iterable<ILoggable> object);

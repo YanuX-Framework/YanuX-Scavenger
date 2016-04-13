@@ -29,7 +29,6 @@ public class CsvLogger extends AbstractLogger {
         super(directory, filename);
         csvFileFormat = CSVFormat.DEFAULT;
         this.fieldNames = fieldNames;
-        open();
     }
 
     public CsvLogger(String[] fieldNames) throws IOException {
@@ -38,6 +37,7 @@ public class CsvLogger extends AbstractLogger {
 
     @Override
     public void open() throws IOException {
+        super.isOpen();
         if (isExternalStorageWritable()) {
             csvPrinter = new CSVPrinter(new FileWriter(getExternalStoragePath()), csvFileFormat);
         } else {
@@ -48,6 +48,7 @@ public class CsvLogger extends AbstractLogger {
 
     @Override
     public void close() throws IOException {
+        super.close();
         csvPrinter.flush();
         csvPrinter.close();
     }
