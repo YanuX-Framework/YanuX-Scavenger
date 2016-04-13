@@ -47,12 +47,14 @@ public class JsonLogger extends AbstractLogger {
     public void open() throws IOException {
         if (isExternalStorageWritable()) {
             File file = new File(getExternalStoragePath());
-            rootNode = mapper.createObjectNode();
-            try {
-                Reader reader = new FileReader(file);
-                rootNode = mapper.readTree(reader);
-                reader.close();
-            } catch (IOException e) {
+            if (rootNode == null) {
+                rootNode = mapper.createObjectNode();
+                try {
+                    Reader reader = new FileReader(file);
+                    rootNode = mapper.readTree(reader);
+                    reader.close();
+                } catch (IOException e) {
+                }
             }
             writer = new FileWriter(file);
             ObjectNode root = (ObjectNode) rootNode;
@@ -93,5 +95,6 @@ public class JsonLogger extends AbstractLogger {
     @Override
     public void close() throws IOException {
         mapper.writeValue(writer, rootNode);
+        rootNode = null;
     }
 }
