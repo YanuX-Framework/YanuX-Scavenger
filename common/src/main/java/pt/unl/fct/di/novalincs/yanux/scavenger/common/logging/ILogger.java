@@ -16,12 +16,7 @@ import java.io.IOException;
 
 public interface ILogger {
     void open() throws IOException;
-
     void close() throws IOException;
-
     boolean isOpen();
-
     void log(ILoggable object);
-
-    void log(Iterable<ILoggable> object);
 }

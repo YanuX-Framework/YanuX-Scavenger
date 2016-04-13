@@ -84,13 +84,6 @@ public class JsonLogger extends AbstractLogger {
     }
 
     @Override
-    public void log(Iterable<ILoggable> objects) {
-        for (ILoggable object : objects) {
-            entries.add(mapper.valueToTree(object));
-        }
-    }
-
-    @Override
     public void close() throws IOException {
         super.close();
         mapper.writeValue(writer, rootNode);

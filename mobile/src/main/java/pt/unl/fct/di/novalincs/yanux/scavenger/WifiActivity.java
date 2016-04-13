@@ -19,11 +19,14 @@ import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,83 +40,72 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 
-public class WifiActivity extends AppCompatActivity {
+public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListerner {
     private PermissionManager permissionManager;
     private WifiCollector wifiCollector;
     private Preferences preferences;
     private ListView wifiAccessPoints;
     private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
     private BroadcastReceiver broadcastReceiver;
+    private int numberOfSamplesToLog;
     private ILogger logger;
+    private ToggleButton logButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-
         permissionManager = new PermissionManager(this);
         if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
             permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
-
-        try {
-            logger = new JsonLogger("wifi-activity-incremental");
-        } catch (IOException e) {
-            e.printStackTrace();
+        preferences = new Preferences(this);
+        wifiCollector = new WifiCollector(this);
+        if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
+                && !wifiCollector.isScanAlwaysAvailable()) {
+            WifiCollector.enableScanIsAlwaysAvailable(this);
         }
-
+        logButton = (ToggleButton) findViewById(R.id.wifi_log_button);
+        logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment logDialogFragment = new LogDialogFragment();
+                logDialogFragment.show(getSupportFragmentManager(), "WIFI_LOGGING");
+            }
+        });
+        disableLogging();
         wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
         wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
-        wifiCollector = new WifiCollector(this);
-        preferences = new Preferences(this);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 wifiAccessPointsAdapter.clear();
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
                 wifiAccessPointsAdapter.addAll(wifiResults);
-                if (logger != null) {
-                    for (WifiResult wifiResult : wifiResults) {
-                        logger.log(wifiResult);
+                if (logger != null && logger.isOpen()) {
+                    if (numberOfSamplesToLog > 0) {
+                        for (WifiResult wifiResult : wifiResults) {
+                            logger.log(wifiResult);
+                        }
+                        numberOfSamplesToLog--;
+                    } else {
+                        disableLogging();
                     }
                 }
                 wifiCollector.scan(broadcastReceiver);
                 updateConnectionInfo();
             }
         };
-        if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
-                && !wifiCollector.isScanAlwaysAvailable()) {
-            WifiCollector.enableScanIsAlwaysAvailable(this);
-        }
         updateConnectionInfo();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (logger != null) {
-            try {
-                logger.open();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         wifiCollector.scan(broadcastReceiver);
-        updateConnectionInfo();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (logger != null) {
-            try {
-                logger.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    protected void onDestroy() {
+        super.onDestroy();
         wifiCollector.cancelScan(broadcastReceiver);
+        disableLogging();
     }
 
     @Override
@@ -157,7 +149,6 @@ public class WifiActivity extends AppCompatActivity {
 
     private void updateConnectionInfo() {
         WifiConnectionInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
-
         TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
         String wifiConnectionInfoText = "";
         wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
@@ -165,22 +156,41 @@ public class WifiActivity extends AppCompatActivity {
         wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
         wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
         wifiConnectionInfoText += "Link Speed: " + wifiConnectionInfo.getLinkSpeed() + " " + WifiInfo.LINK_SPEED_UNITS + "\n";
-
-        //wifiConnectionInfoText += "Network ID: " + wifiConnectionInfo.getNetworkId() + "\n";
-        //wifiConnectionInfoText += "MAC Address: " + wifiConnectionInfo.getMacAddress() + "\n";
-        //wifiConnectionInfoText += "Hidden SSID: " + wifiConnectionInfo.isSsidHidden() + "\n";
-        //wifiConnectionInfoText += "Supplicant State: " + wifiConnectionInfo.getSupplicantState() + "\n";
-        //wifiConnectionInfoText += "Detailed State: " + wifiConnectionInfo.getDetailedState() + "\n";
-
-        /* DHCP Information */
-        //wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getIpAdress().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "Subnet Mask: " + wifiConnectionInfo.getNetmask().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "Gateway: " + wifiConnectionInfo.getGateway().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "DHCP Server: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "DNS 1: " + wifiConnectionInfo.getDns1().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "DNS 2: " + wifiConnectionInfo.getDns2().getHostAddress() + "\n";
-        //wifiConnectionInfoText += "Lease Duration: " + wifiConnectionInfo.getLeaseDuration() + "\n";
-
         wifiConnectionInfoView.setText(wifiConnectionInfoText);
+    }
+
+    @Override
+    public void onDialogPositiveClick(LogDialogFragment dialog) {
+        disableLogging();
+        enableLogging(dialog.getLogName(), dialog.getNumberOfSamples());
+    }
+
+    @Override
+    public void onDialogNegativeClick(LogDialogFragment dialog) {
+        disableLogging();
+        dialog.getDialog().cancel();
+    }
+
+    private void enableLogging(String logName, int numberOfSamplesToLog) {
+        try {
+            logger = new JsonLogger(logName + ".json");
+            logger.open();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.numberOfSamplesToLog = numberOfSamplesToLog;
+        logButton.setChecked(true);
+    }
+
+    private void disableLogging() {
+        if (logger != null && logger.isOpen()) {
+            try {
+                logger.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        numberOfSamplesToLog = 0;
+        logButton.setChecked(false);
     }
 }

@@ -63,18 +63,6 @@ public class CsvLogger extends AbstractLogger {
         }
     }
 
-    @Override
-    public void log(Iterable<ILoggable> objects) {
-        try {
-            for (ILoggable loggable : objects) {
-                csvPrinter.printRecord(loggable.getFieldValues());
-            }
-            //If an exception happens there's not much that the "callee" can do, so I'll just print the stack trace for now
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public CSVFormat getCsvFileFormat() {
         return csvFileFormat;
     }
