@@ -28,7 +28,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 
 public class SensorCollector {
     public static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
-    private static final int NUM_SENSORS = 21;
+    public static final int ROTATION_SENSOR_WRAPPER = 301;
+    private static final int NUM_SENSORS = 22;
 
     private final Context context;
     private final SensorManager sensorManager;
@@ -130,6 +131,9 @@ public class SensorCollector {
         }
         if (stepDetector != null) {
             detectedSensors.put(Sensor.TYPE_STEP_DETECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_detector), stepDetector));
+        }
+        if (accelerometer != null && magneticField != null) {
+            detectedSensors.put(ROTATION_SENSOR_WRAPPER, new RotationSensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_wrapper), accelerometer, magneticField));
         }
         //TODO: Remove deprecated sensors
         if (orientation != null) {

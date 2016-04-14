@@ -12,12 +12,10 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 
-public class WifiLogEntry extends WifiResult implements ILoggable {
+public class WifiLogEntry extends WifiResult {
     private int sampleId;
     private WifiConnectionInfo connectionInfo;
 
@@ -33,25 +31,5 @@ public class WifiLogEntry extends WifiResult implements ILoggable {
 
     public void setConnectionInfo(WifiConnectionInfo connectionInfo) {
         this.connectionInfo = connectionInfo;
-    }
-
-    @Override
-    @JsonIgnore
-    public Object[] getFieldValues() {
-        return new Object[]{getSsid(),
-                getMacAddress(),
-                getSignalStrength(),
-                getFrequency(),
-                Long.toString(getTimestamp())};
-    }
-
-    @Override
-    @JsonIgnore
-    public String[] getFieldValuesText() {
-        return new String[]{getSsid(),
-                getMacAddress(),
-                Integer.toString(getSignalStrength()),
-                Integer.toString(getFrequency()),
-                Long.toString(getTimestamp())};
     }
 }

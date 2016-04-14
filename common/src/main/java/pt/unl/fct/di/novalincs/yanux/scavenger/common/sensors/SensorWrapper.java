@@ -18,7 +18,7 @@ import android.hardware.SensorManager;
 import android.hardware.TriggerEventListener;
 
 public class SensorWrapper {
-    private final SensorManager sensorManager;
+    protected final SensorManager sensorManager;
     private final String description;
     private final Sensor sensor;
 
@@ -40,16 +40,20 @@ public class SensorWrapper {
         return description;
     }
 
+    public Sensor getSensor() {
+        return sensor;
+    }
+
     public boolean hasSensor() {
         return sensor != null;
     }
 
-    public boolean registerListener(SensorEventListener listener) {
-        return sensorManager.registerListener(listener, sensor, SensorCollector.SENSOR_DELAY);
-    }
-
     public boolean registerListener(SensorEventListener listener, int delay) {
         return sensorManager.registerListener(listener, sensor, delay);
+    }
+
+    public boolean registerListener(SensorEventListener listener) {
+        return registerListener(listener, SensorCollector.SENSOR_DELAY);
     }
 
     public void unregisterListener(SensorEventListener listener) {
@@ -57,43 +61,83 @@ public class SensorWrapper {
     }
 
     public boolean registerTriggerListener(TriggerEventListener listener) {
-        return sensorManager.requestTriggerSensor(listener, sensor);
+        if (sensor.getType() == Sensor.TYPE_SIGNIFICANT_MOTION) {
+            return sensorManager.requestTriggerSensor(listener, sensor);
+        } else {
+            return false;
+        }
     }
 
     public boolean unregisterTriggerListener(TriggerEventListener listener) {
-        return sensorManager.cancelTriggerSensor(listener, sensor);
+        if (sensor.getType() == Sensor.TYPE_SIGNIFICANT_MOTION) {
+            return sensorManager.cancelTriggerSensor(listener, sensor);
+        } else {
+            return false;
+        }
     }
 
     public String getName() {
-        return sensor.getName();
+        if (hasSensor()) {
+            return sensor.getName();
+        } else {
+            return "Unknown";
+        }
     }
 
     public String getVendor() {
-        return sensor.getVendor();
+        if (hasSensor()) {
+            return sensor.getVendor();
+        } else {
+            return "Unknown";
+        }
     }
 
     public int getVersion() {
-        return sensor.getVersion();
+        if (hasSensor()) {
+            return sensor.getVersion();
+        } else {
+            return 0;
+        }
     }
 
     public float getMaximumRange() {
-        return sensor.getMaximumRange();
+        if (hasSensor()) {
+            return sensor.getMaximumRange();
+        } else {
+            return 0;
+        }
     }
 
     public float getResolution() {
-        return sensor.getResolution();
+        if (hasSensor()) {
+            return sensor.getResolution();
+        } else {
+            return 0;
+        }
     }
 
     public int getMinDelay() {
-        return sensor.getMinDelay();
+        if (hasSensor()) {
+            return sensor.getMinDelay();
+        } else {
+            return 0;
+        }
     }
 
     public float getPower() {
-        return sensor.getPower();
+        if (hasSensor()) {
+            return sensor.getPower();
+        } else {
+            return 0;
+        }
     }
 
     public int getType() {
-        return sensor.getType();
+        if (hasSensor()) {
+            return sensor.getType();
+        } else {
+            return 0;
+        }
     }
 
     @Override

@@ -85,6 +85,6 @@ public class WifiResult {
 
     @Override
     public String toString() {
-        return ssid + " [" + macAddress + "] Channel: " + getChannel() + " Signal Strength: " + signalStrength + " dBm";
+        return ssid + " [" + macAddress + "] Channel: " + getChannel() + " RSSI: " + signalStrength;
     }
 }

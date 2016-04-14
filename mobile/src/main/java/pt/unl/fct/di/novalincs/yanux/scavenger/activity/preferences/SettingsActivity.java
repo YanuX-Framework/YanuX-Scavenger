@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences;
 
 
 import android.annotation.TargetApi;
@@ -34,6 +34,9 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import java.util.List;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.base.AppCompatPreferenceActivity;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

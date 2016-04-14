@@ -12,15 +12,12 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-public class BeaconLogEntry implements ILoggable {
-
-    @Override
-    public Object[] getFieldValues() {
-        return new Object[0];
-    }
-
-    @Override
-    public String[] getFieldValuesText() {
-        return new String[0];
-    }
+public class BeaconLogEntry {
+    private String name;
+    private String macAddress;
+    //TODO: Add identifier variables
+    //TODO: Make sure that I get the RSSI running average and the current RSSI
+    private int rssi;
+    private int txPower;
+    private int calculatedDistance;
 }

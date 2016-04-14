@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacon.BeaconActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothClassicActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothLeActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -36,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        TextView textOuput = (TextView) findViewById(R.id.text_output);
+        textOuput.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et hendrerit nulla. Sed commodo imperdiet semper. Fusce vitae lacus eget nisi fringilla pharetra efficitur nec turpis. Cras pharetra eleifend erat, quis vestibulum nulla facilisis sed. Sed nec ex urna. Proin feugiat efficitur dui, sit amet viverra neque rutrum id. Pellentesque luctus molestie lectus vel aliquam. Nullam malesuada dolor vel lorem auctor, ac pulvinar tellus eleifend. Nulla fermentum dignissim consectetur. Quisque dignissim nisi volutpat, imperdiet metus ut, condimentum velit. Suspendisse potenti. Aliquam porttitor lobortis dui, vel egestas mauris vestibulum vitae.\n" +
+                "\n" +
+                "Duis eget lectus vitae nisi auctor venenatis. In ultricies, massa ac facilisis tempus, massa velit ultrices sem, eget lacinia velit eros quis dolor. Nulla facilisi. Suspendisse gravida ipsum risus, at vestibulum sem congue lacinia. Aenean dignissim magna felis, id dictum ex lacinia ut. Vivamus massa ligula, condimentum a eleifend in, interdum sit amet magna. Duis egestas velit sed dapibus feugiat. Vivamus ut nisl sapien. Duis facilisis laoreet consectetur. Nullam sollicitudin viverra neque, eu lacinia augue cursus at. Phasellus facilisis dolor in nulla vulputate, eleifend interdum ligula tempor. Proin blandit tincidunt malesuada.\n" +
+                "\n" +
+                "Curabitur nibh arcu, laoreet sit amet vehicula et, hendrerit ut nisi. Curabitur risus lacus, ullamcorper at efficitur eu, fringilla in dui. Phasellus sit amet elementum magna. Pellentesque nec nisi justo. Cras porttitor at felis vitae pellentesque. Cras porttitor ligula elit, in viverra sapien posuere sed. Praesent euismod metus lorem, vel tristique nulla hendrerit a. Nullam sed eleifend ex. Sed in nulla porttitor, volutpat mi et, tincidunt augue. Aenean elementum dui in dui tempor, quis semper ligula interdum.\n" +
+                "\n" +
+                "Nam suscipit diam tellus, et luctus nisl lobortis eu. Nunc non tellus sem. Cras congue sodales arcu ultricies maximus. Praesent luctus ut felis in laoreet. Nunc ornare rutrum feugiat. Integer fringilla sagittis posuere. Donec euismod scelerisque sapien.\n" +
+                "\n" +
+                "Integer consequat eros risus. Etiam id malesuada velit. Ut non libero iaculis, sagittis elit at, faucibus ipsum. Nam in nibh ullamcorper, gravida urna non, faucibus ex. Suspendisse pretium nec nunc at sollicitudin. Duis tincidunt magna ut efficitur mollis. Cras finibus mauris mollis, tempus lorem quis, luctus mauris. Nam consectetur imperdiet diam, non porta urna commodo vitae.");
     }
 
     @Override

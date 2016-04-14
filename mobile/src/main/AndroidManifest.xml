@@ -9,6 +9,7 @@
   ~
   ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
   -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
 
@@ -29,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -44,52 +45,52 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.preferences.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".SensorsActivity"
+            android:name=".activity.sensors.SensorsActivity"
             android:label="@string/title_activity_sensors"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".WifiActivity"
+            android:name=".activity.wifi.WifiActivity"
             android:label="@string/title_activity_wifi"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".BluetoothClassicActivity"
+            android:name=".activity.bluetooth.BluetoothClassicActivity"
             android:label="@string/title_activity_bluetooth_classic"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".BluetoothLeActivity"
+            android:name=".activity.bluetooth.BluetoothLeActivity"
             android:label="@string/title_activity_bluetooth_le"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".BeaconActivity"
+            android:name=".activity.beacon.BeaconActivity"
             android:label="@string/title_activity_beacon"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.unl.fct.di.novalincs.yanux.scavenger.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
     </application>
 

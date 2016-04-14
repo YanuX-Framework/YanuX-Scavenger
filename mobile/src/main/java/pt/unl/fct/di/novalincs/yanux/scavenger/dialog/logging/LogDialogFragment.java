@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,6 +21,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 
 public class LogDialogFragment extends DialogFragment {
     // Use this instance of the interface to deliver action events
@@ -33,6 +35,7 @@ public class LogDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setTitle(R.string.log_settings);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View view = inflater.inflate(R.layout.fragment_log_dialog, null);

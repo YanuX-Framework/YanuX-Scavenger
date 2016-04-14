@@ -10,11 +10,10 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities;
 
 import android.os.Build;
 
 public class Constants {
-    public static final String LOG_TAG = "YANUX_SCAVENGER";
     public static final int API_LEVEL = Build.VERSION.SDK_INT;
 }

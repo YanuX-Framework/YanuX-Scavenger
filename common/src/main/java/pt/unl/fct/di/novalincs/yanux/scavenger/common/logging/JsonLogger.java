@@ -79,7 +79,7 @@ public class JsonLogger extends AbstractLogger {
     }
 
     @Override
-    public void log(ILoggable object) {
+    public void log(Object object) {
         entries.add(mapper.valueToTree(object));
     }
 

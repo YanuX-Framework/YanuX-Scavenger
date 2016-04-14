@@ -13,6 +13,7 @@
 <resources>
     <string name="app_name">YanuX Scavenger</string>
 
+    <string name="title_activity_main">Welcome</string>
     <string name="title_activity_sensors">Sensors</string>
     <string name="title_activity_wifi">Wi-Fi</string>
     <string name="title_activity_bluetooth_classic">Bluetooth Classic</string>
@@ -40,6 +41,7 @@
     <string name="wifi_scan_always_available_not_enabled">You haven\'t enabled Wi-Fi scanning to be always enable. The application will have to forcefully enable Wi-Fi.</string>
 
     <string name="log">Log</string>
+    <string name="log_settings">Log Settings</string>
     <string name="log_name">Log Name</string>
     <string name="log_samples">Number of Samples</string>
     <string name="log_start">Start Logging</string>

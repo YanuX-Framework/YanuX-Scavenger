@@ -10,11 +10,12 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,9 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.CyclicTriggerEventListener;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.RotationSensorWrapper;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
@@ -47,10 +50,9 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
                 super.onTrigger(event);
                 fillTimestamp(event.timestamp);
                 TextView sensorValues = (TextView) SensorsActivity.this.findViewById(R.id.sensor_values);
-                sensorValues.setText(SensorsActivity.this.getString(R.string.sensor_significant_motion_detected) + ":" + cycle);
+                sensorValues.setText(SensorsActivity.this.getString(R.string.sensor_significant_motion_detected) + ": " + cycle);
             }
         };
-
         Spinner selectSensorSpinner = (Spinner) findViewById(R.id.select_sensor);
         ArrayAdapter<SensorWrapper> selectSensorSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         selectSensorSpinnerAdapter.addAll(sensorCollector.getSensors());
@@ -111,7 +113,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     public void onSensorChanged(SensorEvent event) {
         fillTimestamp(event.timestamp);
         fillAccuracy(event.accuracy);
-        fillValues(event.values);
+        fillValues(event);
     }
 
     @Override
@@ -124,14 +126,47 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         sensorAccuracy.setText(Integer.toString(accuracy));
     }
 
-    private void fillValues(float[] values) {
+    private void fillValues(SensorEvent event) {
         TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
         String valuesText = "";
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        float[] values;
+        if (sensorCollector.hasSensor(SensorCollector.ROTATION_SENSOR_WRAPPER)
+                && sensorCollector.getSensor(SensorCollector.ROTATION_SENSOR_WRAPPER) == selectedSensor) {
+            RotationSensorWrapper rotationSensorWrapper = ((RotationSensorWrapper) selectedSensor);
+            valuesText += "Rotation Matrix:\n";
+            valuesText += printSensorValues(rotationSensorWrapper.getRotationMatrix());
+            valuesText += "Orientation: \n";
+            valuesText += printSensorValues(rotationSensorWrapper.getOrientation());
+            valuesText += "Inclination Matrix:\n";
+            valuesText += printSensorValues(rotationSensorWrapper.getInclinationMatrix());
+            valuesText += "Inclination: ";
+            valuesText += new DecimalFormat("#.###").format(rotationSensorWrapper.getInclination());
+        } else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR
+                || event.sensor.getType() == Sensor.TYPE_GAME_ROTATION_VECTOR
+                || event.sensor.getType() == Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) {
+            float[] rotationMatrix = new float[9];
+            SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
+            float[] orientation = new float[3];
+            SensorManager.getOrientation(rotationMatrix, orientation);
+            valuesText += "Raw Data:\n";
+            valuesText += printSensorValues(event.values);
+            valuesText += "Rotation Matrix:\n";
+            valuesText += printSensorValues(rotationMatrix);
+            valuesText += "Orientation: \n";
+            valuesText += printSensorValues(orientation);
+        } else {
+            valuesText += printSensorValues(event.values);
+        }
+        sensorValues.setText(valuesText);
+    }
+
+    private String printSensorValues(float[] values) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        String valuesText = "";
         for (int i = 0; i < values.length; i++) {
             valuesText += "[" + i + "] => " + decimalFormat.format(values[i]) + "\n";
         }
-        sensorValues.setText(valuesText);
+        return valuesText;
     }
 
     private void fillTimestamp(long timestamp) {

@@ -29,7 +29,7 @@ import android.os.SystemClock;
 
 import java.util.List;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BluetoothLeCollector extends BluetoothCollector implements IBluetoothCollector {
     public static final int SCAN_PERIOD = 10000;

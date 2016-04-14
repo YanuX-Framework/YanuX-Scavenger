@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -31,15 +31,17 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiLogEntry;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
+import pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging.LogDialogFragment;
 
 public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListerner {
     private PermissionManager permissionManager;
@@ -80,11 +82,10 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 }
             }
         });
-        disableLogging();
         wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
+        sampleCounter = (TextView) findViewById(R.id.log_sample_counter);
         wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
-        sampleCounter = (TextView) findViewById(R.id.log_sample_counter);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -99,13 +100,14 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                         sampleId++;
                         sampleCounter.setText(Integer.toString(sampleId));
                     } else {
-                        disableLogging();
+                        logSwitch.setChecked(false);
                     }
                 }
                 wifiCollector.scan(broadcastReceiver);
                 updateConnectionInfo();
             }
         };
+        disableLogging();
         updateConnectionInfo();
         wifiCollector.scan(broadcastReceiver);
     }
@@ -159,11 +161,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     private void updateConnectionInfo() {
         WifiConnectionInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
         TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
-        String wifiConnectionInfoText = "";
-        wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
-        wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBssid() + "\n";
-        wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
-        wifiConnectionInfoView.setText(wifiConnectionInfoText);
+        wifiConnectionInfoView.setText(wifiConnectionInfo.getSsid() + " [" + wifiConnectionInfo.getBssid() + "]\nRSSI: " + wifiConnectionInfo.getRssi());
     }
 
     @Override
@@ -202,7 +200,6 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         }
         numberOfSamplesToLog = 0;
         sampleId = 0;
-        logSwitch.setChecked(false);
         findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
         sampleCounter.setVisibility(View.GONE);
     }
