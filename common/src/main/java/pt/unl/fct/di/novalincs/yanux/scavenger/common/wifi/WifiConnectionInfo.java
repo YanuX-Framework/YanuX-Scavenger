@@ -27,7 +27,7 @@ public class WifiConnectionInfo {
     private String ssid;
     private boolean ssidHidden;
     private String bssid;
-    private InetAddress wifiIpAdress;
+    private InetAddress ipAddress;
     private String macAddress;
     private int rssi;
     private int linkSpeed;
@@ -35,12 +35,12 @@ public class WifiConnectionInfo {
     private SupplicantState supplicantState;
     private NetworkInfo.DetailedState detailedState;
 
-    private InetAddress ipAdress;
-    private InetAddress netmask;
-    private InetAddress gateway;
-    private InetAddress dns1;
-    private InetAddress dns2;
-    private int leaseDuration;
+    private InetAddress dhcpIpAdress;
+    private InetAddress dhcpNetmask;
+    private InetAddress dhcpGateway;
+    private InetAddress dhcpDns1;
+    private InetAddress dhcpDns2;
+    private int dhcpLeaseDuration;
 
     public WifiConnectionInfo(WifiManager wifiManager) {
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -56,17 +56,16 @@ public class WifiConnectionInfo {
         this.supplicantState = wifiInfo.getSupplicantState();
         this.detailedState = WifiInfo.getDetailedStateOf(this.supplicantState);
         try {
-            this.wifiIpAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(wifiInfo.getIpAddress()).array());
-            this.ipAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.ipAddress).array());
-            this.netmask = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.netmask).array());
-            this.gateway = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.gateway).array());
-            this.dns1 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns1).array());
-            this.dns2 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns2).array());
-
+            this.ipAddress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(wifiInfo.getIpAddress()).array());
+            this.dhcpIpAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.ipAddress).array());
+            this.dhcpNetmask = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.netmask).array());
+            this.dhcpGateway = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.gateway).array());
+            this.dhcpDns1 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns1).array());
+            this.dhcpDns2 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns2).array());
+            this.dhcpLeaseDuration = dhcpInfo.leaseDuration;
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        this.leaseDuration = dhcpInfo.leaseDuration;
     }
 
     public String getSsid() {
@@ -81,8 +80,8 @@ public class WifiConnectionInfo {
         return bssid;
     }
 
-    public InetAddress getWifiIpAdress() {
-        return wifiIpAdress;
+    public InetAddress getIpAddress() {
+        return ipAddress;
     }
 
     public String getMacAddress() {
@@ -109,27 +108,27 @@ public class WifiConnectionInfo {
         return detailedState;
     }
 
-    public InetAddress getIpAdress() {
-        return ipAdress;
+    public InetAddress getDhcpIpAdress() {
+        return dhcpIpAdress;
     }
 
-    public InetAddress getNetmask() {
-        return netmask;
+    public InetAddress getDhcpNetmask() {
+        return dhcpNetmask;
     }
 
-    public InetAddress getGateway() {
-        return gateway;
+    public InetAddress getDhcpGateway() {
+        return dhcpGateway;
     }
 
-    public InetAddress getDns1() {
-        return dns1;
+    public InetAddress getDhcpDns1() {
+        return dhcpDns1;
     }
 
-    public InetAddress getDns2() {
-        return dns2;
+    public InetAddress getDhcpDns2() {
+        return dhcpDns2;
     }
 
-    public int getLeaseDuration() {
-        return leaseDuration;
+    public int getDhcpLeaseDuration() {
+        return dhcpLeaseDuration;
     }
 }

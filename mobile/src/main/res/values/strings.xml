@@ -39,10 +39,11 @@
     <string name="wifi_scan_always_available_enabled">Thank you for allowing Wi-Fi scanning to be always available.</string>
     <string name="wifi_scan_always_available_not_enabled">You haven\'t enabled Wi-Fi scanning to be always enable. The application will have to forcefully enable Wi-Fi.</string>
 
-    <string name="log_button">Log</string>
+    <string name="log">Log</string>
     <string name="log_name">Log Name</string>
     <string name="log_samples">Number of Samples</string>
     <string name="log_start">Start Logging</string>
+    <string name="log_sample_counter">Samples</string>
 
     <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
     <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>

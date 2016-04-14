@@ -10,32 +10,17 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-apply plugin: 'com.android.application'
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion '24.0.0 rc3'
+public class BeaconLogEntry implements ILoggable {
 
-    defaultConfig {
-        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
-        minSdkVersion 23
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+    @Override
+    public Object[] getFieldValues() {
+        return new Object[0];
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    productFlavors {
-    }
-}
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.support:wearable:1.3.0'
-    compile 'com.google.android.gms:play-services-wearable:8.4.0'
-    compile project(':common')
+    @Override
+    public String[] getFieldValuesText() {
+        return new String[0];
+    }
 }

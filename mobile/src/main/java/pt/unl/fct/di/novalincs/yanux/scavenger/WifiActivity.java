@@ -16,17 +16,17 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +34,7 @@ import java.util.List;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonLogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiLogEntry;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
@@ -47,9 +48,11 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     private ListView wifiAccessPoints;
     private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
     private BroadcastReceiver broadcastReceiver;
+    private int sampleId;
     private int numberOfSamplesToLog;
     private ILogger logger;
-    private ToggleButton logButton;
+    private Switch logSwitch;
+    private TextView sampleCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +68,23 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 && !wifiCollector.isScanAlwaysAvailable()) {
             WifiCollector.enableScanIsAlwaysAvailable(this);
         }
-        logButton = (ToggleButton) findViewById(R.id.wifi_log_button);
-        logButton.setOnClickListener(new View.OnClickListener() {
+        logSwitch = (Switch) findViewById(R.id.log_switch);
+        logSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment logDialogFragment = new LogDialogFragment();
-                logDialogFragment.show(getSupportFragmentManager(), "WIFI_LOGGING");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    DialogFragment logDialogFragment = new LogDialogFragment();
+                    logDialogFragment.show(getSupportFragmentManager(), "WIFI_LOGGING");
+                } else {
+                    disableLogging();
+                }
             }
         });
         disableLogging();
         wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
         wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
+        sampleCounter = (TextView) findViewById(R.id.log_sample_counter);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -84,11 +92,12 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
                 wifiAccessPointsAdapter.addAll(wifiResults);
                 if (logger != null && logger.isOpen()) {
-                    if (numberOfSamplesToLog > 0) {
+                    if (sampleId < numberOfSamplesToLog) {
                         for (WifiResult wifiResult : wifiResults) {
-                            logger.log(wifiResult);
+                            logger.log(new WifiLogEntry(sampleId, wifiResult, wifiCollector.getConnectionInfo()));
                         }
-                        numberOfSamplesToLog--;
+                        sampleId++;
+                        sampleCounter.setText(Integer.toString(sampleId));
                     } else {
                         disableLogging();
                     }
@@ -153,9 +162,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         String wifiConnectionInfoText = "";
         wifiConnectionInfoText += "SSID: " + wifiConnectionInfo.getSsid() + "\n";
         wifiConnectionInfoText += "BSSID: " + wifiConnectionInfo.getBssid() + "\n";
-        wifiConnectionInfoText += "IP Address: " + wifiConnectionInfo.getWifiIpAdress().getHostAddress() + "\n";
         wifiConnectionInfoText += "RSSI: " + wifiConnectionInfo.getRssi() + "\n";
-        wifiConnectionInfoText += "Link Speed: " + wifiConnectionInfo.getLinkSpeed() + " " + WifiInfo.LINK_SPEED_UNITS + "\n";
         wifiConnectionInfoView.setText(wifiConnectionInfoText);
     }
 
@@ -179,7 +186,10 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             e.printStackTrace();
         }
         this.numberOfSamplesToLog = numberOfSamplesToLog;
-        logButton.setChecked(true);
+        sampleId = 0;
+        findViewById(R.id.log_sample_counter_label).setVisibility(View.VISIBLE);
+        sampleCounter.setVisibility(View.VISIBLE);
+        sampleCounter.setText(Integer.toString(sampleId));
     }
 
     private void disableLogging() {
@@ -191,6 +201,9 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             }
         }
         numberOfSamplesToLog = 0;
-        logButton.setChecked(false);
+        sampleId = 0;
+        logSwitch.setChecked(false);
+        findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
+        sampleCounter.setVisibility(View.GONE);
     }
 }

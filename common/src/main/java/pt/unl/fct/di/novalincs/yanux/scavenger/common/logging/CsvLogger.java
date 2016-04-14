@@ -21,18 +21,16 @@ import java.io.IOException;
 public class CsvLogger extends AbstractLogger {
     public static final String DEFAULT_FILENAME = "log.csv";
 
-    private String[] fieldNames;
     private CSVFormat csvFileFormat;
     private CSVPrinter csvPrinter;
 
-    public CsvLogger(String directory, String filename, String[] fieldNames) throws IOException {
+    public CsvLogger(String directory, String filename) throws IOException {
         super(directory, filename);
         csvFileFormat = CSVFormat.DEFAULT;
-        this.fieldNames = fieldNames;
     }
 
-    public CsvLogger(String[] fieldNames) throws IOException {
-        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME, fieldNames);
+    public CsvLogger() throws IOException {
+        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
     }
 
     @Override
@@ -43,7 +41,6 @@ public class CsvLogger extends AbstractLogger {
         } else {
             throw new IOException("External Storage is not writable");
         }
-        csvPrinter.printRecord(fieldNames);
     }
 
     @Override
@@ -69,13 +66,5 @@ public class CsvLogger extends AbstractLogger {
 
     public void setCsvFileFormat(CSVFormat csvFileFormat) {
         this.csvFileFormat = csvFileFormat;
-    }
-
-    public String[] getFieldNames() {
-        return fieldNames;
-    }
-
-    public void setFieldNames(String[] fieldNames) throws IOException {
-        this.fieldNames = fieldNames;
     }
 }
