@@ -30,13 +30,10 @@ public class SensorCollector {
     public static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
     public static final int ROTATION_SENSOR_WRAPPER = 301;
     private static final int NUM_SENSORS = 22;
-
     private final Context context;
     private final SensorManager sensorManager;
-
     private final Map<Integer, SensorWrapper> detectedSensors;
     private final Collection<SensorWrapper> sensors;
-
     public SensorCollector(Context context) {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -47,6 +44,57 @@ public class SensorCollector {
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
         sensors = new ArrayList<>(sensorList.size());
         processSensorList(sensorList);
+    }
+
+    public static String getTypeName(int type) {
+        switch (type) {
+            case Sensor.TYPE_ACCELEROMETER:
+                return "Accelerometer";
+            case Sensor.TYPE_AMBIENT_TEMPERATURE:
+                return "Ambient Temperature";
+            case Sensor.TYPE_GAME_ROTATION_VECTOR:
+                return "Game Rotation Vector";
+            case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+                return "Geomagnetic Rotation Vector";
+            case Sensor.TYPE_GRAVITY:
+                return "Gravity";
+            case Sensor.TYPE_GYROSCOPE:
+                return "Gyroscope";
+            case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
+                return "Gyroscope Uncalibrated";
+            case Sensor.TYPE_HEART_RATE:
+                return "Heart Rate";
+            case Sensor.TYPE_LIGHT:
+                return "Light";
+            case Sensor.TYPE_LINEAR_ACCELERATION:
+                return "Linear Acceleration";
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                return "Magnetic Field";
+            case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+                return "Magnetic Field Uncalibrated";
+            case Sensor.TYPE_PRESSURE:
+                return "Pressure";
+            case Sensor.TYPE_PROXIMITY:
+                return "Proximity";
+            case Sensor.TYPE_RELATIVE_HUMIDITY:
+                return "Relative Humidity";
+            case Sensor.TYPE_ROTATION_VECTOR:
+                return "Rotation Vector";
+            case Sensor.TYPE_SIGNIFICANT_MOTION:
+                return "Significant Motion";
+            case Sensor.TYPE_STEP_COUNTER:
+                return "Step Counter";
+            case Sensor.TYPE_STEP_DETECTOR:
+                return "Step Detector";
+            case Sensor.TYPE_ORIENTATION:
+                return "Orientation";
+            case Sensor.TYPE_TEMPERATURE:
+                return "Temperature";
+            case SensorCollector.ROTATION_SENSOR_WRAPPER:
+                return "Rotation Sensor Wrapper";
+            default:
+                return "Unknown";
+        }
     }
 
     private void detectSensors() {
@@ -348,6 +396,10 @@ public class SensorCollector {
         return getSensor(Sensor.TYPE_TEMPERATURE);
     }
 
+    public SensorWrapper getRotationWrapper() {
+        return getSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
+    }
+
     //Methods to check whether a sensor type is supported or not
 
     //Generic Checker
@@ -437,5 +489,9 @@ public class SensorCollector {
 
     public boolean hasTemperature() {
         return hasSensor(Sensor.TYPE_TEMPERATURE);
+    }
+
+    public boolean hasRotationWrapper() {
+        return hasSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
     }
 }

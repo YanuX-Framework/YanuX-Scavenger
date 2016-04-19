@@ -21,6 +21,7 @@ public class BluetoothDetectedDevice implements Parcelable {
         public BluetoothDetectedDevice createFromParcel(Parcel in) {
             return new BluetoothDetectedDevice(in);
         }
+
         public BluetoothDetectedDevice[] newArray(int size) {
             return new BluetoothDetectedDevice[size];
         }

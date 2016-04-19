@@ -17,20 +17,21 @@ import android.os.Environment;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class AbstractLogger implements ILogger {
+public abstract class AbstractFileLogger implements IFileLogger {
     public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
+    public static final String DEFAULT_FILENAME = "log.txt";
     protected boolean open;
     protected String directory;
     protected String filename;
 
-    public AbstractLogger(String directory, String filename) throws IOException {
+    public AbstractFileLogger(String directory, String filename) {
         open = false;
         this.directory = directory;
         this.filename = filename;
-        File file = new File(getExternalStorageDirectory());
-        if (!file.exists() && !file.mkdirs()) {
-            throw new IOException("Couldn't create the log directory");
-        }
+    }
+
+    public AbstractFileLogger() {
+        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
     }
 
     protected static boolean isExternalStorageWritable() {
@@ -43,7 +44,12 @@ public abstract class AbstractLogger implements ILogger {
         if (isOpen()) {
             throw new IOException("The logger is already open.");
         } else {
-            open = true;
+            File file = new File(getExternalStorageDirectory());
+            if (!file.exists() && !file.mkdirs()) {
+                throw new IOException("Couldn't create the log directory");
+            } else {
+                open = true;
+            }
         }
     }
 

@@ -24,7 +24,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-public class JsonLogger extends AbstractLogger {
+public class JsonFileLogger extends AbstractFileLogger {
+    public static final String DEFAULT_NAME = "log";
     public static final String DEFAULT_FILENAME = "log.json";
     private final ObjectMapper mapper;
     private String name;
@@ -32,14 +33,22 @@ public class JsonLogger extends AbstractLogger {
     private ArrayNode entries;
     private Writer writer;
 
-    public JsonLogger(String name, String directory, String filename) throws IOException {
+    public JsonFileLogger(String name, String directory, String filename) {
         super(directory, filename);
         this.name = name;
         mapper = new ObjectMapper();
     }
 
-    public JsonLogger(String name) throws IOException {
+    public JsonFileLogger(String directory, String filename) {
+        this(DEFAULT_NAME, directory, filename);
+    }
+
+    public JsonFileLogger(String name) {
         this(name, DEFAULT_DIRECTORY, DEFAULT_FILENAME);
+    }
+
+    public JsonFileLogger() {
+        this(DEFAULT_NAME, DEFAULT_DIRECTORY, DEFAULT_FILENAME);
     }
 
     @Override

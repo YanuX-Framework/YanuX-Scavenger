@@ -29,14 +29,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILogger;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonLogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IFileLogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonFileLogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.SensorLog;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiLogEntry;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
@@ -44,32 +48,34 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 import pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging.LogDialogFragment;
 
 public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListerner {
-    private PermissionManager permissionManager;
-    private WifiCollector wifiCollector;
-    private Preferences preferences;
     private ListView wifiAccessPoints;
     private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
-    private BroadcastReceiver broadcastReceiver;
-    private int sampleId;
-    private int numberOfSamplesToLog;
-    private ILogger logger;
     private Switch logSwitch;
     private TextView sampleCounter;
+
+    private PermissionManager permissionManager;
+    private Preferences preferences;
+    private WifiCollector wifiCollector;
+    private BroadcastReceiver broadcastReceiver;
+    private SensorCollector sensorCollector;
+    private SensorLog sensorLog;
+    private List<SensorWrapper> loggedSensors;
+    private IFileLogger logger;
+
+    private int sampleId;
+    private int numberOfSamplesToLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-        permissionManager = new PermissionManager(this);
-        if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
-            permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        preferences = new Preferences(this);
-        wifiCollector = new WifiCollector(this);
-        if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
-                && !wifiCollector.isScanAlwaysAvailable()) {
-            WifiCollector.enableScanIsAlwaysAvailable(this);
-        }
+
+        //Wi-Fi Access Points List View
+        wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
+        //Wi-Fi Access Points List View Adapter
+        wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
+        //Log switch
         logSwitch = (Switch) findViewById(R.id.log_switch);
         logSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -82,10 +88,24 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 }
             }
         });
-        wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
+        //Sample Counter
         sampleCounter = (TextView) findViewById(R.id.log_sample_counter);
-        wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
+
+        //Permission Manager
+        permissionManager = new PermissionManager(this);
+        if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
+            permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        //Preferences
+        preferences = new Preferences(this);
+        //Wi-Fi Collector
+        wifiCollector = new WifiCollector(this);
+        //Check if Wi-Fi scanning is always available
+        if (!preferences.hasAskedForWifiScanningAlwaysAvailable()
+                && !wifiCollector.isScanAlwaysAvailable()) {
+            WifiCollector.enableScanIsAlwaysAvailable(this);
+        }
+        //Wi-Fi Collector Broadcast Receiver
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -95,8 +115,9 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 if (logger != null && logger.isOpen()) {
                     if (sampleId < numberOfSamplesToLog) {
                         for (WifiResult wifiResult : wifiResults) {
-                            logger.log(new WifiLogEntry(sampleId, wifiResult, wifiCollector.getConnectionInfo()));
+                            logger.log(new WifiLogEntry(sampleId, wifiResult, wifiCollector.getConnectionInfo(), sensorLog.getCurrentReadings()));
                         }
+                        sensorLog.clear();
                         sampleId++;
                         sampleCounter.setText(Integer.toString(sampleId));
                     } else {
@@ -107,6 +128,43 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 updateConnectionInfo();
             }
         };
+        sensorCollector = new SensorCollector(this);
+        sensorLog = new SensorLog();
+        loggedSensors = new ArrayList<>();
+        //Add a few sensors to log (remember that a sensor may not be available).
+        //TODO: Remove some sensors that are not that useful
+        if (sensorCollector.hasOrientation()) {
+            loggedSensors.add(sensorCollector.getOrientation());
+        }
+        if (sensorCollector.hasRotationVector()) {
+            loggedSensors.add(sensorCollector.getRotationVector());
+        }
+        if (sensorCollector.hasAccelerometer()) {
+            loggedSensors.add(sensorCollector.getAccelerometer());
+        }
+        if (sensorCollector.hasGravity()) {
+            loggedSensors.add(sensorCollector.getGravity());
+        }
+        if (sensorCollector.hasLinearAcceleration()) {
+            loggedSensors.add(sensorCollector.getLinearAcceleration());
+        }
+        if (sensorCollector.hasGyroscope()) {
+            loggedSensors.add(sensorCollector.getGyroscope());
+        }
+        if (sensorCollector.hasMagneticField()) {
+            loggedSensors.add(sensorCollector.getMagneticField());
+        }
+        if (sensorCollector.hasPressure()) {
+            loggedSensors.add(sensorCollector.getPressure());
+        }
+        if (sensorCollector.hasLight()) {
+            loggedSensors.add(sensorCollector.getLight());
+        }
+        if (sensorCollector.hasProximity()) {
+            loggedSensors.add(sensorCollector.getProximity());
+        }
+        logger = new JsonFileLogger();
+
         disableLogging();
         updateConnectionInfo();
         wifiCollector.scan(broadcastReceiver);
@@ -178,29 +236,37 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
 
     private void enableLogging(String logName, int numberOfSamplesToLog) {
         try {
-            logger = new JsonLogger(logName + ".json");
+            logger.setFilename(logName + ".json");
             logger.open();
+            this.numberOfSamplesToLog = numberOfSamplesToLog;
+            sampleId = 0;
+            for (SensorWrapper sensor : loggedSensors) {
+                sensor.registerListener(sensorLog);
+            }
+            findViewById(R.id.log_sample_counter_label).setVisibility(View.VISIBLE);
+            sampleCounter.setVisibility(View.VISIBLE);
+            sampleCounter.setText(Integer.toString(sampleId));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.numberOfSamplesToLog = numberOfSamplesToLog;
-        sampleId = 0;
-        findViewById(R.id.log_sample_counter_label).setVisibility(View.VISIBLE);
-        sampleCounter.setVisibility(View.VISIBLE);
-        sampleCounter.setText(Integer.toString(sampleId));
     }
 
     private void disableLogging() {
-        if (logger != null && logger.isOpen()) {
+        if (logger.isOpen()) {
             try {
                 logger.close();
+                numberOfSamplesToLog = 0;
+                sampleId = 0;
+                for (SensorWrapper sensor : loggedSensors) {
+                    sensor.unregisterListener(sensorLog);
+                }
+                findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
+                sampleCounter.setVisibility(View.GONE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        numberOfSamplesToLog = 0;
-        sampleId = 0;
-        findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
-        sampleCounter.setVisibility(View.GONE);
     }
+
+
 }

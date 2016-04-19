@@ -24,6 +24,7 @@ public class RotationSensorWrapper extends SensorWrapper implements SensorEventL
 
     private boolean lastAccelerometerSet = false;
     private boolean lastMagneticFieldSet = false;
+
     private float[] lastAccelerometer = new float[3];
     private float[] lastMagneticField = new float[3];
 
@@ -125,6 +126,10 @@ public class RotationSensorWrapper extends SensorWrapper implements SensorEventL
         return inclination;
     }
 
+    /**
+     * TODO: Another possibility, rather than relying on the client to check the derived values, would be to wrap everything under this class and only notify the real client when sensor data is available and/or changes.
+     * The same idea could even be used for the regular sensors in order to enrich the data passed onto them, since the default SensorEvent class sometimes doesn't provide all I want/need.
+     */
     /**
      * Called when sensor values have changed.
      * <p>See {@link SensorManager SensorManager}

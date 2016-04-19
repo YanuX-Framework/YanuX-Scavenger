@@ -21,6 +21,10 @@ public class WifiResult {
     private int signalStrength;
     private int frequency;
 
+    public WifiResult() {
+
+    }
+
     public WifiResult(ScanResult scanResult) {
         this(scanResult.SSID, scanResult.BSSID, scanResult.level, scanResult.frequency, scanResult.timestamp);
     }

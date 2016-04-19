@@ -136,7 +136,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
             valuesText += "Rotation Matrix:\n";
             valuesText += printSensorValues(rotationSensorWrapper.getRotationMatrix());
             valuesText += "Orientation: \n";
-            valuesText += printSensorValues(rotationSensorWrapper.getOrientation());
+            valuesText += printSensorValues(rotationSensorWrapper.getOrientation(), true);
             valuesText += "Inclination Matrix:\n";
             valuesText += printSensorValues(rotationSensorWrapper.getInclinationMatrix());
             valuesText += "Inclination: ";
@@ -148,12 +148,11 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
             SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
             float[] orientation = new float[3];
             SensorManager.getOrientation(rotationMatrix, orientation);
-            valuesText += "Raw Data:\n";
             valuesText += printSensorValues(event.values);
             valuesText += "Rotation Matrix:\n";
             valuesText += printSensorValues(rotationMatrix);
             valuesText += "Orientation: \n";
-            valuesText += printSensorValues(orientation);
+            valuesText += printSensorValues(orientation, true);
         } else {
             valuesText += printSensorValues(event.values);
         }
@@ -161,10 +160,20 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private String printSensorValues(float[] values) {
+        return printSensorValues(values, false);
+    }
+
+    private String printSensorValues(float[] values, boolean convertRadToDeg) {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
         String valuesText = "";
         for (int i = 0; i < values.length; i++) {
-            valuesText += "[" + i + "] => " + decimalFormat.format(values[i]) + "\n";
+            double value;
+            if (convertRadToDeg) {
+                value = values[i] * 180.0 / Math.PI;
+            } else {
+                value = values[i];
+            }
+            valuesText += "[" + i + "] => " + decimalFormat.format(value) + "\n";
         }
         return valuesText;
     }

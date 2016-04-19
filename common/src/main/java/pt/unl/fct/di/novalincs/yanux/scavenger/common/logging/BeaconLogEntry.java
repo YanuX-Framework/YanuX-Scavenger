@@ -20,4 +20,48 @@ public class BeaconLogEntry {
     private int rssi;
     private int txPower;
     private int calculatedDistance;
+
+    public BeaconLogEntry() {
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMacAddress() {
+        return macAddress;
+    }
+
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
+    }
+
+    public int getRssi() {
+        return rssi;
+    }
+
+    public void setRssi(int rssi) {
+        this.rssi = rssi;
+    }
+
+    public int getTxPower() {
+        return txPower;
+    }
+
+    public void setTxPower(int txPower) {
+        this.txPower = txPower;
+    }
+
+    public int getCalculatedDistance() {
+        return calculatedDistance;
+    }
+
+    public void setCalculatedDistance(int calculatedDistance) {
+        this.calculatedDistance = calculatedDistance;
+    }
 }

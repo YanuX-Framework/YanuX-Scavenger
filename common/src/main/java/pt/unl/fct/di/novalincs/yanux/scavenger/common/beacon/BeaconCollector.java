@@ -81,6 +81,7 @@ public class BeaconCollector {
                 intent.putExtra(EXTRA_BEACON_REGION, region);
                 context.sendBroadcast(intent);
             }
+
             @Override
             public void didExitRegion(Region region) {
                 Log.d(TAG, "Region Exit");
