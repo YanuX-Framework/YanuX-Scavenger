@@ -9,14 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- JSON Logger with Sensors is now working&#10;    * I'm not sure if I should support other logging formats. JSON is fine, right?&#10;    * Maybe reduce the amount of logged stuff a little bit.&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellInfoCollector.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/multidex_1_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/multidex_instrumentation_1_0_1.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- Checking if I should collect Cell Information... I'm inclined to not doing it!">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
     </list>
     <ignored path="YanuX-Scavenger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -5449,7 +5443,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461092292091</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- Checking if I should collect Cell Information... I'm inclined to not doing it!">
+      <created>1461265401259</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1461265401259</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5503,7 +5503,8 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="- Multidex Supported Enabled" />
     <MESSAGE value="- JSON Logger with Sensors is now working&#10;    * I'm not sure if I should support other logging formats. JSON is fine, right?&#10;    * Maybe reduce the amount of logged stuff a little bit.&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- JSON Logger with Sensors is now working&#10;    * I'm not sure if I should support other logging formats. JSON is fine, right?&#10;    * Maybe reduce the amount of logged stuff a little bit.&#10;" />
+    <MESSAGE value="- Checking if I should collect Cell Information... I'm inclined to not doing it!" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Checking if I should collect Cell Information... I'm inclined to not doing it!" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
