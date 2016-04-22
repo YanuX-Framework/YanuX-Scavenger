@@ -47,7 +47,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 import pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging.LogDialogFragment;
 
-public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListerner {
+public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListener {
     private ListView wifiAccessPoints;
     private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
     private Switch logSwitch;
@@ -109,6 +109,8 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                TextView elapsedTimeText = (TextView) findViewById(R.id.wifi_elapsed_time);
+                elapsedTimeText.setText(wifiCollector.getScanningElapsedTime() + " ms");
                 wifiAccessPointsAdapter.clear();
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
                 wifiAccessPointsAdapter.addAll(wifiResults);
@@ -118,9 +120,9 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                             logger.log(new WifiLogEntry(sampleId, wifiResult, wifiCollector.getConnectionInfo(), sensorLog.getCurrentReadings()));
                         }
                         sensorLog.clear();
-                        sampleId++;
                         sampleCounter.setText(Integer.toString(sampleId));
-                    } else {
+                        sampleId++;
+                    } else if (sampleId >= numberOfSamplesToLog) {
                         logSwitch.setChecked(false);
                     }
                 }
@@ -139,29 +141,14 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         if (sensorCollector.hasRotationVector()) {
             loggedSensors.add(sensorCollector.getRotationVector());
         }
-        if (sensorCollector.hasAccelerometer()) {
-            loggedSensors.add(sensorCollector.getAccelerometer());
-        }
         if (sensorCollector.hasGravity()) {
             loggedSensors.add(sensorCollector.getGravity());
-        }
-        if (sensorCollector.hasLinearAcceleration()) {
-            loggedSensors.add(sensorCollector.getLinearAcceleration());
-        }
-        if (sensorCollector.hasGyroscope()) {
-            loggedSensors.add(sensorCollector.getGyroscope());
-        }
-        if (sensorCollector.hasMagneticField()) {
-            loggedSensors.add(sensorCollector.getMagneticField());
         }
         if (sensorCollector.hasPressure()) {
             loggedSensors.add(sensorCollector.getPressure());
         }
         if (sensorCollector.hasLight()) {
             loggedSensors.add(sensorCollector.getLight());
-        }
-        if (sensorCollector.hasProximity()) {
-            loggedSensors.add(sensorCollector.getProximity());
         }
         logger = new JsonFileLogger();
 
@@ -225,7 +212,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     @Override
     public void onDialogPositiveClick(LogDialogFragment dialog) {
         disableLogging();
-        enableLogging(dialog.getLogName(), dialog.getNumberOfSamples());
+        enableLogging(dialog.getLogName(), dialog.getSamples());
     }
 
     @Override

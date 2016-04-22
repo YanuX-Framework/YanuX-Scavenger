@@ -39,6 +39,7 @@
     <string name="wifi_access_points">Access Points</string>
     <string name="wifi_scan_always_available_enabled">Thank you for allowing Wi-Fi scanning to be always available.</string>
     <string name="wifi_scan_always_available_not_enabled">You haven\'t enabled Wi-Fi scanning to be always enable. The application will have to forcefully enable Wi-Fi.</string>
+    <string name="wifi_elapsed_time">Elapsed Time</string>
 
     <string name="log">Log</string>
     <string name="log_settings">Log Settings</string>

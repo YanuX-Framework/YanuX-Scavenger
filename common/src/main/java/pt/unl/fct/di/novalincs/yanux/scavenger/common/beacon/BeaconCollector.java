@@ -114,6 +114,7 @@ public class BeaconCollector {
                 intent.putParcelableArrayListExtra(EXTRA_BEACONS, beaconWrapperArrayList);
                 intent.putExtra(EXTRA_BEACON_REGION, region);
                 context.sendBroadcast(intent);
+                startRangingTime = SystemClock.elapsedRealtime();
             }
         });
         setRegion(new Region(BEACON_UUID, Identifier.parse(BEACON_UUID), null, null));
@@ -136,14 +137,6 @@ public class BeaconCollector {
 
     public void setRegion(Region region) {
         this.region = region;
-    }
-
-    public long getRangingElapsedTime() {
-        if (startRangingTime < 0) {
-            return -1;
-        } else {
-            return SystemClock.elapsedRealtime() - startRangingTime;
-        }
     }
 
     public void startMonitoring() {
@@ -186,7 +179,6 @@ public class BeaconCollector {
         try {
             beaconManager.startRangingBeaconsInRegion(region);
             context.registerReceiver(broadcastReceiver, intentFilter);
-            startRangingTime = SystemClock.elapsedRealtime();
             ranging = true;
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -210,6 +202,18 @@ public class BeaconCollector {
 
     public boolean isMonitoring() {
         return monitoring;
+    }
+
+    public long getStartRangingTime() {
+        return startRangingTime;
+    }
+
+    public long getRangingElapsedTime() {
+        if (startRangingTime < 0) {
+            return -1;
+        } else {
+            return SystemClock.elapsedRealtime() - startRangingTime;
+        }
     }
 
     public void unbind() {

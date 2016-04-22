@@ -18,6 +18,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.TriggerEventListener;
 
+@Deprecated
 public class RotationSensorWrapper extends SensorWrapper implements SensorEventListener {
     private Sensor accelerometer;
     private Sensor magneticField;

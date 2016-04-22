@@ -28,6 +28,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 
 public class SensorCollector {
     public static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
+    @Deprecated
     public static final int ROTATION_SENSOR_WRAPPER = 301;
     private static final int NUM_SENSORS = 22;
     private final Context context;
@@ -180,15 +181,15 @@ public class SensorCollector {
         if (stepDetector != null) {
             detectedSensors.put(Sensor.TYPE_STEP_DETECTOR, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_step_detector), stepDetector));
         }
-        if (accelerometer != null && magneticField != null) {
-            detectedSensors.put(ROTATION_SENSOR_WRAPPER, new RotationSensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_wrapper), accelerometer, magneticField));
-        }
         //TODO: Remove deprecated sensors
         if (orientation != null) {
             detectedSensors.put(Sensor.TYPE_ORIENTATION, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_orientation), orientation));
         }
         if (temperature != null) {
             detectedSensors.put(Sensor.TYPE_TEMPERATURE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_temperature), temperature));
+        }
+        if (accelerometer != null && magneticField != null) {
+            detectedSensors.put(ROTATION_SENSOR_WRAPPER, new RotationSensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_wrapper), accelerometer, magneticField));
         }
     }
 
@@ -396,6 +397,7 @@ public class SensorCollector {
         return getSensor(Sensor.TYPE_TEMPERATURE);
     }
 
+    @Deprecated
     public SensorWrapper getRotationWrapper() {
         return getSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
     }
@@ -491,6 +493,7 @@ public class SensorCollector {
         return hasSensor(Sensor.TYPE_TEMPERATURE);
     }
 
+    @Deprecated
     public boolean hasRotationWrapper() {
         return hasSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
     }

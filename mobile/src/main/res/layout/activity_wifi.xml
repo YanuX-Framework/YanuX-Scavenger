@@ -42,7 +42,7 @@
         android:id="@+id/log_sample_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/log_sample_counter_label"
+        android:layout_above="@+id/wifi_connection_info_title"
         android:layout_marginLeft="8dp"
         android:layout_toEndOf="@+id/log_sample_counter_label" />
 
@@ -77,6 +77,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/wifi_access_points_title" />
+        android:layout_below="@+id/wifi_elapsed_time_label" />
+
+    <TextView
+        android:id="@+id/wifi_elapsed_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/wifi_access_points_title"
+        android:text="@string/wifi_elapsed_time" />
+
+    <TextView
+        android:id="@+id/wifi_elapsed_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/wifi_access_points"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/wifi_elapsed_time_label" />
 
 </RelativeLayout>

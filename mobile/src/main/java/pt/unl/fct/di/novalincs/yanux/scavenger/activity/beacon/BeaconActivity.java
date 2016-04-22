@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -49,6 +50,8 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
                         beaconListAdapter.clear();
                         ArrayList<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
                         beaconListAdapter.addAll(beaconsArrayList);
+                        TextView rangingElapsedTimeText = (TextView) findViewById(R.id.beacon_ranging_elapsed_time);
+                        rangingElapsedTimeText.setText(beaconCollector.getRangingElapsedTime() + " ms");
                         break;
                     default:
                         break;

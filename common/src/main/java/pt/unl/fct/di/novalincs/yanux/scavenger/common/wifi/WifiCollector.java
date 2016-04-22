@@ -21,6 +21,7 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.SystemClock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,17 @@ public class WifiCollector {
     private final WifiManager wifiManager;
     private PermissionManager permissionManager;
 
+    private boolean scanning;
+    private long startScanningTime;
+
     public WifiCollector(Context context) {
         this.context = context;
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (context instanceof Activity) {
             permissionManager = new PermissionManager((Activity) context);
         }
+        scanning = false;
+        startScanningTime = -1;
     }
 
     public static void enableScanIsAlwaysAvailable(Activity activity) {
@@ -62,10 +68,14 @@ public class WifiCollector {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         context.registerReceiver(broadcastReceiver, intentFilter);
+        scanning = true;
+        startScanningTime = SystemClock.elapsedRealtime();
     }
 
     public void cancelScan(BroadcastReceiver broadcastReceiver) {
         context.unregisterReceiver(broadcastReceiver);
+        scanning = false;
+        startScanningTime = -1;
     }
 
     public boolean isScanAlwaysAvailable() {
@@ -79,5 +89,21 @@ public class WifiCollector {
             wifiResults.add(new WifiResult(scanResult));
         }
         return wifiResults;
+    }
+
+    public boolean isScanning() {
+        return scanning;
+    }
+
+    public long getStartScanningTime() {
+        return startScanningTime;
+    }
+
+    public long getScanningElapsedTime() {
+        if (startScanningTime < 0) {
+            return -1;
+        } else {
+            return SystemClock.elapsedRealtime() - startScanningTime;
+        }
     }
 }

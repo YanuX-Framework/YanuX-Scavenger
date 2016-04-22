@@ -18,7 +18,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="start">Start</string>
-    <string name="stop">stop</string>
+    <string name="stop">Stop</string>
+    <string name="required">Required</string>
 
     <string name="permission_rationale_generic">Please allow the application to access this permission. It is needed in order to provide you the full experience.</string>
     <string name="permission_rationale_location">Please allow the application to access your location. It is needed in order to allow cross-device interaction.</string>
