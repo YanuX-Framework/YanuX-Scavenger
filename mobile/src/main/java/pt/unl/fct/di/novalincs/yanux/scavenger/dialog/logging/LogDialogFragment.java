@@ -151,6 +151,7 @@ public class LogDialogFragment extends DialogFragment {
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface LogDialogListener {
         void onDialogPositiveClick(LogDialogFragment dialog);
+
         void onDialogNegativeClick(LogDialogFragment dialog);
     }
 

@@ -17,39 +17,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacon.BeaconCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
 
     private BeaconCollector beaconCollector;
-    private ListView beaconList;
-    private ArrayAdapter<Beacon> beaconListAdapter;
+    private RecyclerView beaconList;
+    private RecyclerViewSimpleListAdapter<Beacon> beaconListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon);
-        beaconList = (ListView) findViewById(R.id.beacon_list);
-        beaconListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        setContentView(R.layout.content_beacon);
+        beaconList = (RecyclerView) findViewById(R.id.beacon_list);
+        beaconList.setLayoutManager(new LinearLayoutManager(this));
+        beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<Beacon>());
         beaconList.setAdapter(beaconListAdapter);
         beaconCollector = new BeaconCollector(this, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 switch (intent.getAction()) {
                     case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
-                        beaconListAdapter.clear();
-                        ArrayList<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
-                        beaconListAdapter.addAll(beaconsArrayList);
+                        List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
+                        beaconListAdapter.setDataSet(beaconsArrayList);
+                        beaconListAdapter.notifyDataSetChanged();
                         TextView rangingElapsedTimeText = (TextView) findViewById(R.id.beacon_ranging_elapsed_time);
                         rangingElapsedTimeText.setText(beaconCollector.getRangingElapsedTime() + " ms");
                         break;

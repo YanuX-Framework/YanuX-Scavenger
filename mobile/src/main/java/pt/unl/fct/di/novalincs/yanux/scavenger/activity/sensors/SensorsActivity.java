@@ -42,7 +42,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensors);
+        setContentView(R.layout.content_sensors);
         sensorCollector = new SensorCollector(this);
         triggerEventListener = new CyclicTriggerEventListener(sensorCollector.getSensorManager()) {
             @Override

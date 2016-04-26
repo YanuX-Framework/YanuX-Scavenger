@@ -20,10 +20,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +46,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 import pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging.LogDialogFragment;
+import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListener {
-    private ListView wifiAccessPoints;
-    private ArrayAdapter<WifiResult> wifiAccessPointsAdapter;
+    private RecyclerView wifiAccessPoints;
+    private RecyclerViewSimpleListAdapter<WifiResult> wifiAdapter;
     private Switch logSwitch;
     private TextView sampleCounter;
 
@@ -68,13 +69,15 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi);
+        setContentView(R.layout.content_wifi);
 
         //Wi-Fi Access Points List View
-        wifiAccessPoints = (ListView) findViewById(R.id.wifi_access_points);
+        wifiAccessPoints = (RecyclerView) findViewById(R.id.wifi_access_points);
+        // use a linear layout manager
+        wifiAccessPoints.setLayoutManager(new LinearLayoutManager(this));
         //Wi-Fi Access Points List View Adapter
-        wifiAccessPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        wifiAccessPoints.setAdapter(wifiAccessPointsAdapter);
+        wifiAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<WifiResult>());
+        wifiAccessPoints.setAdapter(wifiAdapter);
         //Log switch
         logSwitch = (Switch) findViewById(R.id.log_switch);
         logSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -111,9 +114,9 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             public void onReceive(Context context, Intent intent) {
                 TextView elapsedTimeText = (TextView) findViewById(R.id.wifi_elapsed_time);
                 elapsedTimeText.setText(wifiCollector.getScanningElapsedTime() + " ms");
-                wifiAccessPointsAdapter.clear();
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
-                wifiAccessPointsAdapter.addAll(wifiResults);
+                wifiAdapter.setDataSet(wifiResults);
+                wifiAdapter.notifyDataSetChanged();
                 if (logger != null && logger.isOpen()) {
                     if (sampleId < numberOfSamplesToLog) {
                         for (WifiResult wifiResult : wifiResults) {
@@ -254,6 +257,4 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             }
         }
     }
-
-
 }

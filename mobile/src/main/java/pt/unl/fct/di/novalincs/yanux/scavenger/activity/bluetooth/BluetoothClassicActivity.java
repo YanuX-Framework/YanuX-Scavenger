@@ -19,29 +19,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
+import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BluetoothClassicActivity extends AppCompatActivity {
 
     private BluetoothCollector bluetoothCollector;
-    private ListView bluetoothDevices;
-    private ArrayAdapter<BluetoothDetectedDevice> bluetoothDevicesAdapter;
+    private RecyclerView bluetoothDevices;
+    private RecyclerViewSimpleListAdapter<BluetoothDetectedDevice> bluetoothDevicesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_classic);
+        setContentView(R.layout.content_bluetooth_classic);
 
-        bluetoothDevices = (ListView) findViewById(R.id.bluetooth_devices);
-        bluetoothDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        bluetoothDevices = (RecyclerView) findViewById(R.id.bluetooth_devices);
+        bluetoothDevices.setLayoutManager(new LinearLayoutManager(this));
+        bluetoothDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BluetoothDetectedDevice>());
         bluetoothDevices.setAdapter(bluetoothDevicesAdapter);
         bluetoothCollector = new BluetoothCollector(this, new BroadcastReceiver() {
             @Override
@@ -54,10 +58,12 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                         // Get the measured RSSI from the intent
                         short rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE);
                         // Add the details into a wrapper object and display it in a list view through the adapter
-                        bluetoothDevicesAdapter.add(new BluetoothDetectedDevice(device, rssi));
+                        bluetoothDevicesAdapter.getDataSet().add(new BluetoothDetectedDevice(device, rssi));
+                        bluetoothDevicesAdapter.notifyDataSetChanged();
                         break;
                     case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
-                        bluetoothDevicesAdapter.clear();
+                        bluetoothDevicesAdapter.getDataSet().clear();
+                        bluetoothDevicesAdapter.notifyDataSetChanged();
                         TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_discovery_elapsed_time);
                         bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getScanElapsedTime() + " ms");
                         bluetoothCollector.scan();

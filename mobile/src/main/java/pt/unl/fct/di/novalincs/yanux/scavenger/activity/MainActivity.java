@@ -14,13 +14,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
@@ -37,14 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-
         TextView textOuput = (TextView) findViewById(R.id.text_output);
         textOuput.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et hendrerit nulla. Sed commodo imperdiet semper. Fusce vitae lacus eget nisi fringilla pharetra efficitur nec turpis. Cras pharetra eleifend erat, quis vestibulum nulla facilisis sed. Sed nec ex urna. Proin feugiat efficitur dui, sit amet viverra neque rutrum id. Pellentesque luctus molestie lectus vel aliquam. Nullam malesuada dolor vel lorem auctor, ac pulvinar tellus eleifend. Nulla fermentum dignissim consectetur. Quisque dignissim nisi volutpat, imperdiet metus ut, condimentum velit. Suspendisse potenti. Aliquam porttitor lobortis dui, vel egestas mauris vestibulum vitae.\n" +
                 "\n" +

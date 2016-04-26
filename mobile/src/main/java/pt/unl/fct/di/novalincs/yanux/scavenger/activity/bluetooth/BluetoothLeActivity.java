@@ -17,29 +17,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BluetoothLeActivity extends AppCompatActivity {
 
     private BluetoothLeCollector bluetoothLeCollector;
-    private ListView bluetoothLeDevices;
-    private ArrayAdapter<BluetoothDetectedDevice> bluetoothLeDevicesAdapter;
+    private RecyclerView bluetoothLeDevices;
+    private RecyclerViewSimpleListAdapter<BluetoothDetectedDevice> bluetoothLeDevicesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth_le);
+        setContentView(R.layout.content_bluetooth_le);
 
-        bluetoothLeDevices = (ListView) findViewById(R.id.bluetooth_le_devices);
-        bluetoothLeDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        bluetoothLeDevices = (RecyclerView) findViewById(R.id.bluetooth_le_devices);
+        bluetoothLeDevices.setLayoutManager(new LinearLayoutManager(this));
+        bluetoothLeDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BluetoothDetectedDevice>());
         bluetoothLeDevices.setAdapter(bluetoothLeDevicesAdapter);
 
         bluetoothLeCollector = new BluetoothLeCollector(this, new BroadcastReceiver() {
@@ -48,11 +52,13 @@ public class BluetoothLeActivity extends AppCompatActivity {
                 switch (intent.getAction()) {
                     case BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND:
                         BluetoothDetectedDevice bluetoothDetectedDevice = intent.getParcelableExtra(BluetoothLeCollector.EXTRA_BLUETOOTH_LE_DEVICE);
-                        bluetoothLeDevicesAdapter.remove(bluetoothDetectedDevice);
-                        bluetoothLeDevicesAdapter.add(bluetoothDetectedDevice);
+                        bluetoothLeDevicesAdapter.getDataSet().remove(bluetoothDetectedDevice);
+                        bluetoothLeDevicesAdapter.getDataSet().add(bluetoothDetectedDevice);
+                        bluetoothLeDevicesAdapter.notifyDataSetChanged();
                         break;
                     case BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED:
-                        bluetoothLeDevicesAdapter.clear();
+                        bluetoothLeDevicesAdapter.getDataSet().clear();
+                        bluetoothLeDevicesAdapter.notifyDataSetChanged();
                         TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_le_discovery_elapsed_time);
                         bluetoothDiscoveryElapsedTime.setText(intent.getLongExtra(BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, 0) + " ms");
                         bluetoothLeCollector.scan();

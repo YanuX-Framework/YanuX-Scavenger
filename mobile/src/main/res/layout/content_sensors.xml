@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016 Pedro Albuquerque Santos.
+  ~
+  ~ This file is part of YanuX Scavenger.
+  ~
+  ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~
+  ~ YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+  -->
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.sensors.SensorsActivity"
+    tools:showIn="@layout/activity_sensors">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/select_sensor_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/select_sensor"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/select_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/select_sensor_label" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/select_sensor"
+            android:layout_marginTop="8dp"
+            android:columnCount="2">
+
+            <TextView
+                android:id="@+id/sensor_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_vendor_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_vendor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_vendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_version_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_version"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_resolution_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_resolution"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_resolution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_max_range_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_max_range"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_max_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_min_delay_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_min_delay"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_min_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_power_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_power"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_accuracy_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_accuracy"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_accuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/sensor_timestamp_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timestamp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:id="@+id/sensor_values_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensor_values"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sensor_values"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:typeface="monospace" />
+        </GridLayout>
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

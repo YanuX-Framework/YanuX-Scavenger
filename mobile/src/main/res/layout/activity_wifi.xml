@@ -10,89 +10,28 @@
   ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
   -->
 
-<!-- TODO: Make the scrollable to make it usable on smaller screens -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
     tools:context=".activity.wifi.WifiActivity">
 
-    <Switch
-        android:id="@+id/log_switch"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/log" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/log_sample_counter_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/log_switch"
-        android:text="@string/log_sample_counter"
-        android:visibility="visible" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/log_sample_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/wifi_connection_info_title"
-        android:layout_marginLeft="8dp"
-        android:layout_toEndOf="@+id/log_sample_counter_label" />
+    </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/wifi_connection_info_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/log_sample_counter_label"
-        android:text="@string/wifi_connection_info"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <include layout="@layout/content_wifi" />
 
-    <TextView
-        android:id="@+id/wifi_connection_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/wifi_connection_info_title"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/wifi_access_points_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/wifi_connection_info"
-        android:text="@string/wifi_access_points"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ListView
-        android:id="@+id/wifi_access_points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/wifi_elapsed_time_label" />
-
-    <TextView
-        android:id="@+id/wifi_elapsed_time_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/wifi_access_points_title"
-        android:text="@string/wifi_elapsed_time" />
-
-    <TextView
-        android:id="@+id/wifi_elapsed_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/wifi_access_points"
-        android:layout_marginLeft="8dp"
-        android:layout_toEndOf="@+id/wifi_elapsed_time_label" />
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
