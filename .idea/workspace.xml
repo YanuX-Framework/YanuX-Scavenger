@@ -26,30 +26,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- Lots of UI fixes but still far from perfect&#10;E.g., All ListViews have been replaced by the more modern RecyclerView">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/ILoggable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconLogEntry.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconLoggable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorLog.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReadings.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorLogEntry.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorLoggable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiLogEntry.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiLoggable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- Refactored the whole logging process to make it more stream lined. I still need to test a few edge cases and see how will I deal with polymorphism...">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
     </list>
     <ignored path="YanuX-Scavenger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -5819,7 +5797,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461694196640</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="- Refactored the whole logging process to make it more stream lined. I still need to test a few edge cases and see how will I deal with polymorphism...">
+      <created>1461785682059</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1461785682059</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5877,7 +5861,8 @@
     <MESSAGE value="- Checking if I should collect Cell Information... I'm inclined to not doing it!" />
     <MESSAGE value="- Added a few more things to the &quot;pt.unl.fct.di.novalincs.yanux.scavenger.common.cell&quot; package&#10;    * Actually use and finish the implementation of this package" />
     <MESSAGE value="- Lots of UI fixes but still far from perfect&#10;E.g., All ListViews have been replaced by the more modern RecyclerView" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Lots of UI fixes but still far from perfect&#10;E.g., All ListViews have been replaced by the more modern RecyclerView" />
+    <MESSAGE value="- Refactored the whole logging process to make it more stream lined. I still need to test a few edge cases and see how will I deal with polymorphism..." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Refactored the whole logging process to make it more stream lined. I still need to test a few edge cases and see how will I deal with polymorphism..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
