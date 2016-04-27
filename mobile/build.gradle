@@ -13,16 +13,27 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        if (rootProject.file('release.properties').exists()) {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file('release.properties')))
+            release {
+                storeFile rootProject.file(props.storeFile)
+                storePassword props.storePassword
+                keyAlias props.keyAlias
+                keyPassword props.keyPassword
+            }
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "24.0.0 rc3"
-
     defaultConfig {
         applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.release
     }
-
     productFlavors {
         // Define separate dev and prod product flavors.
         dev {
@@ -38,10 +49,9 @@ android {
             multiDexEnabled true
         }
     }
-
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

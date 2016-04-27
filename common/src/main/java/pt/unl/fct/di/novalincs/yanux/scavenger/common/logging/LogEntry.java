@@ -1,13 +1,9 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 public class LogEntry {
     private static final int DEFAULT_ID = -1;
     private int id;
     private long timestamp;
-    //TODO: Determine this at runtime
-    @JsonDeserialize(as = WifiLoggable.class)
     private ILoggable loggable;
 
     public LogEntry() {
