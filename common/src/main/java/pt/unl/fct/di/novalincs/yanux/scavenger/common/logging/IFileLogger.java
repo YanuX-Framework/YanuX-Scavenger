@@ -31,5 +31,7 @@ public interface IFileLogger {
 
     boolean isOpen();
 
-    void log(Object object);
+    void log(int id, ILoggable ILoggable);
+
+    void log(ILoggable ILoggable);
 }

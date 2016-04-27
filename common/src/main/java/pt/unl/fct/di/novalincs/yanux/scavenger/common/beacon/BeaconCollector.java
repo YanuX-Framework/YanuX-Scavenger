@@ -32,6 +32,8 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+
 public class BeaconCollector {
     public static final String ACTION_BEACON_MONITOR_ENTER_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_ENTER_REGION";
     public static final String ACTION_BEACON_MONITOR_EXIT_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_EXIT_REGION";
@@ -40,7 +42,7 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION";
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
-    private static final String TAG = "BEACON_COLLECTOR";
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     //iBeacon Beacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private static final String BEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
@@ -75,7 +77,7 @@ public class BeaconCollector {
         setMonitorNotifier(new MonitorNotifier() {
             @Override
             public void didEnterRegion(Region region) {
-                Log.d(TAG, "Region Entered");
+                Log.d(LOG_TAG, "Region Entered");
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_ENTER_REGION);
                 intent.putExtra(EXTRA_BEACON_REGION, region);
@@ -84,7 +86,7 @@ public class BeaconCollector {
 
             @Override
             public void didExitRegion(Region region) {
-                Log.d(TAG, "Region Exit");
+                Log.d(LOG_TAG, "Region Exit");
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_EXIT_REGION);
                 intent.putExtra(EXTRA_BEACON_REGION, region);
@@ -93,7 +95,7 @@ public class BeaconCollector {
 
             @Override
             public void didDetermineStateForRegion(int state, Region region) {
-                Log.d(TAG, "Region State Changed: " + state);
+                Log.d(LOG_TAG, "Region State Changed: " + state);
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE);
                 intent.putExtra(EXTRA_BEACON_REGION, region);
@@ -161,7 +163,7 @@ public class BeaconCollector {
             context.registerReceiver(broadcastReceiver, intentFilter);
             monitoring = true;
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
         }
     }
 
@@ -171,7 +173,7 @@ public class BeaconCollector {
             context.unregisterReceiver(broadcastReceiver);
             beaconManager.stopMonitoringBeaconsInRegion(region);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
         }
     }
 
@@ -181,7 +183,7 @@ public class BeaconCollector {
             context.registerReceiver(broadcastReceiver, intentFilter);
             ranging = true;
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
         }
     }
 
@@ -192,7 +194,7 @@ public class BeaconCollector {
             context.unregisterReceiver(broadcastReceiver);
             beaconManager.stopRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
         }
     }
 

@@ -17,13 +17,18 @@ import android.net.NetworkInfo;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+
 public class WifiConnectionInfo {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_WIFI_CONNECTIONINFO";
+
     private String ssid;
     private boolean ssidHidden;
     private String bssid;
@@ -41,6 +46,9 @@ public class WifiConnectionInfo {
     private InetAddress dhcpDns1;
     private InetAddress dhcpDns2;
     private int dhcpLeaseDuration;
+
+    public WifiConnectionInfo() {
+    }
 
     public WifiConnectionInfo(WifiManager wifiManager) {
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -64,7 +72,7 @@ public class WifiConnectionInfo {
             this.dhcpDns2 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns2).array());
             this.dhcpLeaseDuration = dhcpInfo.leaseDuration;
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.toString());
         }
     }
 

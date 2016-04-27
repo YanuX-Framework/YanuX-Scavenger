@@ -20,14 +20,20 @@ import java.io.IOException;
 public abstract class AbstractFileLogger implements IFileLogger {
     public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
     public static final String DEFAULT_FILENAME = "log.txt";
-    protected boolean open;
     protected String directory;
     protected String filename;
+    protected boolean open;
+    protected File file;
+
 
     public AbstractFileLogger(String directory, String filename) {
-        open = false;
         this.directory = directory;
         this.filename = filename;
+        open = false;
+    }
+
+    public AbstractFileLogger(String filename) {
+        this(DEFAULT_DIRECTORY, filename);
     }
 
     public AbstractFileLogger() {
@@ -43,14 +49,17 @@ public abstract class AbstractFileLogger implements IFileLogger {
     public void open() throws IOException {
         if (isOpen()) {
             throw new IOException("The logger is already open.");
-        } else {
-            File file = new File(getExternalStorageDirectory());
-            if (!file.exists() && !file.mkdirs()) {
-                throw new IOException("Couldn't create the log directory");
-            } else {
-                open = true;
-            }
         }
+        File directory = new File(getExternalStorageDirectory());
+        if (!directory.exists() && !directory.mkdirs()) {
+            throw new IOException("Couldn't create the log directory");
+        }
+        if (isExternalStorageWritable()) {
+            file = new File(getExternalStoragePath());
+        } else {
+            throw new IOException("External Storage is not writable.");
+        }
+        open = true;
     }
 
     @Override

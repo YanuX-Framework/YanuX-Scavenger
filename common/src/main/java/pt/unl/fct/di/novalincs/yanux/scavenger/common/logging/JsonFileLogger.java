@@ -12,89 +12,63 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import android.util.Log;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class JsonFileLogger extends AbstractFileLogger {
-    public static final String DEFAULT_NAME = "log";
     public static final String DEFAULT_FILENAME = "log.json";
-    private final ObjectMapper mapper;
-    private String name;
-    private JsonNode rootNode;
-    private ArrayNode entries;
-    private Writer writer;
+    private static final String LOG_TAG = Constants.LOG_TAG + "_JSON_LOGGER";
 
-    public JsonFileLogger(String name, String directory, String filename) {
-        super(directory, filename);
-        this.name = name;
-        mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+    private LogFile logFile;
+    private LogSession currentLogSession;
+
+    public JsonFileLogger() {
+        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
+    }
+
+    public JsonFileLogger(String filename) {
+        this(DEFAULT_DIRECTORY, filename);
     }
 
     public JsonFileLogger(String directory, String filename) {
-        this(DEFAULT_NAME, directory, filename);
-    }
-
-    public JsonFileLogger(String name) {
-        this(name, DEFAULT_DIRECTORY, DEFAULT_FILENAME);
-    }
-
-    public JsonFileLogger() {
-        this(DEFAULT_NAME, DEFAULT_DIRECTORY, DEFAULT_FILENAME);
+        super(directory, filename);
+        mapper = new ObjectMapper();
     }
 
     @Override
     public void open() throws IOException {
         super.open();
-        if (isExternalStorageWritable()) {
-            File file = new File(getExternalStoragePath());
-            rootNode = mapper.createObjectNode();
-            try {
-                Reader reader = new FileReader(file);
-                rootNode = mapper.readTree(reader);
-                reader.close();
-            } catch (IOException e) {
-            }
-            writer = new FileWriter(file);
-            ObjectNode root = (ObjectNode) rootNode;
-            root.put("filename", filename);
-            if (!root.has("creationTime")) {
-                root.put("creationTime", System.currentTimeMillis());
-            }
-            ArrayNode logs;
-            if (root.has("logs")) {
-                logs = (ArrayNode) root.get("logs");
-            } else {
-                logs = mapper.createArrayNode();
-            }
-            root.set("logs", logs);
-            ObjectNode log = mapper.createObjectNode();
-            logs.add(log);
-            log.put("name", name);
-            log.put("timestamp", System.currentTimeMillis());
-            entries = mapper.createArrayNode();
-            log.set("entries", entries);
-        } else {
-            throw new IOException("External Storage is not writable.");
+        try {
+            logFile = mapper.readValue(file, LogFile.class);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.toString());
+            logFile = new LogFile(filename);
         }
+        //Add new session
+        currentLogSession = new LogSession();
+        logFile.getSessions().add(currentLogSession);
     }
 
     @Override
-    public void log(Object object) {
-        entries.add(mapper.valueToTree(object));
+    public void log(int id, ILoggable loggable) {
+        currentLogSession.getEntries().add(new LogEntry(id, System.currentTimeMillis(), loggable));
+    }
+
+    @Override
+    public void log(ILoggable loggable) {
+        log(loggable);
     }
 
     @Override
     public void close() throws IOException {
         super.close();
-        mapper.writeValue(writer, rootNode);
+        currentLogSession = null;
+        mapper.writeValue(file, logFile);
     }
 }

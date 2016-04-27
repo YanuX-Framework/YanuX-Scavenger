@@ -35,6 +35,7 @@ public class SensorCollector {
     private final SensorManager sensorManager;
     private final Map<Integer, SensorWrapper> detectedSensors;
     private final Collection<SensorWrapper> sensors;
+
     public SensorCollector(Context context) {
         this.context = context;
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);

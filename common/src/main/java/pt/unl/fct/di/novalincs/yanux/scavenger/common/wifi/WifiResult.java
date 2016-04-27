@@ -14,6 +14,8 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi;
 
 import android.net.wifi.ScanResult;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class WifiResult {
     public long timestamp;
     private String ssid;
@@ -22,7 +24,6 @@ public class WifiResult {
     private int frequency;
 
     public WifiResult() {
-
     }
 
     public WifiResult(ScanResult scanResult) {
@@ -69,6 +70,7 @@ public class WifiResult {
         this.frequency = frequency;
     }
 
+    @JsonIgnore
     public int getChannel() {
         if (frequency == 2484) {
             return 14;

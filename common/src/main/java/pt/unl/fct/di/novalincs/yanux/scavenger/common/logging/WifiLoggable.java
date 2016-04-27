@@ -12,37 +12,49 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 
-public class WifiLogEntry extends WifiResult {
-    private int sampleId;
+public class WifiLoggable implements ILoggable {
+    private List<WifiResult> wifiResults;
+    private List<SensorLoggable> sensorLogEntries;
     private WifiConnectionInfo connectionInfo;
-    private List<SensorLogEntry> sensorLogEntry;
 
-    public WifiLogEntry() {
-        super();
+    public WifiLoggable() {
+        this(new ArrayList<WifiResult>(), new ArrayList<SensorLoggable>(), null);
     }
 
-    public WifiLogEntry(int sampleId, WifiResult wifiResult, WifiConnectionInfo connectionInfo) {
-        super(wifiResult.getSsid(), wifiResult.getMacAddress(), wifiResult.getSignalStrength(), wifiResult.getFrequency(), wifiResult.getSignalStrength());
-        this.sampleId = sampleId;
+    public WifiLoggable(List<WifiResult> wifiResults) {
+        this(wifiResults, new ArrayList<SensorLoggable>(), null);
+    }
+
+    public WifiLoggable(WifiConnectionInfo connectionInfo) {
+        this(new ArrayList<WifiResult>(), new ArrayList<SensorLoggable>(), connectionInfo);
+    }
+
+    public WifiLoggable(List<WifiResult> wifiResults, List<SensorLoggable> sensorSample, WifiConnectionInfo connectionInfo) {
+        this.wifiResults = wifiResults;
+        this.sensorLogEntries = sensorSample;
         this.connectionInfo = connectionInfo;
     }
 
-    public WifiLogEntry(int sampleId, WifiResult wifiResult, WifiConnectionInfo connectionInfo, List<SensorLogEntry> sensorLogEntry) {
-        this(sampleId, wifiResult, connectionInfo);
-        this.sensorLogEntry = sensorLogEntry;
+    public List<WifiResult> getWifiResults() {
+        return wifiResults;
     }
 
-    public int getSampleId() {
-        return sampleId;
+    public void setWifiResults(List<WifiResult> wifiResults) {
+        this.wifiResults = wifiResults;
     }
 
-    public void setSampleId(int sampleId) {
-        this.sampleId = sampleId;
+    public List<SensorLoggable> getSensorLogEntries() {
+        return sensorLogEntries;
+    }
+
+    public void setSensorLogEntries(List<SensorLoggable> sensorLogEntries) {
+        this.sensorLogEntries = sensorLogEntries;
     }
 
     public WifiConnectionInfo getConnectionInfo() {
@@ -51,13 +63,5 @@ public class WifiLogEntry extends WifiResult {
 
     public void setConnectionInfo(WifiConnectionInfo connectionInfo) {
         this.connectionInfo = connectionInfo;
-    }
-
-    public List<SensorLogEntry> getSensorLogEntry() {
-        return sensorLogEntry;
-    }
-
-    public void setSensorLogEntry(List<SensorLogEntry> sensorLogEntry) {
-        this.sensorLogEntry = sensorLogEntry;
     }
 }
