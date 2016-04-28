@@ -32,6 +32,8 @@ android {
         versionCode 1
         versionName "1.0"
         signingConfig signingConfigs.release
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     productFlavors {
         // Define separate dev and prod product flavors.
@@ -44,8 +46,6 @@ android {
         prod {
             // The actual minSdkVersion for the application.
             minSdkVersion 18
-            // Enabling multidex support.
-            multiDexEnabled true
         }
     }
     buildTypes {

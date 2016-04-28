@@ -21,7 +21,6 @@
  -dontwarn com.fasterxml.jackson.databind.**
  -keep class org.codehaus.** { *; }
  -keepclassmembers public final enum org.codehaus.jackson.annotate.JsonAutoDetect$Visibility {
- public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *; }
- -keep public class * implements pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.ILoggable {
-   *;
+   public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *;
  }
+ -keep public class pt.unl.fct.di.novalincs.yanux.scavenger.common.** { public *;}
