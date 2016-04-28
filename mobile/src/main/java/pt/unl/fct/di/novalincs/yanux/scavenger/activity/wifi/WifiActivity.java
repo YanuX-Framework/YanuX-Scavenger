@@ -2,7 +2,6 @@
  * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
- *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -24,6 +23,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -230,6 +230,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             findViewById(R.id.log_sample_counter_label).setVisibility(View.VISIBLE);
             sampleCounterText.setVisibility(View.VISIBLE);
             sampleCounterText.setText(Integer.toString(sampleCounter));
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } catch (IOException e) {
             Log.e(LOG_TAG, e.toString());
         }
@@ -246,6 +247,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 }
                 findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
                 sampleCounterText.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             } catch (IOException e) {
                 Log.e(LOG_TAG, e.toString());
             }

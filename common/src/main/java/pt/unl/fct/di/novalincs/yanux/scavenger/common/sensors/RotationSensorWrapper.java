@@ -2,7 +2,6 @@
  * Copyright (c) 2016 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
- *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -136,7 +135,7 @@ public class RotationSensorWrapper extends SensorWrapper implements SensorEventL
      * <p>See {@link SensorManager SensorManager}
      * for details on possible sensor types.
      * <p>See also {@link SensorEvent SensorEvent}.
-     * <p/>
+     * <p>
      * <p><b>NOTE:</b> The application doesn't own the
      * {@link SensorEvent event}
      * object passed as a parameter and therefore cannot hold on to it.
@@ -163,7 +162,7 @@ public class RotationSensorWrapper extends SensorWrapper implements SensorEventL
 
     /**
      * Called when the accuracy of the registered sensor has changed.
-     * <p/>
+     * <p>
      * <p>See the SENSOR_STATUS_* constants in
      * {@link SensorManager SensorManager} for details.
      *
