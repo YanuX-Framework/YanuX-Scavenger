@@ -26,106 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- WifiActivity now has the screen always on when logging&#10;- Copyright Updated">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/YanuX_Scavenger.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/multidex_1_0_1.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ExampleUnitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/build.gradle" afterPath="$PROJECT_DIR$/common/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" afterPath="$PROJECT_DIR$/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/common/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellInfoCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellInfoCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/NetworkCellInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/NetworkCellInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/NetworkInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/NetworkInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/SimInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/SimInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconLoggable.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconLoggable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/ILoggable.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/ILoggable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorLoggable.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorLoggable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReadings.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReadings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiLoggable.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiLoggable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/RotationSensorWrapper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/RotationSensorWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/common/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/build.gradle" afterPath="$PROJECT_DIR$/mobile/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" afterPath="$PROJECT_DIR$/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_classic.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_classic.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_sensors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_sensors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_wifi.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_wifi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_beacon.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_beacon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_classic.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_classic.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_le.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_le.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_sensors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_sensors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_wifi.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_wifi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/fragment_log_dialog.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/fragment_log_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/recycler_view_simple_text.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/recycler_view_simple_text.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values-w820dp/dimens.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values-w820dp/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/app_tracker.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/app_tracker.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_data_sync.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_data_sync.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_general.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_general.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_headers.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_headers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_notification.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_notification.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/build.gradle" afterPath="$PROJECT_DIR$/wear/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/wear/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" afterPath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/layout/activity_main_wear.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/layout/activity_main_wear.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/layout/box_inset_activity_main_wear.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/layout/box_inset_activity_main_wear.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
     </list>
     <ignored path="YanuX-Scavenger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -152,7 +54,18 @@
     <favorites_list name="YanuX-Scavenger" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -5388,7 +5301,6 @@
         <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/AnalyticsTrackers.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellDataInfo.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/gradle.properties" />
         <option value="$PROJECT_DIR$/wear/proguard-rules.pro" />
         <option value="$PROJECT_DIR$/common/proguard-rules.pro" />
         <option value="$PROJECT_DIR$/mobile/proguard-rules.pro" />
@@ -5408,6 +5320,7 @@
         <option value="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/scavenger/ExampleUnitTest.java" />
         <option value="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" />
         <option value="$PROJECT_DIR$/wear/src/main/res/layout/activity_main_wear.xml" />
+        <option value="$PROJECT_DIR$/gradle.properties" />
       </list>
     </option>
   </component>
@@ -5462,34 +5375,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Gradle Scripts" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YanuX-Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wear" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YanuX-Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wear" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -5901,7 +5786,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461801186139</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="- WifiActivity now has the screen always on when logging&#10;- Copyright Updated">
+      <created>1461803705830</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1461803705830</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5910,7 +5801,7 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32768363" sideWeight="0.42802057" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25449872" sideWeight="0.394958" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25449872" sideWeight="0.394958" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32768363" sideWeight="0.57197946" order="7" side_tool="true" content_ui="tabs" />
@@ -5923,7 +5814,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25449872" sideWeight="0.60504204" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25449872" sideWeight="0.60504204" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -6106,28 +5997,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7589286">
-          <caret line="48" column="33" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#740#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -6396,6 +6269,22 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wear/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2857143">
+          <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
