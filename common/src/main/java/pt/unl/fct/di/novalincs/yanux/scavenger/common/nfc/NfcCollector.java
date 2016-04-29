@@ -9,13 +9,14 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.nfc;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import android.content.Context;
 
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.MINIMAL_CLASS,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "@class")
-public interface ILoggable {
+public class NfcCollector {
+    private final Context context;
+
+    public NfcCollector(Context context) {
+        this.context = context;
+    }
 }

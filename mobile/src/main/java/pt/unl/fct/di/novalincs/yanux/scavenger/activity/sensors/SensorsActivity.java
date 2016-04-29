@@ -29,7 +29,6 @@ import java.text.DecimalFormat;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.CyclicTriggerEventListener;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.RotationSensorWrapper;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
@@ -129,18 +128,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
         String valuesText = "";
         float[] values;
-        if (sensorCollector.hasSensor(SensorCollector.ROTATION_SENSOR_WRAPPER)
-                && sensorCollector.getSensor(SensorCollector.ROTATION_SENSOR_WRAPPER) == selectedSensor) {
-            RotationSensorWrapper rotationSensorWrapper = ((RotationSensorWrapper) selectedSensor);
-            valuesText += "Rotation Matrix:\n";
-            valuesText += printSensorValues(rotationSensorWrapper.getRotationMatrix());
-            valuesText += "Orientation: \n";
-            valuesText += printSensorValues(rotationSensorWrapper.getOrientation(), true);
-            valuesText += "Inclination Matrix:\n";
-            valuesText += printSensorValues(rotationSensorWrapper.getInclinationMatrix());
-            valuesText += "Inclination: ";
-            valuesText += new DecimalFormat("#.###").format(rotationSensorWrapper.getInclination());
-        } else if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR
+        if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR
                 || event.sensor.getType() == Sensor.TYPE_GAME_ROTATION_VECTOR
                 || event.sensor.getType() == Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) {
             float[] rotationMatrix = new float[9];

@@ -22,14 +22,13 @@ import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
-//TODO: Actually use and finish implementation
-@Deprecated
-public class CellInfoCollector {
+//TODO: Finish and use this on a simple example activity.
+public class CellCollector {
     private final Context context;
     private final TelephonyManager telephonyManager;
     private PermissionManager permissionManager;
 
-    public CellInfoCollector(Context context) {
+    public CellCollector(Context context) {
         this.context = context;
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (context instanceof Activity) {

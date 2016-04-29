@@ -55,12 +55,12 @@ public class JsonFileLogger extends AbstractFileLogger {
     }
 
     @Override
-    public void log(int id, ILoggable loggable) {
+    public void log(int id, IReading loggable) {
         currentLogSession.getEntries().add(new LogEntry(id, System.currentTimeMillis(), loggable));
     }
 
     @Override
-    public void log(ILoggable loggable) {
+    public void log(IReading loggable) {
         log(loggable);
     }
 

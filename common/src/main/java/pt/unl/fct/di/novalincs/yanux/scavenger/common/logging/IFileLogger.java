@@ -30,7 +30,7 @@ public interface IFileLogger {
 
     boolean isOpen();
 
-    void log(int id, ILoggable ILoggable);
+    void log(int id, IReading IReading);
 
-    void log(ILoggable ILoggable);
+    void log(IReading IReading);
 }

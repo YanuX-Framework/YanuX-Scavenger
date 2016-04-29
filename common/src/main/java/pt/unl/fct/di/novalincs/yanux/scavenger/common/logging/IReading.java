@@ -9,8 +9,13 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.cell;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-@Deprecated
-public class NetworkCellInfo {
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.MINIMAL_CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@class")
+public interface IReading {
 }

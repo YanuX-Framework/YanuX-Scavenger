@@ -27,8 +27,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 
 public class SensorCollector {
     public static final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL;
-    @Deprecated
-    public static final int ROTATION_SENSOR_WRAPPER = 301;
     private static final int NUM_SENSORS = 22;
     private final Context context;
     private final SensorManager sensorManager;
@@ -91,8 +89,6 @@ public class SensorCollector {
                 return "Orientation";
             case Sensor.TYPE_TEMPERATURE:
                 return "Temperature";
-            case SensorCollector.ROTATION_SENSOR_WRAPPER:
-                return "Rotation Sensor Wrapper";
             default:
                 return "Unknown";
         }
@@ -187,9 +183,6 @@ public class SensorCollector {
         }
         if (temperature != null) {
             detectedSensors.put(Sensor.TYPE_TEMPERATURE, new SensorWrapper(sensorManager, context.getString(R.string.sensor_type_temperature), temperature));
-        }
-        if (accelerometer != null && magneticField != null) {
-            detectedSensors.put(ROTATION_SENSOR_WRAPPER, new RotationSensorWrapper(sensorManager, context.getString(R.string.sensor_type_rotation_wrapper), accelerometer, magneticField));
         }
     }
 
@@ -397,11 +390,6 @@ public class SensorCollector {
         return getSensor(Sensor.TYPE_TEMPERATURE);
     }
 
-    @Deprecated
-    public SensorWrapper getRotationWrapper() {
-        return getSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
-    }
-
     //Methods to check whether a sensor type is supported or not
 
     //Generic Checker
@@ -491,10 +479,5 @@ public class SensorCollector {
 
     public boolean hasTemperature() {
         return hasSensor(Sensor.TYPE_TEMPERATURE);
-    }
-
-    @Deprecated
-    public boolean hasRotationWrapper() {
-        return hasSensor(SensorCollector.ROTATION_SENSOR_WRAPPER);
     }
 }

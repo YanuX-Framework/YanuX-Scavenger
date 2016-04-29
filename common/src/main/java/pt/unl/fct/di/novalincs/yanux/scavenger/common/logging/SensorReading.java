@@ -15,7 +15,7 @@ import android.hardware.SensorEvent;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 
-public class SensorLoggable implements ILoggable {
+public class SensorReading implements IReading {
     private int sensorType;
     private String sensorTypeName;
     private String sensorName;
@@ -23,10 +23,10 @@ public class SensorLoggable implements ILoggable {
     private int accuracy;
     private long timestamp;
 
-    public SensorLoggable() {
+    public SensorReading() {
     }
 
-    public SensorLoggable(int sensorType, String sensorName, String sensorTypeName, float[] values, int accuracy, long timestamp) {
+    public SensorReading(int sensorType, String sensorName, String sensorTypeName, float[] values, int accuracy, long timestamp) {
         this.sensorType = sensorType;
         this.sensorTypeName = sensorTypeName;
         this.sensorName = sensorName;
@@ -35,11 +35,11 @@ public class SensorLoggable implements ILoggable {
         this.timestamp = timestamp;
     }
 
-    public SensorLoggable(int sensorType, String sensorName, float[] values, int accuracy, long timestamp) {
+    public SensorReading(int sensorType, String sensorName, float[] values, int accuracy, long timestamp) {
         this(sensorType, sensorName, SensorCollector.getTypeName(sensorType), values, accuracy, timestamp);
     }
 
-    public SensorLoggable(SensorEvent event) {
+    public SensorReading(SensorEvent event) {
         this(event.sensor.getType(), event.sensor.getName(), event.values, event.accuracy, event.timestamp);
     }
 

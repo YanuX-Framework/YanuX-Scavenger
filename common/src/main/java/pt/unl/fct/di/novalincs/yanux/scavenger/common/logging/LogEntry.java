@@ -15,7 +15,7 @@ public class LogEntry {
     private static final int DEFAULT_ID = -1;
     private int id;
     private long timestamp;
-    private ILoggable loggable;
+    private IReading reading;
 
     public LogEntry() {
         this(DEFAULT_ID, System.currentTimeMillis());
@@ -33,14 +33,14 @@ public class LogEntry {
         this(id, timestamp, null);
     }
 
-    public LogEntry(long timestamp, ILoggable loggable) {
-        this(DEFAULT_ID, timestamp, loggable);
+    public LogEntry(long timestamp, IReading reading) {
+        this(DEFAULT_ID, timestamp, reading);
     }
 
-    public LogEntry(int id, long timestamp, ILoggable loggable) {
+    public LogEntry(int id, long timestamp, IReading reading) {
         this.id = id;
         this.timestamp = timestamp;
-        this.loggable = loggable;
+        this.reading = reading;
     }
 
     public int getId() {
@@ -59,11 +59,11 @@ public class LogEntry {
         this.timestamp = timestamp;
     }
 
-    public ILoggable getLoggable() {
-        return loggable;
+    public IReading getReading() {
+        return reading;
     }
 
-    public void setLoggable(ILoggable loggable) {
-        this.loggable = loggable;
+    public void setReading(IReading reading) {
+        this.reading = reading;
     }
 }

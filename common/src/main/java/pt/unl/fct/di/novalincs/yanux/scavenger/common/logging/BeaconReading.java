@@ -12,7 +12,7 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
 //TODO: Unfinished class
-public class BeaconLoggable implements ILoggable {
+public class BeaconReading implements IReading {
     private String name;
     private String macAddress;
     //TODO: Add identifier variables (Maybe I'll make an iBeacon subclass so that this Beacon remains more generic)
@@ -21,7 +21,7 @@ public class BeaconLoggable implements ILoggable {
     private int txPower;
     private int calculatedDistance;
 
-    public BeaconLoggable() {
+    public BeaconReading() {
 
     }
 

@@ -17,26 +17,26 @@ import java.util.List;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiConnectionInfo;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi.WifiResult;
 
-public class WifiLoggable implements ILoggable {
+public class WifiReading implements IReading {
     private List<WifiResult> wifiResults;
-    private List<SensorLoggable> sensorLogEntries;
+    private List<SensorReading> sensorEntries;
     private WifiConnectionInfo connectionInfo;
 
-    public WifiLoggable() {
-        this(new ArrayList<WifiResult>(), new ArrayList<SensorLoggable>(), null);
+    public WifiReading() {
+        this(new ArrayList<WifiResult>(), new ArrayList<SensorReading>(), null);
     }
 
-    public WifiLoggable(List<WifiResult> wifiResults) {
-        this(wifiResults, new ArrayList<SensorLoggable>(), null);
+    public WifiReading(List<WifiResult> wifiResults) {
+        this(wifiResults, new ArrayList<SensorReading>(), null);
     }
 
-    public WifiLoggable(WifiConnectionInfo connectionInfo) {
-        this(new ArrayList<WifiResult>(), new ArrayList<SensorLoggable>(), connectionInfo);
+    public WifiReading(WifiConnectionInfo connectionInfo) {
+        this(new ArrayList<WifiResult>(), new ArrayList<SensorReading>(), connectionInfo);
     }
 
-    public WifiLoggable(List<WifiResult> wifiResults, List<SensorLoggable> sensorSample, WifiConnectionInfo connectionInfo) {
+    public WifiReading(List<WifiResult> wifiResults, List<SensorReading> sensorSample, WifiConnectionInfo connectionInfo) {
         this.wifiResults = wifiResults;
-        this.sensorLogEntries = sensorSample;
+        this.sensorEntries = sensorSample;
         this.connectionInfo = connectionInfo;
     }
 
@@ -48,12 +48,12 @@ public class WifiLoggable implements ILoggable {
         this.wifiResults = wifiResults;
     }
 
-    public List<SensorLoggable> getSensorLogEntries() {
-        return sensorLogEntries;
+    public List<SensorReading> getSensorEntries() {
+        return sensorEntries;
     }
 
-    public void setSensorLogEntries(List<SensorLoggable> sensorLogEntries) {
-        this.sensorLogEntries = sensorLogEntries;
+    public void setSensorEntries(List<SensorReading> sensorEntries) {
+        this.sensorEntries = sensorEntries;
     }
 
     public WifiConnectionInfo getConnectionInfo() {

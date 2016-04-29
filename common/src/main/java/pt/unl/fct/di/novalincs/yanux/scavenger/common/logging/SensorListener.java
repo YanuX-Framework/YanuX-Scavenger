@@ -23,17 +23,17 @@ import java.util.Map;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
-public class SensorReadings implements SensorEventListener {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_SENSOR_READINGS";
-    Map<Sensor, SensorLoggable> sensorReadings;
+public class SensorListener implements SensorEventListener {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_SENSOR_LISTENER";
+    Map<Sensor, SensorReading> sensorReadings;
 
-    public SensorReadings() {
+    public SensorListener() {
         sensorReadings = new HashMap<>();
     }
 
-    public List<SensorLoggable> getCurrentReadings() {
-        List<SensorLoggable> currentReadings = new ArrayList<>(sensorReadings.size());
-        for (SensorLoggable sensorSample : sensorReadings.values()) {
+    public List<SensorReading> getCurrentReadings() {
+        List<SensorReading> currentReadings = new ArrayList<>(sensorReadings.size());
+        for (SensorReading sensorSample : sensorReadings.values()) {
             currentReadings.add(sensorSample);
         }
         return currentReadings;
@@ -42,7 +42,7 @@ public class SensorReadings implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         Log.d(LOG_TAG, "Sensor Changed: " + event.sensor.getName());
-        sensorReadings.put(event.sensor, new SensorLoggable(event));
+        sensorReadings.put(event.sensor, new SensorReading(event));
     }
 
     @Override

@@ -79,63 +79,127 @@ public class WifiConnectionInfo {
         return ssid;
     }
 
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
+
     public boolean isSsidHidden() {
         return ssidHidden;
+    }
+
+    public void setSsidHidden(boolean ssidHidden) {
+        this.ssidHidden = ssidHidden;
     }
 
     public String getBssid() {
         return bssid;
     }
 
+    public void setBssid(String bssid) {
+        this.bssid = bssid;
+    }
+
     public InetAddress getIpAddress() {
         return ipAddress;
+    }
+
+    public void setIpAddress(InetAddress ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     public String getMacAddress() {
         return macAddress;
     }
 
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
+    }
+
     public int getRssi() {
         return rssi;
+    }
+
+    public void setRssi(int rssi) {
+        this.rssi = rssi;
     }
 
     public int getLinkSpeed() {
         return linkSpeed;
     }
 
+    public void setLinkSpeed(int linkSpeed) {
+        this.linkSpeed = linkSpeed;
+    }
+
     public int getNetworkId() {
         return networkId;
+    }
+
+    public void setNetworkId(int networkId) {
+        this.networkId = networkId;
     }
 
     public SupplicantState getSupplicantState() {
         return supplicantState;
     }
 
+    public void setSupplicantState(SupplicantState supplicantState) {
+        this.supplicantState = supplicantState;
+    }
+
     public NetworkInfo.DetailedState getDetailedState() {
         return detailedState;
+    }
+
+    public void setDetailedState(NetworkInfo.DetailedState detailedState) {
+        this.detailedState = detailedState;
     }
 
     public InetAddress getDhcpIpAdress() {
         return dhcpIpAdress;
     }
 
+    public void setDhcpIpAdress(InetAddress dhcpIpAdress) {
+        this.dhcpIpAdress = dhcpIpAdress;
+    }
+
     public InetAddress getDhcpNetmask() {
         return dhcpNetmask;
+    }
+
+    public void setDhcpNetmask(InetAddress dhcpNetmask) {
+        this.dhcpNetmask = dhcpNetmask;
     }
 
     public InetAddress getDhcpGateway() {
         return dhcpGateway;
     }
 
+    public void setDhcpGateway(InetAddress dhcpGateway) {
+        this.dhcpGateway = dhcpGateway;
+    }
+
     public InetAddress getDhcpDns1() {
         return dhcpDns1;
+    }
+
+    public void setDhcpDns1(InetAddress dhcpDns1) {
+        this.dhcpDns1 = dhcpDns1;
     }
 
     public InetAddress getDhcpDns2() {
         return dhcpDns2;
     }
 
+    public void setDhcpDns2(InetAddress dhcpDns2) {
+        this.dhcpDns2 = dhcpDns2;
+    }
+
     public int getDhcpLeaseDuration() {
         return dhcpLeaseDuration;
+    }
+
+    public void setDhcpLeaseDuration(int dhcpLeaseDuration) {
+        this.dhcpLeaseDuration = dhcpLeaseDuration;
     }
 }

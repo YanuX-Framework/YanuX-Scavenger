@@ -36,8 +36,8 @@ import java.util.List;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IFileLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonFileLogger;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.SensorReadings;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiLoggable;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.SensorListener;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiReading;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
@@ -62,7 +62,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     private WifiCollector wifiCollector;
     private BroadcastReceiver broadcastReceiver;
     private SensorCollector sensorCollector;
-    private SensorReadings sensorReadings;
+    private SensorListener sensorListener;
     private List<SensorWrapper> loggedSensors;
     private IFileLogger logger;
 
@@ -122,7 +122,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 wifiAdapter.notifyDataSetChanged();
                 if (logger != null && logger.isOpen()) {
                     if (sampleCounter < totalSamples) {
-                        logger.log(sampleCounter, new WifiLoggable(wifiResults, sensorReadings.getCurrentReadings(), wifiCollector.getConnectionInfo()));
+                        logger.log(sampleCounter, new WifiReading(wifiResults, sensorListener.getCurrentReadings(), wifiCollector.getConnectionInfo()));
                         sampleCounterText.setText(Integer.toString(sampleCounter));
                         sampleCounter++;
                     } else if (sampleCounter >= totalSamples) {
@@ -134,19 +134,19 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             }
         };
         sensorCollector = new SensorCollector(this);
-        sensorReadings = new SensorReadings();
+        sensorListener = new SensorListener();
         loggedSensors = new ArrayList<>();
-        if (sensorCollector.hasOrientation()) {
-            loggedSensors.add(sensorCollector.getOrientation());
-        }
         if (sensorCollector.hasRotationVector()) {
             loggedSensors.add(sensorCollector.getRotationVector());
         }
-        if (sensorCollector.hasPressure()) {
-            loggedSensors.add(sensorCollector.getPressure());
+        if (sensorCollector.hasOrientation()) {
+            loggedSensors.add(sensorCollector.getOrientation());
         }
         if (sensorCollector.hasGravity()) {
             loggedSensors.add(sensorCollector.getGravity());
+        }
+        if (sensorCollector.hasPressure()) {
+            loggedSensors.add(sensorCollector.getPressure());
         }
         logger = new JsonFileLogger();
         disableLogging();
@@ -225,7 +225,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             this.totalSamples = numberOfSamplesToLog;
             sampleCounter = 0;
             for (SensorWrapper sensor : loggedSensors) {
-                sensor.registerListener(sensorReadings);
+                sensor.registerListener(sensorListener);
             }
             findViewById(R.id.log_sample_counter_label).setVisibility(View.VISIBLE);
             sampleCounterText.setVisibility(View.VISIBLE);
@@ -243,7 +243,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 totalSamples = 0;
                 sampleCounter = 0;
                 for (SensorWrapper sensor : loggedSensors) {
-                    sensor.unregisterListener(sensorReadings);
+                    sensor.unregisterListener(sensorListener);
                 }
                 findViewById(R.id.log_sample_counter_label).setVisibility(View.GONE);
                 sampleCounterText.setVisibility(View.GONE);
