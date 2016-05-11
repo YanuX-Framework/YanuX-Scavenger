@@ -22,6 +22,11 @@ android {
                 keyAlias props.keyAlias
                 keyPassword props.keyPassword
             }
+        } else {
+            release {
+                //Just an empty signingConfig to allow building the project when the release.properties file is not present.
+                // (I know that it is a pathetic solution but it works nicely)
+            }
         }
     }
     compileSdkVersion 23
