@@ -39,7 +39,7 @@ public class WifiConnectionInfo {
     private SupplicantState supplicantState;
     private NetworkInfo.DetailedState detailedState;
 
-    private InetAddress dhcpIpAdress;
+    private InetAddress dhcpIpAddress;
     private InetAddress dhcpNetmask;
     private InetAddress dhcpGateway;
     private InetAddress dhcpDns1;
@@ -64,7 +64,7 @@ public class WifiConnectionInfo {
         this.detailedState = WifiInfo.getDetailedStateOf(this.supplicantState);
         try {
             this.ipAddress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(wifiInfo.getIpAddress()).array());
-            this.dhcpIpAdress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.ipAddress).array());
+            this.dhcpIpAddress = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.ipAddress).array());
             this.dhcpNetmask = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.netmask).array());
             this.dhcpGateway = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.gateway).array());
             this.dhcpDns1 = InetAddress.getByAddress(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(dhcpInfo.dns1).array());
@@ -155,12 +155,12 @@ public class WifiConnectionInfo {
         this.detailedState = detailedState;
     }
 
-    public InetAddress getDhcpIpAdress() {
-        return dhcpIpAdress;
+    public InetAddress getDhcpIpAddress() {
+        return dhcpIpAddress;
     }
 
-    public void setDhcpIpAdress(InetAddress dhcpIpAdress) {
-        this.dhcpIpAdress = dhcpIpAdress;
+    public void setDhcpIpAddress(InetAddress dhcpIpAddress) {
+        this.dhcpIpAddress = dhcpIpAddress;
     }
 
     public InetAddress getDhcpNetmask() {
