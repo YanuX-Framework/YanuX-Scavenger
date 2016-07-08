@@ -30,12 +30,12 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc3"
+    buildToolsVersion '24.0.0'
     defaultConfig {
-        applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
+        applicationId 'pt.unl.fct.di.novalincs.yanux.scavenger'
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
         signingConfig signingConfigs.release
         // Enabling multidex support.
         multiDexEnabled true
