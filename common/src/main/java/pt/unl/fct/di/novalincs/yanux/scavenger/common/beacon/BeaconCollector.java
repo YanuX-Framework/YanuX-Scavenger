@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
@@ -79,7 +80,7 @@ public class BeaconCollector {
                 Log.d(LOG_TAG, "Region Entered");
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_ENTER_REGION);
-                intent.putExtra(EXTRA_BEACON_REGION, region);
+                intent.putExtra(EXTRA_BEACON_REGION, (Parcelable) region);
                 context.sendBroadcast(intent);
             }
 
@@ -88,7 +89,7 @@ public class BeaconCollector {
                 Log.d(LOG_TAG, "Region Exit");
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_EXIT_REGION);
-                intent.putExtra(EXTRA_BEACON_REGION, region);
+                intent.putExtra(EXTRA_BEACON_REGION, (Parcelable) region);
                 context.sendBroadcast(intent);
             }
 
@@ -97,7 +98,7 @@ public class BeaconCollector {
                 Log.d(LOG_TAG, "Region State Changed: " + state);
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE);
-                intent.putExtra(EXTRA_BEACON_REGION, region);
+                intent.putExtra(EXTRA_BEACON_REGION, (Parcelable) region);
                 intent.putExtra(EXTRA_BEACON_REGION_STATE, state);
                 context.sendBroadcast(intent);
             }
@@ -113,7 +114,7 @@ public class BeaconCollector {
                 Intent intent = new Intent();
                 intent.setAction(ACTION_BEACON_RANGE_BEACONS);
                 intent.putParcelableArrayListExtra(EXTRA_BEACONS, beaconWrapperArrayList);
-                intent.putExtra(EXTRA_BEACON_REGION, region);
+                intent.putExtra(EXTRA_BEACON_REGION, (Parcelable) region);
                 context.sendBroadcast(intent);
                 startRangingTime = SystemClock.elapsedRealtime();
             }
