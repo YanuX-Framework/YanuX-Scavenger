@@ -29,11 +29,12 @@ android {
             }
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 25
+    buildToolsVersion '25'
     defaultConfig {
         applicationId 'pt.unl.fct.di.novalincs.yanux.scavenger'
-        targetSdkVersion 24
+        minSdkVersion 23
+        targetSdkVersion 23
         versionCode 1
         versionName '1.0'
         signingConfig signingConfigs.release
@@ -41,7 +42,7 @@ android {
         multiDexEnabled true
     }
     productFlavors {
-        // Define separate dev and prod product flavors.
+        /*// Define separate dev and prod product flavors.
         dev {
             // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
             // to pre-dex each module and produce an APK that can be tested on
@@ -51,7 +52,7 @@ android {
         prod {
             // The actual minSdkVersion for the application.
             minSdkVersion 18
-        }
+        }*/
     }
     buildTypes {
         release {
