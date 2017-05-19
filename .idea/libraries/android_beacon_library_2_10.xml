@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="android-beacon-library-2.10">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/b5829d422b9cbcae1e195dd91a1d26c407a3b3cb/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/b5829d422b9cbcae1e195dd91a1d26c407a3b3cb/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
