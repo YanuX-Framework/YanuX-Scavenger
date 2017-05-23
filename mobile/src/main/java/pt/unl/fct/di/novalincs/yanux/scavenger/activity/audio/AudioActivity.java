@@ -43,7 +43,8 @@ public class AudioActivity extends AppCompatActivity {
 
         toneFrequency = toneFrequencySeekBar.getProgress();
         audioGenerator = new AudioGenerator(toneFrequency);
-        audioTrack = audioGenerator.getStream();
+        //audioTrack = audioGenerator.getToneStream();
+        audioTrack = audioGenerator.getTone(1000, true);
         updateTone();
 
         toneSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -71,6 +72,8 @@ public class AudioActivity extends AppCompatActivity {
     private void updateTone() {
         toneFrequencyTextView.setText(getResources().getText(R.string.audio_tone_frequency)+": "+toneFrequency+" Hz");
         audioGenerator.setFrequency(toneFrequency);
+        audioTrack = audioGenerator.getTone(1000, true);
+        //audioTrack = audioGenerator.getToneStream();
         if(toneSwitch.isChecked()) {
             audioTrack.play();
         } else if(audioTrack != null) {

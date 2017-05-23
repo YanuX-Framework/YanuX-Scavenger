@@ -19,102 +19,107 @@ import android.os.Build;
 import android.util.Log;
 
 public class AudioGenerator {
-    public static final int DEFAULT_FREQUENCY = 440;
-    public static final int DEFAULT_SAMPLE_RATE = 44100;
-    public static final int DEFAULT_DURATION = 1;
-    public static final int DEFAULT_DURATION_MS = DEFAULT_DURATION * 1000;
-
+    public static final int SAMPLE_RATE = 44100;
     private static final String TAG = "AUDIO_GENERATOR";
 
     private int frequency;
-
-    private boolean streaming;
-    private AudioTrack currentStream;
+    private boolean playing;
+    private AudioTrack currentAudioTrack;
 
     public AudioGenerator(int frequency) {
         this.frequency = frequency;
-        this.streaming = false;
+        this.playing = false;
     }
 
-    public AudioGenerator() {
-        this(DEFAULT_FREQUENCY);
+    public int getFrequency() {
+        return frequency;
     }
 
-    private short[] generateSinWave(int numSamples){
-        short[] samples = new short[numSamples];
-        for(int i = 0; i < numSamples; i++){
-            samples[i] = (short)(Math.sin(2 * Math.PI * i / ((float) DEFAULT_SAMPLE_RATE / (float) frequency)) * 0x7FFF);
+    public void setFrequency(int frequency) {
+        currentAudioTrack.flush();
+        this.frequency = frequency;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public AudioTrack getTone(int duration, boolean loop) {
+        if(currentAudioTrack != null) {
+            currentAudioTrack.release();
         }
-        return samples;
-    }
-
-    public AudioTrack generateTone(int duration, boolean loop) {
-        short[] wave = generateSinWave(duration / 1000 * DEFAULT_SAMPLE_RATE);
-        AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC,
-                                          DEFAULT_SAMPLE_RATE,
-                                          AudioFormat.CHANNEL_OUT_MONO,
-                                          AudioFormat.ENCODING_PCM_16BIT,
-                                          wave.length * (Short.SIZE / 8),
-                                          AudioTrack.MODE_STATIC);
-        track.write(wave, 0, wave.length);
+        short[] wave = generateSinWave(duration / 1000 * SAMPLE_RATE);
+        currentAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                wave.length * (Short.SIZE / 8),
+                AudioTrack.MODE_STATIC);
+        currentAudioTrack.write(wave, 0, wave.length);
         if(loop) {
-            track.setLoopPoints(0, track.getBufferSizeInFrames(),-1);
+            currentAudioTrack.setLoopPoints(0, currentAudioTrack.getBufferSizeInFrames(),-1);
         }
-        return track;
+        return currentAudioTrack;
     }
 
-    public AudioTrack generateTone() {
-        return this.generateTone(DEFAULT_DURATION_MS, true);
-    }
 
-    public AudioTrack getStream() {
-        final int bufferSize = AudioTrack.getMinBufferSize(DEFAULT_SAMPLE_RATE,
-                                                           AudioFormat.CHANNEL_OUT_MONO,
-                                                           AudioFormat.ENCODING_PCM_16BIT);
+    /**
+     * NOTE: I'll probably remove this method later on in favor of the implementation which uses
+     * AudioTrack's MODE_STATIC seems to be simpler and easier to manage.
+     *
+     * @return An @{@link AudioTrack} object which playsback a tone.
+     */
+    @Deprecated
+    public AudioTrack getToneStream() {
+        if(currentAudioTrack != null) {
+            return currentAudioTrack;
+        }
 
-        currentStream = new AudioTrack(AudioManager.STREAM_MUSIC,
-                                       DEFAULT_SAMPLE_RATE,
-                                       AudioFormat.CHANNEL_OUT_MONO,
-                                       AudioFormat.ENCODING_PCM_16BIT,
-                                       bufferSize,
-                                       AudioTrack.MODE_STREAM);
+        final int bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT);
 
+
+        currentAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
+                AudioTrack.MODE_STREAM);
+
+        playing = true;
         final Runnable generator = new Runnable() {
             public void run() {
-                //Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-                while(streaming){
-                    if(currentStream.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
-                        Log.d(TAG, "Buffer Size in Frames: " + currentStream.getBufferSizeInFrames());
-                        short[] wave = generateSinWave(DEFAULT_SAMPLE_RATE*2);
-                        currentStream.write(wave, 0, wave.length, AudioTrack.WRITE_BLOCKING);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                while(playing){
+                    if(currentAudioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
+                        short[] wave = generateSinWave(SAMPLE_RATE);
+                        int result = currentAudioTrack.write(wave, 0, SAMPLE_RATE);
+                        Log.d(TAG, " Write Result: " + result
+                                 + " Write Length: " + wave.length
+                                 + " Minimum Buffer Size: " + bufferSize
+                                 + " Buffer Size in Frames: " + currentAudioTrack.getBufferSizeInFrames());
                     }
                 }
-                currentStream.release();
+                currentAudioTrack.release();
             }
         };
 
-        streaming = true;
         Thread generatorThread = new Thread(generator);
         generatorThread.start();
 
-        currentStream.addOnRoutingChangedListener(new AudioTrack.OnRoutingChangedListener() {
+        currentAudioTrack.addOnRoutingChangedListener(new AudioTrack.OnRoutingChangedListener() {
             @Override
             public void onRoutingChanged(AudioTrack audioTrack) {
                 switch (audioTrack.getPlayState()) {
                     case AudioTrack.PLAYSTATE_PLAYING:
-                        streaming = true;
+                        playing = true;
                         break;
                     case AudioTrack.PLAYSTATE_PAUSED:
-                        streaming = true;
+                        playing = true;
                         break;
                     case AudioTrack.PLAYSTATE_STOPPED:
                     default:
-                        streaming = false;
+                        playing = false;
                         break;
                 }
             }
@@ -129,19 +134,14 @@ public class AudioGenerator {
 
         }, null);
 
-        return currentStream;
+        return currentAudioTrack;
     }
 
-    public int getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(int frequency) {
-        currentStream.flush();
-        this.frequency = frequency;
-    }
-
-    public boolean isStreaming() {
-        return streaming;
+    private short[] generateSinWave(int numSamples){
+        short[] samples = new short[numSamples];
+        for(int i = 0; i < numSamples; i++){
+            samples[i] = (short)(Math.sin(2 * Math.PI * i / ((float) SAMPLE_RATE / (float) frequency)) * 0x7FFF);
+        }
+        return samples;
     }
 }
