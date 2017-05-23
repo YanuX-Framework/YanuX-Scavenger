@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacon.BeaconActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothClassicActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothLeActivity;
@@ -81,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.action_beacon: {
                 Intent intent = new Intent(this, BeaconActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_audio: {
+                Intent intent = new Intent(this, AudioActivity.class);
                 startActivity(intent);
                 return true;
             }

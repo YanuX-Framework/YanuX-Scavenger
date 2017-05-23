@@ -38,6 +38,11 @@
         android:orderInCategory="100"
         android:title="@string/action_bluetooth_le"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_audio"
+        android:orderInCategory="100"
+        android:title="@string/action_audio"
+        app:showAsAction="never" />
     <!-- TODO: Disabled until I need to set some application settings/preferences
     <item
         android:id="@+id/action_settings"
