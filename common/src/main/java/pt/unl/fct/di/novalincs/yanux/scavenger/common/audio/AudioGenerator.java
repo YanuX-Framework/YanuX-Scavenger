@@ -16,49 +16,46 @@ import android.media.AudioManager;
 import android.media.AudioRouting;
 import android.media.AudioTrack;
 import android.os.Build;
-import android.util.Log;
 
 public class AudioGenerator {
-    public static final int SAMPLE_RATE = 44100;
     private static final String TAG = "AUDIO_GENERATOR";
 
-    private int frequency;
-    private boolean playing;
+    private ISoundWave wave;
     private AudioTrack currentAudioTrack;
+    private boolean playing;
+    private int currentAudioTrackMode;
 
-    public AudioGenerator(int frequency) {
-        this.frequency = frequency;
+    public AudioGenerator(float frequency) {
+        this.wave = new SinWavePCM16Bit(frequency);
         this.playing = false;
+        this.currentAudioTrackMode = -1;
     }
 
-    public int getFrequency() {
-        return frequency;
+    public float getFrequency() {
+        return wave.getFrequency();
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(float frequency) {
         currentAudioTrack.flush();
-        this.frequency = frequency;
-    }
-
-    public boolean isPlaying() {
-        return playing;
+        this.wave.setFrequency(frequency);
+        this.wave.setDuration(1000);
     }
 
     public AudioTrack getTone(int duration, boolean loop) {
-        if(currentAudioTrack != null) {
+        if (currentAudioTrack != null) {
             currentAudioTrack.release();
         }
-        short[] wave = generateSinWave(duration / 1000 * SAMPLE_RATE);
         currentAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
-                SAMPLE_RATE,
+                wave.getSampleRate(),
                 AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT,
-                wave.length * (Short.SIZE / 8),
+                wave.getByteSize(),
                 AudioTrack.MODE_STATIC);
-        currentAudioTrack.write(wave, 0, wave.length);
-        if(loop) {
-            currentAudioTrack.setLoopPoints(0, currentAudioTrack.getBufferSizeInFrames(),-1);
+        currentAudioTrack.write(wave.getData(), 0, wave.getSamples());
+        if (loop) {
+            currentAudioTrack.setLoopPoints(0, currentAudioTrack.getBufferSizeInFrames(), -1);
         }
+        currentAudioTrackMode = AudioTrack.MODE_STATIC;
         return currentAudioTrack;
     }
 
@@ -71,77 +68,68 @@ public class AudioGenerator {
      */
     @Deprecated
     public AudioTrack getToneStream() {
-        if(currentAudioTrack != null) {
+        if (currentAudioTrack != null && currentAudioTrackMode == AudioTrack.MODE_STREAM) {
+            return currentAudioTrack;
+        } else {
+            final int bufferSize = AudioTrack.getMinBufferSize(wave.getSampleRate(),
+                    AudioFormat.CHANNEL_OUT_MONO,
+                    AudioFormat.ENCODING_PCM_16BIT);
+
+
+            currentAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                    wave.getSampleRate(),
+                    AudioFormat.CHANNEL_OUT_MONO,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    bufferSize,
+                    AudioTrack.MODE_STREAM);
+            currentAudioTrack.addOnRoutingChangedListener(new AudioTrack.OnRoutingChangedListener() {
+                @Override
+                public void onRoutingChanged(AudioTrack audioTrack) {
+                    switch (audioTrack.getPlayState()) {
+                        case AudioTrack.PLAYSTATE_PLAYING:
+                            playing = true;
+                            break;
+                        case AudioTrack.PLAYSTATE_PAUSED:
+                            playing = true;
+                            break;
+                        case AudioTrack.PLAYSTATE_STOPPED:
+                        default:
+                            playing = false;
+                            break;
+                    }
+                }
+
+                @Override
+                public void onRoutingChanged(AudioRouting router) {
+                    if (router instanceof AudioTrack) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            onRoutingChanged((AudioTrack) router);
+                        }
+                    }
+                }
+            }, null);
+
+            final Runnable generator = new Runnable() {
+                public void run() {
+                    while (playing) {
+                        if (currentAudioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
+                            int result = currentAudioTrack.write(wave.getData(), 0, wave.getSamples());
+                            /* Log.d(TAG, " Write Result: " + result
+                                     + " Length: " + wave.getSamples()
+                                     + " Minimum Buffer Size (Bytes): " + bufferSize
+                                     + " Buffer Size (Frames): " + currentAudioTrack.getBufferSizeInFrames()); */
+                        }
+                    }
+                    currentAudioTrack.release();
+                }
+            };
+
+            Thread generatorThread = new Thread(generator);
+            currentAudioTrackMode = AudioTrack.MODE_STREAM;
+            playing = true;
+            generatorThread.start();
+
             return currentAudioTrack;
         }
-
-        final int bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT);
-
-
-        currentAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
-                SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                bufferSize,
-                AudioTrack.MODE_STREAM);
-
-        playing = true;
-        final Runnable generator = new Runnable() {
-            public void run() {
-                while(playing){
-                    if(currentAudioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
-                        short[] wave = generateSinWave(SAMPLE_RATE);
-                        int result = currentAudioTrack.write(wave, 0, SAMPLE_RATE);
-                        Log.d(TAG, " Write Result: " + result
-                                 + " Write Length: " + wave.length
-                                 + " Minimum Buffer Size: " + bufferSize
-                                 + " Buffer Size in Frames: " + currentAudioTrack.getBufferSizeInFrames());
-                    }
-                }
-                currentAudioTrack.release();
-            }
-        };
-
-        Thread generatorThread = new Thread(generator);
-        generatorThread.start();
-
-        currentAudioTrack.addOnRoutingChangedListener(new AudioTrack.OnRoutingChangedListener() {
-            @Override
-            public void onRoutingChanged(AudioTrack audioTrack) {
-                switch (audioTrack.getPlayState()) {
-                    case AudioTrack.PLAYSTATE_PLAYING:
-                        playing = true;
-                        break;
-                    case AudioTrack.PLAYSTATE_PAUSED:
-                        playing = true;
-                        break;
-                    case AudioTrack.PLAYSTATE_STOPPED:
-                    default:
-                        playing = false;
-                        break;
-                }
-            }
-            @Override
-            public void onRoutingChanged(AudioRouting router) {
-                if (router instanceof AudioTrack) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        onRoutingChanged((AudioTrack) router);
-                    }
-                }
-            }
-
-        }, null);
-
-        return currentAudioTrack;
-    }
-
-    private short[] generateSinWave(int numSamples){
-        short[] samples = new short[numSamples];
-        for(int i = 0; i < numSamples; i++){
-            samples[i] = (short)(Math.sin(2 * Math.PI * i / ((float) SAMPLE_RATE / (float) frequency)) * 0x7FFF);
-        }
-        return samples;
     }
 }

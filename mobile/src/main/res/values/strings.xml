@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2016 Pedro Albuquerque Santos.
+  ~ Copyright (c) 2017 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
   ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -70,6 +70,7 @@
 
     <string name="audio_tone">Tone</string>
     <string name="audio_tone_frequency">Frequency</string>
+    <string name="audio_tone_frequency_units">Hz</string>
 
 
     <!-- Strings related to Settings -->

@@ -9,4 +9,26 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-include ':mobile', ':wear', ':common'
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.audio;
+
+public interface ISoundWave {
+    int getDuration();
+
+    void setDuration(int duration);
+
+    int getSampleRate();
+
+    void setSampleRate(int sampleRate);
+
+    float getFrequency();
+
+    void setFrequency(float frequency);
+
+    int getSamples();
+
+    void setSamples(int samples);
+
+    short[] getData();
+
+    int getByteSize();
+}

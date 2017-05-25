@@ -27,15 +27,203 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- Minor build improvements/fixes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/build.gradle" afterPath="$PROJECT_DIR$/common/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" afterPath="$PROJECT_DIR$/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/common/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconReading.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconReading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IReading.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IReading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorListener.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReading.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiReading.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiReading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/nfc/NfcCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/nfc/NfcCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/common/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ExampleUnitTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/build.gradle" afterPath="$PROJECT_DIR$/mobile/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" afterPath="$PROJECT_DIR$/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_audio.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_audio.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_beacon.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_classic.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_classic.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_bluetooth_le.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_sensors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_sensors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_wifi.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_wifi.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_beacon.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_beacon.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_classic.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_classic.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_le.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_bluetooth_le.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_sensors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_sensors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/content_wifi.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/content_wifi.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/fragment_log_dialog.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/fragment_log_dialog.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/recycler_view_simple_text.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/recycler_view_simple_text.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values-w820dp/dimens.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values-w820dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/app_tracker.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/app_tracker.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_data_sync.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_data_sync.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_general.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_general.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_headers.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_headers.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_notification.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/pref_notification.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/build.gradle" afterPath="$PROJECT_DIR$/wear/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/wear/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" afterPath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/layout/activity_main_wear.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/layout/activity_main_wear.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/layout/box_inset_activity_main_wear.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/layout/box_inset_activity_main_wear.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/wear/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/.idea/workspace.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/build.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/build.gradle" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/build.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/build.gradle" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ApplicationTest.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/AndroidManifest.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconWrapper.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/CustomDistanceCalculator.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothBase.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothDetectedDevice.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/BluetoothLeCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/bluetooth/IBluetoothCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconReading.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconReading.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IFileLogger.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IReading.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IReading.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogFile.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorListener.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorListener.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReading.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReading.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiReading.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiReading.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/nfc/NfcCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/nfc/NfcCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/permissions/PermissionManager.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/preferences/Preferences.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/CyclicTriggerEventListener.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorWrapper.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/TextValidator.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiCollector.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiResult.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/res/values/strings.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ExampleUnitTest.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/ExampleUnitTest.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/gradle.properties" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/gradle.properties" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/gradle/wrapper/gradle-wrapper.properties" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/build.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/build.gradle" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/androidTest/java/pt/unl/fct/di/novalincs/yanux/scavenger/ApplicationTest.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/AndroidManifest.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/base/AppCompatPreferenceActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/beacon/BeaconActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothClassicActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/bluetooth/BluetoothLeActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/preferences/SettingsActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/wifi/WifiActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/analytics/AnalyticsTrackers.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/view/RecyclerViewSimpleListAdapter.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_info_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_notifications_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/drawable-v21/ic_sync_black_24dp.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_beacon.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_beacon.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_bluetooth_classic.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_bluetooth_classic.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_bluetooth_le.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_bluetooth_le.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_main.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_sensors.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_sensors.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_wifi.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_wifi.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_beacon.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_beacon.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_bluetooth_classic.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_bluetooth_classic.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_bluetooth_le.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_bluetooth_le.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_main.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_main.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_sensors.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_sensors.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_wifi.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/content_wifi.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/fragment_log_dialog.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/fragment_log_dialog.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/recycler_view_simple_text.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/recycler_view_simple_text.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/menu/menu_main.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/menu/menu_main.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values-v21/styles.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values-v21/styles.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values-w820dp/dimens.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values-w820dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/colors.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/dimens.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/styles.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/app_tracker.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/app_tracker.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_data_sync.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_data_sync.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_general.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_general.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_headers.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_headers.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_notification.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/xml/pref_notification.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger/ExampleUnitTest.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/settings.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/settings.gradle" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/AndroidManifest.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/layout/activity_main_wear.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/layout/activity_main_wear.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/layout/box_inset_activity_main_wear.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/layout/box_inset_activity_main_wear.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/values/strings.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" />
     </list>
     <ignored path="YanuX-Scavenger.iws" />
@@ -67,25 +255,14 @@
     <favorites_list name="YanuX-Scavenger" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AudioActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-252">
-              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="Interface" />
         <option value="valueResourceFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -3192,7 +3369,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="7443370986628" />
+        <entry key="$PROJECT_DIR$" value="7478683763377" />
         <entry key="D:\Users\Pedro\Development\YanuX\Scavenger" value="7378866156308" />
       </map>
     </option>
@@ -3500,12 +3677,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogSession.java" />
-        <option value="$PROJECT_DIR$/mobile/proguard-rules.pro" />
-        <option value="$PROJECT_DIR$/common/proguard-rules.pro" />
-        <option value="$PROJECT_DIR$/wear/proguard-rules.pro" />
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/SensorCollector.java" />
-        <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/sensors/SensorsActivity.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellInfoCollector.java" />
         <option value="$PROJECT_DIR$/common/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java" />
@@ -3546,18 +3717,24 @@
         <option value="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/AndroidManifest.xml" />
-        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ToneGenerator.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/Wave.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/IWave.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWave.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="27" />
-    <option name="width" value="1920" />
-    <option name="height" value="1053" />
+    <option name="width" value="1680" />
+    <option name="height" value="1023" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -3585,358 +3762,24 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="logging" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sensors" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="preferences" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bluetooth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="YanuX-Scavenger" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scavenger" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -4593,25 +4436,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <frame x="0" y="27" width="1680" height="1023" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32402235" sideWeight="0.28973106" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1716418" sideWeight="0.29602888" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17114915" sideWeight="0.3219178" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.502445" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3810056" sideWeight="0.8410758" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32485548" sideWeight="0.8410758" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36308068" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283237" sideWeight="0.49511003" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.4978678" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1716418" sideWeight="0.70397115" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17114915" sideWeight="0.67808217" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.49266502" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.48287672" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44393063" sideWeight="0.49511003" order="4" side_tool="false" content_ui="tabs" />
@@ -4627,8 +4472,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36308068" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.49266502" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UpdateCopyrightCheckinHandler">
@@ -4666,39 +4509,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="35" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/WifiReading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/BeaconReading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/IReading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/SensorReading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/LogEntry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -4868,13 +4683,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile/build/generated/source/r/debug/pt/unl/fct/di/novalincs/yanux/scavenger/R.java" />
     <entry file="file://$PROJECT_DIR$/mobile/src/main/res/menu/menu_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java">
@@ -4892,14 +4707,14 @@
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_beacon.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/AndroidManifest.xml">
@@ -4907,34 +4722,12 @@
         <state relative-caret-position="74">
           <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
           <folding>
-            <element signature="e#2252#2285#0" expanded="true" />
-            <element signature="e#4465#4495#0" expanded="true" />
+            <element signature="e#2254#2287#0" expanded="true" />
+            <element signature="e#4473#4503#0" expanded="true" />
           </folding>
         </state>
       </provider>
       <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="36" column="15" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-          <folding>
-            <element signature="e#1303#1323#0" expanded="true" />
-            <element signature="e#2516#2546#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -4950,14 +4743,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="1381" column="0" selection-start-line="1381" selection-start-column="0" selection-end-line="1381" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1206">
-          <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -5026,22 +4811,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java">
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+        <state relative-caret-position="132">
+          <caret line="72" column="44" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3221#3964#0" expanded="true" />
-            <element signature="e#3963#3964#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/ProgramFiles/Android/SDK/sources/android-25/android/widget/TextView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="8108" column="16" selection-start-line="8108" selection-start-column="16" selection-end-line="8108" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="84" column="39" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+        <state relative-caret-position="342">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#5463#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="951">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#3119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="36" column="15" selection-start-line="36" selection-start-column="15" selection-end-line="36" selection-end-column="15" />
           <folding />
         </state>
       </provider>
