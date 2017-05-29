@@ -12,8 +12,6 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
 import android.annotation.TargetApi;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -27,8 +25,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 
 import java.util.List;
-
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BluetoothLeCollector extends BluetoothCollector implements IBluetoothCollector {
     public static final int SCAN_PERIOD = 10000;
@@ -47,8 +43,7 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
 
     private final IntentFilter intentFilter;
     private final Handler handler;
-    private ScanCallback leNewApiScanCallback;
-    private BluetoothAdapter.LeScanCallback leDeprecatedApiScanCallback;
+    private ScanCallback scanCallback;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public BluetoothLeCollector(final Context context, BroadcastReceiver broadcastReceiver) {
@@ -59,16 +54,11 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_ERROR);
         handler = new Handler();
-        if (Constants.API_LEVEL > Build.VERSION_CODES.LOLLIPOP) {
-            initLeNewApiCallback();
-        } else {
-            initLeDeprecatedApiCallback();
-        }
+        initLeNewApiCallback();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initLeNewApiCallback() {
-        leNewApiScanCallback = new ScanCallback() {
+        scanCallback = new ScanCallback() {
             /**
              * Callback when a BLE advertisement has been found.
              *
@@ -120,40 +110,8 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
         };
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    private void initLeDeprecatedApiCallback() {
-        leDeprecatedApiScanCallback = new BluetoothAdapter.LeScanCallback() {
-            @Override
-            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                Intent intent = new Intent();
-                intent.setAction(ACTION_BLUETOOTH_LE_DEVICE_FOUND);
-                intent.putExtra(EXTRA_BLUETOOTH_LE_DEVICE, new BluetoothDetectedDevice(device, rssi));
-                intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RECORD, scanRecord);
-                context.sendBroadcast(intent);
-            }
-        };
-    }
-
     @Override
     public boolean scan() {
-        if (Constants.API_LEVEL > Build.VERSION_CODES.LOLLIPOP) {
-            return newApiScan();
-        } else {
-            return deprecatedApiScan();
-        }
-    }
-
-    @Override
-    public boolean cancelScan() {
-        if (Constants.API_LEVEL > Build.VERSION_CODES.LOLLIPOP) {
-            return newApiCancelScan();
-        } else {
-            return deprecatedApiCancelScan();
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private boolean newApiScan() {
         if (!isScanning()) {
             final BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
             context.registerReceiver(broadcastReceiver, intentFilter);
@@ -161,7 +119,7 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
                 @Override
                 public void run() {
                     scanning = false;
-                    bluetoothLeScanner.stopScan(leNewApiScanCallback);
+                    bluetoothLeScanner.stopScan(scanCallback);
                     Intent intent = new Intent();
                     intent.setAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
                     intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, getScanElapsedTime());
@@ -171,54 +129,19 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
             scanning = true;
             scanStartTime = SystemClock.elapsedRealtime();
             //The new API allows you to parametrize how the scan will be carried through the use of the ScanSettings class. Right here I'm just using the most basic startScan method which just uses the default configuration.
-            bluetoothLeScanner.startScan(leNewApiScanCallback);
+            bluetoothLeScanner.startScan(scanCallback);
             return true;
         } else {
             return false;
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    private boolean deprecatedApiScan() {
-        if (!isScanning()) {
-            context.registerReceiver(broadcastReceiver, intentFilter);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    scanning = false;
-                    bluetoothAdapter.stopLeScan(leDeprecatedApiScanCallback);
-                    Intent intent = new Intent();
-                    intent.setAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
-                    intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, getScanElapsedTime());
-                    context.sendBroadcast(intent);
-                }
-            }, SCAN_PERIOD);
-            scanning = true;
-            scanStartTime = SystemClock.elapsedRealtime();
-            return bluetoothAdapter.startLeScan(leDeprecatedApiScanCallback);
-        } else {
-            return false;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private boolean newApiCancelScan() {
+    @Override
+    public boolean cancelScan() {
         if (isScanning()) {
             final BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
             scanning = false;
-            bluetoothLeScanner.stopScan(leNewApiScanCallback);
-            context.unregisterReceiver(broadcastReceiver);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    private boolean deprecatedApiCancelScan() {
-        if (isScanning()) {
-            scanning = false;
-            bluetoothAdapter.stopLeScan(leDeprecatedApiScanCallback);
+            bluetoothLeScanner.stopScan(scanCallback);
             context.unregisterReceiver(broadcastReceiver);
             return true;
         } else {

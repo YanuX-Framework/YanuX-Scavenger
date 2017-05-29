@@ -57,7 +57,7 @@ public class WifiCollector {
     }
 
     public void scan(BroadcastReceiver broadcastReceiver) {
-        if (permissionManager != null && Constants.API_LEVEL >= Build.VERSION_CODES.M) {
+        if (permissionManager != null) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (!wifiManager.isScanAlwaysAvailable()) {

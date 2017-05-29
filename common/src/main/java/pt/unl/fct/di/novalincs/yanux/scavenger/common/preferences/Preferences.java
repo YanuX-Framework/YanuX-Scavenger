@@ -23,6 +23,7 @@ public class Preferences {
     private static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
     private static final String PREFERENCE_LOG_SAMPLES = "log_samples";
     private static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
+    public static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -40,8 +41,7 @@ public class Preferences {
     }
 
     public void setHasAskedForWifiScanningAlwaysAvailable(boolean flag) {
-        preferencesEditor.putBoolean(PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE, flag);
-        preferencesEditor.apply();
+        preferencesEditor.putBoolean(PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE, flag).apply();
     }
 
     public String getLogName() {
@@ -49,8 +49,7 @@ public class Preferences {
     }
 
     public void setLogName(String logName) {
-        preferencesEditor.putString(PREFERENCE_LOG_NAME, logName);
-        preferencesEditor.apply();
+        preferencesEditor.putString(PREFERENCE_LOG_NAME, logName).apply();
     }
 
     public int getLogSamples() {
@@ -58,8 +57,22 @@ public class Preferences {
     }
 
     public void setLogSamples(int samples) {
-        preferencesEditor.putInt(PREFERENCE_LOG_SAMPLES, samples);
-        preferencesEditor.apply();
+        preferencesEditor.putInt(PREFERENCE_LOG_SAMPLES, samples).apply();
     }
 
+    public boolean shouldShowRequestPermissionRationale(String permission) {
+        return preferences.getBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX+permission, true);
+    }
+
+    public void setShouldShowRequestRationale(String permission, boolean shouldShow) {
+        preferencesEditor.putBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX+permission, shouldShow).apply();
+    }
+
+    public SharedPreferences getPreferences() {
+        return preferences;
+    }
+
+    public SharedPreferences.Editor getPreferencesEditor() {
+        return preferencesEditor;
+    }
 }

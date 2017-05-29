@@ -99,9 +99,8 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
 
         //Permission Manager
         permissionManager = new PermissionManager(this);
-        if (Constants.API_LEVEL >= Build.VERSION_CODES.M) {
-            permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
+        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         //Preferences
         preferences = new Preferences(this);
         //Wi-Fi Collector
@@ -172,11 +171,14 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                     // Permission was granted, yay!
                 } else {
                     // permission denied, boo! Disable the functionality that depends on this permission.
-                    Toast.makeText(getApplicationContext(), R.string.permission_location_allowed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.permission_location_denied, Toast.LENGTH_SHORT).show();
                 }
                 break;
             // other 'case' lines to check for other permissions this app might request
             case PermissionManager.REQUEST_PERMISSION_GENERIC:
+                break;
+            // other 'case' lines to check for other permissions this app might request
+            case PermissionManager.REQUEST_MULTIPLE_PERMISSIONS:
                 break;
             default:
                 break;

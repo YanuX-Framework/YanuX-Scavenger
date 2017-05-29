@@ -20,11 +20,18 @@
     <string name="stop">Stop</string>
     <string name="required">Required</string>
 
+    <string name="multiple_permissions_rationale">Please allow the application to access these permission. They are needed in order to provide you the full experience.</string>
     <string name="permission_rationale_generic">Please allow the application to access this permission. It is needed in order to provide you the full experience.</string>
     <string name="permission_rationale_location">Please allow the application to access your location. It is needed in order to allow cross-device interaction.</string>
 
     <string name="permission_location_allowed">Thank you for allowing access to your location.</string>
-    <string name="permission_location_denied">You haven\'t allowed access to your location. The application will be enabled to provide you the full experience.</string>
+    <string name="permission_location_denied">You haven\'t allowed access to your location. The application will be unable to provide you the full experience.</string>
+
+    <string name="permission_generic_allowed">Thank you for allowing access to the permission.</string>
+    <string name="permission_generic_denied">You haven\'t allowed access to this permission. The application will be unable to provide you the full experience.</string>
+
+    <string name="multiple_permission_allowed">Thank you for allowing access to the permissions.</string>
+    <string name="multiple_permission_denied">You haven\'t allowed access to theses permissions. The application will be unable to provide you the full experience.</string>
 
     <string name="sensor_name">Name</string>
     <string name="sensor_vendor">Vendor</string>
