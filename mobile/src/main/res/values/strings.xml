@@ -71,7 +71,8 @@
     <string name="audio_tone">Tone</string>
     <string name="audio_tone_frequency">Frequency</string>
     <string name="audio_tone_frequency_units">Hz</string>
-
+    <string name="audio_tone_duration">Duration</string>
+    <string name="audio_tone_interval">Interval</string>
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

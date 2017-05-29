@@ -21,13 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="31dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/audio_tone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
@@ -49,44 +47,85 @@
         android:id="@+id/audio_tone_frequency_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/audio_tone_frequency"
         app:layout_constraintBottom_toBottomOf="@+id/audio_tone_frequency_edit_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/audio_tone_frequency_edit_text" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
         android:id="@+id/audio_tone_frequency_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/audio_tone_frequency_text_view"
-        app:layout_constraintRight_toLeftOf="@+id/audio_tone_frequency_units_text_view"
         app:layout_constraintTop_toBottomOf="@+id/audio_tone_switch" />
 
     <TextView
         android:id="@+id/audio_tone_frequency_units_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="-8dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginRight="46dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="-9dp"
         android:text="@string/audio_tone_frequency_units"
         app:layout_constraintBottom_toBottomOf="@+id/audio_tone_frequency_edit_text"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/audio_tone_switch"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_frequency_edit_text" />
 
+    <TextView
+        android:id="@+id/audio_tone_duration_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/audio_tone_duration"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_tone_duration_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/audio_tone_interval_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/audio_tone_interval"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_tone_interval_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/audio_tone_duration_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_duration_text_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency_seek_bar" />
+
+    <EditText
+        android:id="@+id/audio_tone_interval_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_interval_text_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_duration_edit_text" />
 
 </android.support.constraint.ConstraintLayout>

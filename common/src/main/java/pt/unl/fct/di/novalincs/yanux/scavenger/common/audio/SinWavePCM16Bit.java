@@ -17,7 +17,7 @@ public class SinWavePCM16Bit implements ISoundWave {
     public static final float DEFAULT_FREQUENCY = 440;
 
     private int sampleRate;
-    private float frequency;
+    private double frequency;
     private int samples;
     private short[] data;
 
@@ -61,12 +61,12 @@ public class SinWavePCM16Bit implements ISoundWave {
     }
 
     @Override
-    public float getFrequency() {
+    public double getFrequency() {
         return frequency;
     }
 
     @Override
-    public void setFrequency(float frequency) {
+    public void setFrequency(double frequency) {
         this.frequency = frequency;
         updateWave();
     }
@@ -84,12 +84,12 @@ public class SinWavePCM16Bit implements ISoundWave {
 
     @Override
     public int getDuration() {
-        return samples / sampleRate * 1000;
+        return (int) ((double) samples / (double) sampleRate * 1000.0d);
     }
 
     @Override
     public void setDuration(int duration) {
-        this.setSamples(duration / 1000 * sampleRate);
+        this.setSamples((int) ((double) duration / 1000.0d * (double) sampleRate));
     }
 
     @Override

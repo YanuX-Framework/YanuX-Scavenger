@@ -20,9 +20,9 @@ public interface ISoundWave {
 
     void setSampleRate(int sampleRate);
 
-    float getFrequency();
+    double getFrequency();
 
-    void setFrequency(float frequency);
+    void setFrequency(double frequency);
 
     int getSamples();
 
