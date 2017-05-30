@@ -74,7 +74,8 @@
     <string name="audio_tone_duration">Duration</string>
     <string name="audio_tone_interval">Interval</string>
     <string name="audio_tone_play">Play</string>
-    <string name="audio_tone_record">Record</string>
+    <string name="audio_tone_record_start">Start Record</string>
+    <string name="audio_tone_record_stop">Stop Record</string>
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

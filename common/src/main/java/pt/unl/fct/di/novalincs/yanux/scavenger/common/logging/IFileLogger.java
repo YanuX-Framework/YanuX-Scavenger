@@ -11,26 +11,9 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-import java.io.IOException;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.IFileOutput;
 
-public interface IFileLogger {
-    String getDirectory();
-
-    void setDirectory(String directory);
-
-    String getFilename();
-
-    void setFilename(String filename);
-
-    String getPath();
-
-    void open() throws IOException;
-
-    void close() throws IOException;
-
-    boolean isOpen();
-
+public interface IFileLogger extends IFileOutput {
     void log(int id, IReading IReading);
-
     void log(IReading IReading);
 }

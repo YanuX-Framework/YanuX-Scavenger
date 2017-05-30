@@ -11,6 +11,8 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.audio;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+
 public class SinWavePCM16Bit implements ISoundWave {
 
     public static final int DEFAULT_SAMPLE_RATE = 44100;
@@ -99,7 +101,7 @@ public class SinWavePCM16Bit implements ISoundWave {
 
     @Override
     public int getByteSize() {
-        return samples * Short.SIZE / Byte.SIZE;
+        return samples * Constants.SHORT_BYTES;
     }
 
     private short[] updateWave() {

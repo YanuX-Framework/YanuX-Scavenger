@@ -147,7 +147,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         if (sensorCollector.hasPressure()) {
             loggedSensors.add(sensorCollector.getPressure());
         }
-        logger = new JsonFileLogger();
+        logger = new JsonFileLogger(this);
         disableLogging();
         updateConnectionInfo();
         wifiCollector.scan(broadcastReceiver);

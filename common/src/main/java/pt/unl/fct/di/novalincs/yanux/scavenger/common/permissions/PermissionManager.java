@@ -54,7 +54,6 @@ public class PermissionManager {
             rationaleMessage += msg+"\n";
         }
         final List<String> requiredPermissions = new ArrayList<>(permissions.length);
-
         boolean showRationale = false;
         for(final String permission : permissions) {
             if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -66,20 +65,28 @@ public class PermissionManager {
                 requiredPermissions.add(permission);
             }
         }
-        if(showRationale) {
-            showPermissionRationale(rationaleMessage, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
-                }
-            });
-        } else {
-            ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
+        if(!requiredPermissions.isEmpty()) {
+            if(showRationale) {
+                showPermissionRationale(rationaleMessage, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
+                    }
+                });
+            } else {
+                ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
+            }
         }
     }
 
     public void requestPermissions(final String[] permissions, final String[] rationaleMessages) {
         requestPermissions(permissions, rationaleMessages, REQUEST_MULTIPLE_PERMISSIONS);
+    }
+
+    public void requestPermissions(final String[] permissions) {
+        requestPermissions(permissions,
+                           new String[] { activity.getString(R.string.multiple_permissions_rationale) },
+                           REQUEST_MULTIPLE_PERMISSIONS);
     }
 
     public void requestPermission(final String permission) {
@@ -96,6 +103,19 @@ public class PermissionManager {
                 break;
         }
         requestPermissions(new String[]{ permission }, new String[] { rationaleMessage }, requestCode);
+    }
+
+    public boolean hasPermissions(final String[] permissions) {
+        for(String permission : permissions) {
+            if(!hasPermission(permission)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean hasPermission(final String permission) {
+        return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void showPermissionRationale(String message, DialogInterface.OnClickListener okListener) {

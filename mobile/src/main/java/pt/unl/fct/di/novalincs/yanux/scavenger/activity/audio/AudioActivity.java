@@ -28,19 +28,23 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.ToneGenerator;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.WavRecorder;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.PCM16Recorder;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.InputFilterMinMax;
 
 public class AudioActivity extends AppCompatActivity {
+    public static final String[] REQUIRED_PERMISSIONS = new String[] { Manifest.permission.RECORD_AUDIO,
+                                                                       Manifest.permission.WRITE_EXTERNAL_STORAGE };
     private PermissionManager permissionManager;
     private ToneGenerator toneGenerator;
     private int toneInterval;
     private Handler toneIntervalHandler;
     private AudioTrack audioTrack;
-    private WavRecorder wavRecorder;
+    private PCM16Recorder wavRecorder;
 
     private Switch toneSwitch;
     private SeekBar toneFrequencySeekBar;
@@ -143,24 +147,32 @@ public class AudioActivity extends AppCompatActivity {
             }
         });
 
-        permissionManager.requestPermissions(new String[]{ Manifest.permission.RECORD_AUDIO,
-                                             Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                                             new String[]{ getString(R.string.multiple_permissions_rationale) });
-
-        wavRecorder = new WavRecorder();
+        permissionManager.requestPermissions(REQUIRED_PERMISSIONS);
         toneRecordButton = (Button) findViewById(R.id.audio_tone_record_button);
         toneRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!wavRecorder.isRecording()) {
-                    wavRecorder.record();
+                    try {
+                        wavRecorder.record();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        toneRecordButton.setText(R.string.audio_tone_record_stop);
+                    }
                 } else {
-                    wavRecorder.stop();
+                    try {
+                        wavRecorder.stop();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        toneRecordButton.setText(R.string.audio_tone_record_start);
+                    }
                 }
             }
         });
-
         updateTone(toneGenerator.getFrequency(), toneGenerator.getDuration(), toneInterval);
+        updateAudioRecording();
     }
 
     @Override
@@ -176,26 +188,48 @@ public class AudioActivity extends AppCompatActivity {
             audioTrack.stop();
             toneIntervalHandler.removeCallbacksAndMessages(null);
         }
+        if(wavRecorder != null) {
+            try {
+                wavRecorder.stop();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            // other 'case' lines to check for other permissions this app might request
             case PermissionManager.REQUEST_MULTIPLE_PERMISSIONS:
-                // If request is cancelled, the result arrays are empty.
                 if (PermissionManager.werePermissionsGranted(grantResults)) {
                     Toast.makeText(getApplicationContext(), R.string.multiple_permission_allowed, Toast.LENGTH_SHORT).show();
-                    // Permission was granted, yay!
+                    updateAudioRecording();
                 } else {
-                    // permission denied, boo! Disable the functionality that depends on this permission.
                     Toast.makeText(getApplicationContext(), R.string.multiple_permission_denied, Toast.LENGTH_SHORT).show();
+                    updateAudioRecording();
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void updateAudioRecording() {
+        if(permissionManager.hasPermissions(REQUIRED_PERMISSIONS)) {
+            enableAudioRecording();
+        } else {
+            disableAudioRecording();
+        }
+    }
+
+    private void enableAudioRecording() {
+        toneRecordButton.setEnabled(true);
+        wavRecorder = new PCM16Recorder(this);
+    }
+
+    private void disableAudioRecording() {
+        toneRecordButton.setEnabled(false);
     }
 
     private void updateTone(final double toneFrequency, final int duration) {

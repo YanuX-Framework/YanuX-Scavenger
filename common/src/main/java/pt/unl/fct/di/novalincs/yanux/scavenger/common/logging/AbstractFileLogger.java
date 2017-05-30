@@ -11,95 +11,52 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
-import android.os.Environment;
+import android.content.Context;
 
-import java.io.File;
-import java.io.IOException;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.AbstractFileOutput;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
 
-public abstract class AbstractFileLogger implements IFileLogger {
+public abstract class AbstractFileLogger extends AbstractFileOutput implements IFileLogger {
     public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
-    public static final String DEFAULT_FILENAME = "log.txt";
-    protected String directory;
-    protected String filename;
-    protected boolean open;
-    protected File file;
+    public static final String DEFAULT_FILENAME = "file.log";
 
+    public AbstractFileLogger(Context context, String directory, String filename, StorageType storageType) {
+        super(context, directory, filename, storageType);
+    }
+
+    public AbstractFileLogger(Context context, String filename, StorageType storageType) {
+        this(context, DEFAULT_DIRECTORY, filename, storageType);
+    }
+
+    public AbstractFileLogger(Context context, String directory, String filename) {
+        this(context, directory, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public AbstractFileLogger(Context context, String filename) {
+        this(context, DEFAULT_DIRECTORY, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public AbstractFileLogger(Context context) {
+        this(context, DEFAULT_DIRECTORY, DEFAULT_FILENAME, DEFAULT_STORAGE_TYPE);
+    }
+
+    public AbstractFileLogger(String directory, String filename, StorageType storageType) {
+        this(null, directory, filename, storageType);
+    }
 
     public AbstractFileLogger(String directory, String filename) {
-        this.directory = directory;
-        this.filename = filename;
-        open = false;
+        this(null, directory, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public AbstractFileLogger(String filename, StorageType storageType) {
+        this(null, DEFAULT_DIRECTORY, filename, storageType);
     }
 
     public AbstractFileLogger(String filename) {
-        this(DEFAULT_DIRECTORY, filename);
+        this(null, DEFAULT_DIRECTORY, filename, DEFAULT_STORAGE_TYPE);
     }
 
     public AbstractFileLogger() {
-        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
-    }
-
-    protected static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    @Override
-    public void open() throws IOException {
-        if (isOpen()) {
-            throw new IOException("The logger is already open.");
-        }
-        File directory = new File(getExternalStorageDirectory());
-        if (!directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Couldn't create the log directory");
-        }
-        if (isExternalStorageWritable()) {
-            file = new File(getExternalStoragePath());
-        } else {
-            throw new IOException("External Storage is not writable.");
-        }
-        open = true;
-    }
-
-    @Override
-    public void close() throws IOException {
-        if (isOpen()) {
-            open = false;
-        } else {
-            throw new IOException("The logger is already closed.");
-        }
-    }
-
-    @Override
-    public boolean isOpen() {
-        return open;
-    }
-
-    public String getDirectory() {
-        return directory;
-    }
-
-    public void setDirectory(String directory) {
-        this.directory = directory;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public String getPath() {
-        return directory + "/" + filename;
-    }
-
-    public String getExternalStorageDirectory() {
-        return Environment.getExternalStorageDirectory() + "/" + directory;
-    }
-
-    public String getExternalStoragePath() {
-        return getExternalStorageDirectory() + "/" + filename;
+        this(null, DEFAULT_DIRECTORY, DEFAULT_FILENAME, DEFAULT_STORAGE_TYPE);
     }
 }

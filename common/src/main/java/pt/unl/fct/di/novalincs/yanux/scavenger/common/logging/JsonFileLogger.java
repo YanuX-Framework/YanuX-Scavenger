@@ -11,12 +11,14 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class JsonFileLogger extends AbstractFileLogger {
@@ -27,18 +29,47 @@ public class JsonFileLogger extends AbstractFileLogger {
     private LogFile logFile;
     private LogSession currentLogSession;
 
-    public JsonFileLogger() {
-        this(DEFAULT_DIRECTORY, DEFAULT_FILENAME);
+    public JsonFileLogger(Context context, String directory, String filename, StorageType storageType) {
+        super(context, directory, filename, storageType);
+        mapper = new ObjectMapper();
     }
 
-    public JsonFileLogger(String filename) {
-        this(DEFAULT_DIRECTORY, filename);
+    public JsonFileLogger(Context context, String filename, StorageType storageType) {
+        this(context, DEFAULT_DIRECTORY, filename, storageType);
+    }
+
+    public JsonFileLogger(Context context, String directory, String filename) {
+        this(context, directory, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public JsonFileLogger(Context context, String filename) {
+        this(context, DEFAULT_DIRECTORY, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public JsonFileLogger(Context context) {
+        this(context, DEFAULT_DIRECTORY, DEFAULT_FILENAME, DEFAULT_STORAGE_TYPE);
+    }
+
+    public JsonFileLogger(String directory, String filename, StorageType storageType) {
+        this(null, directory, filename, storageType);
     }
 
     public JsonFileLogger(String directory, String filename) {
-        super(directory, filename);
-        mapper = new ObjectMapper();
+        this(null, directory, filename, DEFAULT_STORAGE_TYPE);
     }
+
+    public JsonFileLogger(String filename, StorageType storageType) {
+        this(null, DEFAULT_DIRECTORY, filename, storageType);
+    }
+
+    public JsonFileLogger(String filename) {
+        this(null, DEFAULT_DIRECTORY, filename, DEFAULT_STORAGE_TYPE);
+    }
+
+    public JsonFileLogger() {
+        this(null, DEFAULT_DIRECTORY, DEFAULT_FILENAME, DEFAULT_STORAGE_TYPE);
+    }
+
 
     @Override
     public void open() throws IOException {

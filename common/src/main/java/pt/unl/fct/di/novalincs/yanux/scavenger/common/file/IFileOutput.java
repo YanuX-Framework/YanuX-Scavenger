@@ -9,12 +9,25 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.file;
 
-import android.os.Build;
+import java.io.IOException;
 
-public class Constants {
-    public static final int API_LEVEL = Build.VERSION.SDK_INT;
-    public static final String LOG_TAG = "YXS";
-    public static final int SHORT_BYTES = Short.SIZE / Byte.SIZE;
+public interface IFileOutput {
+    void open() throws IOException;
+    void close() throws IOException;
+    boolean isOpen();
+
+    String getDirectory();
+    void setDirectory(String directory);
+
+    String getFilename();
+    void setFilename(String filename);
+
+    StorageType getStorageType();
+    void setStorageType(StorageType storageType) throws IOException;
+
+    String getPath();
+    String getStorageDirectory();
+    String getStoragePath();
 }
