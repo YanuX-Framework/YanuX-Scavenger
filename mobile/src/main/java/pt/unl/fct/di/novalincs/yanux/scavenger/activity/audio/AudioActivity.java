@@ -32,7 +32,7 @@ import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.ToneGenerator;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.PCM16Recorder;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.WaveMonoPCM16Recorder;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.InputFilterMinMax;
 
@@ -44,7 +44,7 @@ public class AudioActivity extends AppCompatActivity {
     private int toneInterval;
     private Handler toneIntervalHandler;
     private AudioTrack audioTrack;
-    private PCM16Recorder wavRecorder;
+    private WaveMonoPCM16Recorder wavRecorder;
 
     private Switch toneSwitch;
     private SeekBar toneFrequencySeekBar;
@@ -225,7 +225,7 @@ public class AudioActivity extends AppCompatActivity {
 
     private void enableAudioRecording() {
         toneRecordButton.setEnabled(true);
-        wavRecorder = new PCM16Recorder(this);
+        wavRecorder = new WaveMonoPCM16Recorder(this);
     }
 
     private void disableAudioRecording() {

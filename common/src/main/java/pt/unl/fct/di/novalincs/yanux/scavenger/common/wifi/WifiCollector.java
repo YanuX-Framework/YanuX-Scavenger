@@ -19,14 +19,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.SystemClock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class WifiCollector {
     public static final int REQUEST_CODE_SCAN_ALWAYS_AVAILABLE = 100;

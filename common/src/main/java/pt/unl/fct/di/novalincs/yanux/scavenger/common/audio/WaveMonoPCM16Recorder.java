@@ -21,31 +21,35 @@ import android.util.Log;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.AbstractFileOutput;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
-public class PCM16Recorder extends AbstractFileOutput {
+public class WaveMonoPCM16Recorder extends AbstractFileOutput {
     public static final String LOG_TAG = "WAVRECORDER";
     public static final int DEFAULT_SAMPLE_RATE = 44100;
-    public static final String DEFAULT_FILENAME = "audio.pcm";
+    public static final String DEFAULT_FILENAME = "audio.wav";
+    public static final int WAVE_HEADER_SIZE = 44;
+    public static final int WAVE_CHANNELS = 1;
 
     private int sampleRate;
     private boolean recording;
     private FileChannel fileChannel;
 
-    public PCM16Recorder(Context context, int sampleRate, String directory, String filename, StorageType storageType) {
+    public WaveMonoPCM16Recorder(Context context, int sampleRate, String directory, String filename, StorageType storageType) {
         super(context, directory, filename, storageType);
         this.sampleRate = sampleRate;
         this.recording = false;
     }
 
-    public PCM16Recorder(Context context, int sampleRate, String directory, String filename) {
+    public WaveMonoPCM16Recorder(Context context, int sampleRate, String directory, String filename) {
         this(context, sampleRate, directory, filename, DEFAULT_STORAGE_TYPE);
     }
 
-    public PCM16Recorder(Context context) {
+    public WaveMonoPCM16Recorder(Context context) {
         this(context, DEFAULT_SAMPLE_RATE, DEFAULT_DIRECTORY, DEFAULT_FILENAME);
     }
 
@@ -66,7 +70,6 @@ public class PCM16Recorder extends AbstractFileOutput {
                 if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
                     bufferSize = sampleRate * 2;
                 }
-                ByteBuffer audioBuffer = ByteBuffer.allocateDirect(bufferSize);
                 AudioRecord record = new AudioRecord(MediaRecorder.AudioSource.MIC,
                                                     sampleRate,
                                                     AudioFormat.CHANNEL_IN_MONO,
@@ -77,24 +80,38 @@ public class PCM16Recorder extends AbstractFileOutput {
                     return;
                 }
                 record.startRecording();
+                ByteBuffer audioBuffer = ByteBuffer.allocateDirect(bufferSize);
+                audioBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                short[] readBuffer = new short[bufferSize / Constants.SHORT_BYTES];
                 recording = true;
-                Log.v(LOG_TAG, "Start recording");
+                Log.v(LOG_TAG, "Start recording at native endianness: " + ByteOrder.nativeOrder());
                 try {
+                    fileChannel.position(WAVE_HEADER_SIZE);
+                    int totalSize = 0;
                     while (recording) {
                         audioBuffer.clear();
-                        int read = record.read(audioBuffer, bufferSize, AudioRecord.READ_BLOCKING);
+                        int read;
+                        if(ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
+                            read = record.read(audioBuffer, bufferSize, AudioRecord.READ_BLOCKING);
+                        } else {
+                            read = record.read(readBuffer, 0, readBuffer.length, AudioRecord.READ_BLOCKING);
+                            for(short sample : readBuffer) {
+                                audioBuffer.putShort(sample);
+                            }
+                            audioBuffer.flip();
+                        }
                         if(read > 0) {
-                            int written = fileChannel.write(audioBuffer);
-                            Log.v(LOG_TAG, String.format("Recorded %d bytes and written %d bytes", read, written));
+                            totalSize += fileChannel.write(audioBuffer);
                         }
                     }
+                    writeHeader(totalSize);
                     close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } finally {
                     record.stop();
                     record.release();
-                    Log.v(LOG_TAG, String.format("Recording stopped"));
+                    Log.v(LOG_TAG, "Recording stopped");
                 }
             }
         }).start();
@@ -107,8 +124,7 @@ public class PCM16Recorder extends AbstractFileOutput {
     @Override
     public void open() throws IOException {
         super.open();
-        new FileOutputStream(file, false).close();
-        fileChannel = new FileOutputStream(file, true).getChannel();
+        fileChannel = new FileOutputStream(file, false).getChannel();
     }
 
     @Override
@@ -143,5 +159,27 @@ public class PCM16Recorder extends AbstractFileOutput {
 
     public String getStoragePath() {
         return getStorageDirectory() + "/" + filename;
+    }
+
+    private void writeHeader(int rawSize) throws IOException {
+        ByteBuffer headerBuffer = ByteBuffer.allocateDirect(WAVE_HEADER_SIZE);
+        headerBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        // WAVE Header
+        headerBuffer.put("RIFF".getBytes());                                        // Chunk ID
+        headerBuffer.putInt((int) fileChannel.size()-8);                            // Chunk size
+        headerBuffer.put("WAVE".getBytes());                                        // Format
+        headerBuffer.put("fmt ".getBytes());                                         // Sub-chunk 1 id
+        headerBuffer.putInt(16);                                                    // Sub-chunk 1 size
+        headerBuffer.putShort((short) 1);                                           // Audio format (1 = PCM)
+        headerBuffer.putShort((short) WAVE_CHANNELS);                               // Number of channels
+        headerBuffer.putInt(sampleRate);                                            // Sample rate
+        headerBuffer.putInt(sampleRate * Constants.SHORT_BYTES * WAVE_CHANNELS);    // Byte rate
+        headerBuffer.putShort((short) (Constants.SHORT_BYTES * WAVE_CHANNELS));     // Bytes per sample (all channels)
+        headerBuffer.putShort((short) Short.SIZE);                                  // Bits per sample (single channel)
+        headerBuffer.put("data".getBytes());                                        // subchunk 2 id
+        headerBuffer.putInt(rawSize);                                               // subchunk 2 size
+
+        headerBuffer.flip();
+        fileChannel.write(headerBuffer, 0);
     }
 }
