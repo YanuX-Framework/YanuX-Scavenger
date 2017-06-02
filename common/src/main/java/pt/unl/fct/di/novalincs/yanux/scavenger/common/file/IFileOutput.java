@@ -15,19 +15,26 @@ import java.io.IOException;
 
 public interface IFileOutput {
     void open() throws IOException;
+
     void close() throws IOException;
+
     boolean isOpen();
 
     String getDirectory();
+
     void setDirectory(String directory);
 
     String getFilename();
+
     void setFilename(String filename);
 
     StorageType getStorageType();
+
     void setStorageType(StorageType storageType) throws IOException;
 
     String getPath();
+
     String getStorageDirectory();
+
     String getStoragePath();
 }

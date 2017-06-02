@@ -15,5 +15,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.IFileOutput;
 
 public interface IFileLogger extends IFileOutput {
     void log(int id, IReading IReading);
+
     void log(IReading IReading);
 }

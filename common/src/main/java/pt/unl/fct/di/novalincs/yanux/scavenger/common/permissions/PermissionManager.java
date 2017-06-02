@@ -50,23 +50,23 @@ public class PermissionManager {
 
     public void requestPermissions(final String[] permissions, final String[] rationaleMessages, final int requestCode) {
         String rationaleMessage = "";
-        for(String msg : rationaleMessages) {
-            rationaleMessage += msg+"\n";
+        for (String msg : rationaleMessages) {
+            rationaleMessage += msg + "\n";
         }
         final List<String> requiredPermissions = new ArrayList<>(permissions.length);
         boolean showRationale = false;
-        for(final String permission : permissions) {
+        for (final String permission : permissions) {
             if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
-                if(preferences.shouldShowRequestPermissionRationale(permission)
-                || ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                if (preferences.shouldShowRequestPermissionRationale(permission)
+                        || ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
                     preferences.setShouldShowRequestRationale(permission, false);
                     showRationale = true;
                 }
                 requiredPermissions.add(permission);
             }
         }
-        if(!requiredPermissions.isEmpty()) {
-            if(showRationale) {
+        if (!requiredPermissions.isEmpty()) {
+            if (showRationale) {
                 showPermissionRationale(rationaleMessage, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -85,8 +85,8 @@ public class PermissionManager {
 
     public void requestPermissions(final String[] permissions) {
         requestPermissions(permissions,
-                           new String[] { activity.getString(R.string.multiple_permissions_rationale) },
-                           REQUEST_MULTIPLE_PERMISSIONS);
+                new String[]{activity.getString(R.string.multiple_permissions_rationale)},
+                REQUEST_MULTIPLE_PERMISSIONS);
     }
 
     public void requestPermission(final String permission) {
@@ -102,12 +102,12 @@ public class PermissionManager {
                 requestCode = REQUEST_PERMISSION_GENERIC;
                 break;
         }
-        requestPermissions(new String[]{ permission }, new String[] { rationaleMessage }, requestCode);
+        requestPermissions(new String[]{permission}, new String[]{rationaleMessage}, requestCode);
     }
 
     public boolean hasPermissions(final String[] permissions) {
-        for(String permission : permissions) {
-            if(!hasPermission(permission)) {
+        for (String permission : permissions) {
+            if (!hasPermission(permission)) {
                 return false;
             }
         }

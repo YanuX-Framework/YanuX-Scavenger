@@ -60,7 +60,7 @@ public class AudioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_audio);
         permissionManager = new PermissionManager(this);
 
-        toneSwitch = (Switch) findViewById(R.id.audio_tone_switch);
+        toneSwitch = (Switch) findViewById(R.id.audio_tone_cycle_switch);
         toneSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -84,7 +84,7 @@ public class AudioActivity extends AppCompatActivity {
         toneGenerator.setFrequency(toneFrequencySeekBar.getProgress());
 
         toneFrequencyEditText = (EditText) findViewById(R.id.audio_tone_frequency_edit_text);
-        toneFrequencyEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, toneFrequencySeekBar.getMax())});
+        toneFrequencyEditText.setFilters(new InputFilter[]{new InputFilterMinMax(10, toneFrequencySeekBar.getMax())});
         toneFrequencyEditText.setText(Integer.toString(toneFrequencySeekBar.getProgress()));
         toneFrequencyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,7 +102,7 @@ public class AudioActivity extends AppCompatActivity {
         toneDurationEditText = (EditText) findViewById(R.id.audio_tone_duration_edit_text);
         toneGenerator.setDuration(Integer.parseInt(toneDurationEditText.getText().toString()));
         toneDurationEditText.setFilters(new InputFilter[]{
-                new InputFilterMinMax(Integer.toString(4),toneDurationEditText.getText().toString())
+                new InputFilterMinMax(Integer.toString(10),toneDurationEditText.getText().toString())
         });
         toneDurationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -142,8 +142,21 @@ public class AudioActivity extends AppCompatActivity {
         tonePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateTone(toneGenerator.getFrequency(), toneGenerator.getDuration());
-                audioTrack.play();
+                if(audioTrack.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
+                    updateTone(toneGenerator.getFrequency(), toneGenerator.getDuration());
+                    audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
+                        @Override
+                        public void onMarkerReached(AudioTrack track) {
+                            stopTone();
+                        }
+                        @Override
+                        public void onPeriodicNotification(AudioTrack track) { }
+                    });
+                    audioTrack.play();
+                    tonePlayButton.setText(R.string.audio_tone_stop);
+                } else {
+                    stopTone();
+                }
             }
         });
 
@@ -185,8 +198,7 @@ public class AudioActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (audioTrack != null) {
-            audioTrack.stop();
-            toneIntervalHandler.removeCallbacksAndMessages(null);
+            stopTone();
         }
         if(wavRecorder != null) {
             try {
@@ -255,16 +267,27 @@ public class AudioActivity extends AppCompatActivity {
             @Override
             public void onMarkerReached(AudioTrack track) {
                 Log.d("AUDIO_ACTIVITY", "Marker Reached");
-                audioTrack.stop();
-                toneIntervalHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        audioTrack.play();
-                    }
-                }, interval);
+                if(toneSwitch.isChecked()) {
+                    audioTrack.stop();
+                    toneIntervalHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            audioTrack.play();
+                        }
+                    }, interval);
+                } else {
+                    stopTone();
+                }
             }
             @Override
             public void onPeriodicNotification(AudioTrack track) { }
         });
+    }
+
+    private void stopTone() {
+        audioTrack.stop();
+        audioTrack.setPlaybackPositionUpdateListener(null);
+        toneIntervalHandler.removeCallbacksAndMessages(null);
+        tonePlayButton.setText(R.string.audio_tone_play);
     }
 }

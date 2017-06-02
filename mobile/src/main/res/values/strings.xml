@@ -68,14 +68,17 @@
     <string name="beacon_list">Beacons</string>
     <string name="beacon_ranging_elapsed_time">Elapsed time</string>
 
-    <string name="audio_tone">Tone</string>
+    <string name="audio_tone_cycle">Tone Cycle</string>
     <string name="audio_tone_frequency">Frequency</string>
     <string name="audio_tone_frequency_units">Hz</string>
     <string name="audio_tone_duration">Duration</string>
+    <string name="audio_tone_duration_units">ms</string>
     <string name="audio_tone_interval">Interval</string>
+    <string name="audio_tone_interval_units">ms</string>
     <string name="audio_tone_play">Play</string>
-    <string name="audio_tone_record_start">Start Record</string>
-    <string name="audio_tone_record_stop">Stop Record</string>
+    <string name="audio_tone_stop">Stop</string>
+    <string name="audio_tone_record_start">Start Recording</string>
+    <string name="audio_tone_record_stop">Stop Recording</string>
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

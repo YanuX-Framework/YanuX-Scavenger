@@ -65,16 +65,16 @@ public class WaveMonoPCM16Recorder extends AbstractFileOutput {
                 android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
                 // buffer size in bytes
                 int bufferSize = AudioRecord.getMinBufferSize(sampleRate,
-                                                             AudioFormat.CHANNEL_IN_MONO,
-                                                             AudioFormat.ENCODING_PCM_16BIT);
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT);
                 if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
                     bufferSize = sampleRate * 2;
                 }
                 AudioRecord record = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                                                    sampleRate,
-                                                    AudioFormat.CHANNEL_IN_MONO,
-                                                    AudioFormat.ENCODING_PCM_16BIT,
-                                                    bufferSize);
+                        sampleRate,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize);
                 if (record.getState() != AudioRecord.STATE_INITIALIZED) {
                     Log.e(LOG_TAG, "Audio Record can't initialize!");
                     return;
@@ -91,16 +91,16 @@ public class WaveMonoPCM16Recorder extends AbstractFileOutput {
                     while (recording) {
                         audioBuffer.clear();
                         int read;
-                        if(ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
+                        if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
                             read = record.read(audioBuffer, bufferSize, AudioRecord.READ_BLOCKING);
                         } else {
                             read = record.read(readBuffer, 0, readBuffer.length, AudioRecord.READ_BLOCKING);
-                            for(short sample : readBuffer) {
+                            for (short sample : readBuffer) {
                                 audioBuffer.putShort(sample);
                             }
                             audioBuffer.flip();
                         }
-                        if(read > 0) {
+                        if (read > 0) {
                             totalSize += fileChannel.write(audioBuffer);
                         }
                     }
@@ -166,7 +166,7 @@ public class WaveMonoPCM16Recorder extends AbstractFileOutput {
         headerBuffer.order(ByteOrder.LITTLE_ENDIAN);
         // WAVE Header
         headerBuffer.put("RIFF".getBytes());                                        // Chunk ID
-        headerBuffer.putInt((int) fileChannel.size()-8);                            // Chunk size
+        headerBuffer.putInt((int) fileChannel.size() - 8);                            // Chunk size
         headerBuffer.put("WAVE".getBytes());                                        // Format
         headerBuffer.put("fmt ".getBytes());                                         // Sub-chunk 1 id
         headerBuffer.putInt(16);                                                    // Sub-chunk 1 size

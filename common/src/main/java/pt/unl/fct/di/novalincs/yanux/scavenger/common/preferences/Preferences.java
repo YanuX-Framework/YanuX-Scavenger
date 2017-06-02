@@ -17,14 +17,13 @@ import android.preference.PreferenceManager;
 
 public class Preferences {
     public static final String INVALID = null;
+    public static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
     private static final String PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE = "asked_wifi_scanning_always_available";
     private static final boolean PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT = false;
     private static final String PREFERENCE_LOG_NAME = "log_name";
     private static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
     private static final String PREFERENCE_LOG_SAMPLES = "log_samples";
     private static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
-    public static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
-
     private final Context context;
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
@@ -61,11 +60,11 @@ public class Preferences {
     }
 
     public boolean shouldShowRequestPermissionRationale(String permission) {
-        return preferences.getBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX+permission, true);
+        return preferences.getBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX + permission, true);
     }
 
     public void setShouldShowRequestRationale(String permission, boolean shouldShow) {
-        preferencesEditor.putBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX+permission, shouldShow).apply();
+        preferencesEditor.putBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX + permission, shouldShow).apply();
     }
 
     public SharedPreferences getPreferences() {

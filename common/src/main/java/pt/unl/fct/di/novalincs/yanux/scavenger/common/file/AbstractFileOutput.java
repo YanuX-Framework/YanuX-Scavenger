@@ -35,13 +35,13 @@ public abstract class AbstractFileOutput implements IFileOutput {
         this.filename = filename;
         this.storageType = storageType;
 
-        if(context == null || storageType == null) {
+        if (context == null || storageType == null) {
             this.storageType = StorageType.EXTERNAL;
         }
-        if(directory == null) {
+        if (directory == null) {
             this.directory = DEFAULT_DIRECTORY;
         }
-        if(filename == null) {
+        if (filename == null) {
             this.filename = DEFAULT_FILENAME;
         }
 
@@ -84,13 +84,13 @@ public abstract class AbstractFileOutput implements IFileOutput {
         this(null, DEFAULT_DIRECTORY, DEFAULT_FILENAME, DEFAULT_STORAGE_TYPE);
     }
 
-    public String getDirectory() {
-        return directory;
-    }
-
     protected static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    public String getDirectory() {
+        return directory;
     }
 
     @Override
@@ -114,8 +114,17 @@ public abstract class AbstractFileOutput implements IFileOutput {
     }
 
     @Override
+    public void setStorageType(StorageType storageType) throws IOException {
+        if (isOpen()) {
+            throw new IOException("The file is currently open. Please close it before changing the storage type.");
+        } else {
+            this.storageType = storageType;
+        }
+    }
+
+    @Override
     public String getPath() {
-        if(directory != null && !directory.isEmpty()) {
+        if (directory != null && !directory.isEmpty()) {
             return directory + "/" + filename;
         } else {
             return filename;
@@ -124,19 +133,19 @@ public abstract class AbstractFileOutput implements IFileOutput {
 
     @Override
     public String getStorageDirectory() {
-        if(directory != null && !directory.isEmpty()) {
-            switch(storageType) {
+        if (directory != null && !directory.isEmpty()) {
+            switch (storageType) {
                 case EXTERNAL:
                     return Environment.getExternalStorageDirectory() + "/" + directory;
                 case INTERNAL:
                     return context.getFilesDir() + "/" + directory;
                 case CACHE:
-                    return context.getFilesDir()+ "/" + directory;
+                    return context.getFilesDir() + "/" + directory;
                 default:
                     return "";
             }
         } else {
-            switch(storageType) {
+            switch (storageType) {
                 case EXTERNAL:
                     return Environment.getExternalStorageDirectory().getPath();
                 case INTERNAL:
@@ -155,15 +164,6 @@ public abstract class AbstractFileOutput implements IFileOutput {
     }
 
     @Override
-    public void setStorageType(StorageType storageType) throws IOException {
-        if(isOpen()) {
-            throw new IOException("The file is currently open. Please close it before changing the storage type.");
-        } else {
-            this.storageType = storageType;
-        }
-    }
-
-    @Override
     public void open() throws IOException {
         if (isOpen()) {
             throw new IOException("The file is already open.");
@@ -172,7 +172,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
         if (!directory.exists() && !directory.mkdirs()) {
             throw new IOException("Couldn't create the directory");
         }
-        if(storageType == StorageType.EXTERNAL) {
+        if (storageType == StorageType.EXTERNAL) {
             if (isExternalStorageWritable()) {
                 file = new File(getStoragePath());
             } else {
