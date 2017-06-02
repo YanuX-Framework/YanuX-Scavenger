@@ -79,6 +79,9 @@
     <string name="audio_tone_stop">Stop</string>
     <string name="audio_tone_record_start">Start Recording</string>
     <string name="audio_tone_record_stop">Stop Recording</string>
+    <string name="audio_tone_record_filename">Recording Filename</string>
+    <string name="audio_tone_record_filename_default">audio.wav</string>
+
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

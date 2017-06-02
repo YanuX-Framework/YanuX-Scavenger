@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class AbstractFileOutput implements IFileOutput {
-    public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
+    public static final String DEFAULT_DIRECTORY = "YanuX";
     public static final String DEFAULT_FILENAME = "file.out";
     public static final StorageType DEFAULT_STORAGE_TYPE = StorageType.EXTERNAL;
 

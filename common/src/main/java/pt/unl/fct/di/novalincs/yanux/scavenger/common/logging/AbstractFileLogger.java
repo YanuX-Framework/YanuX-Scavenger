@@ -17,7 +17,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.AbstractFileOutput;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
 
 public abstract class AbstractFileLogger extends AbstractFileOutput implements IFileLogger {
-    public static final String DEFAULT_DIRECTORY = "YanuX-Scavenger";
     public static final String DEFAULT_FILENAME = "file.log";
 
     public AbstractFileLogger(Context context, String directory, String filename, StorageType storageType) {

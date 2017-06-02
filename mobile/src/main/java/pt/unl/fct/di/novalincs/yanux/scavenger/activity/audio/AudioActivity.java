@@ -37,6 +37,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionMana
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.InputFilterMinMax;
 
 public class AudioActivity extends AppCompatActivity {
+    private static final String LOG_TAG = Class.class.getSimpleName();
     public static final String[] REQUIRED_PERMISSIONS = new String[] { Manifest.permission.RECORD_AUDIO,
                                                                        Manifest.permission.WRITE_EXTERNAL_STORAGE };
     private PermissionManager permissionManager;
@@ -51,6 +52,7 @@ public class AudioActivity extends AppCompatActivity {
     private EditText toneFrequencyEditText;
     private EditText toneDurationEditText;
     private EditText toneIntervalEditText;
+    private EditText toneRecordFilenameEditText;
     private Button tonePlayButton;
     private Button toneRecordButton;
 
@@ -138,6 +140,8 @@ public class AudioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
+        toneRecordFilenameEditText = (EditText) findViewById(R.id.audio_recording_filename_edit_text);
+
         tonePlayButton = (Button) findViewById(R.id.audio_tone_play_button);
         tonePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +171,7 @@ public class AudioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!wavRecorder.isRecording()) {
                     try {
+                        wavRecorder.setFilename(toneRecordFilenameEditText.getText().toString());
                         wavRecorder.record();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -266,7 +271,7 @@ public class AudioActivity extends AppCompatActivity {
         audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
             @Override
             public void onMarkerReached(AudioTrack track) {
-                Log.d("AUDIO_ACTIVITY", "Marker Reached");
+                Log.v(LOG_TAG, "Marker Reached");
                 if(toneSwitch.isChecked()) {
                     audioTrack.stop();
                     toneIntervalHandler.postDelayed(new Runnable() {
