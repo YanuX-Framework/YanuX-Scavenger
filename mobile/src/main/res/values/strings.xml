@@ -69,7 +69,8 @@
     <string name="beacon_ranging_elapsed_time">Elapsed time</string>
 
     <string name="audio_tone_cycle">Tone Cycle</string>
-    <string name="audio_tone_frequency">Frequency</string>
+    <string name="audio_tone_frequency0">Frequency 0</string>
+    <string name="audio_tone_frequency1">Frequency 1</string>
     <string name="audio_tone_frequency_units">Hz</string>
     <string name="audio_tone_duration">Duration</string>
     <string name="audio_tone_duration_units">ms</string>

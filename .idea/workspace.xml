@@ -31,20 +31,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e45083f-c49b-4ba8-a3ae-f4b8534402fa" name="Default" comment="- Minor build improvements/fixes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AbstractWavePCM16Bit.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpToneGenerator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpWavePCM16Bit.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AbstractWavePCM16Bit.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpToneGenerator.java" />
+      <change type="NEW" beforePath="" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpWavePCM16Bit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/file/AbstractFileOutput.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/file/AbstractFileOutput.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" afterPath="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_audio.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_audio.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/build.gradle" afterPath="$PROJECT_DIR$/wear/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/.idea/workspace.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/file/AbstractFileOutput.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/file/AbstractFileOutput.java" />
-      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" />
       <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle" />
+      <change type="MODIFICATION" beforePath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" afterPath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" />
     </list>
     <ignored path="YanuX-Scavenger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,28 +86,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activity_audio.xml" pinned="false" current-in-tab="false">
-        <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="181" column="59" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="59" />
+            <state relative-caret-position="102">
+              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
               <folding>
-                <element signature="e#7752#7788#0" expanded="true" />
-                <element signature="e#8258#8302#0" expanded="true" />
+                <element signature="e#0#740#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="270" column="61" selection-start-line="270" selection-start-column="61" selection-end-line="270" selection-end-column="61" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -110,8 +106,8 @@
         <option value="layoutResourceFile_vertical" />
         <option value="valueResourceFile" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -3217,7 +3213,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="7478683763377" />
+        <entry key="$PROJECT_DIR$" value="7479712998829" />
         <entry key="D:\Users\Pedro\Development\YanuX\Scavenger" value="7378866156308" />
       </map>
     </option>
@@ -3525,11 +3521,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/gradlew" />
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/wifi/WifiConnectionInfo.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/sensors/RotationSensorWrapper.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/beacon/BeaconCollector.java" />
         <option value="$PROJECT_DIR$/common/build.gradle" />
         <option value="$PROJECT_DIR$/wear/build.gradle" />
         <option value="$PROJECT_DIR$/mobile/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
@@ -3546,7 +3537,6 @@
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWave.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AudioGenerator.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/BeepingGenerator.java" />
-        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ToneGenerator.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/AndroidManifest.xml" />
@@ -3565,7 +3555,6 @@
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/JsonFileLogger.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/file/IFileOutput.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/Constants.java" />
-        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/WavRecorder.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/PCM16Recorder.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/WavPCM16Recorder.java" />
@@ -3575,7 +3564,14 @@
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinToneGenerator.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpToneGenerator.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AbstractWavePCM16Bit.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpWavePCM16Bit.java" />
         <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java" />
+        <option value="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle" />
       </list>
     </option>
   </component>
@@ -3610,17 +3606,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YanuX-Scavenger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -3628,135 +3613,15 @@
               <option name="myItemId" value="Scavenger" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Scavenger" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scavenger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3781,7 +3646,18 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="YanuX-Scavenger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3791,11 +3667,13 @@
     <property name="device.picker.selection" value="LGH85032073c9d" />
     <property name="android.project.structure.last.selected" value="mobile" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Keys/AndroidStudio.jks" />
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/mobile" />
-    <property name="ExportApk.Flavors" value="prod" />
+    <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/mobile/src/test/java/pt/unl/fct/di/novalincs/yanux/scavenger" />
+    <property name="ExportApk.SignV1" value="true" />
+    <property name="ExportApk.SignV2" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -3805,6 +3683,9 @@
     <key name="android.template.parentActivityClass">
       <recent name="" />
       <recent name="pt.unl.fct.di.novalincs.yanux.scavenger.activity.MainActivity" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="pt.unl.fct.di.novalincs.yanux.scavenger.common.audio" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mobile/src/main/res/layout" />
@@ -4434,7 +4315,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1680" height="1023" extended-state="7" />
+    <frame x="0" y="27" width="1680" height="1023" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -4445,20 +4326,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32485548" sideWeight="0.3881418" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30057803" sideWeight="0.6118582" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36308068" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32716763" sideWeight="0.49511003" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.4978678" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947975" sideWeight="0.4978678" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15647922" sideWeight="0.6609589" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27514452" sideWeight="0.49266502" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15647922" sideWeight="0.6609589" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.4760274" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35028902" sideWeight="0.49511003" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16320294" sideWeight="0.30729166" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35083798" sideWeight="0.49511003" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4470,6 +4350,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27514452" sideWeight="0.49266502" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UpdateCopyrightCheckinHandler">
@@ -4507,54 +4388,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="53" />
+      <option name="time" value="55" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/ProgramFiles/Android/SDK/sources/android-25/android/os/Looper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/ProgramFiles/Android/SDK/sources/android-25/android/os/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/ProgramFiles/Android/SDK/sources/android-25/android/media/AudioTrack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="1804" column="26" selection-start-line="1804" selection-start-column="26" selection-end-line="1804" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/ProgramFiles/Android/SDK/sources/android-25/android/text/InputFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-876">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/utilities/InputFilterMinMax.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/cell/CellCollector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -4563,25 +4401,25 @@
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/AndroidManifest.xml">
       <provider editor-type-id="android-manifest">
         <state />
       </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/MainActivity.java">
@@ -4616,7 +4454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4652,7 +4489,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="22" column="48" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4743,9 +4579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="164" column="26" selection-start-line="164" selection-start-column="26" selection-end-line="164" selection-end-column="26" />
-          <folding>
-            <marker date="1496155656571" expanded="false" signature="8217:8252" ph="&quot;You haven't allowed access to your location. The applic...&quot;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4753,7 +4586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
           <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4782,18 +4614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="16" column="50" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
-          <folding>
-            <element signature="e#2950#2951#0" expanded="false" />
-            <element signature="e#3004#3005#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4846,19 +4666,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ToneGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="46" column="63" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/logging/AbstractFileLogger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4878,33 +4689,116 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ToneGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpToneGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-369">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="82" column="52" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="52" />
+        <state relative-caret-position="-969">
+          <caret line="70" column="43" selection-start-line="70" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/ISoundWave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/AbstractWavePCM16Bit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
+          <folding>
+            <element signature="e#1481#1482#0" expanded="true" />
+            <element signature="e#1513#1514#0" expanded="true" />
+            <element signature="e#1885#1886#0" expanded="true" />
+            <element signature="e#1964#1965#0" expanded="true" />
+            <element signature="e#2405#2406#0" expanded="true" />
+            <element signature="e#2437#2438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/SinWavePCM16Bit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/common/audio/LinearChirpWavePCM16Bit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
+          <folding>
+            <element signature="e#2170#2171#0" expanded="true" />
+            <element signature="e#2198#2199#0" expanded="true" />
+            <element signature="e#2240#2241#0" expanded="true" />
+            <element signature="e#2274#2275#0" expanded="true" />
+            <element signature="e#2684#2685#0" expanded="true" />
+            <element signature="e#2739#2740#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/res/layout/activity_audio.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="181" column="59" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="59" />
-          <folding>
-            <element signature="e#7752#7788#0" expanded="true" />
-            <element signature="e#8258#8302#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="74" column="44" selection-start-line="74" selection-start-column="44" selection-end-line="74" selection-end-column="44" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/activity/audio/AudioActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="270" column="61" selection-start-line="270" selection-start-column="61" selection-end-line="270" selection-end-column="61" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="197" column="66" selection-start-line="197" selection-start-column="66" selection-end-line="197" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#740#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#740#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
