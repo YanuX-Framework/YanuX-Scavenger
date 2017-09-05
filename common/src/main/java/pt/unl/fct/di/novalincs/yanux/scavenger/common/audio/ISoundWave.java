@@ -28,6 +28,8 @@ public interface ISoundWave {
 
     void setSamples(int samples);
 
+    //NOTE: For this to be truly generic, it should return byte[] instead of short[].
+    //This way we are implying that the underlying data is a 16-bit buffer.
     short[] getData();
 
     int getByteSize();
