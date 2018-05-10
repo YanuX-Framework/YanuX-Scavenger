@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.android.support:wear-27.1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wear-27.1.1.aar/4bf8d0406dda66bbb4e2865a782bcaf0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wear-27.1.1.aar/4bf8d0406dda66bbb4e2865a782bcaf0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/wear/27.1.1/d9f7113d5ce3660c6e46737f12f3991a1c050622/wear-27.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

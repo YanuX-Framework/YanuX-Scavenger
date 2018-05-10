@@ -12,8 +12,8 @@
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
 
     <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="26" />
+        android:minSdkVersion="23"
+        android:targetSdkVersion="27" />
 
     <application
         android:allowBackup="true"

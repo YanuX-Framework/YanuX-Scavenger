@@ -13,13 +13,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
         minSdkVersion 25
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName '1.0'
     }
@@ -41,9 +41,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common')
-    provided 'com.google.android.wearable:wearable:2.0.4'
-    compile 'com.google.android.support:wearable:2.0.4'
-    compile 'com.google.android.gms:play-services-wearable:11.2.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':common')
+    implementation 'com.google.android.support:wearable:2.3.0'
+    implementation 'com.google.android.gms:play-services-wearable:15.0.1'
+    implementation 'com.android.support:percent:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:wear:27.1.1'
+    compileOnly 'com.google.android.wearable:wearable:2.3.0'
 }
