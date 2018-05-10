@@ -13,6 +13,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -105,15 +106,15 @@ public class LogDialogFragment extends DialogFragment {
 
     // Override the Fragment.onAttach() method to instantiate the LogDialogListener
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the LogDialogListener so we can send events to the host
-            listener = (LogDialogListener) activity;
+            listener = (LogDialogListener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString() + " must implement LogDialogListener");
+            throw new ClassCastException(context.toString() + " must implement LogDialogListener");
         }
     }
 
