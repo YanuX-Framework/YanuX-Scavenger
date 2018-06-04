@@ -13,10 +13,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change beforePath="$PROJECT_DIR$/mobile/build.gradle" afterPath="$PROJECT_DIR$/mobile/build.gradle" />
       <change beforePath="$PROJECT_DIR$/mobile/mobile.iml" afterPath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/dialog/logging/LogDialogFragment.java" />
-      <change beforePath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" afterPath="$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java" />
       <change beforePath="$PROJECT_DIR$/wear/wear.iml" afterPath="$PROJECT_DIR$/wear/wear.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
@@ -71,7 +68,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -4020,18 +4017,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
-            <path>
-              <item name="Scavenger" type="1abcf292:AndroidViewProjectNode" />
-              <item name="wear" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="Scavenger" type="1abcf292:AndroidViewProjectNode" />
-              <item name="wear" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
             <path>
               <item name="Scavenger" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -4040,10 +4032,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4341,8 +4329,8 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14605543" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2152174" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14605543" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2152174" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -4381,7 +4369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="108" lean-forward="false" selection-start-line="8" selection-start-column="108" selection-end-line="8" selection-end-column="108" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4423,7 +4410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="108" lean-forward="false" selection-start-line="8" selection-start-column="108" selection-end-line="8" selection-end-column="108" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4457,7 +4443,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="108" lean-forward="false" selection-start-line="8" selection-start-column="108" selection-end-line="8" selection-end-column="108" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4526,7 +4511,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="108" lean-forward="false" selection-start-line="8" selection-start-column="108" selection-end-line="8" selection-end-column="108" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-manifest">
@@ -4550,32 +4534,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/res/layout/fragment_log_dialog.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/27.1.1/94732bda44fba11302c58e459b7c1f47e7521bf9/support-fragment-27.1.1-sources.jar!/android/support/v4/app/Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="1351" column="16" lean-forward="false" selection-start-line="1351" selection-start-column="16" selection-end-line="1351" selection-end-column="16" />
-          <folding>
-            <element signature="e#52051#52052#0" expanded="false" />
-            <element signature="e#52081#52082#0" expanded="false" />
-          </folding>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/27.1.1/94732bda44fba11302c58e459b7c1f47e7521bf9/support-fragment-27.1.1-sources.jar!/android/support/v4/app/Fragment.java" />
     <entry file="file://$PROJECT_DIR$/wear/src/main/java/pt/unl/fct/di/novalincs/yanux/scavenger/MainWearActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="41" column="28" lean-forward="true" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4591,10 +4563,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-196">
           <caret line="107" column="13" lean-forward="true" selection-start-line="107" selection-start-column="13" selection-end-line="107" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#6447#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4602,7 +4570,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="22" column="27" lean-forward="false" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
