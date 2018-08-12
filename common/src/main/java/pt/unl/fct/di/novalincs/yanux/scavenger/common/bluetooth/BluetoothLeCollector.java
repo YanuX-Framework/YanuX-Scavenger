@@ -11,7 +11,8 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
-import android.annotation.TargetApi;
+import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -20,14 +21,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 
 import java.util.List;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+
 public class BluetoothLeCollector extends BluetoothCollector implements IBluetoothCollector {
-    public static final int SCAN_PERIOD = 10000;
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_LE_COLLECTOR";
+    public static final int SCAN_PERIOD = 100000;
     public static final String ACTION_BLUETOOTH_LE_DEVICE_FOUND = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND";
     public static final String ACTION_BLUETOOTH_LE_BATCH_RESULTS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_BATCH_RESULTS";
     public static final String ACTION_BLUETOOTH_LE_SCAN_FINISHED = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED";
@@ -44,8 +49,8 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
     private final IntentFilter intentFilter;
     private final Handler handler;
     private ScanCallback scanCallback;
+    private PermissionManager permissionManager;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public BluetoothLeCollector(final Context context, BroadcastReceiver broadcastReceiver) {
         super(context, broadcastReceiver);
         intentFilter = new IntentFilter();
@@ -54,10 +59,13 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_ERROR);
         handler = new Handler();
-        initLeNewApiCallback();
+        initBleCallback();
+        if (context instanceof Activity) {
+            permissionManager = new PermissionManager((Activity) context);
+        }
     }
 
-    private void initLeNewApiCallback() {
+    private void initBleCallback() {
         scanCallback = new ScanCallback() {
             /**
              * Callback when a BLE advertisement has been found.
@@ -77,6 +85,7 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
                 intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RESULT, result);
                 intent.putExtra(EXTRA_BLUETOOTH_LE_DEVICE, new BluetoothDetectedDevice(result.getDevice(), result.getRssi()));
                 intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RECORD, result.getScanRecord().getBytes());
+                Log.d(LOG_TAG,"Scan Result - Device Address: "+result.getDevice().getAddress());
                 context.sendBroadcast(intent);
             }
 
@@ -112,9 +121,13 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
 
     @Override
     public boolean scan() {
+        if (permissionManager != null) {
+            permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
         if (!isScanning()) {
             final BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
             context.registerReceiver(broadcastReceiver, intentFilter);
+            ///*
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -126,10 +139,17 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
                     context.sendBroadcast(intent);
                 }
             }, SCAN_PERIOD);
+            //*/
             scanning = true;
             scanStartTime = SystemClock.elapsedRealtime();
             //The new API allows you to parametrize how the scan will be carried through the use of the ScanSettings class. Right here I'm just using the most basic startScan method which just uses the default configuration.
-            bluetoothLeScanner.startScan(scanCallback);
+            final ScanSettings.Builder scanSettingsBuilder = new ScanSettings.Builder();
+            scanSettingsBuilder.setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT);
+            scanSettingsBuilder.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES);
+            scanSettingsBuilder.setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE);
+            scanSettingsBuilder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
+            scanSettingsBuilder.setReportDelay(0);
+            bluetoothLeScanner.startScan(null, scanSettingsBuilder.build(), scanCallback);
             return true;
         } else {
             return false;

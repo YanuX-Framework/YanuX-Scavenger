@@ -24,7 +24,6 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
-import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
@@ -35,6 +34,7 @@ import java.util.Collection;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BeaconCollector {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     public static final String ACTION_BEACON_MONITOR_ENTER_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_ENTER_REGION";
     public static final String ACTION_BEACON_MONITOR_EXIT_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_EXIT_REGION";
     public static final String ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE";
@@ -42,10 +42,9 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION";
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
-    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     //iBeacon Beacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
-    private static final String BEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
+    private static final String REGION_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
 
     private final Context context;
     private final BeaconConsumer beaconConsumer;
@@ -70,8 +69,25 @@ public class BeaconCollector {
 
         beaconManager = BeaconManager.getInstanceForApplication(context);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(IBEACON_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_TLM_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.URI_BEACON_LAYOUT));
+
+        /**
+         * TODO:
+         * If needed and possible, implement a better distance calculator.
+         */
+        //Beacon.setDistanceCalculator(new CustomDistanceCalculator());
+
+        beaconManager.setBackgroundMode(false);
+        //beaconManager.setForegroundScanPeriod(0);
+        //beaconManager.setForegroundBetweenScanPeriod(0);
+        //beaconManager.setBackgroundScanPeriod(0);
+        //beaconManager.setBackgroundBetweenScanPeriod(0);
+
         beaconManager.bind(this.beaconConsumer);
-        Beacon.setDistanceCalculator(new CustomDistanceCalculator());
 
         //Monitor Notifier
         setMonitorNotifier(new MonitorNotifier() {
@@ -119,18 +135,18 @@ public class BeaconCollector {
                 startRangingTime = SystemClock.elapsedRealtime();
             }
         });
-        setRegion(new Region(BEACON_UUID, Identifier.parse(BEACON_UUID), null, null));
+        setRegion(new Region(REGION_UUID, null, null, null));
         startRangingTime = -1;
         ranging = false;
         monitoring = false;
     }
 
     public void setRangeNotifier(RangeNotifier notifier) {
-        beaconManager.setRangeNotifier(notifier);
+        beaconManager.addRangeNotifier(notifier);
     }
 
     public void setMonitorNotifier(MonitorNotifier notifier) {
-        beaconManager.setMonitorNotifier(notifier);
+        beaconManager.addMonitorNotifier(notifier);
     }
 
     public Region getRegion() {

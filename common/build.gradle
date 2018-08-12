@@ -29,10 +29,6 @@ android {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
@@ -40,5 +36,5 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.5'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.5'
-    implementation 'org.altbeacon:android-beacon-library:2.13.1'
+    implementation 'org.altbeacon:android-beacon-library:2.15'
 }

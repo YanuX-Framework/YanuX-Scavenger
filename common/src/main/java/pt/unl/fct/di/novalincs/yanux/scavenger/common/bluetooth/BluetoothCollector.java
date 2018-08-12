@@ -11,6 +11,8 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
+import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -18,11 +20,14 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.os.SystemClock;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
+
 public class BluetoothCollector extends BluetoothBase implements IBluetoothCollector {
 
     protected final Context context;
     protected final BluetoothAdapter bluetoothAdapter;
     protected BroadcastReceiver broadcastReceiver;
+    private PermissionManager permissionManager;
     protected boolean scanning;
     protected long scanStartTime;
 
@@ -30,10 +35,16 @@ public class BluetoothCollector extends BluetoothBase implements IBluetoothColle
         this.context = context;
         this.broadcastReceiver = broadcastReceiver;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (context instanceof Activity) {
+            permissionManager = new PermissionManager((Activity) context);
+        }
         scanning = false;
     }
 
     public boolean scan() {
+        if (permissionManager != null) {
+            permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
         if (bluetoothAdapter.startDiscovery()) {
             scanning = true;
             scanStartTime = SystemClock.elapsedRealtime();

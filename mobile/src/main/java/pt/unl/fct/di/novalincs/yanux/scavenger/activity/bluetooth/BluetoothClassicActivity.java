@@ -72,10 +72,10 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                 }
             }
         });
+
         if (!bluetoothCollector.isEnabled()) {
             BluetoothBase.enableBluetooth(this);
         }
-        bluetoothCollector.scan();
 
         TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_name);
         bluetoothName.setText(bluetoothCollector.getName());

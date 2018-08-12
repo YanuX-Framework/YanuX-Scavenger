@@ -42,6 +42,14 @@ public class BluetoothLeActivity extends AppCompatActivity {
 
         bluetoothLeDevices = (RecyclerView) findViewById(R.id.bluetooth_le_devices);
         bluetoothLeDevices.setLayoutManager(new LinearLayoutManager(this));
+        /**
+         * TODO:
+         * I should probably replace this RecyclerViewSimpleListAdapter, which uses a List<E> to
+         * store data, by something that uses a Map<K,V>. This way, I avoid having to constantly
+         * remove and then add a device to the list. Besides, being more efficient, it should also
+         * preserve the display order more or less unchanged. Right now, if you have more than one
+         * beacon nearby, the list just shifts intermittently between all the devices around you.
+         */
         bluetoothLeDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BluetoothDetectedDevice>());
         bluetoothLeDevices.setAdapter(bluetoothLeDevicesAdapter);
 
@@ -72,8 +80,6 @@ public class BluetoothLeActivity extends AppCompatActivity {
         if (!bluetoothLeCollector.isEnabled()) {
             BluetoothBase.enableBluetooth(this);
         }
-
-        bluetoothLeCollector.scan();
 
         TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_le_name);
         bluetoothName.setText(bluetoothLeCollector.getName());

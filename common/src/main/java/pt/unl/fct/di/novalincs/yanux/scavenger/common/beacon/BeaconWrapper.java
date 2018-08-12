@@ -15,6 +15,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.Identifier;
 
 public class BeaconWrapper extends Beacon {
     public static final Parcelable.Creator<Beacon> CREATOR = new Parcelable.Creator<Beacon>() {
@@ -38,14 +39,18 @@ public class BeaconWrapper extends Beacon {
 
     @Override
     public String toString() {
-        return "Name: " + this.getBluetoothName()
-                + "\nAddress: " + this.getBluetoothAddress()
-                + "\nID1: " + this.getId1()
-                + "\nID2: " + this.getId2()
-                + "\nID3: " + this.getId3()
-                + "\nRSSI: " + this.getRssi()
-                + "\nTX Power: " + this.getTxPower()
+        String result = "Name: " + this.getBluetoothName()
+                     + "\nAddress: " + this.getBluetoothAddress();
+
+        int idCounter = 1;
+        for (Identifier id: this.getIdentifiers()) {
+            result += "\nID"+ idCounter++ + ": " + id.toString();
+        }
+
+        result += "\nTX Power: " + this.getTxPower()
+                + "\nRSSI: "     + this.getRssi()+ " dBm"
                 + "\nDistance: " + this.getDistance() + " m";
+        return result;
     }
 
     @Override
