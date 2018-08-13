@@ -15,8 +15,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.beacon.BeaconActivity"
-    tools:showIn="@layout/activity_beacon">
+    tools:context=".activity.beacons.BeaconsActivity"
+    tools:showIn="@layout/activity_beacons">
 
     <RelativeLayout
         android:layout_width="match_parent"

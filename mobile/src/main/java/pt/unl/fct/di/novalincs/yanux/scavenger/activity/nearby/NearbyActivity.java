@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
+ *
+ * This file is part of YanuX Scavenger.
+ * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ *   YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
+ */
+
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby;
 
 import android.app.PendingIntent;
@@ -20,6 +31,11 @@ import com.google.android.gms.nearby.messages.SubscribeOptions;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
+/*
+ * TODO:
+ * Refactor all the code below so that all non mobile (smartphone/tablet) parts are placed in the
+ * project's common module.
+ */
 public class NearbyActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_NEARBY_ACTIVITY";
 

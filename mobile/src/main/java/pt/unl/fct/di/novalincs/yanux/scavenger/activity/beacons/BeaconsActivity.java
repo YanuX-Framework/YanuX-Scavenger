@@ -9,7 +9,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacon;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacons;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,12 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacon.BeaconCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
-public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_ACTIVITY";
+public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACONS_ACTIVITY";
 
     private BeaconCollector beaconCollector;
     private RecyclerView beaconList;
@@ -41,7 +41,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_beacon);
+        setContentView(R.layout.content_beacons);
         beaconList = findViewById(R.id.beacon_list);
         beaconList.setLayoutManager(new LinearLayoutManager(this));
         beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<Beacon>());

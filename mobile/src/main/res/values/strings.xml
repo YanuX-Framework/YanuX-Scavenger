@@ -13,25 +13,59 @@
     <string name="app_name">YanuX Scavenger</string>
 
     <string name="title_activity_main">Welcome</string>
-    <string name="title_activity_sensors">Sensors</string>
-    <string name="title_activity_wifi">Wi-Fi</string>
+    <string name="title_activity_audio">Audio</string>
+    <string name="title_activity_beacons">Beacons</string>
     <string name="title_activity_bluetooth_classic">Bluetooth Classic</string>
     <string name="title_activity_bluetooth_le">Bluetooth Low Energy</string>
-    <string name="title_activity_beacon">Beacons</string>
-    <string name="title_activity_audio">Audio</string>
     <string name="title_activity_nearby">Nearby</string>
+    <string name="title_activity_sensors">Sensors</string>
+    <string name="title_activity_wifi">Wi-Fi</string>
     <string name="title_activity_settings">Settings</string>
+
+    <string name="action_audio">Audio</string>
+    <string name="action_beacons">Beacons</string>
+    <string name="action_bluetooth_classic">Bluetooth Classic</string>
+    <string name="action_bluetooth_le">Bluetooth Low Energy</string>
+    <string name="action_nearby">Nearby</string>
+    <string name="action_sensors">Sensors</string>
+    <string name="action_wifi">Wi-Fi</string>
+    <string name="action_settings">Settings</string>
 
     <string name="no_ui_activity">This Activity has no UI. All the magic happens in the Logcat.</string>
 
-    <string name="action_sensors">Sensors</string>
-    <string name="action_wifi">Wi-Fi</string>
-    <string name="action_bluetooth_classic">Bluetooth Classic</string>
-    <string name="action_bluetooth_le">Bluetooth Low Energy</string>
-    <string name="action_beacon">Beacons</string>
-    <string name="action_audio">Audio</string>
-    <string name="action_nearby">Nearby</string>
-    <string name="action_settings">Settings</string>
+    <string name="audio_tone_cycle">Tone Cycle</string>
+    <string name="audio_tone_frequency0">Frequency 0</string>
+    <string name="audio_tone_frequency1">Frequency 1</string>
+    <string name="audio_tone_frequency_units">Hz</string>
+    <string name="audio_tone_duration">Duration</string>
+    <string name="audio_tone_duration_units">ms</string>
+    <string name="audio_tone_interval">Interval</string>
+    <string name="audio_tone_interval_units">ms</string>
+    <string name="audio_tone_play">Play</string>
+    <string name="audio_tone_stop">Stop</string>
+    <string name="audio_tone_record_start">Start Recording</string>
+    <string name="audio_tone_record_stop">Stop Recording</string>
+    <string name="audio_tone_record_filename">Recording Filename</string>
+    <string name="audio_tone_record_filename_default">audio.wav</string>
+
+    <string name="beacon_list">Beacons</string>
+    <string name="beacon_ranging_elapsed_time">Elapsed time</string>
+
+    <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
+    <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>
+
+    <string name="bluetooth_discoverability_enabled">Thank you for enabling Bluetooth Discoverability.</string>
+    <string name="bluetooth_discoverability_not_enabled">You haven\'t enabled Bluetooth Discoverability. The system will not be able to detect your device\'s presence to improve your experience.</string>
+
+    <string name="bluetooth_name">Name</string>
+    <string name="bluetooth_address">Address</string>
+    <string name="bluetooth_discovery_elapsed_time">Elapsed time</string>
+    <string name="bluetooth_devices">Bluetooth Devices</string>
+
+    <string name="bluetooth_le_name">Name</string>
+    <string name="bluetooth_le_address">Address</string>
+    <string name="bluetooth_le_discovery_elapsed_time">Elapsed time</string>
+    <string name="bluetooth_le_devices">Bluetooth Low Energy Devices</string>
 
     <string name="select_sensor">Select sensor</string>
     <string name="unsupported_sensor">Unsupported sensor</string>
@@ -52,40 +86,6 @@
     <string name="log_samples">Number of Samples</string>
     <string name="log_start">Start Logging</string>
     <string name="log_sample_counter">Samples</string>
-
-    <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
-    <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>
-
-    <string name="bluetooth_discoverability_enabled">Thank you for enabling Bluetooth Discoverability.</string>
-    <string name="bluetooth_discoverability_not_enabled">You haven\'t enabled Bluetooth Discoverability. The system will not be able to detect your device\'s presence to improve your experience.</string>
-
-    <string name="bluetooth_name">Name</string>
-    <string name="bluetooth_address">Address</string>
-    <string name="bluetooth_discovery_elapsed_time">Elapsed time</string>
-    <string name="bluetooth_devices">Bluetooth Devices</string>
-
-    <string name="bluetooth_le_name">Name</string>
-    <string name="bluetooth_le_address">Address</string>
-    <string name="bluetooth_le_discovery_elapsed_time">Elapsed time</string>
-    <string name="bluetooth_le_devices">Bluetooth Low Energy Devices</string>
-
-    <string name="beacon_list">Beacons</string>
-    <string name="beacon_ranging_elapsed_time">Elapsed time</string>
-
-    <string name="audio_tone_cycle">Tone Cycle</string>
-    <string name="audio_tone_frequency0">Frequency 0</string>
-    <string name="audio_tone_frequency1">Frequency 1</string>
-    <string name="audio_tone_frequency_units">Hz</string>
-    <string name="audio_tone_duration">Duration</string>
-    <string name="audio_tone_duration_units">ms</string>
-    <string name="audio_tone_interval">Interval</string>
-    <string name="audio_tone_interval_units">ms</string>
-    <string name="audio_tone_play">Play</string>
-    <string name="audio_tone_stop">Stop</string>
-    <string name="audio_tone_record_start">Start Recording</string>
-    <string name="audio_tone_record_stop">Stop Recording</string>
-    <string name="audio_tone_record_filename">Recording Filename</string>
-    <string name="audio_tone_record_filename_default">audio.wav</string>
 
     <!-- Strings related to Settings -->
     <!-- Example General settings -->

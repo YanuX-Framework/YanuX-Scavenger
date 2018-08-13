@@ -14,19 +14,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pt.unl.fct.di.novalincs.scavenger.MainActivity">
     <item
-        android:id="@+id/action_wifi"
+        android:id="@+id/action_audio"
         android:orderInCategory="100"
-        android:title="@string/action_wifi"
+        android:title="@string/action_audio"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_beacon"
+        android:id="@+id/action_beacons"
         android:orderInCategory="100"
-        android:title="@string/action_beacon"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_sensors"
-        android:orderInCategory="100"
-        android:title="@string/action_sensors"
+        android:title="@string/action_beacons"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_bluetooth_classic"
@@ -39,14 +34,19 @@
         android:title="@string/action_bluetooth_le"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_audio"
-        android:orderInCategory="100"
-        android:title="@string/action_audio"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_nearby"
         android:orderInCategory="100"
         android:title="@string/action_nearby"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sensors"
+        android:orderInCategory="100"
+        android:title="@string/action_sensors"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_wifi"
+        android:orderInCategory="100"
+        android:title="@string/action_wifi"
         app:showAsAction="never" />
     <!-- TODO: Disabled until I need to set some application settings/preferences
     <item

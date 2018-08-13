@@ -13,6 +13,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.nfc;
 
 import android.content.Context;
 
+/*
+ * TODO:
+ * Finish and use this on a simple example activity.
+ */
 public class NfcCollector {
     private final Context context;
 

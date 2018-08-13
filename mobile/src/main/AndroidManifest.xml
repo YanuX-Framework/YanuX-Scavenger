@@ -80,8 +80,8 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.beacon.BeaconActivity"
-            android:label="@string/title_activity_beacon"
+            android:name=".activity.beacons.BeaconsActivity"
+            android:label="@string/title_activity_beacons"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

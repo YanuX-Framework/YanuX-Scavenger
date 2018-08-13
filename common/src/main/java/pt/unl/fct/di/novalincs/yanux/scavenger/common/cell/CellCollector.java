@@ -14,15 +14,16 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.cell;
 import android.app.Activity;
 import android.content.Context;
 import android.telephony.CellInfo;
-import android.telephony.CellLocation;
-import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
 
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
-//TODO: Finish and use this on a simple example activity.
+/*
+ * TODO:
+ * Finish and use this on a simple example activity.
+ */
 public class CellCollector {
     private final Context context;
     private final TelephonyManager telephonyManager;
@@ -34,18 +35,11 @@ public class CellCollector {
         if (context instanceof Activity) {
             permissionManager = new PermissionManager((Activity) context);
         }
+
     }
 
-    public List<CellInfo> getAllCellInfo() {
+    public List<CellInfo> getAllCellInfo() throws SecurityException {
         return telephonyManager.getAllCellInfo();
-    }
-
-    public List<NeighboringCellInfo> getNeighboringCellInfo() {
-        return telephonyManager.getNeighboringCellInfo();
-    }
-
-    public CellLocation getCellLocation() {
-        return telephonyManager.getCellLocation();
     }
 
     public int getNetworkType() {
