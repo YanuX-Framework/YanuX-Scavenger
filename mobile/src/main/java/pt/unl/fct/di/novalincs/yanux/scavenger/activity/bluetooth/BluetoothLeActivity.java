@@ -27,9 +27,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BluetoothLeActivity extends AppCompatActivity {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BLUETOOTH_LE_ACTIVITY";
 
     private BluetoothLeCollector bluetoothLeCollector;
     private RecyclerView bluetoothLeDevices;
@@ -40,7 +42,7 @@ public class BluetoothLeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_bluetooth_le);
 
-        bluetoothLeDevices = (RecyclerView) findViewById(R.id.bluetooth_le_devices);
+        bluetoothLeDevices = findViewById(R.id.bluetooth_le_devices);
         bluetoothLeDevices.setLayoutManager(new LinearLayoutManager(this));
         /**
          * TODO:
@@ -66,7 +68,7 @@ public class BluetoothLeActivity extends AppCompatActivity {
                     case BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED:
                         bluetoothLeDevicesAdapter.getDataSet().clear();
                         bluetoothLeDevicesAdapter.notifyDataSetChanged();
-                        TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_le_discovery_elapsed_time);
+                        TextView bluetoothDiscoveryElapsedTime = findViewById(R.id.bluetooth_le_discovery_elapsed_time);
                         bluetoothDiscoveryElapsedTime.setText(intent.getLongExtra(BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME, 0) + " ms");
                         bluetoothLeCollector.scan();
                         break;
@@ -81,10 +83,10 @@ public class BluetoothLeActivity extends AppCompatActivity {
             BluetoothBase.enableBluetooth(this);
         }
 
-        TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_le_name);
+        TextView bluetoothName = findViewById(R.id.bluetooth_le_name);
         bluetoothName.setText(bluetoothLeCollector.getName());
 
-        TextView bluetoothAddress = (TextView) findViewById(R.id.bluetooth_le_address);
+        TextView bluetoothAddress = findViewById(R.id.bluetooth_le_address);
         bluetoothAddress.setText(bluetoothLeCollector.getAddress());
 
     }

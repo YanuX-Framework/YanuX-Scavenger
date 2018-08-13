@@ -31,8 +31,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.CyclicTriggerEventListener;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class SensorsActivity extends AppCompatActivity implements OnItemSelectedListener, SensorEventListener {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_SENSORS_ACTIVITY";
+
     private SensorCollector sensorCollector;
     private SensorWrapper selectedSensor;
     private CyclicTriggerEventListener triggerEventListener;
@@ -47,11 +50,11 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
             public void onTrigger(TriggerEvent event) {
                 super.onTrigger(event);
                 fillTimestamp(event.timestamp);
-                TextView sensorValues = (TextView) SensorsActivity.this.findViewById(R.id.sensor_values);
+                TextView sensorValues = SensorsActivity.this.findViewById(R.id.sensor_values);
                 sensorValues.setText(SensorsActivity.this.getString(R.string.sensor_significant_motion_detected) + ": " + cycle);
             }
         };
-        Spinner selectSensorSpinner = (Spinner) findViewById(R.id.select_sensor);
+        Spinner selectSensorSpinner = findViewById(R.id.select_sensor);
         ArrayAdapter<SensorWrapper> selectSensorSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         selectSensorSpinnerAdapter.addAll(sensorCollector.getSensors());
         selectSensorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -77,25 +80,25 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         clear();
 
         selectedSensor = (SensorWrapper) parent.getItemAtPosition(position);
-        TextView sensorName = (TextView) findViewById(R.id.sensor_name);
+        TextView sensorName = findViewById(R.id.sensor_name);
         sensorName.setText(selectedSensor.getName());
 
-        TextView sensorVendor = (TextView) findViewById(R.id.sensor_vendor);
+        TextView sensorVendor = findViewById(R.id.sensor_vendor);
         sensorVendor.setText(selectedSensor.getVendor());
 
-        TextView sensorVersion = (TextView) findViewById(R.id.sensor_version);
+        TextView sensorVersion = findViewById(R.id.sensor_version);
         sensorVersion.setText(Integer.toString(selectedSensor.getVersion()));
 
-        TextView sensorMaxRange = (TextView) findViewById(R.id.sensor_max_range);
+        TextView sensorMaxRange = findViewById(R.id.sensor_max_range);
         sensorMaxRange.setText(Float.toString(selectedSensor.getMaximumRange()));
 
-        TextView sensorResolution = (TextView) findViewById(R.id.sensor_resolution);
+        TextView sensorResolution = findViewById(R.id.sensor_resolution);
         sensorResolution.setText(Float.toString(selectedSensor.getResolution()));
 
-        TextView sensorMinDelay = (TextView) findViewById(R.id.sensor_min_delay);
+        TextView sensorMinDelay = findViewById(R.id.sensor_min_delay);
         sensorMinDelay.setText(Integer.toString(selectedSensor.getMinDelay()));
 
-        TextView sensorPower = (TextView) findViewById(R.id.sensor_power);
+        TextView sensorPower = findViewById(R.id.sensor_power);
         sensorPower.setText(Float.toString(selectedSensor.getPower()));
 
         registerSensorListener();
@@ -120,12 +123,12 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private void fillAccuracy(int accuracy) {
-        TextView sensorAccuracy = (TextView) findViewById(R.id.sensor_accuracy);
+        TextView sensorAccuracy = findViewById(R.id.sensor_accuracy);
         sensorAccuracy.setText(Integer.toString(accuracy));
     }
 
     private void fillValues(SensorEvent event) {
-        TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
+        TextView sensorValues = findViewById(R.id.sensor_values);
         String valuesText = "";
         float[] values;
         if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR
@@ -166,7 +169,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private void fillTimestamp(long timestamp) {
-        TextView sensorTimestamp = (TextView) findViewById(R.id.sensor_timestamp);
+        TextView sensorTimestamp = findViewById(R.id.sensor_timestamp);
         sensorTimestamp.setText(Long.toString(timestamp));
     }
 
@@ -191,34 +194,34 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     }
 
     private void clear() {
-        TextView sensorName = (TextView) findViewById(R.id.sensor_name);
+        TextView sensorName = findViewById(R.id.sensor_name);
         sensorName.setText("");
 
-        TextView sensorVendor = (TextView) findViewById(R.id.sensor_vendor);
+        TextView sensorVendor = findViewById(R.id.sensor_vendor);
         sensorVendor.setText("");
 
-        TextView sensorVersion = (TextView) findViewById(R.id.sensor_version);
+        TextView sensorVersion = findViewById(R.id.sensor_version);
         sensorVersion.setText("");
 
-        TextView sensorMaxRange = (TextView) findViewById(R.id.sensor_max_range);
+        TextView sensorMaxRange = findViewById(R.id.sensor_max_range);
         sensorMaxRange.setText("");
 
-        TextView sensorResolution = (TextView) findViewById(R.id.sensor_resolution);
+        TextView sensorResolution = findViewById(R.id.sensor_resolution);
         sensorResolution.setText("");
 
-        TextView sensorMinDelay = (TextView) findViewById(R.id.sensor_min_delay);
+        TextView sensorMinDelay = findViewById(R.id.sensor_min_delay);
         sensorMinDelay.setText("");
 
-        TextView sensorPower = (TextView) findViewById(R.id.sensor_power);
+        TextView sensorPower = findViewById(R.id.sensor_power);
         sensorPower.setText("");
 
-        TextView sensorValues = (TextView) findViewById(R.id.sensor_values);
+        TextView sensorValues = findViewById(R.id.sensor_values);
         sensorValues.setText("");
 
-        TextView sensorAccuracy = (TextView) findViewById(R.id.sensor_accuracy);
+        TextView sensorAccuracy = findViewById(R.id.sensor_accuracy);
         sensorAccuracy.setText("");
 
-        TextView sensorTimestamp = (TextView) findViewById(R.id.sensor_timestamp);
+        TextView sensorTimestamp = findViewById(R.id.sensor_timestamp);
         sensorTimestamp.setText("");
     }
 }

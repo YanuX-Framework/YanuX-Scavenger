@@ -28,9 +28,11 @@ import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacon.BeaconCollector;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BeaconActivity extends AppCompatActivity implements BeaconConsumer {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_ACTIVITY";
 
     private BeaconCollector beaconCollector;
     private RecyclerView beaconList;
@@ -40,7 +42,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_beacon);
-        beaconList = (RecyclerView) findViewById(R.id.beacon_list);
+        beaconList = findViewById(R.id.beacon_list);
         beaconList.setLayoutManager(new LinearLayoutManager(this));
         beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<Beacon>());
         beaconList.setAdapter(beaconListAdapter);
@@ -52,7 +54,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
                         List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
                         beaconListAdapter.setDataSet(beaconsArrayList);
                         beaconListAdapter.notifyDataSetChanged();
-                        TextView rangingElapsedTimeText = (TextView) findViewById(R.id.beacon_ranging_elapsed_time);
+                        TextView rangingElapsedTimeText = findViewById(R.id.beacon_ranging_elapsed_time);
                         rangingElapsedTimeText.setText(beaconCollector.getRangingElapsedTime() + " ms");
                         break;
                     default:

@@ -17,23 +17,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacon.BeaconActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothClassicActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothLeActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        /*
+         * NOTE: The following text is just used to test if the scrolling behavior is working properly in the app's layout!
+         *
         TextView textOuput = (TextView) findViewById(R.id.text_output);
         textOuput.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et hendrerit nulla. Sed commodo imperdiet semper. Fusce vitae lacus eget nisi fringilla pharetra efficitur nec turpis. Cras pharetra eleifend erat, quis vestibulum nulla facilisis sed. Sed nec ex urna. Proin feugiat efficitur dui, sit amet viverra neque rutrum id. Pellentesque luctus molestie lectus vel aliquam. Nullam malesuada dolor vel lorem auctor, ac pulvinar tellus eleifend. Nulla fermentum dignissim consectetur. Quisque dignissim nisi volutpat, imperdiet metus ut, condimentum velit. Suspendisse potenti. Aliquam porttitor lobortis dui, vel egestas mauris vestibulum vitae.\n" +
                 "\n" +
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 "Nam suscipit diam tellus, et luctus nisl lobortis eu. Nunc non tellus sem. Cras congue sodales arcu ultricies maximus. Praesent luctus ut felis in laoreet. Nunc ornare rutrum feugiat. Integer fringilla sagittis posuere. Donec euismod scelerisque sapien.\n" +
                 "\n" +
                 "Integer consequat eros risus. Etiam id malesuada velit. Ut non libero iaculis, sagittis elit at, faucibus ipsum. Nam in nibh ullamcorper, gravida urna non, faucibus ex. Suspendisse pretium nec nunc at sollicitudin. Duis tincidunt magna ut efficitur mollis. Cras finibus mauris mollis, tempus lorem quis, luctus mauris. Nam consectetur imperdiet diam, non porta urna commodo vitae.");
+        */
     }
 
     @Override
@@ -87,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.action_audio: {
                 Intent intent = new Intent(this, AudioActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_nearby: {
+                Intent intent = new Intent(this, NearbyActivity.class);
                 startActivity(intent);
                 return true;
             }

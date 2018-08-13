@@ -29,9 +29,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BluetoothClassicActivity extends AppCompatActivity {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BLUETOOTH_CLASSIC_ACTIVITY";
 
     private BluetoothCollector bluetoothCollector;
     private RecyclerView bluetoothDevices;
@@ -42,7 +44,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_bluetooth_classic);
 
-        bluetoothDevices = (RecyclerView) findViewById(R.id.bluetooth_devices);
+        bluetoothDevices = findViewById(R.id.bluetooth_devices);
         bluetoothDevices.setLayoutManager(new LinearLayoutManager(this));
         bluetoothDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BluetoothDetectedDevice>());
         bluetoothDevices.setAdapter(bluetoothDevicesAdapter);
@@ -63,7 +65,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                     case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                         bluetoothDevicesAdapter.getDataSet().clear();
                         bluetoothDevicesAdapter.notifyDataSetChanged();
-                        TextView bluetoothDiscoveryElapsedTime = (TextView) findViewById(R.id.bluetooth_discovery_elapsed_time);
+                        TextView bluetoothDiscoveryElapsedTime = findViewById(R.id.bluetooth_discovery_elapsed_time);
                         bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getScanElapsedTime() + " ms");
                         bluetoothCollector.scan();
                         break;
@@ -77,10 +79,10 @@ public class BluetoothClassicActivity extends AppCompatActivity {
             BluetoothBase.enableBluetooth(this);
         }
 
-        TextView bluetoothName = (TextView) findViewById(R.id.bluetooth_name);
+        TextView bluetoothName = findViewById(R.id.bluetooth_name);
         bluetoothName.setText(bluetoothCollector.getName());
 
-        TextView bluetoothAddress = (TextView) findViewById(R.id.bluetooth_address);
+        TextView bluetoothAddress = findViewById(R.id.bluetooth_address);
         bluetoothAddress.setText(bluetoothCollector.getAddress());
     }
 

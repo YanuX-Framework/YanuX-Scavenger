@@ -32,9 +32,10 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.LinearChirpToneGenerator;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.WaveMonoPCM16Recorder;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class AudioActivity extends AppCompatActivity {
-    private static final String LOG_TAG = Class.class.getSimpleName();
+    private static final String LOG_TAG = Constants.LOG_TAG + "_AUDIO_ACTIVITY";
     public static final String[] REQUIRED_PERMISSIONS = new String[] { Manifest.permission.RECORD_AUDIO,
                                                                        Manifest.permission.WRITE_EXTERNAL_STORAGE };
     private PermissionManager permissionManager;
@@ -56,10 +57,10 @@ public class AudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio);
+        setContentView(R.layout.content_audio);
         permissionManager = new PermissionManager(this);
 
-        toneSwitch = (Switch) findViewById(R.id.audio_tone_cycle_switch);
+        toneSwitch = findViewById(R.id.audio_tone_cycle_switch);
         toneSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -68,7 +69,7 @@ public class AudioActivity extends AppCompatActivity {
         });
 
         toneGenerator = new LinearChirpToneGenerator();
-        toneFrequency0EditText = (EditText) findViewById(R.id.audio_tone_frequency0_edit_text);
+        toneFrequency0EditText = findViewById(R.id.audio_tone_frequency0_edit_text);
         toneFrequency0EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -85,7 +86,7 @@ public class AudioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
-        toneFrequency1EditText = (EditText) findViewById(R.id.audio_tone_frequency1_edit_text);
+        toneFrequency1EditText = findViewById(R.id.audio_tone_frequency1_edit_text);
         toneFrequency1EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -102,7 +103,7 @@ public class AudioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
-        toneDurationEditText = (EditText) findViewById(R.id.audio_tone_duration_edit_text);
+        toneDurationEditText = findViewById(R.id.audio_tone_duration_edit_text);
         toneGenerator.setDuration(Integer.parseInt(toneDurationEditText.getText().toString()));
         toneDurationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,7 +121,7 @@ public class AudioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
-        toneIntervalEditText = (EditText) findViewById(R.id.audio_tone_interval_edit_text);
+        toneIntervalEditText = findViewById(R.id.audio_tone_interval_edit_text);
         toneInterval = Integer.parseInt(toneIntervalEditText.getText().toString());
         toneIntervalHandler = new Handler();
 
@@ -141,9 +142,9 @@ public class AudioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
-        toneRecordFilenameEditText = (EditText) findViewById(R.id.audio_recording_filename_edit_text);
+        toneRecordFilenameEditText = findViewById(R.id.audio_recording_filename_edit_text);
 
-        tonePlayButton = (Button) findViewById(R.id.audio_tone_play_button);
+        tonePlayButton = findViewById(R.id.audio_tone_play_button);
         tonePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +169,7 @@ public class AudioActivity extends AppCompatActivity {
         });
 
         permissionManager.requestPermissions(REQUIRED_PERMISSIONS);
-        toneRecordButton = (Button) findViewById(R.id.audio_tone_record_button);
+        toneRecordButton = findViewById(R.id.audio_tone_record_button);
         toneRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

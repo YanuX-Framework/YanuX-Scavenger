@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017 Pedro Albuquerque Santos.
+  ~
+  ~ This file is part of YanuX Scavenger.
+  ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~
+  ~ YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.audio.AudioActivity">
+
+    <Switch
+        android:id="@+id/audio_tone_cycle_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/audio_tone_cycle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_edit_text" />
+
+    <TextView
+        android:id="@+id/audio_tone_frequency0_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-7dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/audio_tone_frequency0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/audio_tone_frequency0_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-1dp"
+        android:ems="10"
+        android:inputType="number"
+        android:selectAllOnFocus="false"
+        android:text="2000"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency0_text_view" />
+
+    <TextView
+        android:id="@+id/audio_tone_frequency1_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-4dp"
+        android:text="@string/audio_tone_frequency1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency0_edit_text" />
+
+    <EditText
+        android:id="@+id/audio_tone_frequency1_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="number"
+        android:selectAllOnFocus="false"
+        android:text="2000"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency1_text_view" />
+
+    <TextView
+        android:id="@+id/audio_tone_duration_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-17dp"
+        android:text="@string/audio_tone_duration"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency1_edit_text" />
+
+    <TextView
+        android:id="@+id/audio_tone_interval_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-3dp"
+        android:text="@string/audio_tone_interval"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_duration_edit_text" />
+
+    <EditText
+        android:id="@+id/audio_tone_duration_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-2dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="100"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_duration_text_view" />
+
+    <EditText
+        android:id="@+id/audio_tone_interval_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-17dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1000"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_interval_text_view" />
+
+    <Button
+        android:id="@+id/audio_tone_play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:text="@string/audio_tone_play"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_edit_text" />
+
+    <Button
+        android:id="@+id/audio_tone_record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="27dp"
+        android:text="@string/audio_tone_record_start"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_edit_text" />
+
+    <TextView
+        android:id="@+id/audio_tone_frequency_units_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/audio_tone_frequency_units"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_frequency1_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency1_text_view" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/audio_tone_frequency_units"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_frequency0_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency0_text_view" />
+
+    <TextView
+        android:id="@+id/audio_tone_duration_units_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="26dp"
+        android:text="@string/audio_tone_duration_units"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_duration_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_duration_text_view" />
+
+    <TextView
+        android:id="@+id/audio_tone_interval_units_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-13dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/audio_tone_interval_units"
+        app:layout_constraintLeft_toRightOf="@+id/audio_tone_interval_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_interval_text_view" />
+
+    <TextView
+        android:id="@+id/audio_recording_filename_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/audio_tone_record_filename"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_tone_interval_edit_text" />
+
+    <EditText
+        android:id="@+id/audio_recording_filename_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/audio_tone_record_filename_default"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_text_view" />
+
+</android.support.constraint.ConstraintLayout>

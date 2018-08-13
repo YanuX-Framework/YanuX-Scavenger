@@ -36,6 +36,7 @@ import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.base.AppCompatPreferenceActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -49,6 +50,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.base.AppCompatPreference
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_SETTINGS_ACTIVITY";
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
