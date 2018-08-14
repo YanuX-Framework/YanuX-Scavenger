@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio;
@@ -35,9 +36,9 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionMana
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class AudioActivity extends AppCompatActivity {
+    public static final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final String LOG_TAG = Constants.LOG_TAG + "_AUDIO_ACTIVITY";
-    public static final String[] REQUIRED_PERMISSIONS = new String[] { Manifest.permission.RECORD_AUDIO,
-                                                                       Manifest.permission.WRITE_EXTERNAL_STORAGE };
     private PermissionManager permissionManager;
     private LinearChirpToneGenerator toneGenerator;
     private int toneInterval;
@@ -72,53 +73,65 @@ public class AudioActivity extends AppCompatActivity {
         toneFrequency0EditText = findViewById(R.id.audio_tone_frequency0_edit_text);
         toneFrequency0EditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     updateTone(Integer.parseInt(s.toString()),
-                               toneGenerator.getFrequency1(),
-                               toneGenerator.getDuration(),
-                               toneInterval);
+                            toneGenerator.getFrequency1(),
+                            toneGenerator.getDuration(),
+                            toneInterval);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         toneFrequency1EditText = findViewById(R.id.audio_tone_frequency1_edit_text);
         toneFrequency1EditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     updateTone(toneGenerator.getFrequency0(),
-                               Integer.parseInt(s.toString()),
-                               toneGenerator.getDuration(),
-                               toneInterval);
+                            Integer.parseInt(s.toString()),
+                            toneGenerator.getDuration(),
+                            toneInterval);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         toneDurationEditText = findViewById(R.id.audio_tone_duration_edit_text);
         toneGenerator.setDuration(Integer.parseInt(toneDurationEditText.getText().toString()));
         toneDurationEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     updateTone(toneGenerator.getFrequency0(),
-                               toneGenerator.getFrequency1(),
-                               Integer.parseInt(s.toString()),
-                               toneInterval);
+                            toneGenerator.getFrequency1(),
+                            Integer.parseInt(s.toString()),
+                            toneInterval);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         toneIntervalEditText = findViewById(R.id.audio_tone_interval_edit_text);
@@ -127,19 +140,23 @@ public class AudioActivity extends AppCompatActivity {
 
         toneIntervalEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     toneInterval = Integer.parseInt(s.toString());
                     updateTone(toneGenerator.getFrequency0(),
-                               toneGenerator.getFrequency1(),
-                               toneGenerator.getDuration(),
-                               toneInterval);
+                            toneGenerator.getFrequency1(),
+                            toneGenerator.getDuration(),
+                            toneInterval);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         toneRecordFilenameEditText = findViewById(R.id.audio_recording_filename_edit_text);
@@ -148,17 +165,19 @@ public class AudioActivity extends AppCompatActivity {
         tonePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(audioTrack.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
+                if (audioTrack.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
                     updateTone(toneGenerator.getFrequency0(),
-                               toneGenerator.getFrequency1(),
-                               toneGenerator.getDuration());
+                            toneGenerator.getFrequency1(),
+                            toneGenerator.getDuration());
                     audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
                         @Override
                         public void onMarkerReached(AudioTrack track) {
                             stopTone();
                         }
+
                         @Override
-                        public void onPeriodicNotification(AudioTrack track) { }
+                        public void onPeriodicNotification(AudioTrack track) {
+                        }
                     });
                     audioTrack.play();
                     tonePlayButton.setText(R.string.audio_tone_stop);
@@ -173,7 +192,7 @@ public class AudioActivity extends AppCompatActivity {
         toneRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!wavRecorder.isRecording()) {
+                if (!wavRecorder.isRecording()) {
                     try {
                         wavRecorder.setFilename(toneRecordFilenameEditText.getText().toString());
                         wavRecorder.record();
@@ -183,20 +202,15 @@ public class AudioActivity extends AppCompatActivity {
                         toneRecordButton.setText(R.string.audio_tone_record_stop);
                     }
                 } else {
-                    try {
-                        wavRecorder.stop();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        toneRecordButton.setText(R.string.audio_tone_record_start);
-                    }
+                    wavRecorder.stop();
+                    toneRecordButton.setText(R.string.audio_tone_record_start);
                 }
             }
         });
         updateTone(Integer.parseInt(toneFrequency0EditText.getText().toString()),
-                   Integer.parseInt(toneFrequency1EditText.getText().toString()),
-                   Integer.parseInt(toneDurationEditText.getText().toString()),
-                   Integer.parseInt(toneIntervalEditText.getText().toString()));
+                Integer.parseInt(toneFrequency1EditText.getText().toString()),
+                Integer.parseInt(toneDurationEditText.getText().toString()),
+                Integer.parseInt(toneIntervalEditText.getText().toString()));
         updateAudioRecording();
     }
 
@@ -204,9 +218,9 @@ public class AudioActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         updateTone(toneGenerator.getFrequency0(),
-                   toneGenerator.getFrequency1(),
-                   toneGenerator.getDuration(),
-                   toneInterval);
+                toneGenerator.getFrequency1(),
+                toneGenerator.getDuration(),
+                toneInterval);
     }
 
     @Override
@@ -215,12 +229,8 @@ public class AudioActivity extends AppCompatActivity {
         if (audioTrack != null) {
             stopTone();
         }
-        if(wavRecorder != null) {
-            try {
-                wavRecorder.stop();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (wavRecorder != null) {
+            wavRecorder.stop();
         }
     }
 
@@ -243,7 +253,7 @@ public class AudioActivity extends AppCompatActivity {
     }
 
     private void updateAudioRecording() {
-        if(permissionManager.hasPermissions(REQUIRED_PERMISSIONS)) {
+        if (permissionManager.hasPermissions(REQUIRED_PERMISSIONS)) {
             enableAudioRecording();
         } else {
             disableAudioRecording();
@@ -287,7 +297,7 @@ public class AudioActivity extends AppCompatActivity {
             @Override
             public void onMarkerReached(AudioTrack track) {
                 Log.v(LOG_TAG, "Marker Reached!");
-                if(toneSwitch.isChecked()) {
+                if (toneSwitch.isChecked()) {
                     audioTrack.stop();
                     toneIntervalHandler.postDelayed(new Runnable() {
                         @Override
@@ -299,8 +309,10 @@ public class AudioActivity extends AppCompatActivity {
                     stopTone();
                 }
             }
+
             @Override
-            public void onPeriodicNotification(AudioTrack track) { }
+            public void onPeriodicNotification(AudioTrack track) {
+            }
         });
     }
 

@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
@@ -23,7 +24,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacons.BeaconsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothClassicActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothLeActivity;
-import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyConnectionsActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyMessagesActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -97,8 +99,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.action_nearby: {
-                Intent intent = new Intent(this, NearbyActivity.class);
+            case R.id.action_nearby_connections: {
+                Intent intent = new Intent(this, NearbyConnectionsActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.action_nearby_messages: {
+                Intent intent = new Intent(this, NearbyMessagesActivity.class);
                 startActivity(intent);
                 return true;
             }

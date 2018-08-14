@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi;
@@ -15,7 +16,6 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -75,14 +75,14 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         setContentView(R.layout.content_wifi);
 
         //Wi-Fi Access Points List View
-        wifiAccessPoints = (RecyclerView) findViewById(R.id.wifi_access_points);
+        wifiAccessPoints = findViewById(R.id.wifi_access_points);
         // use a linear layout manager
         wifiAccessPoints.setLayoutManager(new LinearLayoutManager(this));
         //Wi-Fi Access Points List View Adapter
         wifiAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<WifiResult>());
         wifiAccessPoints.setAdapter(wifiAdapter);
         //Log switch
-        logSwitch = (Switch) findViewById(R.id.log_switch);
+        logSwitch = findViewById(R.id.log_switch);
         logSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -95,7 +95,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
             }
         });
         //Sample Counter
-        sampleCounterText = (TextView) findViewById(R.id.log_sample_counter);
+        sampleCounterText = findViewById(R.id.log_sample_counter);
 
         //Permission Manager
         permissionManager = new PermissionManager(this);
@@ -114,7 +114,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                TextView elapsedTimeText = (TextView) findViewById(R.id.wifi_elapsed_time);
+                TextView elapsedTimeText = findViewById(R.id.wifi_elapsed_time);
                 elapsedTimeText.setText(wifiCollector.getScanningElapsedTime() + " ms");
                 List<WifiResult> wifiResults = wifiCollector.getScanResults();
                 wifiAdapter.setDataSet(wifiResults);
@@ -204,7 +204,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
 
     private void updateConnectionInfo() {
         WifiConnectionInfo wifiConnectionInfo = wifiCollector.getConnectionInfo();
-        TextView wifiConnectionInfoView = (TextView) findViewById(R.id.wifi_connection_info);
+        TextView wifiConnectionInfoView = findViewById(R.id.wifi_connection_info);
         wifiConnectionInfoView.setText(wifiConnectionInfo.getSsid() + " [" + wifiConnectionInfo.getBssid() + "]\nRSSI: " + wifiConnectionInfo.getRssi());
     }
 

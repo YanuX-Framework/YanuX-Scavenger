@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,8 +50,8 @@ public class LogDialogFragment extends DialogFragment {
         // Pass null as the parent view because its going in the alertDialog layout
         final View view = inflater.inflate(R.layout.fragment_log_dialog, null);
 
-        logNameEditText = (EditText) view.findViewById(R.id.log_name);
-        logSamplesEditText = (EditText) view.findViewById(R.id.log_samples);
+        logNameEditText = view.findViewById(R.id.log_name);
+        logSamplesEditText = view.findViewById(R.id.log_samples);
 
         preferences = new Preferences(getActivity());
         logNameEditText.setText(preferences.getLogName());

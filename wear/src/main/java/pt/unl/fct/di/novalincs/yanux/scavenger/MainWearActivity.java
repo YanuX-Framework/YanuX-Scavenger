@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger;
@@ -30,11 +31,11 @@ public class MainWearActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wear);
         // TODO: Replace the deprected WatchViewStub with BoxInsetLayout
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+        final WatchViewStub stub = findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                mTextView = stub.findViewById(R.id.text);
                 SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
                 Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
                 String text = "";

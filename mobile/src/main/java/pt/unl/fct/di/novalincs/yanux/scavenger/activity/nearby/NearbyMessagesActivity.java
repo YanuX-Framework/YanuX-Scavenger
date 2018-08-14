@@ -2,11 +2,12 @@
  * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
- *   YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby;
@@ -36,8 +37,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
  * Refactor all the code below so that all non mobile (smartphone/tablet) parts are placed in the
  * project's common module.
  */
-public class NearbyActivity extends AppCompatActivity {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_NEARBY_ACTIVITY";
+public class NearbyMessagesActivity extends AppCompatActivity {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_NEARBY_MSG_ACTIVITY";
 
     private MessageListener mMessageListener;
     private Message mMessage;
@@ -46,7 +47,7 @@ public class NearbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_nearby);
+        setContentView(R.layout.content_nearby_messages);
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(Message message) {
@@ -103,10 +104,10 @@ public class NearbyActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
+        super.onStop();
+        backgroundSubscribe();
         unsubscribe();
         unpublish();
-        backgroundSubscribe();
-        super.onStop();
     }
 
     @Override
@@ -174,9 +175,9 @@ public class NearbyActivity extends AppCompatActivity {
     private void publish() {
         Log.i(LOG_TAG, "Publishing");
         Strategy strategy = new Strategy.Builder()
-                .setDiscoveryMode(Strategy.DISCOVERY_MODE_BROADCAST)
-                .setDistanceType(Strategy.DISTANCE_TYPE_EARSHOT)
-                .setTtlSeconds(Strategy.TTL_SECONDS_MAX)
+                //.setDiscoveryMode(Strategy.DISCOVERY_MODE_BROADCAST)
+                //.setDistanceType(Strategy.DISTANCE_TYPE_EARSHOT)
+                //.setTtlSeconds(Strategy.TTL_SECONDS_MAX)
                 .build();
         Nearby.getMessagesClient(this).publish(mMessage,
                 new PublishOptions.Builder()
@@ -193,9 +194,9 @@ public class NearbyActivity extends AppCompatActivity {
     private void subscribe() {
         Log.i(LOG_TAG, "Subscribing");
         Strategy strategy = new Strategy.Builder()
-                .setDiscoveryMode(Strategy.DISCOVERY_MODE_SCAN)
-                .setDistanceType(Strategy.DISTANCE_TYPE_EARSHOT)
-                .setTtlSeconds(Strategy.TTL_SECONDS_MAX)
+                //.setDiscoveryMode(Strategy.DISCOVERY_MODE_SCAN)
+                //.setDistanceType(Strategy.DISTANCE_TYPE_EARSHOT)
+                //.setTtlSeconds(Strategy.TTL_SECONDS_MAX)
                 .build();
         Nearby.getMessagesClient(this).subscribe(mMessageListener,
                 new SubscribeOptions.Builder()
@@ -241,6 +242,6 @@ public class NearbyActivity extends AppCompatActivity {
     }
 
     private PendingIntent getPendingIntent() {
-        return PendingIntent.getBroadcast(this, 0, new Intent(this, NearbyBackgroundReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(this, 0, new Intent(this, NearbyMessagesBackgroundReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
@@ -34,7 +35,6 @@ import java.util.Collection;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BeaconCollector {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     public static final String ACTION_BEACON_MONITOR_ENTER_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_ENTER_REGION";
     public static final String ACTION_BEACON_MONITOR_EXIT_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_EXIT_REGION";
     public static final String ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE";
@@ -42,6 +42,7 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION";
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     //iBeacon Beacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private static final String REGION_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";

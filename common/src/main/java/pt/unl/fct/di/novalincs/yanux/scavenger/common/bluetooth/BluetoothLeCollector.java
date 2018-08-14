@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2017 Pedro Albuquerque Santos.
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
+ *
  * YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  *
  * YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with YanuX Scavenger.  If not, see <https://www.gnu.org/licenses/gpl.html>
+ * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
@@ -31,13 +32,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionMana
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BluetoothLeCollector extends BluetoothCollector implements IBluetoothCollector {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_LE_COLLECTOR";
     public static final int SCAN_PERIOD = 100000;
     public static final String ACTION_BLUETOOTH_LE_DEVICE_FOUND = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_DEVICE_FOUND";
     public static final String ACTION_BLUETOOTH_LE_BATCH_RESULTS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_BATCH_RESULTS";
     public static final String ACTION_BLUETOOTH_LE_SCAN_FINISHED = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_FINISHED";
     public static final String ACTION_BLUETOOTH_LE_SCAN_ERROR = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.ACTION_BLUETOOTH_LE_SCAN_ERROR";
-
     public static final String EXTRA_BLUETOOTH_LE_SCAN_RESULT = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_RESULT";
     public static final String EXTRA_BLUETOOTH_LE_SCAN_CALLBACK_TYPE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_CALLBACK_TYPE";
     public static final String EXTRA_BLUETOOTH_LE_DEVICE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_DEVICE";
@@ -45,7 +44,7 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
     public static final String EXTRA_BLUETOOTH_LE_BATCH_RESULTS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_BATCH_RESULTS";
     public static final String EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_SCAN_ELAPSED_TIME";
     public static final String EXTRA_BLUETOOTH_LE_ERROR_CODE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothLeCollector.EXTRA_BLUETOOTH_LE_ERROR_CODE";
-
+    private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_LE_COLLECTOR";
     private final IntentFilter intentFilter;
     private final Handler handler;
     private ScanCallback scanCallback;
@@ -85,7 +84,7 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
                 intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RESULT, result);
                 intent.putExtra(EXTRA_BLUETOOTH_LE_DEVICE, new BluetoothDetectedDevice(result.getDevice(), result.getRssi()));
                 intent.putExtra(EXTRA_BLUETOOTH_LE_SCAN_RECORD, result.getScanRecord().getBytes());
-                Log.d(LOG_TAG,"Scan Result - Device Address: "+result.getDevice().getAddress());
+                Log.d(LOG_TAG, "Scan Result - Device Address: " + result.getDevice().getAddress());
                 context.sendBroadcast(intent);
             }
 
