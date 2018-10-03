@@ -14,7 +14,6 @@ package pt.unl.fct.di.novalincs.yanux.scavenger;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
 import java.util.Collection;
@@ -30,20 +29,13 @@ public class MainWearActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wear);
-        // TODO: Replace the deprected WatchViewStub with BoxInsetLayout
-        final WatchViewStub stub = findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = stub.findViewById(R.id.text);
-                SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
-                Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
-                String text = "";
-                for (SensorWrapper sensor : sensors) {
-                    text += ">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n";
-                }
-                mTextView.setText(mTextView.getText() + text);
-            }
-        });
+        mTextView = findViewById(R.id.text);
+        SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
+        Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
+        String text = "";
+        for (SensorWrapper sensor : sensors) {
+            text += ">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n";
+        }
+        mTextView.setText(mTextView.getText() + text);
     }
 }

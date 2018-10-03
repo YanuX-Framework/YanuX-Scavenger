@@ -54,11 +54,4 @@
         android:orderInCategory="100"
         android:title="@string/action_wifi"
         app:showAsAction="never" />
-    <!-- TODO: Disabled until I need to set some application settings/preferences
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    -->
 </menu>
