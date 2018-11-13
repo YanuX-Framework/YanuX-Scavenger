@@ -26,6 +26,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothClass
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.bluetooth.BluetoothLeActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyConnectionsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyMessagesActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences.PreferencesActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -109,12 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            /* TODO: Disabled until I need to set some application settings/preferences
-            case R.id.action_settings: {
-                Intent intent = new Intent(this, SettingsActivity.class);
+            case R.id.action_preferences: {
+                Intent intent = new Intent(this, PreferencesActivity.class);
                 startActivity(intent);
                 return true;
-            }*/
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

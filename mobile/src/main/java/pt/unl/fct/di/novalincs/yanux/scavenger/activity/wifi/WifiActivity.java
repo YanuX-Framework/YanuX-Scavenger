@@ -101,7 +101,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         permissionManager = new PermissionManager(this);
         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        //Preferences
+        //PreferencesActivity
         preferences = new Preferences(this);
         //Wi-Fi Collector
         wifiCollector = new WifiCollector(this);
