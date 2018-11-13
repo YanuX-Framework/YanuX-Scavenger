@@ -14,9 +14,9 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;

@@ -10,7 +10,7 @@
   ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
   -->
 
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toEndOf="@+id/bluetooth_discovery_elapsed_time_label" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bluetooth_devices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -93,4 +93,4 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

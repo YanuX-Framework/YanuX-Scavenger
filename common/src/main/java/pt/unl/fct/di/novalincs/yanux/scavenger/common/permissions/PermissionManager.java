@@ -17,12 +17,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 
