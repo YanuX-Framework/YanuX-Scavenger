@@ -30,6 +30,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences.PreferencesA
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.IPSService;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        IPSService.enqueueWork(this, new Intent());
         /*
          * NOTE: The following text is just used to test if the scrolling behavior is working properly in the app's layout!
          *
@@ -54,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 "\n" +
                 "Integer consequat eros risus. Etiam id malesuada velit. Ut non libero iaculis, sagittis elit at, faucibus ipsum. Nam in nibh ullamcorper, gravida urna non, faucibus ex. Suspendisse pretium nec nunc at sollicitudin. Duis tincidunt magna ut efficitur mollis. Cras finibus mauris mollis, tempus lorem quis, luctus mauris. Nam consectetur imperdiet diam, non porta urna commodo vitae.");
         */
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
