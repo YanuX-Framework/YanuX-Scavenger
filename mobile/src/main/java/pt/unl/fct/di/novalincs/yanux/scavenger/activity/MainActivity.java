@@ -13,12 +13,13 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacons.BeaconsActivity;
@@ -30,6 +31,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences.PreferencesA
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobileService;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
@@ -40,6 +42,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(this, MobileService.class));
+        } else {
+            startService(new Intent(this, MobileService.class));
+        }
+//        ComponentName componentName = new ComponentName(this, MobileService.class);
+//        JobInfo jobInfo = new JobInfo.Builder(12, componentName)
+//                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+//                .build();
+//        JobScheduler jobScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+//        int resultCode = jobScheduler.schedule(jobInfo);
+//        if (resultCode == JobScheduler.RESULT_SUCCESS) {
+//            Log.d(LOG_TAG, "Job scheduled!");
+//        } else {
+//            Log.d(LOG_TAG, "Job not scheduled");
+//        }
+
+
         /*
          * NOTE: The following text is just used to test if the scrolling behavior is working properly in the app's layout!
          *
@@ -54,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 "\n" +
                 "Integer consequat eros risus. Etiam id malesuada velit. Ut non libero iaculis, sagittis elit at, faucibus ipsum. Nam in nibh ullamcorper, gravida urna non, faucibus ex. Suspendisse pretium nec nunc at sollicitudin. Duis tincidunt magna ut efficitur mollis. Cras finibus mauris mollis, tempus lorem quis, luctus mauris. Nam consectetur imperdiet diam, non porta urna commodo vitae.");
         */
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

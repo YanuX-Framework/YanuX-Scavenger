@@ -25,6 +25,8 @@ public class Preferences {
     private static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
     private static final String PREFERENCE_LOG_SAMPLES = "log_samples";
     private static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
+    private static final String PREFERENCE_DEVICE_UUID = "device_uuid";
+    private static final String PREFERENCE_DEVICE_UUID_DEFAULT = null;
     private final Context context;
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
@@ -66,6 +68,14 @@ public class Preferences {
 
     public void setShouldShowRequestRationale(String permission, boolean shouldShow) {
         preferencesEditor.putBoolean(SHOW_RATIONALE_PREFERENCE_PREFIX + permission, shouldShow).apply();
+    }
+
+    public String getDeviceUuid() {
+        return preferences.getString(PREFERENCE_DEVICE_UUID, PREFERENCE_DEVICE_UUID_DEFAULT);
+    }
+
+    public void setDeviceUuid(String deviceUuid) {
+        preferencesEditor.putString(PREFERENCE_DEVICE_UUID, deviceUuid).apply();
     }
 
     public SharedPreferences getPreferences() {

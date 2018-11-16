@@ -60,7 +60,7 @@ public class BeaconCollector {
 
     public BeaconCollector(BeaconConsumer beaconConsumer, BroadcastReceiver broadcastReceiver) {
         this.beaconConsumer = beaconConsumer;
-        context = beaconConsumer.getApplicationContext();
+        context = (Context) beaconConsumer;
         this.broadcastReceiver = broadcastReceiver;
         intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BEACON_MONITOR_ENTER_REGION);

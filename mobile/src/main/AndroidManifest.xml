@@ -11,12 +11,14 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
@@ -25,11 +27,20 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data android:scheme="yanux"
+                    android:host="scavenger" />
+            </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyBZllcr3ShHH_lVMv2F6I3PgRyjtyxiqdQ" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -42,6 +53,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.beacons.BeaconsActivity"
             android:label="@string/title_activity_beacons"
@@ -50,6 +62,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.bluetooth.BluetoothClassicActivity"
             android:label="@string/title_activity_bluetooth_classic"
@@ -58,6 +71,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.bluetooth.BluetoothLeActivity"
             android:label="@string/title_activity_bluetooth_le"
@@ -66,6 +80,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.nearby.NearbyConnectionsActivity"
             android:label="@string/title_activity_nearby_messages"
@@ -74,6 +89,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.nearby.NearbyMessagesActivity"
             android:label="@string/title_activity_nearby_messages"
@@ -82,6 +98,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.sensors.SensorsActivity"
             android:label="@string/title_activity_sensors"
@@ -90,6 +107,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.wifi.WifiActivity"
             android:label="@string/title_activity_wifi"
@@ -98,6 +116,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.preferences.PreferencesActivity"
             android:label="@string/title_activity_preferences"
@@ -106,5 +125,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
+        <service
+            android:name=".service.MobileService"/>
+
+        <receiver android:name=".service.ServiceManagerBootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

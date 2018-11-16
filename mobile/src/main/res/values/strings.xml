@@ -105,5 +105,4 @@
     <string name="preferences_title_feedback">Feedback</string>
     <string name="preferences_title_allow_background_service">Allow background service</string>
     <string name="preferences_summary_feedback">Report technical issues or suggest new features</string>
-
 </resources>
