@@ -14,7 +14,7 @@ import org.altbeacon.beacon.BeaconConsumer;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.service.IPSService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.IPSService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobileService extends Service implements BeaconConsumer {

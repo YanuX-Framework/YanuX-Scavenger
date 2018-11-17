@@ -1,4 +1,4 @@
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.service;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
