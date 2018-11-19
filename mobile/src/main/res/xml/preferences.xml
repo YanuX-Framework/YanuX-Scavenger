@@ -1,32 +1,146 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018 Pedro Albuquerque Santos.
+  ~
+  ~ This file is part of YanuX Scavenger.
+  ~
+  ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~
+  ~ YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
+  -->
 
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
-        app:key="category_general"
-        app:title="@string/preferences_category_general">
+        app:key="category_persistent_service"
+        app:title="@string/preferences_category_persistent_service">
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_allow_persistent_service"
+            app:key="allow_persistent_service"
+            app:title="@string/preferences_title_allow_persistent_service" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="category_beacon_scan"
+        app:title="@string/preferences_category_beacon_scanning">
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_scan"
+            app:key="beacon_scan"
+            app:title="@string/preferences_title_beacon_scan" />
         <EditTextPreference
-            app:key="display_name"
-            app:title="@string/preferences_title_display_name"
+            android:defaultValue="@string/preferences_default_beacon_matcher_parameters_uuid"
+            android:key="beacon_matcher_parameters_uuid"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacon_matcher_parameters_uuid"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
-
     <PreferenceCategory
-        app:key="category_background_service"
-        app:title="@string/preferences_category_background_service">
-        <SwitchPreference
-            android:defaultValue="false"
-            app:key="allow_background_service"
-            app:title="@string/preferences_title_allow_background_service" />
+        app:key="category_beacon_scan"
+        app:title="@string/preferences_category_beacon_advertising">
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_scan"
+            app:key="beacon_scan"
+            app:title="@string/preferences_title_beacon_scan" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_advertise"
+            app:key="beacon_advertise"
+            app:title="@string/preferences_title_beacon_advertise" />
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_beacon_advertiser_parameters_uuid"
+            android:key="beacon_advertiser_parameters_uuid"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacon_advertiser_parameters_uuid"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_major"
+            android:inputType="number"
+            android:key="beacon_advertiser_parameters_major"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacon_advertiser_parameters_major"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_minor"
+            android:inputType="number"
+            android:key="beacon_advertiser_parameters_minor"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacon_advertiser_parameters_minor"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
-
     <PreferenceCategory
-        app:key="category_help"
-        app:title="@string/preferences_category_help">
-        <Preference
-            app:key="feedback"
-            app:summary="@string/preferences_summary_feedback"
-            app:title="@string/preferences_title_feedback"/>
+        app:key="category_device"
+        app:title="@string/preferences_category_device">
+        <EditTextPreference
+            android:key="device_uuid"
+            android:singleLine="true"
+            android:title="@string/preferences_title_device_uuid"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_device_capabilities_view"
+            app:key="device_capabilities_view"
+            app:title="@string/preferences_title_device_capabilities_view" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_device_capabilities_control"
+            app:key="device_capabilities_control"
+            app:title="@string/preferences_title_device_capabilities_control" />
     </PreferenceCategory>
-
-</PreferenceScreen>
+    <PreferenceCategory
+        app:key="category_http_server"
+        app:title="@string/preferences_category_http_server">
+        <EditTextPreference
+            android:defaultValue="@integer/preferences_default_http_server_port"
+            android:inputType="number"
+            android:key="http_port"
+            android:singleLine="true"
+            android:title="@string/preferences_title_http_server_port"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="category_authentication"
+        app:title="@string/preferences_category_authentication">
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_oauth2_authorization_server_url"
+            android:inputType="textUri"
+            android:key="oauth2_authorization_server_url"
+            android:singleLine="true"
+            android:title="@string/preferences_title_oauth2_authorization_server_url"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_client_id"
+            android:key="client_id"
+            android:singleLine="true"
+            android:title="@string/preferences_title_client_id"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_client_secret"
+            android:key="client_secret"
+            android:singleLine="true"
+            android:title="@string/preferences_title_client_secret"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:key="access_token"
+            android:title="@string/preferences_title_access_token"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:key="refresh_token"
+            android:title="@string/preferences_title_access_token"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_redirect_uri"
+            android:inputType="textUri"
+            android:key="redirect_uri"
+            android:singleLine="true"
+            android:title="@string/preferences_title_redirect_uri"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="category_indoor_positioning"
+        app:title="@string/preferences_category_indoor_positioning">
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_ips_server_url"
+            android:inputType="textUri"
+            android:key="ips_server_url"
+            android:singleLine="true"
+            android:title="@string/preferences_title_ips_server_url"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

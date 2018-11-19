@@ -11,6 +11,7 @@
  */
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
+
 /**
  * TODO:
  * The following annotation introduces some warnings. Since I have absolutely not idea why and I

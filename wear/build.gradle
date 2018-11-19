@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.  
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -43,7 +43,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
-    implementation 'androidx.core:core:1.1.0-alpha01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'

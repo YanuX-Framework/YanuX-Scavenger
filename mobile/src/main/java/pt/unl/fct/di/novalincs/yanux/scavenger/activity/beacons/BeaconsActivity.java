@@ -16,9 +16,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
@@ -27,6 +24,9 @@ import org.altbeacon.beacon.BeaconConsumer;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -36,6 +36,7 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     private static final String LOG_TAG = Constants.LOG_TAG + "_BEACONS_ACTIVITY";
 
     private BeaconCollector beaconCollector;
+    private boolean beaconServiceConnected = false;
     private RecyclerView beaconList;
     private RecyclerViewSimpleListAdapter<Beacon> beaconListAdapter;
 
@@ -63,11 +64,17 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
                 }
             }
         });
+        if (beaconServiceConnected) {
+            beaconCollector.startRanging();
+        }
     }
 
     @Override
     public void onBeaconServiceConnect() {
-        beaconCollector.startRanging();
+        beaconServiceConnected = true;
+        if (beaconCollector != null) {
+            beaconCollector.startRanging();
+        }
     }
 
     @Override

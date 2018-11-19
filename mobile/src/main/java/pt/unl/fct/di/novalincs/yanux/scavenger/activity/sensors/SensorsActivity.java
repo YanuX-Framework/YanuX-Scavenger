@@ -18,7 +18,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -28,6 +27,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.CyclicTriggerEventListener;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;

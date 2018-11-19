@@ -16,7 +16,6 @@ import android.Manifest;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +28,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.LinearChirpToneGenerator;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.WaveMonoPCM16Recorder;

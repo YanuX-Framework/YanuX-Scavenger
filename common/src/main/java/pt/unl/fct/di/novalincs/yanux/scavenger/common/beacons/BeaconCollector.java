@@ -12,6 +12,8 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,7 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BeaconCollector {
@@ -45,7 +48,7 @@ public class BeaconCollector {
     private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
     //iBeacon Beacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
-    private static final String REGION_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
+    private static final String REGION_UUID = "3c8bc916-4b9c-4777-98e1-9f6b8a789054";
 
     private final Context context;
     private final BeaconConsumer beaconConsumer;
@@ -53,6 +56,7 @@ public class BeaconCollector {
     private final IntentFilter intentFilter;
     private final BeaconManager beaconManager;
     private Region region;
+    private PermissionManager permissionManager;
 
     private long startRangingTime;
     private boolean ranging;
@@ -61,6 +65,9 @@ public class BeaconCollector {
     public BeaconCollector(BeaconConsumer beaconConsumer, BroadcastReceiver broadcastReceiver) {
         this.beaconConsumer = beaconConsumer;
         context = (Context) beaconConsumer;
+        if (context instanceof Activity) {
+            permissionManager = new PermissionManager((Activity) context);
+        }
         this.broadcastReceiver = broadcastReceiver;
         intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BEACON_MONITOR_ENTER_REGION);
@@ -83,11 +90,6 @@ public class BeaconCollector {
         //Beacon.setDistanceCalculator(new CustomDistanceCalculator());
 
         beaconManager.setBackgroundMode(false);
-        //beaconManager.setForegroundScanPeriod(0);
-        //beaconManager.setForegroundBetweenScanPeriod(0);
-        //beaconManager.setBackgroundScanPeriod(0);
-        //beaconManager.setBackgroundBetweenScanPeriod(0);
-
         beaconManager.bind(this.beaconConsumer);
 
         //Monitor Notifier
@@ -175,6 +177,9 @@ public class BeaconCollector {
     }
 
     public void startMonitoring(Region region) {
+        if (permissionManager != null) {
+            permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
         try {
             beaconManager.startMonitoringBeaconsInRegion(region);
             context.registerReceiver(broadcastReceiver, intentFilter);
@@ -195,6 +200,9 @@ public class BeaconCollector {
     }
 
     public void startRanging(Region region) {
+        if (permissionManager != null) {
+            permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
         try {
             beaconManager.startRangingBeaconsInRegion(region);
             context.registerReceiver(broadcastReceiver, intentFilter);

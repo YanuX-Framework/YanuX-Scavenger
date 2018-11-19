@@ -12,8 +12,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preferences_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.preferences.PreferencesActivity"
-    android:id="@+id/preferences_container">
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".activity.preferences.PreferencesActivity"></androidx.constraintlayout.widget.ConstraintLayout>

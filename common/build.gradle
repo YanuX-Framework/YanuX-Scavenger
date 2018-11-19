@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.  
+ * Copyright (c) 2018 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -33,10 +33,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core:1.1.0-alpha01'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.7'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-    implementation 'org.altbeacon:android-beacon-library:2.15.2'
+    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'androidx.core:core:1.1.0-alpha01'
+    api 'org.altbeacon:android-beacon-library:2.15.2'
+    api 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
 }
