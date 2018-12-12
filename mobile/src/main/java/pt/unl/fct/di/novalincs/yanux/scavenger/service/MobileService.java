@@ -30,6 +30,18 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.BackgroundService
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobileService extends Service implements BeaconConsumer {
+
+    public static void start(Context context) {
+        /*
+         * Use a plain old (foreground) service
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(new Intent(context, MobileService.class));
+        } else {
+            context.startService(new Intent(context, MobileService.class));
+        }
+    }
+
     public static final int NOTIFICATION_ID = 1000;
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
@@ -58,7 +70,6 @@ public class MobileService extends Service implements BeaconConsumer {
     @Override
     public void onCreate() {
         super.onCreate();
-        backgroundService.start();
     }
 
     @Override
@@ -70,7 +81,13 @@ public class MobileService extends Service implements BeaconConsumer {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(NOTIFICATION_ID, getNotification());
-        return START_STICKY;
+        backgroundService.start();
+        if (backgroundService.isStarted()) {
+            return START_STICKY;
+        } else {
+            stopSelf(startId);
+            return START_NOT_STICKY;
+        }
     }
 
     private Notification getNotification() {

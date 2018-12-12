@@ -12,11 +12,14 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobileService;
 
 public class PreferencesActivity extends AppCompatActivity {
     @Override
@@ -29,7 +32,26 @@ public class PreferencesActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public static class PreferencesFragment extends PreferenceFragmentCompat {
+    public static class PreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)) {
+                MobileService.start(getContext());
+            }
+        }
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences, rootKey);

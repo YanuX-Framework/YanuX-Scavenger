@@ -83,7 +83,7 @@ public class BeaconCollector {
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_TLM_LAYOUT));
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.URI_BEACON_LAYOUT));
 
-        /**
+        /*
          * TODO:
          * If needed and possible, implement a better distance calculator.
          */
@@ -244,6 +244,8 @@ public class BeaconCollector {
     }
 
     public void unbind() {
-        beaconManager.unbind(beaconConsumer);
+        if (beaconManager.isBound(beaconConsumer)) {
+            beaconManager.unbind(beaconConsumer);
+        }
     }
 }

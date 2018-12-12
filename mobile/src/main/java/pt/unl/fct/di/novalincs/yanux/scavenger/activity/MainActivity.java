@@ -14,7 +14,6 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,14 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         permissionManager = new PermissionManager(this);
         permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        /*
-         * Use a plain old (foreground) service
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(new Intent(this, MobileService.class));
-        } else {
-            startService(new Intent(this, MobileService.class));
-        }
+        MobileService.start(this);
         /*
          * Ot alternatively I can convert it to a JobService managed by JobScheduler
          */

@@ -37,9 +37,11 @@ public class BackgroundService implements Service {
     private static final String REGION_UUID = "cc83a39c-075d-4f9d-b78a-a94d66d57b97";
     private static final String IBEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
     private Preferences preferences;
-    private BeaconCollector beaconCollector;
     private Context context;
+    private BeaconCollector beaconCollector;
     private BeaconConsumer beaconConsumer;
+    private HTTPServer httpServer;
+    private boolean started;
     private boolean beaconServiceConnected = false;
 
     public BackgroundService(BeaconConsumer beaconConsumer) {
@@ -48,53 +50,78 @@ public class BackgroundService implements Service {
     }
 
     public void start() {
-        Log.d(LOG_TAG, "MobileService: Start");
         preferences = new Preferences(context);
-        /* UUID Generation */
-        String deviceUuid = preferences.getDeviceUuid();
-        if (deviceUuid == null) {
-            deviceUuid = UUID.randomUUID().toString();
-            preferences.setDeviceUuid(deviceUuid);
-            Log.d(LOG_TAG, "New Device UUID: " + deviceUuid);
-        } else {
-            Log.d(LOG_TAG, "Current Device UUID: " + deviceUuid);
-        }
-        /* HTTP Server */
-        try {
-            HTTPServer httpServer = new HTTPServer();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
-        }
-        /* BLE */
-        beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                switch (intent.getAction()) {
-                    case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
-                        List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
-                        for (Beacon b : beaconsArrayList) {
-                            Log.d(LOG_TAG, "Beacon: " + b.toString());
-                        }
-                        Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
-                        break;
-                    default:
-                        break;
-                }
+        if (!started && preferences.isPersistentServiceAllowed()) {
+            Log.d(LOG_TAG, "MobileService: Start");
+            /* UUID Generation */
+            String deviceUuid = preferences.getDeviceUuid();
+            if (deviceUuid == null) {
+                deviceUuid = UUID.randomUUID().toString();
+                preferences.setDeviceUuid(deviceUuid);
+                Log.d(LOG_TAG, "New Device UUID: " + deviceUuid);
+            } else {
+                Log.d(LOG_TAG, "Current Device UUID: " + deviceUuid);
             }
-        });
-        beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
-        listenForBleBeacons();
+            /* HTTP Server */
+            try {
+                httpServer = new HTTPServer();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, e.toString());
+            }
+            /* BLE */
+            beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    switch (intent.getAction()) {
+                        case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
+                            List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
+                            for (Beacon b : beaconsArrayList) {
+                                Log.d(LOG_TAG, "Beacon: " + b.toString());
+                            }
+                            Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
+            listenForBleBeacons();
+            started = true;
+        } else {
+            Log.d(LOG_TAG, "MobileService: Disabled");
+            pause();
+        }
+    }
+
+    public void pause() {
+        if (started) {
+            Log.d(LOG_TAG, "MobileService: Pause");
+            setBeaconServiceConnected(false);
+            beaconCollector.stopRanging();
+            httpServer.stop();
+        }
+        started = false;
     }
 
     public void stop() {
         Log.d(LOG_TAG, "MobileService: Stop");
-        beaconCollector.unbind();
+        if (started) {
+            pause();
+        }
+        if (getBeaconCollector() != null) {
+            beaconCollector.unbind();
+        }
     }
 
     public void listenForBleBeacons() {
         if (isBeaconServiceConnected() && getBeaconCollector() != null) {
             beaconCollector.startRanging();
         }
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 
     public boolean isBeaconServiceConnected() {
@@ -127,4 +154,6 @@ public class BackgroundService implements Service {
             return newFixedLengthResponse(msg + "</body></html>\n");
         }
     }
+
+
 }

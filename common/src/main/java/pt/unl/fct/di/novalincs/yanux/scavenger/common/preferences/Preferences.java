@@ -18,21 +18,21 @@ import android.preference.PreferenceManager;
 
 public class Preferences {
     public static final String INVALID = null;
-    public static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
-    private static final String PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE = "asked_wifi_scanning_always_available";
-    private static final boolean PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT = false;
-    private static final String PREFERENCE_LOG_NAME = "log_name";
-    private static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
-    private static final String PREFERENCE_LOG_SAMPLES = "log_samples";
-    private static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
-    private static final String PREFERENCE_DEVICE_UUID = "device_uuid";
-    private static final String PREFERENCE_DEVICE_UUID_DEFAULT = null;
-    private final Context context;
+    public static final String ALLOW_PERSISTENT_SERVICE = "allow_persistent_service";
+    public static final boolean ALLOW_PERSISTENT_SERVICE_DEFAULT = false;
+    public static final String PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE = "asked_wifi_scanning_always_available";
+    public static final boolean PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT = false;
+    public static final String PREFERENCE_LOG_NAME = "log_name";
+    public static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
+    public static final String PREFERENCE_LOG_SAMPLES = "log_samples";
+    public static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
+    public static final String PREFERENCE_DEVICE_UUID = "device_uuid";
+    public static final String PREFERENCE_DEVICE_UUID_DEFAULT = null;
+    private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
 
     public Preferences(Context context) {
-        this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.preferencesEditor = preferences.edit();
     }
@@ -40,6 +40,11 @@ public class Preferences {
     public boolean hasAskedForWifiScanningAlwaysAvailable() {
         return preferences.getBoolean(PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE,
                 PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT);
+    }
+
+    public boolean isPersistentServiceAllowed() {
+        return preferences.getBoolean(ALLOW_PERSISTENT_SERVICE,
+                ALLOW_PERSISTENT_SERVICE_DEFAULT);
     }
 
     public void setHasAskedForWifiScanningAlwaysAvailable(boolean flag) {

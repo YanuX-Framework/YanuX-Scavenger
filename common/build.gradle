@@ -34,8 +34,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     api 'androidx.appcompat:appcompat:1.0.2'
-    api 'androidx.core:core:1.1.0-alpha01'
-    api 'org.altbeacon:android-beacon-library:2.15.2'
+    api 'androidx.core:core:1.1.0-alpha02'
+    api 'org.altbeacon:android-beacon-library:2.15.4'
     api 'com.fasterxml.jackson.core:jackson-core:2.9.7'
     api 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
     api 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
