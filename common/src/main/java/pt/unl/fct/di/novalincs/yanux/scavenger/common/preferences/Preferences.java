@@ -18,17 +18,45 @@ import android.preference.PreferenceManager;
 
 public class Preferences {
     public static final String INVALID = null;
+
     public static final String ALLOW_PERSISTENT_SERVICE = "allow_persistent_service";
     public static final boolean ALLOW_PERSISTENT_SERVICE_DEFAULT = false;
+
     public static final String PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE = "asked_wifi_scanning_always_available";
     public static final boolean PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT = false;
+
     public static final String PREFERENCE_LOG_NAME = "log_name";
     public static final String PREFERENCE_LOG_NAME_DEFAULT = "log";
+
     public static final String PREFERENCE_LOG_SAMPLES = "log_samples";
     public static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
+
     public static final String PREFERENCE_DEVICE_UUID = "device_uuid";
-    public static final String PREFERENCE_DEVICE_UUID_DEFAULT = null;
+    public static final String PREFERENCE_DEVICE_UUID_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL = "yanux_auth_oauth2_authorization_server_url";
+    public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT = "http://localhost:3001/";
+
+    public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID = "yanux_auth_client_id";
+    public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT = "yanux-mobile-client";
+
+    public static final String PREFERENCE_YANUX_AUTH_JWT = "yanux_auth_jwt_token";
+    public static final String PREFERENCE_YANUX_AUTH_JWT_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN = "yanux_auth_access_token";
+    public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN = "yanux_auth_refresh_token";
+    public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
+    public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_BROKER_URL = "yanux_broker_url";
+    public static final String PREFERENCE_YANUX_BROKER_URL_DEFAULT = "http://localhost:3002/";
+
     private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
+
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
 
@@ -81,6 +109,62 @@ public class Preferences {
 
     public void setDeviceUuid(String deviceUuid) {
         preferencesEditor.putString(PREFERENCE_DEVICE_UUID, deviceUuid).apply();
+    }
+
+    public String getYanuxAuthOauth2AuthorizationServerUrl() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL, PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT);
+    }
+
+    public void setYanuxAuthOauth2AuthorizationServerUrl(String yanuxAuthOauth2AuthorizationServerUrl) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL, PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT).apply();
+    }
+
+    public String getYanuxAuthClientId() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_CLIENT_ID, PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT);
+    }
+
+    public void setPreferenceYanuxAuthClientId(String yanuxAuthClientId) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_ID, yanuxAuthClientId).apply();
+    }
+
+    public String getYanuxAuthJwt() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_JWT, PREFERENCE_YANUX_AUTH_JWT_DEFAULT);
+    }
+
+    public void setPreferenceYanuxAuthJwt(String jwt) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_JWT, jwt).apply();
+    }
+
+    public String getYanuxAuthAccessToken() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT);
+    }
+
+    public void setPreferenceYanuxAccessToken(String jwt) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, jwt).apply();
+    }
+
+    public String getYanuxAuthRefreshToken() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT);
+    }
+
+    public void setPreferenceYanuxRefreshToken(String jwt) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, jwt).apply();
+    }
+
+    public String getYanuxAuthRedirectUri() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_REDIRECT_URI, PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT);
+    }
+
+    public void setYanuxAuthRedirectUri(String jwt) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_REDIRECT_URI, jwt).apply();
+    }
+
+    public String getYanuxBrokerUrl() {
+        return preferences.getString(PREFERENCE_YANUX_BROKER_URL, PREFERENCE_YANUX_BROKER_URL_DEFAULT);
+    }
+
+    public void setYanuxBrokerUrl(String ipsServerUrl) {
+        preferencesEditor.putString(PREFERENCE_YANUX_BROKER_URL, ipsServerUrl).apply();
     }
 
     public SharedPreferences getPreferences() {

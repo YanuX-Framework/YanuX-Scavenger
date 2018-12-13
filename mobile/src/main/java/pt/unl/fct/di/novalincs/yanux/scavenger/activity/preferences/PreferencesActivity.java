@@ -12,6 +12,7 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -33,9 +34,12 @@ public class PreferencesActivity extends AppCompatActivity {
     }
 
     public static class PreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+        private Context context;
+
         @Override
         public void onResume() {
             super.onResume();
+            context = getContext();
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
@@ -48,7 +52,7 @@ public class PreferencesActivity extends AppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)) {
-                MobileService.start(getContext());
+                MobileService.start(context);
             }
         }
 

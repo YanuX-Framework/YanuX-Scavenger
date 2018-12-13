@@ -95,52 +95,52 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
     <PreferenceCategory
-        app:key="category_authentication"
-        app:title="@string/preferences_category_authentication">
+        app:key="category_yanux_auth"
+        app:title="@string/preferences_category_yanux_auth">
         <EditTextPreference
-            android:defaultValue="@string/preferences_default_oauth2_authorization_server_url"
+            android:defaultValue="@string/preferences_default_yanux_auth_oauth2_authorization_server_url"
             android:inputType="textUri"
-            android:key="oauth2_authorization_server_url"
+            android:key="yanux_auth_oauth2_authorization_server_url"
             android:singleLine="true"
-            android:title="@string/preferences_title_oauth2_authorization_server_url"
+            android:title="@string/preferences_title_yanux_auth_oauth2_authorization_server_url"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:defaultValue="@string/preferences_default_client_id"
-            android:key="client_id"
+            android:defaultValue="@string/preferences_default_yanux_auth_client_id"
+            android:key="yanux_auth_client_id"
             android:singleLine="true"
-            android:title="@string/preferences_title_client_id"
+            android:title="@string/preferences_title_yanux_auth_client_id"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:defaultValue="@string/preferences_default_client_secret"
-            android:key="client_secret"
+            android:defaultValue="@string/preferences_default_yanux_auth_client_secret"
+            android:key="yanux_auth_client_secret"
             android:singleLine="true"
-            android:title="@string/preferences_title_client_secret"
+            android:title="@string/preferences_title_yanux_auth_client_secret"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:key="access_token"
-            android:title="@string/preferences_title_access_token"
+            android:key="yanux_auth_access_token"
+            android:title="@string/preferences_title_yanux_auth_access_token"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:key="refresh_token"
-            android:title="@string/preferences_title_access_token"
+            android:key="yanux_auth_refresh_token"
+            android:title="@string/preferences_title_yanux_auth_refresh_token"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:defaultValue="@string/preferences_default_redirect_uri"
+            android:defaultValue="@string/preferences_default_yanux_auth_redirect_uri"
             android:inputType="textUri"
-            android:key="redirect_uri"
+            android:key="yanux_auth_redirect_uri"
             android:singleLine="true"
-            android:title="@string/preferences_title_redirect_uri"
+            android:title="@string/preferences_title_yanux_auth_redirect_uri"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
     <PreferenceCategory
-        app:key="category_indoor_positioning"
-        app:title="@string/preferences_category_indoor_positioning">
+        app:key="category_yanux_broker"
+        app:title="@string/preferences_category_yanux_broker">
         <EditTextPreference
-            android:defaultValue="@string/preferences_default_ips_server_url"
+            android:defaultValue="@string/preferences_default_yanux_broker_url"
             android:inputType="textUri"
-            android:key="ips_server_url"
+            android:key="yanux_broker_url"
             android:singleLine="true"
-            android:title="@string/preferences_title_ips_server_url"
+            android:title="@string/preferences_title_yanux_broker_url"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

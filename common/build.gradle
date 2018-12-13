@@ -40,4 +40,8 @@ dependencies {
     api 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
     api 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
+    api ('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
 }

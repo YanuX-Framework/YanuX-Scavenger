@@ -26,7 +26,7 @@ import org.altbeacon.beacon.BeaconConsumer;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.BackgroundService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobileService extends Service implements BeaconConsumer {
@@ -48,11 +48,11 @@ public class MobileService extends Service implements BeaconConsumer {
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobileService.class.getSimpleName();
-    private BackgroundService backgroundService;
+    private PersistentService persistentService;
 
     public MobileService() {
         super();
-        backgroundService = new BackgroundService(this);
+        persistentService = new PersistentService(this);
     }
 
     @Nullable
@@ -63,8 +63,8 @@ public class MobileService extends Service implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-        backgroundService.setBeaconServiceConnected(true);
-        backgroundService.listenForBleBeacons();
+        persistentService.setBeaconServiceConnected(true);
+        persistentService.listenForBleBeacons();
     }
 
     @Override
@@ -75,14 +75,14 @@ public class MobileService extends Service implements BeaconConsumer {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        backgroundService.stop();
+        persistentService.stop();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(NOTIFICATION_ID, getNotification());
-        backgroundService.start();
-        if (backgroundService.isStarted()) {
+        persistentService.start();
+        if (persistentService.isStarted()) {
             return START_STICKY;
         } else {
             stopSelf(startId);

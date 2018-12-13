@@ -66,4 +66,7 @@
     <string name="sensor_type_unknown">Unknown</string>
     <string name="sensor_significant_motion_detected">Significant motion detected</string>
     <string name="sensor_type_rotation_wrapper">Rotation Wrapper</string>
+
+    <!-- Persistent Service -->
+    <string name="persistent_service_authentication_warning">Please authenticate with YanuX Auth to continue.</string>
 </resources>

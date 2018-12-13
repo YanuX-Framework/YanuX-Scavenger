@@ -122,19 +122,19 @@
     <string name="preferences_category_http_server">HTTP Server</string>
     <string name="preferences_title_http_server_port">HTTP Server Port</string>
 
-    <string name="preferences_category_authentication">Authentication</string>
-    <string name="preferences_title_oauth2_authorization_server_url">OAuth 2.0 Authorization Server URL</string>
-    <string name="preferences_default_oauth2_authorization_server_url">http://localhost:3002/</string>
-    <string name="preferences_title_client_id">Client ID</string>
-    <string name="preferences_default_client_id">yanux-ips-desktop-client</string>
-    <string name="preferences_title_client_secret">Client Secret</string>
-    <string name="preferences_default_client_secret">topsecret_client_secret</string>
-    <string name="preferences_title_access_token">Access Token</string>
-    <string name="preferences_title_refresh_token">Refresh Token</string>
-    <string name="preferences_title_redirect_uri">Redirect URI</string>
-    <string name="preferences_default_redirect_uri">http://localhost:3003/</string>
+    <string name="preferences_category_yanux_auth">YanuX Auth</string>
+    <string name="preferences_title_yanux_auth_oauth2_authorization_server_url">OAuth 2.0 Authorization Server URL</string>
+    <string name="preferences_default_yanux_auth_oauth2_authorization_server_url">http://localhost:3001/</string>
+    <string name="preferences_title_yanux_auth_client_id">Client ID</string>
+    <string name="preferences_default_yanux_auth_client_id">yanux-ips-desktop-client</string>
+    <string name="preferences_title_yanux_auth_client_secret">Client Secret</string>
+    <string name="preferences_default_yanux_auth_client_secret">topsecret_client_secret</string>
+    <string name="preferences_title_yanux_auth_access_token">Access Token</string>
+    <string name="preferences_title_yanux_auth_refresh_token">Refresh Token</string>
+    <string name="preferences_title_yanux_auth_redirect_uri">Redirect URI</string>
+    <string name="preferences_default_yanux_auth_redirect_uri">http://localhost:3003/</string>
 
-    <string name="preferences_category_indoor_positioning">Indoor Positioning</string>
-    <string name="preferences_title_ips_server_url">IPS Server URL</string>
-    <string name="preferences_default_ips_server_url">http://localhost:3002/</string>
+    <string name="preferences_category_yanux_broker">YanuX Broker</string>
+    <string name="preferences_title_yanux_broker_url">URL</string>
+    <string name="preferences_default_yanux_broker_url">http://localhost:3002/</string>
 </resources>
