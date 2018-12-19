@@ -24,12 +24,21 @@ import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.Region;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Credentials;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
@@ -44,6 +53,7 @@ public class PersistentService implements Service {
     private BeaconCollector beaconCollector;
     private BeaconConsumer beaconConsumer;
     private HTTPServer httpServer;
+    private OkHttpClient httpClient;
     private Socket socket;
     private boolean started;
     private boolean beaconServiceConnected = false;
@@ -67,8 +77,13 @@ public class PersistentService implements Service {
                 } else {
                     Log.d(LOG_TAG, "Current Device UUID: " + deviceUuid);
                 }
+
                 /* HTTP Server */
                 httpServer = new HTTPServer();
+
+                /* HTTP Client */
+                httpClient = new OkHttpClient();
+
                 /* BLE */
                 beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
                     @Override
@@ -88,11 +103,11 @@ public class PersistentService implements Service {
                 });
                 beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
                 listenForBleBeacons();
-                /* Socket.io -> YanuX Broker */
-                socket = IO.socket(preferences.getYanuxBrokerUrl());
+                /* YanuX Auth */
                 if (preferences.getYanuxAuthJwt() == Preferences.INVALID
                         && preferences.getYanuxAuthAccessToken() == Preferences.INVALID
-                        && preferences.getYanuxAuthRefreshToken() == Preferences.INVALID) {
+                        && preferences.getYanuxAuthRefreshToken() == Preferences.INVALID
+                        && preferences.getYanuxAuthAuthorizationCode() == Preferences.INVALID) {
                     Toast.makeText(context, R.string.persistent_service_authentication_warning, Toast.LENGTH_LONG).show();
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse(preferences.getYanuxAuthOauth2AuthorizationServerUrl()
@@ -102,6 +117,43 @@ public class PersistentService implements Service {
                                     + preferences.getYanuxAuthRedirectUri()));
                     context.startActivity(browserIntent);
                 }
+                if (preferences.getYanuxAuthAuthorizationCode() != Preferences.INVALID) {
+                    Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + preferences.getYanuxAuthAuthorizationCode());
+                    String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("code", preferences.getYanuxAuthAuthorizationCode())
+                            .add("grant_type", "authorization_code")
+                            .add("redirect_uri", preferences.getYanuxAuthRedirectUri())
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(preferences.getYanuxAuthOauth2AuthorizationServerUrl() + "oauth2/token")
+                            .header("Authorization", credentials)
+                            .post(requestBody)
+                            .build();
+                    httpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e(LOG_TAG, e.toString());
+                        }
+
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            if (!response.isSuccessful()) {
+                                preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
+                                IOException ioException = new IOException("Unexpected code " + response);
+                                Log.e(LOG_TAG, ioException.toString());
+                                Log.d(LOG_TAG, "Response: " + response.body().string());
+
+                                throw ioException;
+                            } else {
+                                // do something wih the result
+                                Log.d(LOG_TAG, "Access and Refresh Tokens Retrieved: " + response.body().string());
+                            }
+                        }
+                    });
+                }
+                /* Socket.io -> YanuX Broker */
+                socket = IO.socket(preferences.getYanuxBrokerUrl());
                 /*
                 JSONObject obj = new JSONObject();
                 try {

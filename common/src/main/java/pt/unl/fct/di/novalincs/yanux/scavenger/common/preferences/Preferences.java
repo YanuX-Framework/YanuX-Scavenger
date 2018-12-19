@@ -40,8 +40,14 @@ public class Preferences {
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID = "yanux_auth_client_id";
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT = "yanux-mobile-client";
 
+    public static final String PREFERENCE_YANUX_AUTH_CLIENT_SECRET = "yanux_auth_client_secret";
+    public static final String PREFERENCE_YANUX_AUTH_CLIENT_SECRET_DEFAULT = "topsecret_client_secret";
+
     public static final String PREFERENCE_YANUX_AUTH_JWT = "yanux_auth_jwt_token";
     public static final String PREFERENCE_YANUX_AUTH_JWT_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE = "yanux_auth_authorization_code";
+    public static final String PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE_DEFAULT = INVALID;
 
     public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN = "yanux_auth_access_token";
     public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT = INVALID;
@@ -115,7 +121,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL, PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT);
     }
 
-    public void setYanuxAuthOauth2AuthorizationServerUrl(String yanuxAuthOauth2AuthorizationServerUrl) {
+    public void setYanuxAuthOauth2AuthorizationServerUrl(String authorizationServerUrl) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL, PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT).apply();
     }
 
@@ -123,8 +129,16 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_CLIENT_ID, PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT);
     }
 
-    public void setPreferenceYanuxAuthClientId(String yanuxAuthClientId) {
-        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_ID, yanuxAuthClientId).apply();
+    public void setPreferenceYanuxAuthClientId(String clientId) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_ID, clientId).apply();
+    }
+
+    public String getYanuxAuthClientSecret() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_CLIENT_SECRET, PREFERENCE_YANUX_AUTH_CLIENT_SECRET_DEFAULT);
+    }
+
+    public void setPreferenceYanuxAuthClientSecret(String clientSecret) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_SECRET, clientSecret).apply();
     }
 
     public String getYanuxAuthJwt() {
@@ -135,20 +149,28 @@ public class Preferences {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_JWT, jwt).apply();
     }
 
+    public String getYanuxAuthAuthorizationCode() {
+        return preferences.getString(PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE, PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE_DEFAULT);
+    }
+
+    public void setYanuxAuthAuthorizationCode(String authorizationCode) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE, authorizationCode).apply();
+    }
+
     public String getYanuxAuthAccessToken() {
         return preferences.getString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT);
     }
 
-    public void setPreferenceYanuxAccessToken(String jwt) {
-        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, jwt).apply();
+    public void setPreferenceYanuxAccessToken(String accessToken) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, accessToken).apply();
     }
 
     public String getYanuxAuthRefreshToken() {
         return preferences.getString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT);
     }
 
-    public void setPreferenceYanuxRefreshToken(String jwt) {
-        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, jwt).apply();
+    public void setPreferenceYanuxRefreshToken(String refreshToken) {
+        preferencesEditor.putString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, refreshToken).apply();
     }
 
     public String getYanuxAuthRedirectUri() {
@@ -163,8 +185,8 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_BROKER_URL, PREFERENCE_YANUX_BROKER_URL_DEFAULT);
     }
 
-    public void setYanuxBrokerUrl(String ipsServerUrl) {
-        preferencesEditor.putString(PREFERENCE_YANUX_BROKER_URL, ipsServerUrl).apply();
+    public void setYanuxBrokerUrl(String brokerUrl) {
+        preferencesEditor.putString(PREFERENCE_YANUX_BROKER_URL, brokerUrl).apply();
     }
 
     public SharedPreferences getPreferences() {
