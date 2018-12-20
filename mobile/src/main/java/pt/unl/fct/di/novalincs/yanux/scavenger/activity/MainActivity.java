@@ -13,9 +13,13 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,12 +39,34 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
-import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobileService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService.MobilePersistentServiceBinder;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
     private PermissionManager permissionManager;
     private Preferences preferences;
+    private MobilePersistentService mobilePersistentService;
+    private boolean serviceBound = false;
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
+    private ServiceConnection mobilePersistentServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MobilePersistentServiceBinder binder = (MobilePersistentServiceBinder) service;
+            mobilePersistentService = binder.getService();
+            serviceBound = true;
+            exchangeYanuxAuthAuthorizationCodeForAccessAndRefreshTokens();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            serviceBound = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +84,24 @@ public class MainActivity extends AppCompatActivity {
             String authorizationCode = data.getQueryParameter("code");
             Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + authorizationCode);
             preferences.setYanuxAuthAuthorizationCode(authorizationCode);
+            exchangeYanuxAuthAuthorizationCodeForAccessAndRefreshTokens();
         }
-
-        MobileService.start(this);
+        MobilePersistentService.start(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onStart() {
+        super.onStart();
+        // Bind to LocalService
+        Intent intent = new Intent(this, MobilePersistentService.class);
+        bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(mobilePersistentServiceConnection);
+        serviceBound = false;
     }
 
     @Override
@@ -126,4 +160,18 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    private void exchangeYanuxAuthAuthorizationCodeForAccessAndRefreshTokens() {
+        if (serviceBound) {
+            mobilePersistentService.getPersistentService().exchangeAuthorizationCode();
+        }
+    }
+
 }

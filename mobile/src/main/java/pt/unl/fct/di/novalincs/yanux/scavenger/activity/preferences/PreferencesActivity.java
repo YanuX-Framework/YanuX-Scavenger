@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
-import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobileService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
 
 public class PreferencesActivity extends AppCompatActivity {
     @Override
@@ -52,7 +52,7 @@ public class PreferencesActivity extends AppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)) {
-                MobileService.start(context);
+                MobilePersistentService.start(context);
             }
         }
 

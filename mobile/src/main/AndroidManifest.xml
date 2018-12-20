@@ -128,7 +128,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
-        <service android:name=".service.MobileService" />
+        <service android:name=".service.MobilePersistentService" />
 
         <receiver android:name=".service.ServiceManagerBootBroadcastReceiver">
             <intent-filter>

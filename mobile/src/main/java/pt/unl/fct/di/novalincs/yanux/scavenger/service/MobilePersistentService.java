@@ -18,47 +18,54 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 
 import org.altbeacon.beacon.BeaconConsumer;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
-public class MobileService extends Service implements BeaconConsumer {
+public class MobilePersistentService extends Service implements BeaconConsumer {
 
-    public static void start(Context context) {
-        /*
-         * Use a plain old (foreground) service
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(new Intent(context, MobileService.class));
-        } else {
-            context.startService(new Intent(context, MobileService.class));
-        }
-    }
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
 
     public static final int NOTIFICATION_ID = 1000;
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobileService.class.getSimpleName();
-    private PersistentService persistentService;
+    // Binder given to clients
+    private final IBinder mBinder = new MobilePersistentServiceBinder();
 
-    public MobileService() {
+    public MobilePersistentService() {
         super();
         persistentService = new PersistentService(this);
     }
 
-    @Nullable
+    private PersistentService persistentService;
+
+    public static void start(Context context) {
+        /*
+         * Use a plain old (foreground) service
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(new Intent(context, MobilePersistentService.class));
+        } else {
+            context.startService(new Intent(context, MobilePersistentService.class));
+        }
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
+    }
+
+    public PersistentService getPersistentService() {
+        return persistentService;
     }
 
     @Override
@@ -87,6 +94,17 @@ public class MobileService extends Service implements BeaconConsumer {
         } else {
             stopSelf(startId);
             return START_NOT_STICKY;
+        }
+    }
+
+    /**
+     * Class used for the client Binder.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with IPC.
+     */
+    public class MobilePersistentServiceBinder extends Binder {
+        public MobilePersistentService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return MobilePersistentService.this;
         }
     }
 
