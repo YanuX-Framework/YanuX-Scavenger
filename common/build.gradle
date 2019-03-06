@@ -15,6 +15,10 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
 
     defaultConfig {
         minSdkVersion 23
@@ -34,12 +38,12 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     api 'androidx.appcompat:appcompat:1.0.2'
-    api 'androidx.core:core:1.1.0-alpha02'
-    api 'org.altbeacon:android-beacon-library:2.15.4'
-    api 'com.fasterxml.jackson.core:jackson-core:2.9.7'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-    api 'com.squareup.okhttp3:okhttp:3.12.0'
+    api 'androidx.core:core:1.1.0-alpha04'
+    api 'org.altbeacon:android-beacon-library:2.16.1'
+    api 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    api 'com.squareup.okhttp3:okhttp:3.13.1'
     api ('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
