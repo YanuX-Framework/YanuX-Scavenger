@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.
+ * Copyright (c) 2019 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -16,6 +16,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +33,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -46,11 +53,15 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.EncryptionToolBox;
 
 public class PersistentService implements Service {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
     private static final String REGION_UUID = "cc83a39c-075d-4f9d-b78a-a94d66d57b97";
     private static final String IBEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
+    private static final int HANDLE_SHOW_TOAST = 0;
+
+    private Handler mainHandler;
     private Preferences preferences;
     private Context context;
     private BeaconCollector beaconCollector;
@@ -67,6 +78,18 @@ public class PersistentService implements Service {
     }
 
     public void start() {
+        mainHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message message) {
+                switch (message.what) {
+                    case HANDLE_SHOW_TOAST:
+                        Toast.makeText(context, message.obj.toString(), Toast.LENGTH_LONG).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
         try {
             preferences = new Preferences(context);
             if (preferences.isPersistentServiceAllowed()) {
@@ -105,7 +128,7 @@ public class PersistentService implements Service {
                     beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
                     listenForBleBeacons();
                     /* YanuX Auth */
-                    userAuthorization();
+                    //userAuthorization();
                     /* Socket.io -> YanuX Broker */
                     socket = IO.socket(preferences.getYanuxBrokerUrl());
                     socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
@@ -140,12 +163,11 @@ public class PersistentService implements Service {
         }
     }
 
-    private void userAuthorization() {
-        if (preferences.getYanuxAuthJwt() == Preferences.INVALID
-                && preferences.getYanuxAuthAccessToken() == Preferences.INVALID
-                && preferences.getYanuxAuthRefreshToken() == Preferences.INVALID
-                && preferences.getYanuxAuthAuthorizationCode() == Preferences.INVALID) {
-            Toast.makeText(context, R.string.persistent_service_authentication_warning, Toast.LENGTH_LONG).show();
+    public void userAuthorization() {
+        if (preferences.getYanuxAuthAccessToken() == Preferences.INVALID
+         || preferences.getYanuxAuthRefreshToken() == Preferences.INVALID) {
+            Message message = mainHandler.obtainMessage(HANDLE_SHOW_TOAST, context.getString(R.string.persistent_service_authentication_warning));
+            message.sendToTarget();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(preferences.getYanuxAuthOauth2AuthorizationServerUrl()
                             + "oauth2/authorize?client_id="
@@ -166,13 +188,35 @@ public class PersistentService implements Service {
             auth.put("clientId", preferences.getYanuxAuthClientId());
             auth.put("accessToken", preferences.getYanuxAuthAccessToken());
         } else {
-            return;
+            userAuthorization();
         }
         socket.emit("authenticate", auth, new Ack() {
             @Override
             public void call(Object... args) {
-                JSONObject message = (JSONObject) args[1];
-                Log.d(LOG_TAG, "Message: " + message);
+                if(args[0] == null) {
+                    JSONObject data = (JSONObject) args[1];
+                    Log.d(LOG_TAG, "Data: " + data);
+                    Jws<Claims> jwt;
+                    try {
+                        jwt = Jwts.parser()
+                                .setSigningKey(EncryptionToolBox.getPublicKeyFromPemFile(context))
+                                .parseClaimsJws(data.getString("accessToken"));
+                        String userId = (String) jwt.getBody().get("userId");
+                        Log.d(LOG_TAG, "userId: " + userId);
+                    } catch (JwtException ex) {
+                        Log.e(LOG_TAG, "The JWT is not valid: "+ ex.toString());
+                        ex.printStackTrace();
+                    } catch (Exception e) { Log.e(LOG_TAG, e.toString()); }
+                } else {
+                    try {
+                        JSONObject message = (JSONObject) args[0];
+                        String messageValue = message.getString("message");
+                        if(messageValue.equals("The provided access token is not valid.")) {
+                            Log.d(LOG_TAG, "Message: " + messageValue);
+                            exchangeRefreshToken();
+                        }
+                    } catch (JSONException e) { Log.e(LOG_TAG, e.toString()); }
+                }
             }
         });
     }
@@ -180,47 +224,75 @@ public class PersistentService implements Service {
     public void exchangeAuthorizationCode() {
         if (preferences.getYanuxAuthAuthorizationCode() != Preferences.INVALID) {
             Log.d(LOG_TAG, "Exchanging Authorization Code: " + preferences.getYanuxAuthAuthorizationCode());
-            String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
             RequestBody requestBody = new FormBody.Builder()
                     .add("code", preferences.getYanuxAuthAuthorizationCode())
                     .add("grant_type", "authorization_code")
                     .add("redirect_uri", preferences.getYanuxAuthRedirectUri())
                     .build();
-            Request request = new Request.Builder()
-                    .url(preferences.getYanuxAuthOauth2AuthorizationServerUrl() + "oauth2/token")
-                    .header("Authorization", credentials)
-                    .post(requestBody)
-                    .build();
-            httpClient.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.e(LOG_TAG, e.toString());
-                }
+            makeOAuth2TokenRequest(requestBody, true);
+        }
+    }
 
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-                    if (!response.isSuccessful()) {
+    private void exchangeRefreshToken() {
+        if(preferences.getYanuxAuthRefreshToken() != Preferences.INVALID) {
+            Log.d(LOG_TAG, "Trying to get a new token using the Refresh Token");
+            String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("refresh_token", preferences.getYanuxAuthRefreshToken())
+                    .add("grant_type", "refresh_token")
+                    .add("redirect_uri", preferences.getYanuxAuthRedirectUri())
+                    .build();
+            makeOAuth2TokenRequest(requestBody, true);
+        }
+    }
+
+    private void makeOAuth2TokenRequest(RequestBody requestBody, boolean reauthenticate) {
+        String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
+        Request request = new Request.Builder()
+                .url(preferences.getYanuxAuthOauth2AuthorizationServerUrl() + "oauth2/token")
+                .header("Authorization", credentials)
+                .post(requestBody)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(LOG_TAG, e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    Log.e(LOG_TAG, "OAuth 2.0 Token Exchange Failed: " + response);
+                    Log.d(LOG_TAG, "Asking the user to re-authenticate");
+                    clearTokens();
+                    userAuthorization();
+                } else {
+                    try {
+                        JSONObject tokens = new JSONObject(response.body().string());
+                        String accessToken = tokens.getString("access_token");
+                        String refreshToken = tokens.getString("refresh_token");
+                        Log.d(LOG_TAG, "Retrieved Access Token: " + accessToken + " and Refresh Token: " + refreshToken);
                         preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
-                        userAuthorization();
-                        IOException ioException = new IOException("Unexpected Code: " + response);
-                        Log.e(LOG_TAG, ioException.toString());
-                        throw ioException;
-                    } else {
-                        try {
-                            JSONObject tokens = new JSONObject(response.body().string());
-                            String accessToken = tokens.getString("access_token");
-                            String refreshToken = tokens.getString("refresh_token");
-                            Log.d(LOG_TAG, "Retrieved Access Token: " + accessToken + " and Refresh Token: " + refreshToken);
-                            preferences.setPreferenceYanuxAccessToken(accessToken);
-                            preferences.setPreferenceYanuxRefreshToken(refreshToken);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e(LOG_TAG, e.toString());
+                        preferences.setYanuxAccessToken(accessToken);
+                        preferences.setYanuxRefreshToken(refreshToken);
+                        if(reauthenticate) {
+                            authenticate();
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e(LOG_TAG, e.toString());
                     }
                 }
-            });
-        }
+            }
+        });
+    }
+
+    private void clearTokens() {
+        preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
+        preferences.setYanuxAccessToken(Preferences.INVALID);
+        preferences.setYanuxRefreshToken(Preferences.INVALID);
+        preferences.setYanuxAuthJwt(Preferences.INVALID);
     }
 
     public void stop() {

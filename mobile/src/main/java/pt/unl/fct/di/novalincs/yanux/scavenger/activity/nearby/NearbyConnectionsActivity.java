@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.
+ * Copyright (c) 2019 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -46,20 +46,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 public class NearbyConnectionsActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_NEARBY_CON_ACTIVITY";
     private static final String SERVICE_ID = "pt.unl.fct.di.novalincs.yanux.scavenger";
-    private final EndpointDiscoveryCallback mEndpointDiscoveryCallback =
-            new EndpointDiscoveryCallback() {
-                @Override
-                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
-                    Log.i(LOG_TAG, "The " + endpointId + " endpoint was found! DiscoveredEndpointInfo: " + discoveredEndpointInfo.toString());
-                    getConnectionsClient().requestConnection(getUserNickname(), endpointId, mConnectionLifecycleCallback);
-                }
-
-                @Override
-                public void onEndpointLost(String endpointId) {
-                    Log.i(LOG_TAG, "The previously discovered " + endpointId + " endpoint has gone away.");
-                    getConnectionsClient().disconnectFromEndpoint(endpointId);
-                }
-            };
     private PayloadCallback mPayloadCallback = new PayloadCallback() {
         @Override
         public void onPayloadReceived(@NonNull String endpointId, @NonNull Payload payload) {
@@ -122,6 +108,20 @@ public class NearbyConnectionsActivity extends AppCompatActivity {
                 @Override
                 public void onDisconnected(String endpointId) {
                     Log.i(LOG_TAG, "We've been disconnected from the " + endpointId + " endpoint. No more data can be sent or received.");
+                }
+            };
+    private final EndpointDiscoveryCallback mEndpointDiscoveryCallback =
+            new EndpointDiscoveryCallback() {
+                @Override
+                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
+                    Log.i(LOG_TAG, "The " + endpointId + " endpoint was found! DiscoveredEndpointInfo: " + discoveredEndpointInfo.toString());
+                    getConnectionsClient().requestConnection(getUserNickname(), endpointId, mConnectionLifecycleCallback);
+                }
+
+                @Override
+                public void onEndpointLost(String endpointId) {
+                    Log.i(LOG_TAG, "The previously discovered " + endpointId + " endpoint has gone away.");
+                    getConnectionsClient().disconnectFromEndpoint(endpointId);
                 }
             };
 

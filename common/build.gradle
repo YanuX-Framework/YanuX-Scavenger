@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.
+ * Copyright (c) 2019 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -49,4 +49,9 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
+    api 'com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0'
+    api 'io.jsonwebtoken:jjwt-api:0.10.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
+    // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
 }

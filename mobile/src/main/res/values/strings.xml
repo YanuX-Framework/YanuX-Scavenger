@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2018 Pedro Albuquerque Santos.
+  ~ Copyright (c) 2019 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
   ~
@@ -117,7 +117,7 @@
     <string name="preferences_category_device">Device</string>
     <string name="preferences_title_device_uuid">Device UUID</string>
     <string name="preferences_title_device_capabilities_view">View</string>
-    <string name="preferences_title_device_capabilities_control">control</string>
+    <string name="preferences_title_device_capabilities_control">Control</string>
 
     <string name="preferences_category_http_server">HTTP Server</string>
     <string name="preferences_title_http_server_port">HTTP Server Port</string>

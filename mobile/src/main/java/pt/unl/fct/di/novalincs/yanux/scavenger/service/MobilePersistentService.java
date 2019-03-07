@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.
+ * Copyright (c) 2019 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -31,22 +31,20 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {
 
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
-
     public static final int NOTIFICATION_ID = 1000;
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
     // Binder given to clients
     private final IBinder mBinder = new MobilePersistentServiceBinder();
+    private PersistentService persistentService;
 
     public MobilePersistentService() {
         super();
         persistentService = new PersistentService(this);
     }
-
-    private PersistentService persistentService;
 
     public static void start(Context context) {
         /*
@@ -97,17 +95,6 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         }
     }
 
-    /**
-     * Class used for the client Binder.  Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with IPC.
-     */
-    public class MobilePersistentServiceBinder extends Binder {
-        public MobilePersistentService getService() {
-            // Return this instance of LocalService so clients can call public methods
-            return MobilePersistentService.this;
-        }
-    }
-
     private Notification getNotification() {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_background_service_notification)
@@ -120,5 +107,16 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
             notificationManager.createNotificationChannel(channel);
         }
         return mBuilder.build();
+    }
+
+    /**
+     * Class used for the client Binder.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with IPC.
+     */
+    public class MobilePersistentServiceBinder extends Binder {
+        public MobilePersistentService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return MobilePersistentService.this;
+        }
     }
 }

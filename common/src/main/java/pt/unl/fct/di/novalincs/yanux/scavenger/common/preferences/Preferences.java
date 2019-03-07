@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pedro Albuquerque Santos.
+ * Copyright (c) 2019 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -129,7 +129,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_CLIENT_ID, PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT);
     }
 
-    public void setPreferenceYanuxAuthClientId(String clientId) {
+    public void setYanuxAuthClientId(String clientId) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_ID, clientId).apply();
     }
 
@@ -137,7 +137,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_CLIENT_SECRET, PREFERENCE_YANUX_AUTH_CLIENT_SECRET_DEFAULT);
     }
 
-    public void setPreferenceYanuxAuthClientSecret(String clientSecret) {
+    public void setYanuxAuthClientSecret(String clientSecret) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_CLIENT_SECRET, clientSecret).apply();
     }
 
@@ -145,7 +145,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_JWT, PREFERENCE_YANUX_AUTH_JWT_DEFAULT);
     }
 
-    public void setPreferenceYanuxAuthJwt(String jwt) {
+    public void setYanuxAuthJwt(String jwt) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_JWT, jwt).apply();
     }
 
@@ -161,7 +161,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT);
     }
 
-    public void setPreferenceYanuxAccessToken(String accessToken) {
+    public void setYanuxAccessToken(String accessToken) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_ACCESS_TOKEN, accessToken).apply();
     }
 
@@ -169,7 +169,7 @@ public class Preferences {
         return preferences.getString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT);
     }
 
-    public void setPreferenceYanuxRefreshToken(String refreshToken) {
+    public void setYanuxRefreshToken(String refreshToken) {
         preferencesEditor.putString(PREFERENCE_YANUX_AUTH_REFRESH_TOKEN, refreshToken).apply();
     }
 
