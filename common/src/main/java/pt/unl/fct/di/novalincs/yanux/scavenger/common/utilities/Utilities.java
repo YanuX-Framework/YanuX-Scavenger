@@ -10,14 +10,15 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.service;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-public class ServiceManagerBootBroadcastReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
+public class Utilities {
+    public static long getUnixTime() {
+        return getUnixTimeMillis() / 1000L;
     }
+
+    public static long getUnixTimeMillis() {
+        return System.currentTimeMillis();
+    }
+
 }

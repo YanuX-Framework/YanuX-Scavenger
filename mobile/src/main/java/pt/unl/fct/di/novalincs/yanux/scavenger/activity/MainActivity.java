@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private PermissionManager permissionManager;
     private Preferences preferences;
     private MobilePersistentService mobilePersistentService;
+    private boolean mobilePersistentServiceBound;
     /**
      * Defines callbacks for service binding, passed to bindService()
      */
@@ -57,11 +58,15 @@ public class MainActivity extends AppCompatActivity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             MobilePersistentServiceBinder binder = (MobilePersistentServiceBinder) service;
             mobilePersistentService = binder.getService();
-            mobilePersistentService.getPersistentService().exchangeAuthorizationCode();
+            mobilePersistentServiceBound = true;
+            if (mobilePersistentService.getPersistentService().isStarted()) {
+                mobilePersistentService.getPersistentService().exchangeAuthorizationCode();
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
+            mobilePersistentServiceBound = false;
         }
     };
 
@@ -78,20 +83,16 @@ public class MainActivity extends AppCompatActivity {
         preferences = new Preferences(this);
     }
 
+
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         Uri data = getIntent().getData();
         if (data != null) {
             String authorizationCode = data.getQueryParameter("code");
             Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + authorizationCode);
             preferences.setYanuxAuthAuthorizationCode(authorizationCode);
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         // Bind to LocalService
         Intent intent = new Intent(this, MobilePersistentService.class);
         bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unbindService(mobilePersistentServiceConnection);
+        mobilePersistentServiceBound = false;
     }
 
     @Override

@@ -29,8 +29,8 @@ import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
-public class EncryptionToolBox {
-    public static PublicKey getPublicKeyFromPemFile(Context ctx) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
+public class EncryptionToolbox {
+    public static PublicKey getPublicKey(Context ctx) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
         Security.addProvider(new BouncyCastleProvider());
         String certPath = "public.pem";
         InputStream inputStream = ctx.getAssets().open(certPath);

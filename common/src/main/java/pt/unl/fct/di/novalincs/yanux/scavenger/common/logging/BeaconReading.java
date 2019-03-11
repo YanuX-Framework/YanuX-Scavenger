@@ -16,7 +16,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 public class BeaconReading implements IReading {
     private String name;
     private String macAddress;
-    //TODO: Add identifier variables (Maybe I'll make an iBeacon subclass so that this Beacon remains more generic)
+    //TODO: Add identifier variables (Maybe I'll make an iBeacon subclass so that this BeaconPOJO remains more generic)
     //TODO: Make sure that I get the RSSI running average and the current RSSI
     private int rssi;
     private int txPower;

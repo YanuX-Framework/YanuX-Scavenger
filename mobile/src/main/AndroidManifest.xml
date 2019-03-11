@@ -130,9 +130,10 @@
 
         <service android:name=".service.MobilePersistentService" />
 
-        <receiver android:name=".service.ServiceManagerBootBroadcastReceiver">
+        <receiver android:name=".service.MobilePersistentServiceBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.ACTION_DISABLE_SERVICE" />
             </intent-filter>
         </receiver>
     </application>

@@ -15,6 +15,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import org.altbeacon.beacon.BeaconConsumer;
 
 import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
+import pt.unl.fct.di.novalincs.yanux.scavenger.activity.MainActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
@@ -36,9 +38,25 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
+
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
+
     // Binder given to clients
     private final IBinder mBinder = new MobilePersistentServiceBinder();
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        startForeground(NOTIFICATION_ID, getNotification());
+        persistentService.start();
+        if (persistentService.isStarted()) {
+            return START_STICKY;
+        } else {
+            stopForeground(true);
+            stopSelf(startId);
+            return START_NOT_STICKY;
+        }
+    }
+
     private PersistentService persistentService;
 
     public MobilePersistentService() {
@@ -83,24 +101,23 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         persistentService.stop();
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        startForeground(NOTIFICATION_ID, getNotification());
-        persistentService.start();
-        if (persistentService.isStarted()) {
-            return START_STICKY;
-        } else {
-            stopSelf(startId);
-            return START_NOT_STICKY;
-        }
-    }
-
     private Notification getNotification() {
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, homeIntent, 0);
+
+        Intent disableIntent = new Intent(this, MobilePersistentServiceBroadcastReceiver.class);
+        disableIntent.setAction(MobilePersistentServiceBroadcastReceiver.ACTION_DISABLE_SERVICE);
+        PendingIntent disablePendingIntent = PendingIntent.getBroadcast(this, 0, disableIntent, 0);
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_background_service_notification)
                 .setContentTitle(NOTIFICATION_TITLE)
                 .setContentText(NOTIFICATION_CONTENT)
-                .setPriority(NotificationCompat.PRIORITY_LOW);
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .addAction(R.drawable.ic_disable_persistent_service, getString(R.string.notication_action_disable_persistent_service), disablePendingIntent)
+                .setContentIntent(pendingIntent);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);

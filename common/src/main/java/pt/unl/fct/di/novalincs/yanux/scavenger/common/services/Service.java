@@ -16,4 +16,6 @@ public interface Service {
     void start();
 
     void stop();
+
+    void handleError(Object error);
 }

@@ -34,6 +34,27 @@ public class Preferences {
     public static final String PREFERENCE_DEVICE_UUID = "device_uuid";
     public static final String PREFERENCE_DEVICE_UUID_DEFAULT = INVALID;
 
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID = "beacon_advertiser_parameters_uuid";
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID_DEFAULT = INVALID;
+
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR = "beacon_advertiser_parameters_major";
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR_DEFAULT = "0";
+
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR = "beacon_advertiser_parameters_minor";
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR_DEFAULT = "0";
+
+    public static final String PREFERENCE_DEVICE_CAPABILITIES_VIEW = "device_capabilities_view";
+    public static final boolean PREFERENCE_DEVICE_CAPABILITIES_VIEW_DEFAULT = false;
+
+    public static final String PREFERENCE_DEVICE_CAPABILITIES_CONTROL = "device_capabilities_control";
+    public static final boolean PREFERENCE_DEVICE_CAPABILITIES_CONTROL_DEFAULT = false;
+
+    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL = "beacons_refresh_interval";
+    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT = "1000";
+
+    public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER = "beacons_inactivity_timer";
+    public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER_DEFAULT = "1000";
+
     public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL = "yanux_auth_oauth2_authorization_server_url";
     public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT = "http://localhost:3001/";
 
@@ -81,6 +102,10 @@ public class Preferences {
                 ALLOW_PERSISTENT_SERVICE_DEFAULT);
     }
 
+    public void setIsPersistentServiceAllowed(boolean isPersistentServiceAllowed) {
+        preferencesEditor.putBoolean(ALLOW_PERSISTENT_SERVICE, isPersistentServiceAllowed).apply();
+    }
+
     public void setHasAskedForWifiScanningAlwaysAvailable(boolean flag) {
         preferencesEditor.putBoolean(PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE, flag).apply();
     }
@@ -115,6 +140,62 @@ public class Preferences {
 
     public void setDeviceUuid(String deviceUuid) {
         preferencesEditor.putString(PREFERENCE_DEVICE_UUID, deviceUuid).apply();
+    }
+
+    public String getBeaconAdvertiserParametersUuid() {
+        return preferences.getString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID, PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID_DEFAULT);
+    }
+
+    public void setBeaconAdvertiserParametersUuid(String beaconAdvertiserParametersUuid) {
+        preferencesEditor.putString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID, beaconAdvertiserParametersUuid).apply();
+    }
+
+    public int getBeaconAdvertiserParametersMajor() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR, PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR_DEFAULT));
+    }
+
+    public void setBeaconAdvertiserParameterMajor(int beaconAdvertiserParametersMajor) {
+        preferencesEditor.putString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR, String.valueOf(beaconAdvertiserParametersMajor)).apply();
+    }
+
+    public int getBeaconAdvertiserParametersMinor() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR, PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR_DEFAULT));
+    }
+
+    public void setBeaconAdvertiserParameterMinor(int beaconAdvertiserParametersMinor) {
+        preferencesEditor.putString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR, String.valueOf(beaconAdvertiserParametersMinor)).apply();
+    }
+
+    public boolean hasViewCapabilities() {
+        return preferences.getBoolean(PREFERENCE_DEVICE_CAPABILITIES_VIEW, PREFERENCE_DEVICE_CAPABILITIES_VIEW_DEFAULT);
+    }
+
+    public void setHasViewCapabilities(boolean viewCapabilities) {
+        preferencesEditor.putBoolean(PREFERENCE_DEVICE_CAPABILITIES_VIEW, viewCapabilities).apply();
+    }
+
+    public boolean hasControlCapabilities() {
+        return preferences.getBoolean(PREFERENCE_DEVICE_CAPABILITIES_CONTROL, PREFERENCE_DEVICE_CAPABILITIES_CONTROL_DEFAULT);
+    }
+
+    public void setHasControlCapabilities(boolean controlCapabilities) {
+        preferencesEditor.putBoolean(PREFERENCE_DEVICE_CAPABILITIES_CONTROL, controlCapabilities).apply();
+    }
+
+    public int getBeaconsRefreshInterval() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACONS_REFRESH_INTERVAL, PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT));
+    }
+
+    public void setBeaconsRefreshInterval(int beaconsRefreshInterval) {
+        preferencesEditor.putString(PREFERENCE_BEACONS_REFRESH_INTERVAL, String.valueOf(beaconsRefreshInterval)).apply();
+    }
+
+    public int getBeaconsInactivityTimer() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACONS_INACTIVITY_TIMER, PREFERENCE_BEACONS_INACTIVITY_TIMER_DEFAULT));
+    }
+
+    public void setBeaconsInactivityTimer(int beaconsInactivityTimer) {
+        preferencesEditor.putString(PREFERENCE_BEACONS_INACTIVITY_TIMER, String.valueOf(beaconsInactivityTimer)).apply();
     }
 
     public String getYanuxAuthOauth2AuthorizationServerUrl() {

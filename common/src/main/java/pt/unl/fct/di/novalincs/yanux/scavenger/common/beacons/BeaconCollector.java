@@ -46,7 +46,7 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
     private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
-    //iBeacon Beacon Layout
+    //iBeacon BeaconPOJO Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private static final String REGION_UUID = "3c8bc916-4b9c-4777-98e1-9f6b8a789054";
 
@@ -76,18 +76,18 @@ public class BeaconCollector {
         intentFilter.addAction(ACTION_BEACON_RANGE_BEACONS);
 
         beaconManager = BeaconManager.getInstanceForApplication(context);
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(IBEACON_LAYOUT));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_TLM_LAYOUT));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.URI_BEACON_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("iBeacon").setBeaconLayout(IBEACON_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("AltBeacon").setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("Eddystone-UID").setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("Eddystone-URL").setBeaconLayout(BeaconParser.EDDYSTONE_URL_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("Eddystone-TLM").setBeaconLayout(BeaconParser.EDDYSTONE_TLM_LAYOUT));
+        beaconManager.getBeaconParsers().add(new BeaconParser("UriBeacon").setBeaconLayout(BeaconParser.URI_BEACON_LAYOUT));
 
         /*
          * TODO:
          * If needed and possible, implement a better distance calculator.
          */
-        //Beacon.setDistanceCalculator(new CustomDistanceCalculator());
+        //BeaconPOJO.setDistanceCalculator(new CustomDistanceCalculator());
 
         beaconManager.setBackgroundMode(false);
         beaconManager.bind(this.beaconConsumer);

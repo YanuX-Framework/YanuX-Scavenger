@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c) 2019 Pedro Albuquerque Santos.
+  ~
+  ~ This file is part of YanuX Scavenger.
+  ~
+  ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~
+  ~ YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="11.847015"
+    android:viewportHeight="11.847015">
+    <group
+        android:translateX="1.9547575"
+        android:translateY="1.9547575">
+        <path
+            android:fillAlpha="1"
+            android:fillColor="#f1b079"
+            android:pathData="M0,0L7.9375,0L7.9375,7.9375L0,7.9375Z"
+            android:strokeWidth="0.74151808" />
+        <path
+            android:fillAlpha="1"
+            android:fillColor="#e58b53"
+            android:pathData="M0.92252,0.10614L2.0439,0.10614L3.96109,2.97418 5.88862,0.10614L7.01,0.10614L4.52953,3.81134 7.17537,7.82143L6.05399,7.82143L3.88358,4.53998 1.69767,7.82143L0.57112,7.82143L3.32547,3.70282Z"
+            android:strokeWidth="0.26458332"
+            android:strokeColor="#00000000" />
+        <path
+            android:fillAlpha="1"
+            android:fillColor="#d63a7c"
+            android:pathData="M3.96613,3.89853 L5.96638,0.10494L7.00952,0.10494L4.45006,4.82801l0,2.9938L3.4822,7.82181L3.4822,4.87124L0.92273,0.10494L1.97663,0.10494Z"
+            android:strokeWidth="0.26952401"
+            android:strokeColor="#00000000" />
+    </group>
+</vector>

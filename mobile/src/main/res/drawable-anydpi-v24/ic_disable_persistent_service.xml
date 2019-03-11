@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright (c) 2019 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
@@ -10,10 +10,17 @@
   ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
   -->
 
-<resources>
-    <integer name="preferences_default_http_server_port">3003</integer>
-    <integer name="preferences_default_beacon_advertiser_parameters_major">1</integer>
-    <integer name="preferences_default_beacon_advertiser_parameters_minor">3</integer>
-    <integer name="preferences_default_beacons_refresh_interval">500</integer>
-    <integer name="preferences_default_beacons_inactivity_timer">1000</integer>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#FFFFFF"
+    android:viewportWidth="26.086956"
+    android:viewportHeight="26.086956">
+    <group
+        android:translateX="1.0434783"
+        android:translateY="1.0434783">
+        <path
+            android:fillColor="#FF000000"
+            android:pathData="M6,6h12v12H6z" />
+    </group>
+</vector>

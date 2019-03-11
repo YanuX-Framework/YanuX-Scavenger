@@ -33,14 +33,26 @@
             android:singleLine="true"
             android:title="@string/preferences_title_beacon_matcher_parameters_uuid"
             app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@integer/preferences_default_beacons_refresh_interval"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
+            android:key="beacons_refresh_interval"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacons_refresh_interval"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="@integer/preferences_default_beacons_inactivity_timer"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
+            android:key="beacons_inactivity_timer"
+            android:singleLine="true"
+            android:title="@string/preferences_title_beacons_inactivity_timer"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="category_beacon_scan"
         app:title="@string/preferences_category_beacon_advertising">
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_beacon_scan"
-            app:key="beacon_scan"
-            app:title="@string/preferences_title_beacon_scan" />
         <SwitchPreferenceCompat
             android:defaultValue="@bool/preferences_default_beacon_advertise"
             app:key="beacon_advertise"
@@ -53,14 +65,16 @@
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_major"
-            android:inputType="number"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
             android:key="beacon_advertiser_parameters_major"
             android:singleLine="true"
             android:title="@string/preferences_title_beacon_advertiser_parameters_major"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_minor"
-            android:inputType="number"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
             android:key="beacon_advertiser_parameters_minor"
             android:singleLine="true"
             android:title="@string/preferences_title_beacon_advertiser_parameters_minor"
@@ -88,7 +102,8 @@
         app:title="@string/preferences_category_http_server">
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_http_server_port"
-            android:inputType="number"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
             android:key="http_port"
             android:singleLine="true"
             android:title="@string/preferences_title_http_server_port"

@@ -125,6 +125,7 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:1.1.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.8@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cursoradapter:cursoradapter:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.customview:customview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.2@jar" level="project" />
@@ -171,6 +172,7 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.8@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.madgag.spongycastle:core:1.58.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.madgag.spongycastle:prov:1.58.0.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.json:json:20171018@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks:16.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.wearable:wearable:2.4.0@jar" level="project" />

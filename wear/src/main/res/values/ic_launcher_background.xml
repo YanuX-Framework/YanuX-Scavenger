@@ -11,9 +11,5 @@
   -->
 
 <resources>
-    <integer name="preferences_default_http_server_port">3003</integer>
-    <integer name="preferences_default_beacon_advertiser_parameters_major">1</integer>
-    <integer name="preferences_default_beacon_advertiser_parameters_minor">3</integer>
-    <integer name="preferences_default_beacons_refresh_interval">500</integer>
-    <integer name="preferences_default_beacons_inactivity_timer">1000</integer>
+    <color name="ic_launcher_background">#D63A7C</color>
 </resources>

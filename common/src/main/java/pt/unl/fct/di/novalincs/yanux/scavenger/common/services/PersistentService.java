@@ -26,6 +26,7 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.Region;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,7 +54,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.EncryptionToolBox;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.EncryptionToolbox;
 
 public class PersistentService implements Service {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
@@ -64,6 +65,8 @@ public class PersistentService implements Service {
     private Handler mainHandler;
     private Preferences preferences;
     private Context context;
+    private JSONObject user;
+    private BeaconScanner beaconScanner;
     private BeaconCollector beaconCollector;
     private BeaconConsumer beaconConsumer;
     private HTTPServer httpServer;
@@ -108,25 +111,6 @@ public class PersistentService implements Service {
                     httpServer = new HTTPServer();
                     /* HTTP Client */
                     httpClient = new OkHttpClient();
-                    /* BLE */
-                    beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
-                        @Override
-                        public void onReceive(Context context, Intent intent) {
-                            switch (intent.getAction()) {
-                                case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
-                                    List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
-                                    for (Beacon b : beaconsArrayList) {
-                                        Log.d(LOG_TAG, "Beacon: " + b.toString());
-                                    }
-                                    Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
-                    beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
-                    listenForBleBeacons();
                     /* YanuX Auth */
                     //userAuthorization();
                     /* Socket.io -> YanuX Broker */
@@ -136,11 +120,22 @@ public class PersistentService implements Service {
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: Connected to YanuX Broker.");
                         }
-                    }).on("event", new Emitter.Listener() {
+                    })/*.on("beacons created", new Emitter.Listener() {
                         @Override
                         public void call(Object... args) {
+                            Log.d(LOG_TAG, args[0].toString());
                         }
-                    }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+                    }).on("beacons patched", new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, args[0].toString());
+                        }
+                    }).on("beacons removed", new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, args[0].toString());
+                        }
+                    })*/.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                         @Override
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: Disconnected from YanuX Broker.");
@@ -148,6 +143,35 @@ public class PersistentService implements Service {
                     });
                     socket.connect();
                     authenticate();
+                    /* BLE */
+                    beaconScanner = new BeaconScanner(this, socket, preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
+                    beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            switch (intent.getAction()) {
+                                case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
+                                    List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    for (Beacon b : beaconsArrayList) {
+                                        stringBuilder.append("\n" + b.toString());
+                                    }
+                                    Log.d(LOG_TAG, "Beacons: " + stringBuilder);
+                                    Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
+                                    if (user != null) {
+                                        try {
+                                            beaconScanner.update(user.getString("_id"), preferences.getDeviceUuid(), beaconsArrayList);
+                                        } catch (JSONException e) {
+                                            Log.e(LOG_TAG, "Couldn't get user id: " + e.toString());
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
+                    beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
+                    listenForBleBeacons();
                     // Mark the service as started.
                     started = true;
                 } else {
@@ -165,7 +189,7 @@ public class PersistentService implements Service {
 
     public void userAuthorization() {
         if (preferences.getYanuxAuthAccessToken() == Preferences.INVALID
-         || preferences.getYanuxAuthRefreshToken() == Preferences.INVALID) {
+                || preferences.getYanuxAuthRefreshToken() == Preferences.INVALID) {
             Message message = mainHandler.obtainMessage(HANDLE_SHOW_TOAST, context.getString(R.string.persistent_service_authentication_warning));
             message.sendToTarget();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -193,32 +217,104 @@ public class PersistentService implements Service {
         socket.emit("authenticate", auth, new Ack() {
             @Override
             public void call(Object... args) {
-                if(args[0] == null) {
+                if (args[0] == null) {
                     JSONObject data = (JSONObject) args[1];
                     Log.d(LOG_TAG, "Data: " + data);
                     Jws<Claims> jwt;
                     try {
                         jwt = Jwts.parser()
-                                .setSigningKey(EncryptionToolBox.getPublicKeyFromPemFile(context))
+                                .setSigningKey(EncryptionToolbox.getPublicKey(context))
                                 .parseClaimsJws(data.getString("accessToken"));
                         String userId = (String) jwt.getBody().get("userId");
                         Log.d(LOG_TAG, "userId: " + userId);
+                        socket.emit("get", "users", userId, new Ack() {
+                            @Override
+                            public void call(Object... args) {
+                                if (args[0] == null) {
+                                    user = (JSONObject) args[1];
+                                    tidyUpBeacons();
+                                    registerDevices();
+                                } else {
+                                    handleError(args[0]);
+                                }
+                            }
+                        });
                     } catch (JwtException ex) {
-                        Log.e(LOG_TAG, "The JWT is not valid: "+ ex.toString());
+                        Log.e(LOG_TAG, "The JWT is not valid: " + ex.toString());
                         ex.printStackTrace();
-                    } catch (Exception e) { Log.e(LOG_TAG, e.toString()); }
+                    } catch (Exception e) {
+                        Log.e(LOG_TAG, e.toString());
+                    }
                 } else {
                     try {
                         JSONObject message = (JSONObject) args[0];
                         String messageValue = message.getString("message");
-                        if(messageValue.equals("The provided access token is not valid.")) {
+                        if (messageValue.equals("The provided access token is not valid.")) {
                             Log.d(LOG_TAG, "Message: " + messageValue);
                             exchangeRefreshToken();
                         }
-                    } catch (JSONException e) { Log.e(LOG_TAG, e.toString()); }
+                    } catch (JSONException e) {
+                        Log.e(LOG_TAG, e.toString());
+                    }
                 }
             }
         });
+    }
+
+    private void tidyUpBeacons() {
+        try {
+            JSONObject query = new JSONObject();
+            query.put("deviceUuid", preferences.getDeviceUuid());
+            JSONObject params = new JSONObject();
+            params.put("query", query);
+            socket.emit("remove", "beacons", null, params, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    if (args[0] == null) {
+                        Log.d(LOG_TAG, "Removed outstanding beacons: " + args[1]);
+                    } else {
+                        handleError(args[0]);
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.toString());
+        }
+    }
+
+    private void registerDevices() {
+        try {
+            JSONObject deviceJSON = new JSONObject();
+            deviceJSON.put("deviceUuid", preferences.getDeviceUuid());
+
+            JSONArray beaconValues = new JSONArray();
+            beaconValues.put(preferences.getBeaconAdvertiserParametersUuid());
+            beaconValues.put(preferences.getBeaconAdvertiserParametersMajor());
+            beaconValues.put(preferences.getBeaconAdvertiserParametersMinor());
+
+            deviceJSON.put("beaconValues", beaconValues);
+
+            JSONObject capabilities = new JSONObject();
+            capabilities.put("view", preferences.hasViewCapabilities());
+            capabilities.put("control", preferences.hasControlCapabilities());
+
+            deviceJSON.put("capabilities", capabilities);
+
+            JSONObject query = new JSONObject();
+            query.put("deviceUuid", preferences.getDeviceUuid());
+            socket.emit("patch", "devices", null, deviceJSON, query, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    if (args[0] == null) {
+                        Log.d(LOG_TAG, "Registered Device: " + args[1]);
+                    } else {
+                        handleError(args[0]);
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.toString());
+        }
     }
 
     public void exchangeAuthorizationCode() {
@@ -234,7 +330,7 @@ public class PersistentService implements Service {
     }
 
     private void exchangeRefreshToken() {
-        if(preferences.getYanuxAuthRefreshToken() != Preferences.INVALID) {
+        if (preferences.getYanuxAuthRefreshToken() != Preferences.INVALID) {
             Log.d(LOG_TAG, "Trying to get a new token using the Refresh Token");
             String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
             RequestBody requestBody = new FormBody.Builder()
@@ -276,7 +372,7 @@ public class PersistentService implements Service {
                         preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
                         preferences.setYanuxAccessToken(accessToken);
                         preferences.setYanuxRefreshToken(refreshToken);
-                        if(reauthenticate) {
+                        if (reauthenticate) {
                             authenticate();
                         }
                     } catch (JSONException e) {
@@ -308,6 +404,7 @@ public class PersistentService implements Service {
             httpServer.stop();
         }
         if (socket != null) {
+            tidyUpBeacons();
             socket.disconnect();
         }
         started = false;
@@ -333,5 +430,10 @@ public class PersistentService implements Service {
 
     public BeaconCollector getBeaconCollector() {
         return beaconCollector;
+    }
+
+    public void handleError(Object error) {
+        //TODO: Handle some specific errors differently, such as the "NotAuthenticated" error.
+        Log.e(LOG_TAG, "Error: " + error.toString());
     }
 }

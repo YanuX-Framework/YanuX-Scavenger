@@ -113,6 +113,8 @@
     <string name="preferences_default_beacon_advertiser_parameters_uuid">113069EC-6E64-4BD3-6810-DE01B36E8A3E</string>
     <string name="preferences_title_beacon_advertiser_parameters_major">Beacon Advertiser Major</string>
     <string name="preferences_title_beacon_advertiser_parameters_minor">Beacon Advertiser Minor</string>
+    <string name="preferences_title_beacons_refresh_interval">Beacons Refresh Interval</string>
+    <string name="preferences_title_beacons_inactivity_timer">Beacons Inactivity Timer</string>
 
     <string name="preferences_category_device">Device</string>
     <string name="preferences_title_device_uuid">Device UUID</string>
@@ -137,4 +139,7 @@
     <string name="preferences_category_yanux_broker">YanuX Broker</string>
     <string name="preferences_title_yanux_broker_url">URL</string>
     <string name="preferences_default_yanux_broker_url">http://localhost:3002/</string>
+
+    <!-- Notifications -->
+    <string name="notication_action_disable_persistent_service">Disable persistent service</string>
 </resources>

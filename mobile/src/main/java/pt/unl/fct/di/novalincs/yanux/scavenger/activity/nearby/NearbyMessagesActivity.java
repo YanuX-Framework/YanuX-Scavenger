@@ -162,11 +162,11 @@ public class NearbyMessagesActivity extends AppCompatActivity {
      * more information about each of your Beacons as described here:
      * - https://developers.google.com/nearby/messages/android/get-beacon-messages
      *
-     * It is also worth mentioning that you can use the Google Beacon Tools app
+     * It is also worth mentioning that you can use the Google BeaconPOJO Tools app
      * (https://play.google.com/store/apps/details?id=com.google.android.apps.location.beacon.beacontools)
-     * and the Google Beacon Platform Dashboard (https://developers.google.com/beacons/dashboard/)
+     * and the Google BeaconPOJO Platform Dashboard (https://developers.google.com/beacons/dashboard/)
      * to register and manage beacons in the Google Cloud Platform ecosystem, which also include the
-     * Google Proximity Beacon API: https://developers.google.com/beacons/proximity/guides
+     * Google Proximity BeaconPOJO API: https://developers.google.com/beacons/proximity/guides
      *
      * P.S.: Crazy idea: Use the devices as beacons that can be added to the ecosystem. Could this be
      * a loophole that allows me to use Google Nearby Messages API according to my tastes? Hmmm...
