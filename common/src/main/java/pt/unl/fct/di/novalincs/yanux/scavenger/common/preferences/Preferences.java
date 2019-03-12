@@ -83,12 +83,9 @@ public class Preferences {
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT = EMPTY;
 
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
-    private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
-
     public static final String PREFERENCE_YANUX_BROKER_URL = "yanux_broker_url";
     public static final String PREFERENCE_YANUX_BROKER_URL_DEFAULT = "http://localhost:3002/";
-
-
+    private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
 

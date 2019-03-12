@@ -32,21 +32,30 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
-
     public static final int NOTIFICATION_ID = 1000;
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
-
-    private PersistentService persistentService;
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
     // Binder given to clients
     private final IBinder mBinder = new MobilePersistentServiceBinder();
+    private PersistentService persistentService;
 
     public MobilePersistentService() {
         super();
         this.persistentService = new PersistentService(this);
+    }
+
+    public static void start(Context context) {
+        /*
+         * Use a plain old (foreground) service
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(new Intent(context, MobilePersistentService.class));
+        } else {
+            context.startService(new Intent(context, MobilePersistentService.class));
+        }
     }
 
     @Override
@@ -59,17 +68,6 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
             stopForeground(true);
             stopSelf(startId);
             return START_NOT_STICKY;
-        }
-    }
-
-    public static void start(Context context) {
-        /*
-         * Use a plain old (foreground) service
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(new Intent(context, MobilePersistentService.class));
-        } else {
-            context.startService(new Intent(context, MobilePersistentService.class));
         }
     }
 

@@ -24,6 +24,7 @@ public class MobilePersistentServiceBroadcastReceiver extends BroadcastReceiver 
     public static final String ACTION_DISABLE_SERVICE = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.ACTION_DISABLE_SERVICE";
 
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(LOG_TAG, intent.toString());
