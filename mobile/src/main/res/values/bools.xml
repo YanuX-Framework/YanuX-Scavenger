@@ -12,6 +12,7 @@
 
 <resources>
     <bool name="preferences_default_allow_persistent_service">true</bool>
+    <bool name="preferences_default_allow_zeroconf">false</bool>
     <bool name="preferences_default_beacon_scan">true</bool>
     <bool name="preferences_default_beacon_advertise">false</bool>
     <bool name="preferences_default_device_capabilities_view">true</bool>

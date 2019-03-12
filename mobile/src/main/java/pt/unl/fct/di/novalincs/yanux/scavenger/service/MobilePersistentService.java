@@ -32,6 +32,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
 
     public static final int NOTIFICATION_ID = 1000;
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
@@ -39,10 +40,14 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
 
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
-
+    private PersistentService persistentService;
     // Binder given to clients
     private final IBinder mBinder = new MobilePersistentServiceBinder();
+
+    public MobilePersistentService() {
+        super();
+        this.persistentService = new PersistentService(this);
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -55,13 +60,6 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
             stopSelf(startId);
             return START_NOT_STICKY;
         }
-    }
-
-    private PersistentService persistentService;
-
-    public MobilePersistentService() {
-        super();
-        persistentService = new PersistentService(this);
     }
 
     public static void start(Context context) {

@@ -15,6 +15,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -62,26 +63,26 @@ public class PersistentService implements Service {
     private static final String IBEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
     private static final int HANDLE_SHOW_TOAST = 0;
 
+    private BeaconConsumer beaconConsumer;
+    private Context context;
+    private Zeroconf zeroconf;
     private Handler mainHandler;
     private Preferences preferences;
-    private Context context;
-    private JSONObject user;
-    private BeaconScanner beaconScanner;
-    private BeaconCollector beaconCollector;
-    private BeaconConsumer beaconConsumer;
+    private boolean started;
+    private boolean beaconServiceConnected;
+    private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
     private HTTPServer httpServer;
     private OkHttpClient httpClient;
     private Socket socket;
-    private boolean started;
-    private boolean beaconServiceConnected = false;
+    private BeaconScanner beaconScanner;
+    private BeaconCollector beaconCollector;
+    private JSONObject user;
 
     public PersistentService(BeaconConsumer beaconConsumer) {
         this.beaconConsumer = beaconConsumer;
         this.context = (Context) beaconConsumer;
-    }
-
-    public void start() {
-        mainHandler = new Handler(Looper.getMainLooper()) {
+        this.zeroconf = new Zeroconf(this.context);
+        this.mainHandler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message message) {
                 switch (message.what) {
@@ -93,9 +94,35 @@ public class PersistentService implements Service {
                 }
             }
         };
+        this.started = false;
+        this.beaconServiceConnected = false;
+        this.sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                Log.d(LOG_TAG, "OnSharedPreferenceChangeListener: " + key);
+                if (key.equals(Preferences.PREFERENCE_YANUX_BROKER_URL)) {
+                    start();
+                } else if (key.equals(Preferences.PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL)) {
+                    userAuthorization();
+                } else if (key.equals(Preferences.ALLOW_ZEROCONF)) {
+                    if (preferences.isZeroconfAllowed()) {
+                        zeroconf.startDiscovery();
+                    } else {
+                        zeroconf.stopDiscovery();
+                    }
+                }
+            }
+        };
+    }
+
+    public void start() {
         try {
             preferences = new Preferences(context);
+            preferences.getPreferences().registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
             if (preferences.isPersistentServiceAllowed()) {
+                if (preferences.isZeroconfAllowed()) {
+                    zeroconf.startDiscovery();
+                }
                 if (!started) {
                     Log.d(LOG_TAG, "MobileService: Start");
                     /* UUID Generation */
@@ -111,14 +138,78 @@ public class PersistentService implements Service {
                     httpServer = new HTTPServer();
                     /* HTTP Client */
                     httpClient = new OkHttpClient();
-                    /* YanuX Auth */
-                    //userAuthorization();
                     /* Socket.io -> YanuX Broker */
+                    String yanuxBrokerUrl = preferences.getYanuxBrokerUrl();
                     socket = IO.socket(preferences.getYanuxBrokerUrl());
                     socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                         @Override
                         public void call(Object... args) {
-                            Log.d(LOG_TAG, "MobileService: Connected to YanuX Broker.");
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker CONNECT");
+                        }
+                    }).on(Socket.EVENT_CONNECT_TIMEOUT, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_CONNECT_TIMEOUT");
+                        }
+                    }).on(Socket.EVENT_CONNECTING, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_CONNECTING");
+                        }
+                    }).on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_CONNECT_ERROR");
+                        }
+                    }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_DISCONNECT");
+                        }
+                    }).on(Socket.EVENT_ERROR, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_ERROR");
+                        }
+                    }).on(Socket.EVENT_MESSAGE, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_MESSAGE");
+                        }
+                    }).on(Socket.EVENT_PING, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_PING");
+                        }
+                    }).on(Socket.EVENT_PONG, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_PONG");
+                        }
+                    }).on(Socket.EVENT_RECONNECT, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECT");
+                        }
+                    }).on(Socket.EVENT_RECONNECT_ATTEMPT, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECT_ATTEMPT");
+                        }
+                    }).on(Socket.EVENT_RECONNECT_ERROR, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECT_ERROR");
+                        }
+                    }).on(Socket.EVENT_RECONNECT_FAILED, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECT_FAILED");
+                        }
+                    }).on(Socket.EVENT_RECONNECTING, new Emitter.Listener() {
+                        @Override
+                        public void call(Object... args) {
+                            Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECTING");
                         }
                     })/*.on("beacons created", new Emitter.Listener() {
                         @Override
@@ -144,34 +235,37 @@ public class PersistentService implements Service {
                     socket.connect();
                     authenticate();
                     /* BLE */
-                    beaconScanner = new BeaconScanner(this, socket, preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
-                    beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
-                        @Override
-                        public void onReceive(Context context, Intent intent) {
-                            switch (intent.getAction()) {
-                                case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
-                                    List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
-                                    StringBuilder stringBuilder = new StringBuilder();
-                                    for (Beacon b : beaconsArrayList) {
-                                        stringBuilder.append("\n" + b.toString());
-                                    }
-                                    Log.d(LOG_TAG, "Beacons: " + stringBuilder);
-                                    Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
-                                    if (user != null) {
-                                        try {
-                                            beaconScanner.update(user.getString("_id"), preferences.getDeviceUuid(), beaconsArrayList);
-                                        } catch (JSONException e) {
-                                            Log.e(LOG_TAG, "Couldn't get user id: " + e.toString());
+                    if (preferences.shouldBeaconScan()) {
+                        beaconScanner = new BeaconScanner(this, socket, preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
+                        beaconCollector = new BeaconCollector(beaconConsumer, new BroadcastReceiver() {
+                            @Override
+                            public void onReceive(Context context, Intent intent) {
+                                switch (intent.getAction()) {
+                                    case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
+                                        List<Beacon> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
+                                        StringBuilder stringBuilder = new StringBuilder();
+                                        for (Beacon b : beaconsArrayList) {
+                                            stringBuilder.append("\n");
+                                            stringBuilder.append(b.toString());
                                         }
-                                    }
-                                    break;
-                                default:
-                                    break;
+                                        Log.d(LOG_TAG, "Beacons: " + stringBuilder);
+                                        Log.d(LOG_TAG, "Ranging Elapsed Time: " + beaconCollector.getRangingElapsedTime() + " ms");
+                                        if (user != null) {
+                                            try {
+                                                beaconScanner.update(user.getString("_id"), preferences.getDeviceUuid(), beaconsArrayList);
+                                            } catch (JSONException e) {
+                                                Log.e(LOG_TAG, "Couldn't get user id: " + e.toString());
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
-                        }
-                    });
-                    beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
-                    listenForBleBeacons();
+                        });
+                        beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
+                        listenForBleBeacons();
+                    }
                     // Mark the service as started.
                     started = true;
                 } else {
@@ -188,8 +282,8 @@ public class PersistentService implements Service {
     }
 
     public void userAuthorization() {
-        if (preferences.getYanuxAuthAccessToken() == Preferences.INVALID
-                || preferences.getYanuxAuthRefreshToken() == Preferences.INVALID) {
+        if (preferences.getYanuxAuthAccessToken().isEmpty()
+                || preferences.getYanuxAuthRefreshToken().isEmpty()) {
             Message message = mainHandler.obtainMessage(HANDLE_SHOW_TOAST, context.getString(R.string.persistent_service_authentication_warning));
             message.sendToTarget();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -204,10 +298,10 @@ public class PersistentService implements Service {
 
     private void authenticate() throws JSONException {
         JSONObject auth = new JSONObject();
-        if (preferences.getYanuxAuthJwt() != Preferences.INVALID) {
+        if (!preferences.getYanuxAuthJwt().isEmpty()) {
             auth.put("strategy", "jwt");
             auth.put("accessToken", preferences.getYanuxAuthJwt());
-        } else if (preferences.getYanuxAuthAccessToken() != Preferences.INVALID) {
+        } else if (!preferences.getYanuxAuthAccessToken().isEmpty()) {
             auth.put("strategy", "yanux");
             auth.put("clientId", preferences.getYanuxAuthClientId());
             auth.put("accessToken", preferences.getYanuxAuthAccessToken());
@@ -318,7 +412,7 @@ public class PersistentService implements Service {
     }
 
     public void exchangeAuthorizationCode() {
-        if (preferences.getYanuxAuthAuthorizationCode() != Preferences.INVALID) {
+        if (!preferences.getYanuxAuthAuthorizationCode().isEmpty()) {
             Log.d(LOG_TAG, "Exchanging Authorization Code: " + preferences.getYanuxAuthAuthorizationCode());
             RequestBody requestBody = new FormBody.Builder()
                     .add("code", preferences.getYanuxAuthAuthorizationCode())
@@ -330,7 +424,7 @@ public class PersistentService implements Service {
     }
 
     private void exchangeRefreshToken() {
-        if (preferences.getYanuxAuthRefreshToken() != Preferences.INVALID) {
+        if (!preferences.getYanuxAuthRefreshToken().isEmpty()) {
             Log.d(LOG_TAG, "Trying to get a new token using the Refresh Token");
             String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
             RequestBody requestBody = new FormBody.Builder()
@@ -343,56 +437,59 @@ public class PersistentService implements Service {
     }
 
     private void makeOAuth2TokenRequest(RequestBody requestBody, boolean reauthenticate) {
-        String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
-        Request request = new Request.Builder()
-                .url(preferences.getYanuxAuthOauth2AuthorizationServerUrl() + "oauth2/token")
-                .header("Authorization", credentials)
-                .post(requestBody)
-                .build();
+        if (!preferences.getYanuxAuthOauth2AuthorizationServerUrl().isEmpty()) {
+            String credentials = Credentials.basic(preferences.getYanuxAuthClientId(), preferences.getYanuxAuthClientSecret());
+            Request request = new Request.Builder()
+                    .url(preferences.getYanuxAuthOauth2AuthorizationServerUrl() + "oauth2/token")
+                    .header("Authorization", credentials)
+                    .post(requestBody)
+                    .build();
 
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(LOG_TAG, e.toString());
-            }
+            httpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.e(LOG_TAG, e.toString());
+                }
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    Log.e(LOG_TAG, "OAuth 2.0 Token Exchange Failed: " + response);
-                    Log.d(LOG_TAG, "Asking the user to re-authenticate");
-                    clearTokens();
-                    userAuthorization();
-                } else {
-                    try {
-                        JSONObject tokens = new JSONObject(response.body().string());
-                        String accessToken = tokens.getString("access_token");
-                        String refreshToken = tokens.getString("refresh_token");
-                        Log.d(LOG_TAG, "Retrieved Access Token: " + accessToken + " and Refresh Token: " + refreshToken);
-                        preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
-                        preferences.setYanuxAccessToken(accessToken);
-                        preferences.setYanuxRefreshToken(refreshToken);
-                        if (reauthenticate) {
-                            authenticate();
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        Log.e(LOG_TAG, "OAuth 2.0 Token Exchange Failed: " + response);
+                        Log.d(LOG_TAG, "Asking the user to re-authenticate");
+                        clearTokens();
+                        userAuthorization();
+                    } else {
+                        try {
+                            JSONObject tokens = new JSONObject(response.body().string());
+                            String accessToken = tokens.getString("access_token");
+                            String refreshToken = tokens.getString("refresh_token");
+                            Log.d(LOG_TAG, "Retrieved Access Token: " + accessToken + " and Refresh Token: " + refreshToken);
+                            preferences.setYanuxAuthAuthorizationCode(Preferences.EMPTY);
+                            preferences.setYanuxAccessToken(accessToken);
+                            preferences.setYanuxRefreshToken(refreshToken);
+                            if (reauthenticate) {
+                                authenticate();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e(LOG_TAG, e.toString());
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e(LOG_TAG, e.toString());
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void clearTokens() {
-        preferences.setYanuxAuthAuthorizationCode(Preferences.INVALID);
-        preferences.setYanuxAccessToken(Preferences.INVALID);
-        preferences.setYanuxRefreshToken(Preferences.INVALID);
-        preferences.setYanuxAuthJwt(Preferences.INVALID);
+        preferences.setYanuxAuthAuthorizationCode(Preferences.EMPTY);
+        preferences.setYanuxAccessToken(Preferences.EMPTY);
+        preferences.setYanuxRefreshToken(Preferences.EMPTY);
+        preferences.setYanuxAuthJwt(Preferences.EMPTY);
     }
 
     public void stop() {
         Log.d(LOG_TAG, "MobileService: Stop");
+        zeroconf.stopDiscovery();
         if (getBeaconCollector() != null) {
             if (started) {
                 beaconCollector.stopRanging();

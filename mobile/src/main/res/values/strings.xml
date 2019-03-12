@@ -101,6 +101,7 @@
     <!-- Preferences -->
     <string name="preferences_category_persistent_service">Persistent service</string>
     <string name="preferences_title_allow_persistent_service">Allow persistent service</string>
+    <string name="preferences_title_allow_zeroconf">Allow zero-configuration networking</string>
 
     <string name="preferences_category_beacon_scanning">Beacon scanning</string>
     <string name="preferences_title_beacon_scan">Beacon Scan</string>
