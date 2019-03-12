@@ -13,14 +13,14 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
@@ -32,10 +32,10 @@ public class PermissionManager {
     public static final int REQUEST_PERMISSION_LOCATION = 2;
 
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private final Preferences preferences;
 
-    public PermissionManager(Activity activity) {
+    public PermissionManager(AppCompatActivity activity) {
         this.activity = activity;
         this.preferences = new Preferences(activity);
     }

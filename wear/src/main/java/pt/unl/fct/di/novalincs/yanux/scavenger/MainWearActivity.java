@@ -12,16 +12,16 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import java.util.Collection;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
-public class MainWearActivity extends Activity {
+public class MainWearActivity extends AppCompatActivity {
 
     private TextView mTextView;
 

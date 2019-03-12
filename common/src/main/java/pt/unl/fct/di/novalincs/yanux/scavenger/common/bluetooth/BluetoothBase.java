@@ -12,21 +12,22 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BluetoothBase {
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH = 200;
     public static final int REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY = 201;
     public static final int BLUETOOTH_DISCOVERABILITY_TIME = 3600;
 
-    public static void enableBluetooth(Activity activity) {
+    public static void enableBluetooth(AppCompatActivity activity) {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH);
     }
 
-    public static void enableBluetoothDiscoverability(Activity activity) {
+    public static void enableBluetoothDiscoverability(AppCompatActivity activity) {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, BLUETOOTH_DISCOVERABILITY_TIME);
         activity.startActivityForResult(intent, REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY);

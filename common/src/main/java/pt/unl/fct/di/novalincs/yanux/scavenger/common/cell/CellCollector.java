@@ -12,13 +12,13 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.cell;
 
-import android.app.Activity;
 import android.content.Context;
 import android.telephony.CellInfo;
 import android.telephony.TelephonyManager;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 /*
@@ -33,8 +33,8 @@ public class CellCollector {
     public CellCollector(Context context) {
         this.context = context;
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (context instanceof Activity) {
-            permissionManager = new PermissionManager((Activity) context);
+        if (context instanceof AppCompatActivity) {
+            permissionManager = new PermissionManager((AppCompatActivity) context);
         }
 
     }

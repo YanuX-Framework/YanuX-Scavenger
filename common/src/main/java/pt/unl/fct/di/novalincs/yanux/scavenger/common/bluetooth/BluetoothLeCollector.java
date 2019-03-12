@@ -13,7 +13,6 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
 import android.Manifest;
-import android.app.Activity;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -28,6 +27,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
@@ -59,8 +59,8 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_ERROR);
         handler = new Handler();
         initBleCallback();
-        if (context instanceof Activity) {
-            permissionManager = new PermissionManager((Activity) context);
+        if (context instanceof AppCompatActivity) {
+            permissionManager = new PermissionManager((AppCompatActivity) context);
         }
     }
 

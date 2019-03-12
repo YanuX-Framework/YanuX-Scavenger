@@ -13,7 +13,6 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,7 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
@@ -65,8 +65,8 @@ public class BeaconCollector {
     public BeaconCollector(BeaconConsumer beaconConsumer, BroadcastReceiver broadcastReceiver) {
         this.beaconConsumer = beaconConsumer;
         context = (Context) beaconConsumer;
-        if (context instanceof Activity) {
-            permissionManager = new PermissionManager((Activity) context);
+        if (context instanceof AppCompatActivity) {
+            permissionManager = new PermissionManager((AppCompatActivity) context);
         }
         this.broadcastReceiver = broadcastReceiver;
         intentFilter = new IntentFilter();

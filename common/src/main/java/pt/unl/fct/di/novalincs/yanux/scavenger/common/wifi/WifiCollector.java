@@ -13,7 +13,6 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.wifi;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +24,7 @@ import android.os.SystemClock;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 public class WifiCollector {
@@ -40,14 +40,14 @@ public class WifiCollector {
     public WifiCollector(Context context) {
         this.context = context;
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        if (context instanceof Activity) {
-            permissionManager = new PermissionManager((Activity) context);
+        if (context instanceof AppCompatActivity) {
+            permissionManager = new PermissionManager((AppCompatActivity) context);
         }
         scanning = false;
         startScanningTime = -1;
     }
 
-    public static void enableScanIsAlwaysAvailable(Activity activity) {
+    public static void enableScanIsAlwaysAvailable(AppCompatActivity activity) {
         activity.startActivityForResult(new Intent(ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE), REQUEST_CODE_SCAN_ALWAYS_AVAILABLE);
     }
 
