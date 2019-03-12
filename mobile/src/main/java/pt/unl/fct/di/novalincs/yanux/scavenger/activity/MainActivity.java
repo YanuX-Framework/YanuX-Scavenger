@@ -18,6 +18,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -84,26 +86,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Uri data = getIntent().getData();
-        if (data != null) {
-            String authorizationCode = data.getQueryParameter("code");
-            Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + authorizationCode);
-            preferences.setYanuxAuthAuthorizationCode(authorizationCode);
-        }
-        // Bind to LocalService
-        Intent intent = new Intent(this, MobilePersistentService.class);
-        bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(mobilePersistentServiceConnection);
-        mobilePersistentServiceBound = false;
-    }
+    /*
+     * TODO: If I get this to work move it somewhere else. If I don't, find another solution!
+     */
+    private NsdManager.DiscoveryListener discoveryListener;
+    private NsdManager nsdManager;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -167,5 +154,86 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startNetworkDiscovery();
+        Uri data = getIntent().getData();
+        if (data != null) {
+            String authorizationCode = data.getQueryParameter("code");
+            Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + authorizationCode);
+            preferences.setYanuxAuthAuthorizationCode(authorizationCode);
+        }
+        // Bind to LocalService
+        Intent intent = new Intent(this, MobilePersistentService.class);
+        bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopNetworkDiscovery();
+        unbindService(mobilePersistentServiceConnection);
+        mobilePersistentServiceBound = false;
+    }
+
+    private void startNetworkDiscovery() {
+        nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
+        // Instantiate a new DiscoveryListener
+        discoveryListener = new NsdManager.DiscoveryListener() {
+            // Called as soon as service discovery begins.
+            @Override
+            public void onDiscoveryStarted(String regType) {
+                Log.d(LOG_TAG, "Service discovery started");
+            }
+
+            @Override
+            public void onServiceFound(NsdServiceInfo service) {
+                // A service was found! Do something with it.
+                Log.d(LOG_TAG, "Service discovery success" + service);
+                /*if (!service.getServiceType().equals(SERVICE_TYPE)) {
+                    // Service type is the string containing the protocol and
+                    // transport layer for this service.
+                    Log.d(LOG_TAG, "Unknown Service Type: " + service.getServiceType());
+                } else if (service.getServiceName().equals(serviceName)) {
+                    // The name of the service tells the user what they'd be
+                    // connecting to. It could be "Bob's Chat App".
+                    Log.d(LOG_TAG, "Same machine: " + serviceName);
+                } else if (service.getServiceName().contains("NsdChat")){
+                    nsdManager.resolveService(service, resolveListener);
+                }*/
+            }
+
+            @Override
+            public void onServiceLost(NsdServiceInfo service) {
+                // When the network service is no longer available.
+                // Internal bookkeeping code goes here.
+                Log.e(LOG_TAG, "service lost: " + service);
+            }
+
+            @Override
+            public void onDiscoveryStopped(String serviceType) {
+                Log.i(LOG_TAG, "Discovery stopped: " + serviceType);
+            }
+
+            @Override
+            public void onStartDiscoveryFailed(String serviceType, int errorCode) {
+                Log.e(LOG_TAG, "Discovery failed: Error code:" + errorCode);
+                nsdManager.stopServiceDiscovery(this);
+            }
+
+            @Override
+            public void onStopDiscoveryFailed(String serviceType, int errorCode) {
+                Log.e(LOG_TAG, "Discovery failed: Error code:" + errorCode);
+                nsdManager.stopServiceDiscovery(this);
+            }
+        };
+        nsdManager.discoverServices("_http._tcp.", NsdManager.PROTOCOL_DNS_SD, discoveryListener);
+    }
+
+    private void stopNetworkDiscovery() {
+        nsdManager.stopServiceDiscovery(discoveryListener);
     }
 }
