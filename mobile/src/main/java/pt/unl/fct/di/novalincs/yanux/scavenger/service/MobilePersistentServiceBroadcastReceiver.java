@@ -21,6 +21,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentServiceBroadcastReceiver extends BroadcastReceiver {
+    public static final String ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
     public static final String ACTION_DISABLE_SERVICE = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.ACTION_DISABLE_SERVICE";
 
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
@@ -28,7 +29,9 @@ public class MobilePersistentServiceBroadcastReceiver extends BroadcastReceiver 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(LOG_TAG, intent.toString());
-        if (ACTION_DISABLE_SERVICE.equals(intent.getAction())) {
+        if (ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            Log.d(LOG_TAG, "Boot Completed");
+        } else if (ACTION_DISABLE_SERVICE.equals(intent.getAction())) {
             Preferences preferences = new Preferences(context);
             preferences.setIsPersistentServiceAllowed(false);
             context.stopService(new Intent(context, MobilePersistentService.class));

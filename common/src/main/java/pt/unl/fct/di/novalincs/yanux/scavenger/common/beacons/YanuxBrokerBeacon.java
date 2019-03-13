@@ -10,21 +10,21 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
 
 import java.util.List;
 
-public class BeaconPOJO {
+public class YanuxBrokerBeacon {
     private String user;
     private String deviceUuid;
     private String beaconKey;
-    private BeaconDetails beacon;
+    private YanuxBrokerBeaconDetails beacon;
 
-    public BeaconPOJO(String user, String deviceUuid, String beaconKey, String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
+    public YanuxBrokerBeacon(String user, String deviceUuid, String beaconKey, String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
         this.user = user;
         this.deviceUuid = deviceUuid;
         this.beaconKey = beaconKey;
-        this.beacon = new BeaconDetails(id, type, values, txPower, rssi, timestamp);
+        this.beacon = new YanuxBrokerBeaconDetails(id, type, values, txPower, rssi, timestamp);
     }
 
     public String getUser() {
@@ -51,11 +51,11 @@ public class BeaconPOJO {
         this.beaconKey = beaconKey;
     }
 
-    public BeaconDetails getBeacon() {
+    public YanuxBrokerBeaconDetails getBeacon() {
         return beacon;
     }
 
-    public void setBeacon(BeaconDetails beacon) {
+    public void setBeacon(YanuxBrokerBeaconDetails beacon) {
         this.beacon = beacon;
     }
 }

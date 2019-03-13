@@ -33,19 +33,14 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {
     public static final int NOTIFICATION_ID = 1000;
-    public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
+    public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background GenericService";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
-    public static final String NOTIFICATION_CHANNEL_NAME = "Background Service";
+    public static final String NOTIFICATION_CHANNEL_NAME = "Background GenericService";
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
     // Binder given to clients
-    private final IBinder mBinder = new MobilePersistentServiceBinder();
+    private final IBinder binder = new MobilePersistentServiceBinder();
     private PersistentService persistentService;
-
-    public MobilePersistentService() {
-        super();
-        this.persistentService = new PersistentService(this);
-    }
 
     public static void start(Context context) {
         /*
@@ -58,10 +53,30 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         }
     }
 
+    public static void stop(Context context) {
+        context.stopService(new Intent(context, MobilePersistentService.class));
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (persistentService == null) {
+            persistentService = new PersistentService(this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        persistentService.stop();
+        persistentService.unregisterSharedPreferenceChangeListener();
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(NOTIFICATION_ID, getNotification());
         persistentService.start();
+        persistentService.registerSharedPreferenceChangeListener();
         if (persistentService.isStarted()) {
             return START_STICKY;
         } else {
@@ -73,28 +88,19 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
-    }
-
-    public PersistentService getPersistentService() {
-        return persistentService;
+        return binder;
     }
 
     @Override
     public void onBeaconServiceConnect() {
-        persistentService.setBeaconServiceConnected(true);
-        persistentService.listenForBleBeacons();
+        if (persistentService == null) {
+            persistentService = new PersistentService(this);
+        }
+        persistentService.startBeaconScan();
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        persistentService.stop();
+    public PersistentService getPersistentService() {
+        return persistentService;
     }
 
     private Notification getNotification() {

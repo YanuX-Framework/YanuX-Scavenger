@@ -46,7 +46,7 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
     private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
-    //iBeacon BeaconPOJO Layout
+    //iBeacon YanuxBrokerBeacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private static final String REGION_UUID = "3c8bc916-4b9c-4777-98e1-9f6b8a789054";
 
@@ -87,7 +87,7 @@ public class BeaconCollector {
          * TODO:
          * If needed and possible, implement a better distance calculator.
          */
-        //BeaconPOJO.setDistanceCalculator(new CustomDistanceCalculator());
+        //YanuxBrokerBeacon.setDistanceCalculator(new CustomDistanceCalculator());
 
         beaconManager.setBackgroundMode(false);
         beaconManager.bind(this.beaconConsumer);
@@ -181,9 +181,11 @@ public class BeaconCollector {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         try {
-            beaconManager.startMonitoringBeaconsInRegion(region);
-            context.registerReceiver(broadcastReceiver, intentFilter);
-            monitoring = true;
+            if (!monitoring) {
+                monitoring = true;
+                beaconManager.startMonitoringBeaconsInRegion(region);
+                context.registerReceiver(broadcastReceiver, intentFilter);
+            }
         } catch (RemoteException e) {
             Log.e(LOG_TAG, e.toString());
         }
@@ -191,10 +193,12 @@ public class BeaconCollector {
 
     public void stopMonitoring(Region region) {
         try {
-            monitoring = false;
-            context.unregisterReceiver(broadcastReceiver);
-            beaconManager.stopMonitoringBeaconsInRegion(region);
-        } catch (RemoteException e) {
+            if (monitoring) {
+                monitoring = false;
+                beaconManager.stopMonitoringBeaconsInRegion(region);
+                context.unregisterReceiver(broadcastReceiver);
+            }
+        } catch (RemoteException | IllegalArgumentException e) {
             Log.e(LOG_TAG, e.toString());
         }
     }
@@ -204,9 +208,11 @@ public class BeaconCollector {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         try {
-            beaconManager.startRangingBeaconsInRegion(region);
-            context.registerReceiver(broadcastReceiver, intentFilter);
-            ranging = true;
+            if (!ranging) {
+                ranging = true;
+                beaconManager.startRangingBeaconsInRegion(region);
+                context.registerReceiver(broadcastReceiver, intentFilter);
+            }
         } catch (RemoteException e) {
             Log.e(LOG_TAG, e.toString());
         }
@@ -214,11 +220,13 @@ public class BeaconCollector {
 
     public void stopRanging(Region region) {
         try {
-            ranging = false;
-            startRangingTime = -1;
-            context.unregisterReceiver(broadcastReceiver);
-            beaconManager.stopRangingBeaconsInRegion(region);
-        } catch (RemoteException e) {
+            if (ranging) {
+                ranging = false;
+                startRangingTime = -1;
+                beaconManager.stopRangingBeaconsInRegion(region);
+                context.unregisterReceiver(broadcastReceiver);
+            }
+        } catch (RemoteException | IllegalArgumentException e) {
             Log.e(LOG_TAG, e.toString());
         }
     }
@@ -243,6 +251,11 @@ public class BeaconCollector {
         }
     }
 
+    public void bind() {
+        if (!beaconManager.isBound(beaconConsumer)) {
+            beaconManager.bind(beaconConsumer);
+        }
+    }
     public void unbind() {
         if (beaconManager.isBound(beaconConsumer)) {
             beaconManager.unbind(beaconConsumer);

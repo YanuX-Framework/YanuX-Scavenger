@@ -10,11 +10,11 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
 
 import java.util.List;
 
-public class BeaconDetails {
+public class YanuxBrokerBeaconDetails {
     private String id;
     private String type;
     private List<Object> values;
@@ -22,7 +22,7 @@ public class BeaconDetails {
     private int rssi;
     private long timestamp;
 
-    public BeaconDetails(String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
+    public YanuxBrokerBeaconDetails(String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
         this.id = id;
         this.type = type;
         this.values = values;
