@@ -51,9 +51,12 @@ public class PreferencesActivity extends AppCompatActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)
-                    && sharedPreferences.getBoolean(Preferences.ALLOW_PERSISTENT_SERVICE, Preferences.ALLOW_PERSISTENT_SERVICE_DEFAULT)) {
-                MobilePersistentService.start(context);
+            if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)) {
+                if (sharedPreferences.getBoolean(Preferences.ALLOW_PERSISTENT_SERVICE, Preferences.ALLOW_PERSISTENT_SERVICE_DEFAULT)) {
+                    MobilePersistentService.start(context);
+                } else {
+                    MobilePersistentService.stop(context);
+                }
             }
         }
 
