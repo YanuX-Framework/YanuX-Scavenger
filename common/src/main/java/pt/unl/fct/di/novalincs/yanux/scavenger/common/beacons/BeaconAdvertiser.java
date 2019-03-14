@@ -16,11 +16,13 @@ import android.bluetooth.le.AdvertiseCallback;
 import android.bluetooth.le.AdvertiseSettings;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -66,6 +68,7 @@ public class BeaconAdvertiser {
             });
         } else {
             Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment is NOT supported.");
+            Toast.makeText(context, R.string.beacon_advertiser_not_supported, Toast.LENGTH_LONG).show();
         }
     }
 

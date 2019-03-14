@@ -12,26 +12,46 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
 
+import android.content.Context;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.util.Map;
 
 import fi.iki.elonen.NanoHTTPD;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class PersistentServiceHTTPServer extends NanoHTTPD {
-    public PersistentServiceHTTPServer() {
-        super(8080);
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+
+    private final Context context;
+    private final Preferences preferences;
+
+    public PersistentServiceHTTPServer(Context context, int port) {
+        super(port);
+        this.context = context;
+        this.preferences = new Preferences(context);
     }
 
     //TODO: Return the device UUID when asked!
     @Override
     public Response serve(IHTTPSession session) {
-        String msg = "<html><body><h1>Hello server</h1>\n";
-        Map<String, String> parms = session.getParms();
-        if (parms.get("username") == null) {
-            msg += "<form action='?' method='get'>\n  <p>Your name: <input type='text' name='username'></p>\n" + "</form>\n";
-        } else {
-            msg += "<p>Hello, " + parms.get("username") + "!</p>";
+        Log.d(LOG_TAG, "Request: " + session.getUri());
+        try {
+            switch (session.getUri()) {
+                case "/deviceInfo":
+                    JSONObject response = new JSONObject();
+                    response.put("deviceUuid", preferences.getDeviceUuid());
+                    return newFixedLengthResponse(Response.Status.OK, "application/json", response.toString());
+                default:
+                    return newChunkedResponse(Response.Status.OK, "text/html", this.context.getAssets().open("index.html"));
+            }
+        } catch (IOException | JSONException e) {
+            Log.e(LOG_TAG, e.toString());
+            return newFixedLengthResponse("Error: " + e.toString());
         }
-        return newFixedLengthResponse(msg + "</body></html>\n");
     }
 }

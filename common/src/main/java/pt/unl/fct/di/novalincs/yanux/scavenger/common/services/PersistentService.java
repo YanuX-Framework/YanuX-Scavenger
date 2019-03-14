@@ -84,7 +84,7 @@ public class PersistentService implements GenericService {
         this.beaconCollector = new BeaconCollector(beaconConsumer, new PersistentServiceBeaconScanner(this));
         this.beaconScanner = new PersistentServiceBeaconScanner(this);
         this.beaconAdvertiser = new BeaconAdvertiser(context);
-        this.httpServer = new PersistentServiceHTTPServer();
+        this.httpServer = new PersistentServiceHTTPServer(context, preferences.getHttpServerPort());
         this.httpClient = new OkHttpClient();
         this.started = false;
     }

@@ -108,7 +108,7 @@
             android:defaultValue="@integer/preferences_default_http_server_port"
             android:digits="0123456789"
             android:inputType="numberDecimal"
-            android:key="http_port"
+            android:key="http_server_port"
             android:singleLine="true"
             android:title="@string/preferences_title_http_server_port"
             app:useSimpleSummaryProvider="true" />

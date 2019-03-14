@@ -13,6 +13,7 @@
 <resources>
     <string name="app_name">YanuX Scavenger Common</string>
 
+    <!-- Generic -->
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
@@ -21,6 +22,10 @@
     <string name="stop">Stop</string>
     <string name="required">Required</string>
 
+    <!-- Persistent Service -->
+    <string name="persistent_service_authentication_warning">Please authenticate with YanuX Auth to continue.</string>
+
+    <!-- Permissions -->
     <string name="multiple_permissions_rationale">Please allow the application to access these permission. They are needed in order to provide you the full experience.</string>
     <string name="permission_rationale_generic">Please allow the application to access this permission. It is needed in order to provide you the full experience.</string>
     <string name="permission_rationale_location">Please allow the application to access your location. It is needed in order to allow cross-device interaction.</string>
@@ -34,6 +39,7 @@
     <string name="multiple_permission_allowed">Thank you for allowing access to the permissions.</string>
     <string name="multiple_permission_denied">You haven\'t allowed access to theses permissions. The application will be unable to provide you the full experience.</string>
 
+    <!-- Sensors -->
     <string name="sensor_name">Name</string>
     <string name="sensor_vendor">Vendor</string>
     <string name="sensor_version">Version</string>
@@ -67,6 +73,6 @@
     <string name="sensor_significant_motion_detected">Significant motion detected</string>
     <string name="sensor_type_rotation_wrapper">Rotation Wrapper</string>
 
-    <!-- Persistent GenericService -->
-    <string name="persistent_service_authentication_warning">Please authenticate with YanuX Auth to continue.</string>
+    <!-- Beacon -->
+    <string name="beacon_advertiser_not_supported">Beacon advertisement is not supported</string>
 </resources>
