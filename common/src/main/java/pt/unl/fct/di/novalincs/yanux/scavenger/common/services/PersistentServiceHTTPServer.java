@@ -40,15 +40,21 @@ public class PersistentServiceHTTPServer extends NanoHTTPD {
     @Override
     public Response serve(IHTTPSession session) {
         Log.d(LOG_TAG, "Request: " + session.getUri());
+        Response res;
         try {
             switch (session.getUri()) {
                 case "/deviceInfo":
                     JSONObject response = new JSONObject();
                     response.put("deviceUuid", preferences.getDeviceUuid());
-                    return newFixedLengthResponse(Response.Status.OK, "application/json", response.toString());
+                    res = newFixedLengthResponse(Response.Status.OK, "application/json", response.toString());
+                    break;
                 default:
-                    return newChunkedResponse(Response.Status.OK, "text/html", this.context.getAssets().open("index.html"));
+                    res = newChunkedResponse(Response.Status.OK, "text/html", this.context.getAssets().open("index.html"));
+                    break;
             }
+            //TODO: Refine the CORS policy!
+            res.addHeader("Access-Control-Allow-Origin", "*");
+            return res;
         } catch (IOException | JSONException e) {
             Log.e(LOG_TAG, e.toString());
             return newFixedLengthResponse("Error: " + e.toString());

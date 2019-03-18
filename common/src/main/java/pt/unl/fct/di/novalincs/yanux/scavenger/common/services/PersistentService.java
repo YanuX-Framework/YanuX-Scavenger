@@ -226,6 +226,7 @@ public class PersistentService implements GenericService {
         Log.d(LOG_TAG, "MobileService: Stop");
         zeroconf.stopDiscovery();
         stopBeaconScan();
+        stopBeaconAdvertisement();
         httpServer.stop();
         if (socket != null) {
             tidyUpBeacons();
@@ -420,7 +421,6 @@ public class PersistentService implements GenericService {
     public void stopBeaconAdvertisement() {
         beaconAdvertiser.stop();
     }
-
 
     private void tidyUpBeacons() {
         try {

@@ -82,7 +82,7 @@ public class Preferences {
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
 
     public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN = "yanux_auth_refresh_token";
-    public static final String PREFERENCE_HTTP_SERVER_PORT = "htpp_server_port";
+    public static final String PREFERENCE_HTTP_SERVER_PORT = "http_server_port";
     public static final String PREFERENCE_HTTP_SERVER_PORT_DEFAULT = "8080";
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT = EMPTY;
 

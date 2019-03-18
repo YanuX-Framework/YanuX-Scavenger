@@ -41,6 +41,8 @@ public class BeaconAdvertiser {
         this.preferences = new Preferences(context);
         this.beaconParser = new BeaconParser().setBeaconLayout(IBEACON_LAYOUT);
         this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
+        this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+        this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
     }
 
     public void start() {
@@ -54,6 +56,7 @@ public class BeaconAdvertiser {
                     .setManufacturer(0x004c)
                     .setTxPower(-59)
                     .build();
+
             beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
                 @Override
                 public void onStartSuccess(AdvertiseSettings settingsInEffect) {
