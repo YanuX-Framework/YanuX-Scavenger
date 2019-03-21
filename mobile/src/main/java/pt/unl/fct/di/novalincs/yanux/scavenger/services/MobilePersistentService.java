@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.service;
+package pt.unl.fct.di.novalincs.yanux.scavenger.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -33,7 +33,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {
     public static final int NOTIFICATION_ID = 1000;
-    public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background GenericService";
+    public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
     public static final String NOTIFICATION_CHANNEL_NAME = "Background GenericService";
@@ -96,7 +96,7 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         if (persistentService == null) {
             persistentService = new PersistentService(this);
         }
-        persistentService.startBeaconScan();
+        //persistentService.startBeaconScan();
     }
 
     public PersistentService getPersistentService() {

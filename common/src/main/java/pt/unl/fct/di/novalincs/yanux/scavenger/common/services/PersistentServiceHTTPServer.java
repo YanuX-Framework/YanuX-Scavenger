@@ -25,7 +25,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class PersistentServiceHTTPServer extends NanoHTTPD {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceHTTPServer.class.getSimpleName();
 
     private final Context context;
     private final Preferences preferences;

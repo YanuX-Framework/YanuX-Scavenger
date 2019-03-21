@@ -15,6 +15,8 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.services;
 import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
@@ -23,15 +25,20 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class PersistentServiceZeroconf {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceZeroconf.class.getSimpleName();
     private final String SERVICE_TYPE = "_http._tcp.";
     private Context context;
     private Preferences preferences;
     private NsdManager nsdManager;
     private NsdManager.DiscoveryListener discoveryListener;
+    private HandlerThread backgroundHandlerThread;
+    private Handler backgroundHandler;
 
     public PersistentServiceZeroconf(Context context) {
         this.context = context;
+        this.backgroundHandlerThread = new HandlerThread(PersistentService.class.getSimpleName() + "_background");
+        this.backgroundHandlerThread.start();
+        this.backgroundHandler = new Handler(backgroundHandlerThread.getLooper());
     }
 
     public void startDiscovery() {
@@ -57,13 +64,13 @@ public class PersistentServiceZeroconf {
         // Called as soon as service discovery begins.
         @Override
         public void onDiscoveryStarted(String regType) {
-            Log.d(LOG_TAG, "GenericService discovery started");
+            Log.d(LOG_TAG, "Service discovery started");
         }
 
         @Override
         public void onServiceFound(NsdServiceInfo service) {
             // A service was found! Do something with it.
-            Log.d(LOG_TAG, "GenericService discovery success" + service);
+            Log.d(LOG_TAG, "Service discovery success" + service);
             if (service.getServiceType().equals(SERVICE_TYPE)
                     && service.getServiceName().contains("YanuX")) {
                 nsdManager.resolveService(service, new ZeroconfResolveListener());
@@ -97,7 +104,7 @@ public class PersistentServiceZeroconf {
     private class ZeroconfResolveListener implements NsdManager.ResolveListener {
         @Override
         public void onServiceResolved(NsdServiceInfo serviceInfo) {
-            Log.d(LOG_TAG, "GenericService resolution success: " + serviceInfo);
+            Log.d(LOG_TAG, "Service resolution success: " + serviceInfo);
             String protocol = new String(serviceInfo.getAttributes().get("protocol"), StandardCharsets.UTF_8);
             if (serviceInfo.getServiceName().equals("YanuX-Auth")) {
                 preferences.setYanuxAuthOauth2AuthorizationServerUrl(protocol + "://" + serviceInfo.getHost().getCanonicalHostName() + ":" + serviceInfo.getPort() + "/");
@@ -110,9 +117,15 @@ public class PersistentServiceZeroconf {
 
         @Override
         public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
-            Log.e(LOG_TAG, "Resolution failed: Error code: " + errorCode + " GenericService Info: " + serviceInfo);
+            Log.e(LOG_TAG, "Resolution failed: Error code: " + errorCode + " Service Info: " + serviceInfo);
             if (errorCode == NsdManager.FAILURE_ALREADY_ACTIVE) {
-                nsdManager.resolveService(serviceInfo, this);
+                backgroundHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(LOG_TAG, "Retrying Resolution: Service Info: " + serviceInfo);
+                        nsdManager.resolveService(serviceInfo, ZeroconfResolveListener.this);
+                    }
+                }, 1000);
             }
         }
     }

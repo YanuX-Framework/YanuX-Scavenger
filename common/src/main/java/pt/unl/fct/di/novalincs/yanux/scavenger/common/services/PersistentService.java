@@ -65,8 +65,8 @@ public class PersistentService implements GenericService {
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
     private final Preferences preferences;
     private final PersistentServiceZeroconf zeroconf;
-    private final BeaconCollector beaconCollector;
     private final PersistentServiceBeaconScanner beaconScanner;
+    private final BeaconCollector beaconCollector;
     private final BeaconAdvertiser beaconAdvertiser;
     private final PersistentServiceHTTPServer httpServer;
     private final OkHttpClient httpClient;
@@ -81,8 +81,8 @@ public class PersistentService implements GenericService {
         this.sharedPreferenceChangeListener = new PersistentServiceSharedPreferenceChangeListener(this);
         this.preferences = new Preferences(context);
         this.zeroconf = new PersistentServiceZeroconf(this.context);
-        this.beaconCollector = new BeaconCollector(beaconConsumer, new PersistentServiceBeaconScanner(this));
         this.beaconScanner = new PersistentServiceBeaconScanner(this);
+        this.beaconCollector = new BeaconCollector(beaconConsumer, this.beaconScanner);
         this.beaconAdvertiser = new BeaconAdvertiser(context);
         this.httpServer = new PersistentServiceHTTPServer(context, preferences.getHttpServerPort());
         this.httpClient = new OkHttpClient();
@@ -291,16 +291,7 @@ public class PersistentService implements GenericService {
                         Log.e(LOG_TAG, e.toString());
                     }
                 } else {
-                    try {
-                        JSONObject message = (JSONObject) args[0];
-                        String messageValue = message.getString("message");
-                        if (messageValue.equals("The provided access token is not valid.")) {
-                            Log.d(LOG_TAG, "Message: " + messageValue);
-                            exchangeRefreshToken();
-                        }
-                    } catch (JSONException e) {
-                        Log.e(LOG_TAG, e.toString());
-                    }
+                    handleError(args[0]);
                 }
             }
         });
@@ -508,7 +499,23 @@ public class PersistentService implements GenericService {
     }
 
     public void handleError(Object error) {
-        //TODO: Handle some specific errors differently, such as the "NotAuthenticated" error.
         Log.e(LOG_TAG, "Error: " + error.toString());
+        if (error instanceof JSONObject) {
+            try {
+                JSONObject jsonError = (JSONObject) error;
+                String errorMessage = jsonError.has("message") ? jsonError.getString("message") : null;
+                String errorName = jsonError.has("name") ? jsonError.getString("name") : null;
+                if ("NotAuthenticated".equals(errorName)) {
+                    if ("jwt expired".equals(errorMessage)) {
+                        preferences.setYanuxAuthJwt(Preferences.EMPTY);
+                    }
+                    authenticate();
+                } else if ("The provided access token is not valid.".equals(errorMessage)) {
+                    exchangeRefreshToken();
+                }
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.toString());
+            }
+        }
     }
 }

@@ -39,8 +39,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
-import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
-import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService.MobilePersistentServiceBinder;
+import pt.unl.fct.di.novalincs.yanux.scavenger.services.MobilePersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.services.MobilePersistentService.MobilePersistentServiceBinder;
 
 
 public class MainActivity extends AppCompatActivity {

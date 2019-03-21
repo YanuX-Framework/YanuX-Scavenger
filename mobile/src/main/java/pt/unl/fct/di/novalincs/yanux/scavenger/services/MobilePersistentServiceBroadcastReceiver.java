@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.service;
+package pt.unl.fct.di.novalincs.yanux.scavenger.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

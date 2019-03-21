@@ -20,38 +20,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
-import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.services.MobilePersistentService;
 
 public class PreferencesActivity extends AppCompatActivity {
+    public static void refresh(AppCompatActivity activity) {
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.preferences_container, new PreferencesFragment())
+                .commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_preferences);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.preferences_container, new PreferencesFragment())
-                .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh(this);
     }
 
     public static class PreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
         private Context context;
 
         @Override
-        public void onResume() {
-            super.onResume();
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
             context = getContext();
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
-        public void onPause() {
-            super.onPause();
+        public void onDestroy() {
+            super.onDestroy();
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals(Preferences.ALLOW_PERSISTENT_SERVICE)) {
+                if (getActivity() instanceof AppCompatActivity) {
+                    refresh((AppCompatActivity) getActivity());
+                }
                 if (sharedPreferences.getBoolean(Preferences.ALLOW_PERSISTENT_SERVICE, Preferences.ALLOW_PERSISTENT_SERVICE_DEFAULT)) {
                     MobilePersistentService.start(context);
                 } else {
@@ -59,7 +71,6 @@ public class PreferencesActivity extends AppCompatActivity {
                 }
             }
         }
-
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences, rootKey);

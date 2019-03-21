@@ -19,7 +19,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class PersistentServiceSharedPreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceSharedPreferenceChangeListener.class.getSimpleName();
 
     private PersistentService service;
 

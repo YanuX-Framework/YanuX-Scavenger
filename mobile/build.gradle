@@ -66,6 +66,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     wearApp project(':wear')
     implementation project(':common')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
