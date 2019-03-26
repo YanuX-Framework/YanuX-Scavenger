@@ -416,6 +416,7 @@ public class PersistentService implements GenericService {
     private void tidyUpBeacons() {
         try {
             JSONObject query = new JSONObject();
+            query.put("user", getUserId());
             query.put("deviceUuid", preferences.getDeviceUuid());
             JSONObject params = new JSONObject();
             params.put("query", query);
