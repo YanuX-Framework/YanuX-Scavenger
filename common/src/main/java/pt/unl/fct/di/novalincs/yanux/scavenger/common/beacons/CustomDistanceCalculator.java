@@ -17,6 +17,6 @@ import org.altbeacon.beacon.distance.DistanceCalculator;
 public class CustomDistanceCalculator implements DistanceCalculator {
     @Override
     public double calculateDistance(int txPower, double rssi) {
-        return 10.0;
+        return 0;
     }
 }

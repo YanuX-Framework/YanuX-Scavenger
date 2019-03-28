@@ -42,7 +42,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
 
 public class PersistentServiceBeaconScanner extends BroadcastReceiver {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceBeaconScanner.class.getSimpleName();
 
     private final PersistentService service;
     private int refreshInterval;
@@ -85,7 +85,8 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                         stringBuilder.append("\n");
                         stringBuilder.append(b.toString());
                     }
-                    Log.d(LOG_TAG, "\nBeacons: " + stringBuilder + "\nRanging Elapsed Time: " + service.getBeaconCollector().getRangingElapsedTime() + " ms");
+                    Log.d(LOG_TAG, //"\n" + "Beacons: " + stringBuilder + "\n" +
+                            "Ranging Elapsed Time: " + service.getBeaconCollector().getRangingElapsedTime() + " ms");
                     update(beaconsArrayList);
                 }
                 break;
@@ -152,9 +153,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                         public void call(Object... args) {
                             if (args[0] == null) {
                                 Log.d(LOG_TAG, "Beacon Created: " + args[1]);
-                            } else {
-                                service.handleError(args[0]);
-                            }
+                            } else service.handleError(args[0]);
                         }
                     });
                 }
@@ -194,9 +193,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                             public void call(Object... args) {
                                 if (args[0] == null) {
                                     Log.d(LOG_TAG, "Beacon Removed: " + args[1]);
-                                } else {
-                                    service.handleError(args[0]);
-                                }
+                                } else service.handleError(args[0]);
                             }
                         });
                         beaconsToRemoveIt.remove();

@@ -279,9 +279,7 @@ public class PersistentService implements GenericService {
                                     user = (JSONObject) args[1];
                                     tidyUpBeacons();
                                     registerDevices();
-                                } else {
-                                    handleError(args[0]);
-                                }
+                                } else handleError(args[0]);
                             }
                         });
                     } catch (JwtException ex) {
@@ -290,9 +288,7 @@ public class PersistentService implements GenericService {
                     } catch (Exception e) {
                         Log.e(LOG_TAG, e.toString());
                     }
-                } else {
-                    handleError(args[0]);
-                }
+                } else handleError(args[0]);
             }
         });
     }
@@ -425,9 +421,7 @@ public class PersistentService implements GenericService {
                 public void call(Object... args) {
                     if (args[0] == null) {
                         Log.d(LOG_TAG, "Removed outstanding beacons: " + args[1]);
-                    } else {
-                        handleError(args[0]);
-                    }
+                    } else handleError(args[0]);
                 }
             });
         } catch (JSONException e) {
@@ -460,9 +454,7 @@ public class PersistentService implements GenericService {
                 public void call(Object... args) {
                     if (args[0] == null) {
                         Log.d(LOG_TAG, "Registered Device: " + args[1]);
-                    } else {
-                        handleError(args[0]);
-                    }
+                    } else handleError(args[0]);
                 }
             });
         } catch (JSONException e) {
