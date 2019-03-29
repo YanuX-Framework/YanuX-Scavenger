@@ -16,4 +16,6 @@
     <integer name="preferences_default_beacon_advertiser_parameters_minor">3</integer>
     <integer name="preferences_default_beacons_refresh_interval">500</integer>
     <integer name="preferences_default_beacons_inactivity_timer">1000</integer>
+
+    <string name="beacons_record_time_default">5000</string>
 </resources>

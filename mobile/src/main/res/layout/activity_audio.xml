@@ -32,6 +32,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_nearby_messages" />
+    <include layout="@layout/content_audio" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

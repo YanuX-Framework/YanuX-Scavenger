@@ -13,8 +13,8 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
 public class LogEntry {
-    private static final int DEFAULT_ID = -1;
-    private int id;
+    private static final long DEFAULT_ID = -1;
+    private long id;
     private long timestamp;
     private IReading reading;
 
@@ -22,15 +22,7 @@ public class LogEntry {
         this(DEFAULT_ID, System.currentTimeMillis());
     }
 
-    public LogEntry(int id) {
-        this(id, System.currentTimeMillis());
-    }
-
-    public LogEntry(long timestamp) {
-        this(DEFAULT_ID, timestamp, null);
-    }
-
-    public LogEntry(int id, long timestamp) {
+    public LogEntry(long id, long timestamp) {
         this(id, timestamp, null);
     }
 
@@ -38,17 +30,17 @@ public class LogEntry {
         this(DEFAULT_ID, timestamp, reading);
     }
 
-    public LogEntry(int id, long timestamp, IReading reading) {
+    public LogEntry(long id, long timestamp, IReading reading) {
         this.id = id;
         this.timestamp = timestamp;
         this.reading = reading;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

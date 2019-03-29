@@ -27,12 +27,15 @@ public class JsonFileLogger extends AbstractFileLogger {
     private static final String LOG_TAG = Constants.LOG_TAG + "_JSON_LOGGER";
 
     private final ObjectMapper mapper;
+    private long entryIdCounter;
     private LogFile logFile;
     private LogSession currentLogSession;
+
 
     public JsonFileLogger(Context context, String directory, String filename, StorageType storageType) {
         super(context, directory, filename, storageType);
         mapper = new ObjectMapper();
+        entryIdCounter = 0;
     }
 
     public JsonFileLogger(Context context, String filename, StorageType storageType) {
@@ -87,13 +90,13 @@ public class JsonFileLogger extends AbstractFileLogger {
     }
 
     @Override
-    public void log(int id, IReading loggable) {
+    public void log(long id, IReading loggable) {
         currentLogSession.getEntries().add(new LogEntry(id, System.currentTimeMillis(), loggable));
     }
 
     @Override
     public void log(IReading loggable) {
-        log(loggable);
+        log(entryIdCounter++, loggable);
     }
 
     @Override

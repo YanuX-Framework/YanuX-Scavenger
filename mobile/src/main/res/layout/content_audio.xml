@@ -167,17 +167,16 @@
         app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_edit_text" />
 
     <TextView
-        android:id="@+id/audio_tone_frequency_units_text_view"
+        android:id="@+id/audio_tone_frequency1_units_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="14dp"
         android:text="@string/audio_tone_frequency_units"
         app:layout_constraintLeft_toRightOf="@+id/audio_tone_frequency1_edit_text"
         app:layout_constraintTop_toBottomOf="@+id/audio_tone_frequency1_text_view" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/audio_tone_frequency0_units_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"

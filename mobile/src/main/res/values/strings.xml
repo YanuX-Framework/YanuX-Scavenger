@@ -55,8 +55,12 @@
     <string name="audio_tone_record_filename">Recording Filename</string>
     <string name="audio_tone_record_filename_default">audio.wav</string>
 
-    <string name="beacon_list">Beacons</string>
-    <string name="beacon_ranging_elapsed_time">Elapsed time</string>
+    <string name="beacons_list">Beacons</string>
+    <string name="beacons_ranging_elapsed_time">Elapsed time</string>
+    <string name="beacons_logging">Beacon Logging</string>
+    <string name="beacons_log_filename">Log Filename</string>
+    <string name="beacons_log_filename_default">beacons.json</string>
+    <string name="beacons_log_time">Logging Time (ms)</string>
 
     <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
     <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>

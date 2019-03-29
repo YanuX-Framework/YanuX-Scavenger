@@ -18,7 +18,10 @@ import android.os.Parcelable;
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.Identifier;
 
-public class BeaconWrapper extends Beacon {
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IReading;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
+
+public class BeaconWrapper extends Beacon implements IReading {
     public static final Parcelable.Creator<Beacon> CREATOR = new Parcelable.Creator<Beacon>() {
         public BeaconWrapper createFromParcel(Parcel in) {
             return new BeaconWrapper(in);
@@ -30,12 +33,33 @@ public class BeaconWrapper extends Beacon {
     };
     private static CustomDistanceCalculator distanceCalculator = new CustomDistanceCalculator();
 
+    private long timestamp;
+
     public BeaconWrapper(Parcel in) {
         super(in);
+        init();
     }
 
     public BeaconWrapper(Beacon beacon) {
         super(beacon);
+        init();
+    }
+
+    public BeaconWrapper() {
+        super();
+        init();
+    }
+
+    private void init() {
+        timestamp = Utilities.getUnixTimeMillis();
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public BeaconDetails getDetails() {
+        return new BeaconDetails(this);
     }
 
     @Override
