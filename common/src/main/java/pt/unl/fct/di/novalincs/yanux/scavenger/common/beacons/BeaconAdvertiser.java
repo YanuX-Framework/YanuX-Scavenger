@@ -24,7 +24,7 @@ import org.altbeacon.beacon.BeaconTransmitter;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.service.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BeaconAdvertiser {

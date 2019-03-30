@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.services;
+package pt.unl.fct.di.novalincs.yanux.scavenger.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -28,7 +28,7 @@ import org.altbeacon.beacon.BeaconConsumer;
 import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.MainActivity;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.services.PersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.service.PersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class MobilePersistentService extends Service implements BeaconConsumer {

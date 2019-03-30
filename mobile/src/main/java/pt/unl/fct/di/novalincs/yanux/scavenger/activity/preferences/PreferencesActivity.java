@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
-import pt.unl.fct.di.novalincs.yanux.scavenger.services.MobilePersistentService;
+import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
 
 public class PreferencesActivity extends AppCompatActivity {
     public static void refresh(AppCompatActivity activity) {
