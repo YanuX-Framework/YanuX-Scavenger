@@ -54,12 +54,12 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     private PermissionManager permissionManager;
     private IFileLogger logger;
     private long loggingStartTime;
-    private ToggleButton beaconLogToggleButton;
-    private EditText beaconLogFilenameEditText;
-    private EditText beaconLogTimeEditText;
+    private ToggleButton beaconsLogToggleButton;
+    private EditText beaconsLogFilenameEditText;
+    private EditText beaconsLogTimeEditText;
     private BeaconCollector beaconCollector;
     private boolean beaconServiceConnected = false;
-    private RecyclerView beaconList;
+    private RecyclerView beaconsList;
     private RecyclerViewSimpleListAdapter<BeaconWrapper> beaconListAdapter;
 
     @Override
@@ -70,24 +70,24 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
         permissionManager.requestPermissions(REQUIRED_PERMISSIONS);
 
         logger = new JsonFileLogger(this);
-        beaconLogToggleButton = findViewById(R.id.beacons_log_toggle_button);
-        beaconLogFilenameEditText = findViewById(R.id.beacons_log_filename_edit_text);
-        beaconLogToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        beaconsLogToggleButton = findViewById(R.id.beacons_log_toggle_button);
+        beaconsLogFilenameEditText = findViewById(R.id.beacons_log_filename_edit_text);
+        beaconsLogToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    startLogging(beaconLogFilenameEditText.getText().toString());
+                    startLogging(beaconsLogFilenameEditText.getText().toString());
                 } else {
                     stopLogging();
                 }
             }
         });
-        beaconLogTimeEditText = findViewById(R.id.beacons_log_time_edit_text);
+        beaconsLogTimeEditText = findViewById(R.id.beacons_log_time_edit_text);
 
-        beaconList = findViewById(R.id.beacons_list_recycler_view);
-        beaconList.setLayoutManager(new LinearLayoutManager(this));
+        beaconsList = findViewById(R.id.beacons_list_recycler_view);
+        beaconsList.setLayoutManager(new LinearLayoutManager(this));
         beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BeaconWrapper>());
-        beaconList.setAdapter(beaconListAdapter);
+        beaconsList.setAdapter(beaconListAdapter);
         beaconCollector = new BeaconCollector(this, new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -98,12 +98,12 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
                         beaconListAdapter.notifyDataSetChanged();
                         TextView rangingElapsedTimeText = findViewById(R.id.beacons_ranging_elapsed_time_text_view);
                         rangingElapsedTimeText.setText(beaconCollector.getRangingElapsedTime() + " ms");
-                        if (Utilities.getUnixTimeMillis() > loggingStartTime + Integer.parseInt(beaconLogTimeEditText.getText().toString())) {
+                        if (Utilities.getUnixTimeMillis() > loggingStartTime + Integer.parseInt(beaconsLogTimeEditText.getText().toString())) {
                             stopLogging();
                         }
-                        if (beaconLogToggleButton.isChecked() && logger.isOpen()) {
+                        if (beaconsLogToggleButton.isChecked() && logger.isOpen()) {
                             for (BeaconWrapper beacon : beaconsArrayList) {
-                                logger.log(beacon);
+                                logger.log(beacon.getReading());
                             }
                         }
                         break;
@@ -160,11 +160,11 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     }
 
     private void enableLogging() {
-        beaconLogToggleButton.setEnabled(true);
+        beaconsLogToggleButton.setEnabled(true);
     }
 
     private void disableLogging() {
-        beaconLogToggleButton.setEnabled(false);
+        beaconsLogToggleButton.setEnabled(false);
     }
 
     private void startLogging(String logName) {
@@ -181,7 +181,7 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     private void stopLogging() {
         if (logger.isOpen()) {
             try {
-                beaconLogToggleButton.setChecked(false);
+                beaconsLogToggleButton.setChecked(false);
                 logger.close();
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             } catch (IOException e) {

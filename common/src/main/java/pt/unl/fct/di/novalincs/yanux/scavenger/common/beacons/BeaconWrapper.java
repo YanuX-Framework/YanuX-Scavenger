@@ -33,7 +33,7 @@ public class BeaconWrapper extends Beacon implements IReading {
     };
     private static CustomDistanceCalculator distanceCalculator = new CustomDistanceCalculator();
 
-    private long timestamp;
+    private BeaconReading beaconReading;
 
     public BeaconWrapper(Parcel in) {
         super(in);
@@ -51,15 +51,11 @@ public class BeaconWrapper extends Beacon implements IReading {
     }
 
     private void init() {
-        timestamp = Utilities.getUnixTimeMillis();
+        beaconReading = new BeaconReading(this);
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public BeaconDetails getDetails() {
-        return new BeaconDetails(this);
+    public BeaconReading getReading() {
+        return beaconReading;
     }
 
     @Override
