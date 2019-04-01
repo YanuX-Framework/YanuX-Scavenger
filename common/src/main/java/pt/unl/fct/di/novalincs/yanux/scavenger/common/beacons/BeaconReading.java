@@ -22,8 +22,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IReading;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
 
 public class BeaconReading implements IReading {
-    private long timestamp;
     private final Beacon beacon;
+    private long timestamp;
 
     public BeaconReading(Beacon beacon) {
         this.timestamp = Utilities.getUnixTimeMillis();

@@ -19,7 +19,6 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.Identifier;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IReading;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
 
 public class BeaconWrapper extends Beacon implements IReading {
     public static final Parcelable.Creator<Beacon> CREATOR = new Parcelable.Creator<Beacon>() {

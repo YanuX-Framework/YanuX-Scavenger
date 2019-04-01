@@ -45,14 +45,14 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceBeaconScanner.class.getSimpleName();
 
     private final PersistentService service;
-    private int refreshInterval;
-    private int inactivityTimer;
     private final ObjectMapper objectMapper;
     private final Map<String, YanuxBrokerBeacon> beaconsCreated;
     private final Map<String, YanuxBrokerBeacon> beaconsUpdated;
     private final Set<String> beaconsToRemove;
     private final Handler beaconRefreshHandler;
     private final Runnable beaconRefresher;
+    private int refreshInterval;
+    private int inactivityTimer;
 
     public PersistentServiceBeaconScanner(PersistentService service) {
         this.service = service;
@@ -78,7 +78,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction()) {
             case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
-                if(service.getBeaconCollector() != null) {
+                if (service.getBeaconCollector() != null) {
                     List<BeaconWrapper> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
                     StringBuilder stringBuilder = new StringBuilder();
                     for (BeaconWrapper b : beaconsArrayList) {
@@ -100,7 +100,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
         Socket socket = service.getSocket();
         String userId = service.getUserId();
         String deviceUuid = service.getPreferences().getDeviceUuid();
-        if(socket != null && !userId.isEmpty() && !deviceUuid.isEmpty()) {
+        if (socket != null && !userId.isEmpty() && !deviceUuid.isEmpty()) {
             for (BeaconWrapper beacon : beacons) {
                 String address = beacon.getBluetoothAddress().replace(":", "").toLowerCase();
                 StringBuilder beaconKeyBuilder = new StringBuilder();
@@ -167,7 +167,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
             Socket socket = service.getSocket();
             String userId = service.getUserId();
             String deviceUuid = service.getPreferences().getDeviceUuid();
-            if(socket != null && !userId.isEmpty() && !deviceUuid.isEmpty()) {
+            if (socket != null && !userId.isEmpty() && !deviceUuid.isEmpty()) {
                 Log.d(LOG_TAG, "Refreshing beacons list");
                 long unixTime = Utilities.getUnixTimeMillis();
                 for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsCreated.entrySet()) {

@@ -41,14 +41,13 @@ public class PersistentServiceSharedPreferenceChangeListener implements SharedPr
                 service.getZeroconf().stopDiscovery();
             }
         } else if (key.equals(Preferences.SHOULD_BEACON_SCAN)) {
-            if(service.getPreferences().shouldBeaconScan()) {
+            if (service.getPreferences().shouldBeaconScan()) {
                 service.startBeaconScan();
             } else {
                 service.stopBeaconScan();
             }
-        }
-        else if (key.equals(Preferences.SHOULD_BEACON_ADVERTISE)) {
-            if(service.getPreferences().shouldBeaconAdvertise()) {
+        } else if (key.equals(Preferences.SHOULD_BEACON_ADVERTISE)) {
+            if (service.getPreferences().shouldBeaconAdvertise()) {
                 service.startBeaconAdvertisement();
             } else {
                 service.stopBeaconAdvertisement();
