@@ -256,6 +256,7 @@ public class BeaconCollector {
             beaconManager.bind(beaconConsumer);
         }
     }
+
     public void unbind() {
         if (beaconManager.isBound(beaconConsumer)) {
             beaconManager.unbind(beaconConsumer);

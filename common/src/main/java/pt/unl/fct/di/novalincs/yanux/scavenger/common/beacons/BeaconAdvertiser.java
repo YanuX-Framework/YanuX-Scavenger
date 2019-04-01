@@ -47,7 +47,7 @@ public class BeaconAdvertiser {
 
     public void start() {
         int result = BeaconTransmitter.checkTransmissionSupported(context);
-        if(result == BeaconTransmitter.SUPPORTED) {
+        if (result == BeaconTransmitter.SUPPORTED) {
             Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment is SUPPORTED.");
             Beacon beacon = new Beacon.Builder()
                     .setId1(preferences.getBeaconAdvertiserParametersUuid())
@@ -63,6 +63,7 @@ public class BeaconAdvertiser {
                     super.onStartSuccess(settingsInEffect);
                     Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment STARTED.");
                 }
+
                 @Override
                 public void onStartFailure(int errorCode) {
                     super.onStartFailure(errorCode);
