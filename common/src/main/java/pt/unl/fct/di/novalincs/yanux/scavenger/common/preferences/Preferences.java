@@ -19,8 +19,8 @@ import android.preference.PreferenceManager;
 public class Preferences {
     public static final String EMPTY = "";
 
-    public static final String ALLOW_PERSISTENT_SERVICE = "allow_persistent_service";
-    public static final String PREFERENCE_DEVICE_UUID_DEFAULT = EMPTY;
+    private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
+    private static final boolean SHOW_RATIONALE_PREFERENCE_PREFIX_DEFAULT = true;
 
     public static final String PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE = "asked_wifi_scanning_always_available";
     public static final boolean PREFERENCE_ASKED_WIFI_SCANNING_ALWAYS_AVAILABLE_DEFAULT = false;
@@ -30,8 +30,9 @@ public class Preferences {
 
     public static final String PREFERENCE_LOG_SAMPLES = "log_samples";
     public static final int PREFERENCE_LOG_SAMPLES_DEFAULT = 10;
-    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID_DEFAULT = EMPTY;
-    public static final boolean ALLOW_PERSISTENT_SERVICE_DEFAULT = false;
+
+    public static final String ALLOW_PERSISTENT_SERVICE = "allow_persistent_service";
+    public static final boolean ALLOW_PERSISTENT_SERVICE_DEFAULT = true;
 
     public static final String ALLOW_ZEROCONF = "allow_zeroconf";
     public static final boolean ALLOW_ZEROCONF_DEFAULT = false;
@@ -43,20 +44,31 @@ public class Preferences {
     public static final boolean SHOULD_BEACON_ADVERTISE_DEFAULT = false;
 
     public static final String PREFERENCE_DEVICE_UUID = "device_uuid";
-    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL = "beacons_refresh_interval";
+    public static final String PREFERENCE_DEVICE_UUID_DEFAULT = EMPTY;
+
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID = "beacon_matcher_parameters_uuid";
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID_DEFAULT = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
+
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR = "beacon_matcher_parameters_major";
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR_DEFAULT = "-1";
+
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_MINOR = "beacon_matcher_parameters_minor";
+    public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_MINOR_DEFAULT = "-1";
 
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID = "beacon_advertiser_parameters_uuid";
-    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT = Integer.toString(1000);
+    public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_UUID_DEFAULT = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
 
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR = "beacon_advertiser_parameters_major";
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR_DEFAULT = "0";
 
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR = "beacon_advertiser_parameters_minor";
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR_DEFAULT = "0";
+
+    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL = "beacons_refresh_interval";
+    public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT = Integer.toString(1000);
+
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER = "beacons_inactivity_timer";
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER_DEFAULT = Integer.toString(1000);
-    public static final String PREFERENCE_YANUX_AUTH_JWT_DEFAULT = EMPTY;
-    public static final String PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE = "yanux_auth_authorization_code";
 
     public static final String PREFERENCE_DEVICE_CAPABILITIES_VIEW = "device_capabilities_view";
     public static final boolean PREFERENCE_DEVICE_CAPABILITIES_VIEW_DEFAULT = false;
@@ -74,22 +86,25 @@ public class Preferences {
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_SECRET_DEFAULT = "topsecret_client_secret";
 
     public static final String PREFERENCE_YANUX_AUTH_JWT = "yanux_auth_jwt_token";
-    public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT = EMPTY;
-    public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT = EMPTY;
+    public static final String PREFERENCE_YANUX_AUTH_JWT_DEFAULT = EMPTY;
+
+    public static final String PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE = "yanux_auth_authorization_code";
     public static final String PREFERENCE_YANUX_AUTH_AUTHORIZATION_CODE_DEFAULT = EMPTY;
 
     public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN = "yanux_auth_access_token";
-    public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
+    public static final String PREFERENCE_YANUX_AUTH_ACCESS_TOKEN_DEFAULT = EMPTY;
 
     public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN = "yanux_auth_refresh_token";
-    public static final String PREFERENCE_HTTP_SERVER_PORT = "http_server_port";
-    public static final String PREFERENCE_HTTP_SERVER_PORT_DEFAULT = "8080";
+    public static final String PREFERENCE_YANUX_AUTH_REFRESH_TOKEN_DEFAULT = EMPTY;
+
+    public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT = EMPTY;
 
     public static final String PREFERENCE_YANUX_BROKER_URL = "yanux_broker_url";
     public static final String PREFERENCE_YANUX_BROKER_URL_DEFAULT = "http://localhost:3002/";
-    private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
-    private static final boolean SHOW_RATIONALE_PREFERENCE_PREFIX_DEFAULT = true;
+
+    public static final String PREFERENCE_HTTP_SERVER_PORT = "http_server_port";
+    public static final String PREFERENCE_HTTP_SERVER_PORT_DEFAULT = "8080";
 
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor preferencesEditor;
@@ -171,6 +186,26 @@ public class Preferences {
 
     public void setDeviceUuid(String deviceUuid) {
         preferencesEditor.putString(PREFERENCE_DEVICE_UUID, deviceUuid).apply();
+    }
+
+    public String getBeaconMatcherParametersUuid() {
+        return preferences.getString(PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID, PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID_DEFAULT);
+    }
+
+    public void setBeaconMatcherParametersUuid(String beaconScannerParametersUuid) {
+        preferencesEditor.putString(PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID, beaconScannerParametersUuid).apply();
+    }
+
+    public int getBeaconMatcherParametersMajor() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR, PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR_DEFAULT));
+    }
+
+    public void setBeaconMatcherParameterMajor(int beaconScannerParametersMajor) {
+        preferencesEditor.putString(PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR, String.valueOf(beaconScannerParametersMajor)).apply();
+    }
+
+    public int getBeaconMatcherParametersMinor() {
+        return Integer.parseInt(preferences.getString(PREFERENCE_BEACON_MATCHER_PARAMETERS_MINOR, PREFERENCE_BEACON_MATCHER_PARAMETERS_MINOR_DEFAULT));
     }
 
     public String getBeaconAdvertiserParametersUuid() {

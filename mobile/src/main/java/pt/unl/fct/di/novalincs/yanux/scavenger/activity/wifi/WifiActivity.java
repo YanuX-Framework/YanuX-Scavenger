@@ -121,7 +121,11 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 wifiAdapter.notifyDataSetChanged();
                 if (logger != null && logger.isOpen()) {
                     if (sampleCounter < totalSamples) {
-                        logger.log(sampleCounter, new WifiReading(wifiResults, sensorListener.getCurrentReadings(), wifiCollector.getConnectionInfo()));
+                        try {
+                            logger.log(sampleCounter, new WifiReading(wifiResults, sensorListener.getCurrentReadings(), wifiCollector.getConnectionInfo()));
+                        } catch (IOException e) {
+                            Log.e(LOG_TAG, "Could not log Wi-Fi networks: " + e.toString());
+                        }
                         sampleCounterText.setText(Integer.toString(sampleCounter));
                         sampleCounter++;
                     } else if (sampleCounter >= totalSamples) {

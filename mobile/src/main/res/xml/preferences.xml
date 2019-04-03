@@ -34,23 +34,24 @@
         <EditTextPreference
             android:defaultValue="@string/preferences_default_beacon_matcher_parameters_uuid"
             android:key="beacon_matcher_parameters_uuid"
-            android:singleLine="true"
             android:title="@string/preferences_title_beacon_matcher_parameters_uuid"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
+            android:key="beacon_matcher_parameters_major"
+            android:title="@string/preferences_title_beacon_matcher_parameters_major"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:key="beacon_matcher_parameters_minor"
+            android:title="@string/preferences_title_beacon_matcher_parameters_minor"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacons_refresh_interval"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
             android:key="beacons_refresh_interval"
-            android:singleLine="true"
             android:title="@string/preferences_title_beacons_refresh_interval"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacons_inactivity_timer"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
             android:key="beacons_inactivity_timer"
-            android:singleLine="true"
             android:title="@string/preferences_title_beacons_inactivity_timer"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
@@ -64,23 +65,17 @@
         <EditTextPreference
             android:defaultValue="@string/preferences_default_beacon_advertiser_parameters_uuid"
             android:key="beacon_advertiser_parameters_uuid"
-            android:singleLine="true"
             android:title="@string/preferences_title_beacon_advertiser_parameters_uuid"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_major"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
             android:key="beacon_advertiser_parameters_major"
             android:singleLine="true"
             android:title="@string/preferences_title_beacon_advertiser_parameters_major"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_minor"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
             android:key="beacon_advertiser_parameters_minor"
-            android:singleLine="true"
             android:title="@string/preferences_title_beacon_advertiser_parameters_minor"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
@@ -89,7 +84,6 @@
         app:title="@string/preferences_category_device">
         <EditTextPreference
             android:key="device_uuid"
-            android:singleLine="true"
             android:title="@string/preferences_title_device_uuid"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreferenceCompat
@@ -106,10 +100,7 @@
         app:title="@string/preferences_category_http_server">
         <EditTextPreference
             android:defaultValue="@integer/preferences_default_http_server_port"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
             android:key="http_server_port"
-            android:singleLine="true"
             android:title="@string/preferences_title_http_server_port"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
@@ -120,13 +111,11 @@
             android:defaultValue="@string/preferences_default_yanux_auth_oauth2_authorization_server_url"
             android:inputType="textUri"
             android:key="yanux_auth_oauth2_authorization_server_url"
-            android:singleLine="true"
             android:title="@string/preferences_title_yanux_auth_oauth2_authorization_server_url"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@string/preferences_default_yanux_auth_client_id"
             android:key="yanux_auth_client_id"
-            android:singleLine="true"
             android:title="@string/preferences_title_yanux_auth_client_id"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
@@ -145,9 +134,7 @@
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             android:defaultValue="@string/preferences_default_yanux_auth_redirect_uri"
-            android:inputType="textUri"
             android:key="yanux_auth_redirect_uri"
-            android:singleLine="true"
             android:title="@string/preferences_title_yanux_auth_redirect_uri"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
@@ -156,9 +143,7 @@
         app:title="@string/preferences_category_yanux_broker">
         <EditTextPreference
             android:defaultValue="@string/preferences_default_yanux_broker_url"
-            android:inputType="textUri"
             android:key="yanux_broker_url"
-            android:singleLine="true"
             android:title="@string/preferences_title_yanux_broker_url"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>

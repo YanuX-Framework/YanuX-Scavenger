@@ -15,8 +15,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
@@ -49,6 +51,21 @@ public class PreferencesActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             context = getContext();
+
+            CustomInputTypeOnBindEditTextListener numericOnBitTextListener = new CustomInputTypeOnBindEditTextListener(InputType.TYPE_CLASS_NUMBER);
+            CustomInputTypeOnBindEditTextListener uriOnBitTextListener = new CustomInputTypeOnBindEditTextListener(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACON_MATCHER_PARAMETERS_MAJOR)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACON_MATCHER_PARAMETERS_MINOR)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACONS_REFRESH_INTERVAL)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_BEACONS_INACTIVITY_TIMER)).setOnBindEditTextListener(numericOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL)).setOnBindEditTextListener(uriOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_YANUX_AUTH_REDIRECT_URI)).setOnBindEditTextListener(uriOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_YANUX_BROKER_URL)).setOnBindEditTextListener(uriOnBitTextListener);
+            ((EditTextPreference) findPreference(Preferences.PREFERENCE_HTTP_SERVER_PORT)).setOnBindEditTextListener(numericOnBitTextListener);
+
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 

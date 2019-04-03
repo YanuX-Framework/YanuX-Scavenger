@@ -26,6 +26,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.Identifier;
+import org.altbeacon.beacon.Region;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,20 +40,24 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconWrapper;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IFileLogger;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonFileLogger;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonSreamFileLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer {
-
     public static final String[] REQUIRED_PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+
+    private static final String REGION_UUID = "60138f39-4ba0-409e-a833-9abe47db4472";
+
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + BeaconsActivity.class.getSimpleName();
     private PermissionManager permissionManager;
+    private Preferences preferences;
     private IFileLogger logger;
     private long loggingStartTime;
     private ToggleButton beaconsLogToggleButton;
@@ -69,7 +75,9 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
         permissionManager = new PermissionManager(this);
         permissionManager.requestPermissions(REQUIRED_PERMISSIONS);
 
-        logger = new JsonFileLogger(this);
+        preferences = new Preferences(this);
+
+        logger = new JsonSreamFileLogger(this);
         beaconsLogToggleButton = findViewById(R.id.beacons_log_toggle_button);
         beaconsLogFilenameEditText = findViewById(R.id.beacons_log_filename_edit_text);
         beaconsLogToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -103,7 +111,11 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
                         }
                         if (beaconsLogToggleButton.isChecked() && logger.isOpen()) {
                             for (BeaconWrapper beacon : beaconsArrayList) {
-                                logger.log(beacon.getReading());
+                                try {
+                                    logger.log(beacon.getReading());
+                                } catch (IOException e) {
+                                    Log.e(LOG_TAG, "Could not log beacons:" + e.toString());
+                                }
                             }
                         }
                         break;
@@ -112,6 +124,13 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
                 }
             }
         });
+        String uuid = preferences.getBeaconMatcherParametersUuid();
+        int major = preferences.getBeaconMatcherParametersMajor();
+        int minor = preferences.getBeaconMatcherParametersMinor();
+        beaconCollector.setRegion(new Region(REGION_UUID,
+                Identifier.parse(uuid),
+                major >= 0 ? Identifier.fromInt(major) : null,
+                minor >= 0 ? Identifier.fromInt(minor) : null));
         if (beaconServiceConnected) {
             beaconCollector.startRanging();
         }
@@ -127,8 +146,17 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStart() {
+        super.onStart();
+        beaconCollector.bind();
+        if (beaconsLogToggleButton.isChecked()) {
+            startLogging(beaconsLogFilenameEditText.getText().toString());
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         stopLogging();
         beaconCollector.unbind();
     }

@@ -10,14 +10,22 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences;
 
-import java.io.IOException;
+import android.widget.EditText;
 
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.IFileOutput;
+import androidx.annotation.NonNull;
+import androidx.preference.EditTextPreference;
 
-public interface IFileLogger extends IFileOutput {
-    void log(long id, IReading IReading) throws IOException;
+public class CustomInputTypeOnBindEditTextListener implements EditTextPreference.OnBindEditTextListener {
+    private int inputType;
 
-    void log(IReading IReading) throws IOException;
+    public CustomInputTypeOnBindEditTextListener(int inputType) {
+        this.inputType = inputType;
+    }
+
+    @Override
+    public void onBindEditText(@NonNull EditText editText) {
+        editText.setInputType(inputType);
+    }
 }

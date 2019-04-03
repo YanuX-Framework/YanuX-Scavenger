@@ -30,19 +30,15 @@ public class BeaconReading implements IReading {
         this.beacon = beacon;
     }
 
-    public String getBluetoothName() {
-        return beacon.getBluetoothName();
+    public String getId() {
+        return beacon.getBluetoothAddress().replace(":", "").toLowerCase();
     }
 
-    public String getBluetoothAddress() {
-        return beacon.getBluetoothAddress();
-    }
-
-    public String getParserIdentifier() {
+    public String getType() {
         return beacon.getParserIdentifier();
     }
 
-    public List<Object> getIdentifiers() {
+    public List<Object> getValues() {
         List<Object> identifiers = new ArrayList<>();
         for (Identifier identifier : beacon.getIdentifiers()) {
             Object currentIdentifier;
@@ -56,44 +52,36 @@ public class BeaconReading implements IReading {
         return identifiers;
     }
 
-    public int getRssi() {
-        return beacon.getRssi();
-    }
-
-    public double getDistance() {
-        return beacon.getDistance();
-    }
-
     public int getTxPower() {
         return beacon.getTxPower();
     }
 
-    public double getRunningAverageRssi() {
-        return beacon.getRunningAverageRssi();
+    public int getRssi() {
+        return beacon.getRssi();
     }
 
-    public int getMeasurementCount() {
-        return beacon.getMeasurementCount();
+    public long getTimestamp() {
+        return timestamp;
     }
+
+    /*--------------------------------------------------------------------------------*
+     * The fields below are mostly extraneous.                                        *
+     *--------------------------------------------------------------------------------*/
 
     public int getBeaconTypeCode() {
         return beacon.getBeaconTypeCode();
     }
 
-    public int getManufacturer() {
-        return beacon.getManufacturer();
-    }
-
-    public int getServiceUuid() {
-        return beacon.getServiceUuid();
-    }
-
-    public int getPacketCount() {
-        return beacon.getPacketCount();
+    public String getBluetoothName() {
+        return beacon.getBluetoothName();
     }
 
     public List<Long> getDataFields() {
         return beacon.getDataFields();
+    }
+
+    public double getDistance() {
+        return beacon.getDistance();
     }
 
     public boolean isExtraBeaconData() {
@@ -104,7 +92,27 @@ public class BeaconReading implements IReading {
         return beacon.getExtraDataFields();
     }
 
+    public int getManufacturer() {
+        return beacon.getManufacturer();
+    }
+
+    public int getMeasurementCount() {
+        return beacon.getMeasurementCount();
+    }
+
     public boolean isMultiFrameBeacon() {
         return beacon.isMultiFrameBeacon();
+    }
+
+    public int getPacketCount() {
+        return beacon.getPacketCount();
+    }
+
+    public double getRunningAverageRssi() {
+        return beacon.getRunningAverageRssi();
+    }
+
+    public int getServiceUuid() {
+        return beacon.getServiceUuid();
     }
 }

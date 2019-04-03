@@ -57,7 +57,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.EncryptionToolbo
 public class PersistentService implements GenericService {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
     private static final String REGION_UUID = "cc83a39c-075d-4f9d-b78a-a94d66d57b97";
-    private static final String IBEACON_UUID = "113069EC-6E64-4BD3-6810-DE01B36E8A3E";
 
     private final BeaconConsumer beaconConsumer;
     private final Context context;
@@ -388,7 +387,13 @@ public class PersistentService implements GenericService {
         if (preferences.isPersistentServiceAllowed() && preferences.shouldBeaconScan()) {
             beaconScanner.start(preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
             beaconCollector.bind();
-            beaconCollector.setRegion(new Region(REGION_UUID, Identifier.parse(IBEACON_UUID), null, null));
+            String uuid = preferences.getBeaconMatcherParametersUuid();
+            int major = preferences.getBeaconMatcherParametersMajor();
+            int minor = preferences.getBeaconMatcherParametersMinor();
+            beaconCollector.setRegion(new Region(REGION_UUID,
+                    Identifier.parse(uuid),
+                    major > 0 ? Identifier.fromInt(major) : null,
+                    minor > 0 ? Identifier.fromInt(minor) : null));
             beaconCollector.startRanging();
         }
     }
