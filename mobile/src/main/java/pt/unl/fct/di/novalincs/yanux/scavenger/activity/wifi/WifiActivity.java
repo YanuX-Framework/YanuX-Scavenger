@@ -16,6 +16,7 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,7 +51,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.dialog.logging.LogDialogFragment;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class WifiActivity extends AppCompatActivity implements LogDialogFragment.LogDialogListener {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_WIFI_ACTIVITY";
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + WifiActivity.class.getSimpleName();
 
     private RecyclerView wifiAccessPoints;
     private RecyclerViewSimpleListAdapter<WifiResult> wifiAdapter;
@@ -155,6 +156,16 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         disableLogging();
         updateConnectionInfo();
         wifiCollector.scan(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI_RTT)) {
+            Toast.makeText(this, R.string.wifi_supports_rtt, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, R.string.wifi_not_supports_rtt, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

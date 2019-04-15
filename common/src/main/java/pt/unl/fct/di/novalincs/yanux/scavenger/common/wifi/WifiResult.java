@@ -18,24 +18,40 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class WifiResult {
     public long timestamp;
+    private ScanResult scanResult;
     private String ssid;
     private String macAddress;
     private int signalStrength;
     private int frequency;
 
-    public WifiResult() {
-    }
 
     public WifiResult(ScanResult scanResult) {
-        this(scanResult.SSID, scanResult.BSSID, scanResult.level, scanResult.frequency, scanResult.timestamp);
+        update(scanResult);
     }
 
     public WifiResult(String ssid, String macAddress, int signalStrength, int frequency, long timestamp) {
-        this.ssid = ssid;
-        this.macAddress = macAddress;
-        this.signalStrength = signalStrength;
-        this.frequency = frequency;
-        this.timestamp = timestamp;
+        setSsid(ssid);
+        setMacAddress(macAddress);
+        setSignalStrength(signalStrength);
+        setFrequency(frequency);
+        setTimestamp(timestamp);
+        this.scanResult = null;
+    }
+
+    /*public ScanResult getScanResult() {
+        return scanResult;
+    }
+    public void setScanResult(ScanResult scanResult) {
+        update(scanResult);
+    }*/
+
+    private void update(ScanResult scanResult) {
+        this.scanResult = scanResult;
+        setSsid(scanResult.SSID);
+        setMacAddress(scanResult.BSSID);
+        setSignalStrength(scanResult.level);
+        setFrequency(scanResult.frequency);
+        setTimestamp(scanResult.timestamp);
     }
 
     public String getSsid() {
@@ -88,6 +104,7 @@ public class WifiResult {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
 
     @Override
     public String toString() {

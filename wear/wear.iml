@@ -169,5 +169,6 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks:16.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.wearable:wearable:2.4.0@jar" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="common" />
   </component>
 </module>
