@@ -303,6 +303,7 @@ public class PersistentService implements GenericService {
                             + preferences.getYanuxAuthClientId()
                             + "&response_type=code&redirect_uri="
                             + preferences.getYanuxAuthRedirectUri()));
+            browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(browserIntent);
         }
     }

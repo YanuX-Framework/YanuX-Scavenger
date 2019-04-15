@@ -36,7 +36,7 @@ public class EncryptionToolbox {
         InputStream inputStream = ctx.getAssets().open(certPath);
         Reader reader = new InputStreamReader(inputStream);
         PemObject pemObject = new org.spongycastle.util.io.pem.PemReader(reader).readPemObject();
-        PublicKey key = KeyFactory.getInstance("RSA", "BC").generatePublic(new X509EncodedKeySpec(pemObject.getContent()));
+        PublicKey key = KeyFactory.getInstance("RSA", BouncyCastleProvider.PROVIDER_NAME).generatePublic(new X509EncodedKeySpec(pemObject.getContent()));
         return key;
     }
 }
