@@ -14,7 +14,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.0'
     compileOptions {
         targetCompatibility = "8"
         sourceCompatibility = "8"
@@ -53,5 +53,4 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     compileOnly 'com.google.android.wearable:wearable:2.4.0'
-
 }

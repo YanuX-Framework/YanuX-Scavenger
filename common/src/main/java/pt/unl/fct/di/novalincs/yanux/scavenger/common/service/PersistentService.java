@@ -26,8 +26,13 @@ import org.altbeacon.beacon.Region;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -447,7 +452,27 @@ public class PersistentService implements GenericService {
 
             deviceJSON.put("beaconValues", beaconValues);
 
-            JSONObject capabilities = new JSONObject();
+            JSONObject capabilities;
+            /* TODO:
+             * I'm using a static JSON file on the assets folder.
+             * I should implement automatic capability detection along with a user interface  that
+             * shows the detected capabilities.
+             * I should also allow users to override and add to the collected information.
+             * As a middle of the road option, I think I can just let the user create a custom JSON
+             * file that describes the device capabilities and then pick it as part of the
+             * preferences screen. Here are some useful links about that subject:
+             * - https://developer.android.com/guide/topics/providers/document-provider
+             * - https://stackoverflow.com/questions/12339438/file-chooser-intent-opened-from-preferences/12341014
+             * - https://github.com/Angads25/android-filepicker
+             */
+            try {
+                JSONParser parser = new JSONParser();
+                capabilities = (JSONObject) parser.parse(new InputStreamReader(this.context.getAssets().open("capabilities.json")));
+
+            } catch (IOException | ParseException e) {
+                capabilities = new JSONObject();
+                e.printStackTrace();
+            }
             capabilities.put("view", preferences.hasViewCapabilities());
             capabilities.put("control", preferences.hasControlCapabilities());
 

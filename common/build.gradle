@@ -14,7 +14,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.0'
     compileOptions {
         targetCompatibility = "8"
         sourceCompatibility = "8"
@@ -37,12 +37,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.0.2'
-    api 'com.fasterxml.jackson.core:jackson-core:2.9.8'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.8'
+    api 'com.fasterxml.jackson.core:jackson-core:2.9.9'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.9'
+    api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0'
-    api 'com.squareup.okhttp3:okhttp:3.14.1'
+    api 'com.squareup.okhttp3:okhttp:4.0.0-RC1'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
@@ -51,6 +52,6 @@ dependencies {
     api 'io.jsonwebtoken:jjwt-api:0.10.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.6'
-    api 'org.altbeacon:android-beacon-library:2.16.1'
+    api 'org.altbeacon:android-beacon-library:2.16.2'
     testImplementation 'junit:junit:4.12'
 }

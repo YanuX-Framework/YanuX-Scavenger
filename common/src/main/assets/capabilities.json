@@ -1,0 +1,39 @@
+{
+  "display": {
+    "resolution": [
+      1920,
+      1080
+    ],
+    "pixelDensity": 96,
+    "bitDepth": 24,
+    "size": [
+      481,
+      271
+    ],
+    "refreshRate": 60
+  },
+  "speakers": {
+    "type": "loudspeaker",
+    "channels": 2,
+    "bitDepth": 16,
+    "samplingRate": 44100
+  },
+  "camera": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "bitDepth": 24,
+    "refreshRate": 60
+  },
+  "microphone": {
+    "channels": 1,
+    "bitDepth": 16,
+    "samplingRate": 44100
+  },
+  "input": [
+    "keyboard",
+    "mouse"
+  ],
+  "sensors": []
+}
