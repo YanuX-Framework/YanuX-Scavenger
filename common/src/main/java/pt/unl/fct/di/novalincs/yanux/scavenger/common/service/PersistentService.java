@@ -29,10 +29,9 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.UUID;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -452,7 +451,10 @@ public class PersistentService implements GenericService {
 
             deviceJSON.put("beaconValues", beaconValues);
 
-            JSONObject capabilities;
+            JSONObject capabilities = new JSONObject();
+            //TODO: Remove the support the basic view/control capabilities system!
+            capabilities.put("view", preferences.hasViewCapabilities());
+            capabilities.put("control", preferences.hasControlCapabilities());
             /* TODO:
              * I'm using a static JSON file on the assets folder.
              * I should implement automatic capability detection along with a user interface  that
@@ -465,16 +467,8 @@ public class PersistentService implements GenericService {
              * - https://stackoverflow.com/questions/12339438/file-chooser-intent-opened-from-preferences/12341014
              * - https://github.com/Angads25/android-filepicker
              */
-            try {
-                JSONParser parser = new JSONParser();
-                capabilities = (JSONObject) parser.parse(new InputStreamReader(this.context.getAssets().open("capabilities.json")));
-
-            } catch (IOException | ParseException e) {
-                capabilities = new JSONObject();
-                e.printStackTrace();
-            }
-            capabilities.put("view", preferences.hasViewCapabilities());
-            capabilities.put("control", preferences.hasControlCapabilities());
+            JSONParser parser = new JSONParser();
+            capabilities = new JSONObject((Map) parser.parse(new InputStreamReader(this.context.getAssets().open("capabilities.json"))));
 
             deviceJSON.put("capabilities", capabilities);
 
@@ -488,7 +482,7 @@ public class PersistentService implements GenericService {
                     } else handleError(args[0]);
                 }
             });
-        } catch (JSONException e) {
+        } catch (JSONException | IOException | ParseException e) {
             Log.e(LOG_TAG, e.toString());
         }
     }
@@ -532,9 +526,9 @@ public class PersistentService implements GenericService {
                 if ("NotAuthenticated".equals(errorName)) {
                     if ("jwt expired".equals(errorMessage)) {
                         preferences.setYanuxAuthJwt(Preferences.EMPTY);
-                    } else if (!"No auth token".equals(errorMessage)) {
+                    }//else if (!"No auth token".equals(errorMessage)) {
                         authenticate();
-                    }
+                    //}
                 } else if ("The provided access token is not valid.".equals(errorMessage)) {
                     exchangeRefreshToken();
                 }

@@ -1,39 +1,85 @@
 {
+  "type": "smartphone",
   "display": {
     "resolution": [
-      1920,
-      1080
+      1080,
+      2248
     ],
-    "pixelDensity": 96,
+    "orientation": "portrait",
+    "pixelDensity": 402,
     "bitDepth": 24,
     "size": [
-      481,
-      271
+      69.5,
+      142.5
     ],
     "refreshRate": 60
   },
   "speakers": {
     "type": "loudspeaker",
-    "channels": 2,
+    "channels": 1,
     "bitDepth": 16,
     "samplingRate": 44100
   },
-  "camera": {
-    "resolution": [
-      1280,
-      720
-    ],
-    "bitDepth": 24,
-    "refreshRate": 60
-  },
+  "camera": [
+    {
+      "type": "main",
+      "resolution": [
+        4032,
+        3024
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    },
+    {
+      "type": "telephoto",
+      "resolution": [
+        4032,
+        3024
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    },
+    {
+      "type": "selfie",
+      "resolution": [
+        5184,
+        3880
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    }
+  ],
   "microphone": {
     "channels": 1,
     "bitDepth": 16,
     "samplingRate": 44100
   },
   "input": [
-    "keyboard",
-    "mouse"
+    "touchscreen",
+    "speech recognition"
   ],
-  "sensors": []
+  "sensors": [
+    "battery",
+    "gps",
+    "wifi",
+    "bluetooth",
+    "bluetooth low energy",
+    "gravity",
+    "linear acceleration",
+    "rotation vector",
+    "rotation vector (game)",
+    "rotation vector (geomagnetic)",
+    "step counter",
+    "step detector",
+    "pressure",
+    "magnetic field",
+    "magnetic field (uncalibrated)",
+    "light",
+    "gyroscope",
+    "gyroscope (uncalibrated)",
+    "accelerometer",
+    "proximity",
+    "orientation (deprecated)",
+    "significant motion"
+  ]
 }
