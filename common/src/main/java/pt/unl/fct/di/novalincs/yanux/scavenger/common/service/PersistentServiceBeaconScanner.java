@@ -202,7 +202,6 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                     } catch (JSONException e) {
                         Log.e(LOG_TAG, "Could not remove beacon: " + e.toString());
                     }
-
                 }
             }
             beaconRefreshHandler.postDelayed(beaconRefresher, refreshInterval);

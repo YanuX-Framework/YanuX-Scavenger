@@ -76,6 +76,7 @@ public class PersistentService implements GenericService {
     private Socket socket;
     private JSONObject user;
     private boolean started;
+    private boolean hasAskedForUserAuthorization;
 
     public PersistentService(BeaconConsumer beaconConsumer) {
         this.beaconConsumer = beaconConsumer;
@@ -90,6 +91,7 @@ public class PersistentService implements GenericService {
         this.httpServer = new PersistentServiceHTTPServer(context, preferences.getHttpServerPort());
         this.httpClient = new OkHttpClient();
         this.started = false;
+        this.hasAskedForUserAuthorization = false;
     }
 
     public void start() {
@@ -236,6 +238,7 @@ public class PersistentService implements GenericService {
             socket.disconnect();
         }
         started = false;
+        hasAskedForUserAuthorization = false;
     }
 
     public boolean isStarted() {
@@ -297,8 +300,7 @@ public class PersistentService implements GenericService {
     }
 
     public void userAuthorization() {
-        if (preferences.getYanuxAuthAccessToken().isEmpty()
-                || preferences.getYanuxAuthRefreshToken().isEmpty()) {
+        if (!hasAskedForUserAuthorization && (preferences.getYanuxAuthAccessToken().isEmpty() || preferences.getYanuxAuthRefreshToken().isEmpty())) {
             Message message = mainHandler.obtainMessage(PersistentServiceMainLooperHandler.HANDLE_SHOW_TOAST, context.getString(R.string.persistent_service_authentication_warning));
             message.sendToTarget();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -309,6 +311,7 @@ public class PersistentService implements GenericService {
                             + preferences.getYanuxAuthRedirectUri()));
             browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(browserIntent);
+            hasAskedForUserAuthorization = true;
         }
     }
 
@@ -424,9 +427,7 @@ public class PersistentService implements GenericService {
             JSONObject query = new JSONObject();
             query.put("user", getUserId());
             query.put("deviceUuid", preferences.getDeviceUuid());
-            JSONObject params = new JSONObject();
-            params.put("query", query);
-            socket.emit("remove", "beacons", null, params, new Ack() {
+            socket.emit("remove", "beacons", null, query, new Ack() {
                 @Override
                 public void call(Object... args) {
                     if (args[0] == null) {
@@ -526,9 +527,8 @@ public class PersistentService implements GenericService {
                 if ("NotAuthenticated".equals(errorName)) {
                     if ("jwt expired".equals(errorMessage)) {
                         preferences.setYanuxAuthJwt(Preferences.EMPTY);
-                    }//else if (!"No auth token".equals(errorMessage)) {
-                        authenticate();
-                    //}
+                    }
+                    authenticate();
                 } else if ("The provided access token is not valid.".equals(errorMessage)) {
                     exchangeRefreshToken();
                 }
