@@ -393,7 +393,7 @@ public class PersistentService implements GenericService {
 
     public void startBeaconScan() {
         if (preferences.isPersistentServiceAllowed() && preferences.shouldBeaconScan()) {
-            beaconScanner.start(preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
+            beaconScanner.start(preferences.shouldBeaconScanRealtimeUpdates(), preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
             beaconCollector.bind();
             String uuid = preferences.getBeaconMatcherParametersUuid();
             int major = preferences.getBeaconMatcherParametersMajor();

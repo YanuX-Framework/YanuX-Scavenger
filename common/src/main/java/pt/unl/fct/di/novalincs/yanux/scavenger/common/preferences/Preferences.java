@@ -40,6 +40,9 @@ public class Preferences {
     public static final String SHOULD_BEACON_SCAN = "beacon_scan";
     public static final boolean SHOULD_BEACON_SCAN_DEFAULT = false;
 
+    public static final String SHOULD_BEACON_SCAN_REAL_TIME_UPDATES = "beacon_scan_realtime_updates";
+    public static final boolean SHOULD_BEACON_SCAN_REAL_TIME_UPDATES_DEFAULT = false;
+
     public static final String SHOULD_BEACON_ADVERTISE = "beacon_advertise";
     public static final boolean SHOULD_BEACON_ADVERTISE_DEFAULT = false;
 
@@ -170,6 +173,14 @@ public class Preferences {
 
     public void setShouldBeaconScan(boolean shouldBeaconScan) {
         preferencesEditor.putBoolean(SHOULD_BEACON_SCAN, shouldBeaconScan).apply();
+    }
+
+    public boolean shouldBeaconScanRealtimeUpdates() {
+        return preferences.getBoolean(SHOULD_BEACON_SCAN_REAL_TIME_UPDATES, SHOULD_BEACON_SCAN_REAL_TIME_UPDATES_DEFAULT);
+    }
+
+    public void setShouldBeaconScanRealtimeUpdates(boolean shouldBeaconScanRealtimeUpdates) {
+        preferencesEditor.putBoolean(SHOULD_BEACON_SCAN_REAL_TIME_UPDATES, shouldBeaconScanRealtimeUpdates).apply();
     }
 
     public boolean shouldBeaconAdvertise() {

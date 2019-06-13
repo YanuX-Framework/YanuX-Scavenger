@@ -31,6 +31,10 @@
             android:defaultValue="@bool/preferences_default_beacon_scan"
             app:key="beacon_scan"
             app:title="@string/preferences_title_beacon_scan" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_scan_realtime_updates"
+            app:key="beacon_scan_realtime_updates"
+            app:title="@string/preferences_title_beacon_scan_realtime_updates" />
         <EditTextPreference
             android:defaultValue="@string/preferences_default_beacon_matcher_parameters_uuid"
             android:key="beacon_matcher_parameters_uuid"

@@ -51,6 +51,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
     private final Set<String> beaconsToRemove;
     private final Handler beaconRefreshHandler;
     private final Runnable beaconRefresher;
+    private boolean realtimeUpdates;
     private int refreshInterval;
     private int inactivityTimer;
 
@@ -70,6 +71,12 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
         this.inactivityTimer = inactivityTimer;
         this.beaconRefreshHandler.postDelayed(beaconRefresher, this.refreshInterval);
     }
+
+    public void start(boolean realtimeUpdates, int refreshInterval, int inactivityTimer) {
+        this.realtimeUpdates = realtimeUpdates;
+        start(refreshInterval, inactivityTimer);
+    }
+
 
     public void stop() {
         this.beaconRefreshHandler.removeCallbacks(beaconRefresher);
@@ -124,38 +131,45 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                         address, beacon.getParserIdentifier(),
                         identifiers, beacon.getTxPower(), beacon.getRssi(),
                         unixTime);
-                JSONObject beaconJson = objectMapper.convertValue(beaconObject, JSONObject.class);
                 if (beaconsCreated.containsKey(beaconKey) || beaconsUpdated.containsKey(beaconKey)) {
                     beaconsCreated.remove(beaconKey);
                     beaconsUpdated.put(beaconKey, beaconObject);
-                    try {
+                    if (realtimeUpdates) {
+                        JSONObject beaconJson = objectMapper.convertValue(beaconObject, JSONObject.class);
                         JSONObject query = new JSONObject();
-                        query.put("user", userId);
-                        query.put("deviceUuid", deviceUuid);
-                        query.put("beaconKey", beaconKey);
-                        socket.emit("patch", "beacons", null, beaconJson, query, new Ack() {
+                        try {
+                            query.put("user", userId);
+                            query.put("deviceUuid", deviceUuid);
+                            query.put("beaconKey", beaconKey);
+                            socket.emit("patch", "beacons", null, beaconJson, query, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    if (args[0] == null) {
+                                        Log.d(LOG_TAG, "Beacon Updated: " + args[1]);
+                                    } else {
+                                        service.handleError(args[0]);
+                                    }
+                                }
+                            });
+                        } catch (JSONException e) {
+                            service.handleError(e);
+                        }
+                    }
+
+                } else {
+                    beaconsCreated.put(beaconKey, beaconObject);
+                    if (realtimeUpdates) {
+                        JSONObject beaconJson = objectMapper.convertValue(beaconObject, JSONObject.class);
+                        socket.emit("create", "beacons", beaconJson, new Ack() {
                             @Override
                             public void call(Object... args) {
                                 if (args[0] == null) {
-                                    Log.d(LOG_TAG, "Beacon Updated: " + args[1]);
-                                } else {
-                                    service.handleError(args[0]);
-                                }
+                                    Log.d(LOG_TAG, "Beacon Created: " + args[1]);
+                                } else service.handleError(args[0]);
                             }
                         });
-                    } catch (JSONException e) {
-                        Log.e(LOG_TAG, "Could not update beacon: " + e.toString());
                     }
-                } else {
-                    beaconsCreated.put(beaconKey, beaconObject);
-                    socket.emit("create", "beacons", beaconJson, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            if (args[0] == null) {
-                                Log.d(LOG_TAG, "Beacon Created: " + args[1]);
-                            } else service.handleError(args[0]);
-                        }
-                    });
+
                 }
             }
         }
@@ -201,6 +215,52 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                         beaconsUpdated.remove(beaconKey);
                     } catch (JSONException e) {
                         Log.e(LOG_TAG, "Could not remove beacon: " + e.toString());
+                    }
+                }
+                /*
+                 * NOTE:
+                 * This is just a stopgap the approach I'm using to avoid being TOO sensitive.
+                 * Beacons were just accidentally being removed from the beacon scanner.
+                 * Moreover, contacting the YanuX Broker whenever a new beacon packet is detected should provide better latency.
+                 * However, such an approach was also very resource intensive.
+                 * Both approaches pros and cons and I'm still not sure which one I'll end up sticking with.
+                 * I'll probably have to mix both up to find a good compromise.
+                 * I'll need real time updates to determine distance from signal strength.
+                 * Such measurements will be needed for determining a running average and to feed a regression algorithm.
+                 * Instead of doing it on the server side I may end up doing it on the client-side to share the load.
+                 */
+                if (!realtimeUpdates) {
+                    for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsCreated.entrySet()) {
+                        JSONObject beaconJson = objectMapper.convertValue(entry.getValue(), JSONObject.class);
+                        socket.emit("create", "beacons", beaconJson, new Ack() {
+                            @Override
+                            public void call(Object... args) {
+                                if (args[0] == null) {
+                                    Log.d(LOG_TAG, "Beacon Created: " + args[1]);
+                                } else service.handleError(args[0]);
+                            }
+                        });
+                    }
+                    for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsUpdated.entrySet()) {
+                        try {
+                            JSONObject beaconJson = objectMapper.convertValue(entry.getValue(), JSONObject.class);
+                            JSONObject query = new JSONObject();
+                            query.put("user", userId);
+                            query.put("deviceUuid", deviceUuid);
+                            query.put("beaconKey", entry.getKey());
+                            socket.emit("patch", "beacons", null, beaconJson, query, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    if (args[0] == null) {
+                                        Log.d(LOG_TAG, "Beacon Updated: " + args[1]);
+                                    } else {
+                                        service.handleError(args[0]);
+                                    }
+                                }
+                            });
+                        } catch (JSONException e) {
+                            service.handleError(e);
+                        }
                     }
                 }
             }
