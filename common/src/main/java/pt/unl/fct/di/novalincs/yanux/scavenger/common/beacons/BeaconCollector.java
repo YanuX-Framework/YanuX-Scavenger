@@ -22,6 +22,8 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
@@ -33,8 +35,8 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class BeaconCollector {
@@ -46,7 +48,7 @@ public class BeaconCollector {
     public static final String EXTRA_BEACON_REGION_STATE = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACON_REGION_STATE";
     public static final String EXTRA_BEACONS = "pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BeaconCollector.EXTRA_BEACONS";
     private static final String LOG_TAG = Constants.LOG_TAG + "_BEACON_COLLECTOR";
-    //iBeacon YanuxBrokerBeacon Layout
+    //iBeacon Beacon Layout
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private static final String REGION_UUID = "3c8bc916-4b9c-4777-98e1-9f6b8a789054";
 
@@ -56,6 +58,7 @@ public class BeaconCollector {
     private final IntentFilter intentFilter;
     private final BeaconManager beaconManager;
     private Region region;
+    private Preferences preferences;
     private PermissionManager permissionManager;
 
     private long startRangingTime;
@@ -67,6 +70,7 @@ public class BeaconCollector {
         context = (Context) beaconConsumer;
         if (context instanceof AppCompatActivity) {
             permissionManager = new PermissionManager((AppCompatActivity) context);
+            preferences = new Preferences(context);
         }
         this.broadcastReceiver = broadcastReceiver;
         intentFilter = new IntentFilter();
@@ -74,6 +78,12 @@ public class BeaconCollector {
         intentFilter.addAction(ACTION_BEACON_MONITOR_EXIT_REGION);
         intentFilter.addAction(ACTION_BEACON_MONITOR_DETERMINED_REGION_STATE);
         intentFilter.addAction(ACTION_BEACON_RANGE_BEACONS);
+
+        BeaconManager.setRssiFilterImplClass(CustomRunningAverageRssiFilter.class);
+        if (preferences != null) {
+            // TODO: Perhaps I should add a dedicated preference for this!
+            CustomRunningAverageRssiFilter.setSampleExpirationMilliseconds(preferences.getBeaconsInactivityTimer());
+        }
 
         beaconManager = BeaconManager.getInstanceForApplication(context);
         beaconManager.getBeaconParsers().add(new BeaconParser("iBeacon").setBeaconLayout(IBEACON_LAYOUT));
@@ -87,8 +97,7 @@ public class BeaconCollector {
          * TODO:
          * If needed and possible, implement a better distance calculator.
          */
-        //YanuxBrokerBeacon.setDistanceCalculator(new CustomDistanceCalculator());
-
+        //Beacon.setDistanceCalculator(new CustomDistanceCalculator());
         beaconManager.setBackgroundMode(false);
         beaconManager.bind(this.beaconConsumer);
 

@@ -60,6 +60,10 @@ public class BeaconReading implements IReading {
         return beacon.getRssi();
     }
 
+    public double getAvgRssi() {
+        return beacon.getRunningAverageRssi();
+    }
+
     public long getTimestamp() {
         return timestamp;
     }

@@ -20,14 +20,16 @@ public class YanuxBrokerBeaconDetails {
     private List<Object> values;
     private int txPower;
     private int rssi;
+    private double avgRssi;
     private long timestamp;
 
-    public YanuxBrokerBeaconDetails(String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
+    public YanuxBrokerBeaconDetails(String id, String type, List<Object> values, int txPower, int rssi, double avgRssi, long timestamp) {
         this.id = id;
         this.type = type;
         this.values = values;
         this.txPower = txPower;
         this.rssi = rssi;
+        this.avgRssi = avgRssi;
         this.timestamp = timestamp;
     }
 
@@ -69,6 +71,14 @@ public class YanuxBrokerBeaconDetails {
 
     public void setRssi(int rssi) {
         this.rssi = rssi;
+    }
+
+    public double getAvgRssi() {
+        return avgRssi;
+    }
+
+    public void setAvgRssi(double avgRssi) {
+        this.avgRssi = avgRssi;
     }
 
     public long getTimestamp() {

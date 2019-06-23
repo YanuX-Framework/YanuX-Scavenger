@@ -130,7 +130,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                 YanuxBrokerBeacon beaconObject = new YanuxBrokerBeacon(userId, deviceUuid, beaconKey,
                         address, beacon.getParserIdentifier(),
                         identifiers, beacon.getTxPower(), beacon.getRssi(),
-                        unixTime);
+                        beacon.getRunningAverageRssi(), unixTime);
                 if (beaconsCreated.containsKey(beaconKey) || beaconsUpdated.containsKey(beaconKey)) {
                     beaconsCreated.remove(beaconKey);
                     beaconsUpdated.put(beaconKey, beaconObject);

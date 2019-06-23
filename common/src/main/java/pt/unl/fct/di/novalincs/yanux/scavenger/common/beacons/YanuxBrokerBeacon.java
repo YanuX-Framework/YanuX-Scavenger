@@ -20,11 +20,11 @@ public class YanuxBrokerBeacon {
     private String beaconKey;
     private YanuxBrokerBeaconDetails beacon;
 
-    public YanuxBrokerBeacon(String user, String deviceUuid, String beaconKey, String id, String type, List<Object> values, int txPower, int rssi, long timestamp) {
+    public YanuxBrokerBeacon(String user, String deviceUuid, String beaconKey, String id, String type, List<Object> values, int txPower, int rssi, double avgRssi, long timestamp) {
         this.user = user;
         this.deviceUuid = deviceUuid;
         this.beaconKey = beaconKey;
-        this.beacon = new YanuxBrokerBeaconDetails(id, type, values, txPower, rssi, timestamp);
+        this.beacon = new YanuxBrokerBeaconDetails(id, type, values, txPower, rssi, avgRssi, timestamp);
     }
 
     public String getUser() {
