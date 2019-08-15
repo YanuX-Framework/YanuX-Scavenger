@@ -26,6 +26,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.beacons.BeaconsActivity;
@@ -36,6 +37,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.activity.nearby.NearbyMessagesAct
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.preferences.PreferencesActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.sensors.SensorsActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi.WifiActivity;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities.Capabilities;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
     private PermissionManager permissionManager;
     private Preferences preferences;
+    private Capabilities capabilities;
     private MobilePersistentService mobilePersistentService;
     private boolean mobilePersistentServiceBound;
     /**
@@ -157,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        capabilities = new Capabilities(this);
         // Bind to LocalService
         Intent intent = new Intent(this, MobilePersistentService.class);
         bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);

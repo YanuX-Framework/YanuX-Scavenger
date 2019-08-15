@@ -23,9 +23,10 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 
+import androidx.core.app.NotificationCompat;
+
 import org.altbeacon.beacon.BeaconConsumer;
 
-import androidx.core.app.NotificationCompat;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.MainActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.service.PersistentService;
@@ -96,7 +97,6 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         if (persistentService == null) {
             persistentService = new PersistentService(this);
         }
-        //persistentService.startBeaconScan();
     }
 
     public PersistentService getPersistentService() {
