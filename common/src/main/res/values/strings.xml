@@ -39,7 +39,7 @@
     <string name="multiple_permission_allowed">Thank you for allowing access to the permissions.</string>
     <string name="multiple_permission_denied">You haven\'t allowed access to theses permissions. The application will be unable to provide you the full experience.</string>
 
-    <!-- Sensors -->
+    <!-- SensorType -->
     <string name="sensor_name">Name</string>
     <string name="sensor_vendor">Vendor</string>
     <string name="sensor_version">Version</string>

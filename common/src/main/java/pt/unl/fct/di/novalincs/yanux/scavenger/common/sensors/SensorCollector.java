@@ -116,7 +116,7 @@ public class SensorCollector {
         Sensor significantMotion = sensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION);
         Sensor stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         Sensor stepDetector = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        //Deprecated Sensors. They are just here for testing purposes
+        //Deprecated SensorType. They are just here for testing purposes
         //TODO: Remove deprecated sensors
         Sensor orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
         Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE);

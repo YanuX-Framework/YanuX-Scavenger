@@ -10,29 +10,27 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+public enum SensorType {
+    @JsonProperty("gps")
+    GPS,
+    @JsonProperty("accelerometer")
+    ACCELEROMETER,
+    @JsonProperty("gyroscope")
+    GYROSCOPE,
+    @JsonProperty("compass")
+    COMPASS,
+    @JsonProperty("barometer")
+    BAROMETER,
+    @JsonProperty("light")
+    LIGHT,
+    @JsonProperty("proximity")
+    PROXIMITY,
+    @JsonProperty("other")
+    OTHER,
+    @JsonProperty("unknown")
+    UNKNOWN
 }

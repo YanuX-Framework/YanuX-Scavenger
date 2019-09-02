@@ -32,7 +32,7 @@ public class Capabilities {
     public Capabilities(Context context) {
         this.context = context;
         this.display = new ArrayList<>();
-        this.computeCapabilities();
+        this.getCapabilitiesInformation();
     }
 
     public String getType() {
@@ -43,7 +43,16 @@ public class Capabilities {
         this.type = type;
     }
 
-    private void computeCapabilities() {
+    private void getCapabilitiesInformation() {
+        getDisplayInformation();
+        getSpeakersInformation();
+        getCameraInformation();
+        getMicrophoneInformation();
+        getInputInformation();
+        getSensorsInformation();
+    }
+
+    private void getDisplayInformation() {
         //Get the display manager.
         DisplayManager displayManager = (DisplayManager) context.getApplicationContext().getSystemService(Context.DISPLAY_SERVICE);
         //For each of the displays in the display manager...
@@ -164,5 +173,25 @@ public class Capabilities {
             //Add the display to the capabilities array of displays
             display.add(d);
         }
+    }
+
+    private void getSpeakersInformation() {
+
+    }
+
+    private void getCameraInformation() {
+
+    }
+
+    private void getMicrophoneInformation() {
+
+    }
+
+    private void getInputInformation() {
+
+    }
+
+    private void getSensorsInformation() {
+
     }
 }
