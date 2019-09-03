@@ -18,9 +18,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
-
 import org.altbeacon.beacon.Identifier;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +42,6 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentServiceBeaconScanner.class.getSimpleName();
 
     private final PersistentService service;
-    private final ObjectMapper objectMapper;
     private final Map<String, YanuxBrokerBeacon> beaconsCreated;
     private final Map<String, YanuxBrokerBeacon> beaconsUpdated;
     private final Set<String> beaconsToRemove;
@@ -57,8 +53,6 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
 
     public PersistentServiceBeaconScanner(PersistentService service) {
         this.service = service;
-        this.objectMapper = new ObjectMapper();
-        this.objectMapper.registerModule(new JsonOrgModule());
         this.beaconsCreated = new HashMap<>();
         this.beaconsUpdated = new HashMap<>();
         this.beaconsToRemove = new HashSet<>();
@@ -135,7 +129,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                     beaconsCreated.remove(beaconKey);
                     beaconsUpdated.put(beaconKey, beaconObject);
                     if (realtimeUpdates) {
-                        JSONObject beaconJson = objectMapper.convertValue(beaconObject, JSONObject.class);
+                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
                         JSONObject query = new JSONObject();
                         try {
                             query.put("user", userId);
@@ -159,7 +153,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                 } else {
                     beaconsCreated.put(beaconKey, beaconObject);
                     if (realtimeUpdates) {
-                        JSONObject beaconJson = objectMapper.convertValue(beaconObject, JSONObject.class);
+                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
                         socket.emit("create", "beacons", beaconJson, new Ack() {
                             @Override
                             public void call(Object... args) {
@@ -231,7 +225,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                  */
                 if (!realtimeUpdates) {
                     for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsCreated.entrySet()) {
-                        JSONObject beaconJson = objectMapper.convertValue(entry.getValue(), JSONObject.class);
+                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(entry.getValue(), JSONObject.class);
                         socket.emit("create", "beacons", beaconJson, new Ack() {
                             @Override
                             public void call(Object... args) {
@@ -243,7 +237,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                     }
                     for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsUpdated.entrySet()) {
                         try {
-                            JSONObject beaconJson = objectMapper.convertValue(entry.getValue(), JSONObject.class);
+                            JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(entry.getValue(), JSONObject.class);
                             JSONObject query = new JSONObject();
                             query.put("user", userId);
                             query.put("deviceUuid", deviceUuid);

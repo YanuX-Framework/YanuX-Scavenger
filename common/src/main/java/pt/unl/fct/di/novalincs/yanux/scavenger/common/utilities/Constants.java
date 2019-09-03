@@ -14,8 +14,16 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities;
 
 import android.os.Build;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+
 public class Constants {
     public static final int API_LEVEL = Build.VERSION.SDK_INT;
     public static final String LOG_TAG = "YXS";
     public static final int SHORT_BYTES = Short.SIZE / Byte.SIZE;
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    static {
+        OBJECT_MAPPER.registerModule(new JsonOrgModule());
+    }
 }

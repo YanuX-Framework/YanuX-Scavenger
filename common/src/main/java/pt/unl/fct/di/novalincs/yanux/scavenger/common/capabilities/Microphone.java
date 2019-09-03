@@ -12,6 +12,9 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Microphone {
     private Integer channels;
     private Integer bitDepth;

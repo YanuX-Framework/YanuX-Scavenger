@@ -15,8 +15,6 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 import android.content.Context;
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
@@ -26,7 +24,6 @@ public class JsonFileLogger extends AbstractFileLogger {
     public static final String DEFAULT_FILENAME = "log.json";
     private static final String LOG_TAG = Constants.LOG_TAG + "_JSON_LOGGER";
 
-    private final ObjectMapper mapper;
     private long entryIdCounter;
     private LogFile logFile;
     private LogSession currentLogSession;
@@ -34,7 +31,6 @@ public class JsonFileLogger extends AbstractFileLogger {
 
     public JsonFileLogger(Context context, String directory, String filename, StorageType storageType) {
         super(context, directory, filename, storageType);
-        mapper = new ObjectMapper();
         entryIdCounter = 0;
     }
 
@@ -79,7 +75,7 @@ public class JsonFileLogger extends AbstractFileLogger {
     public void open() throws IOException {
         super.open();
         try {
-            logFile = mapper.readValue(file, LogFile.class);
+            logFile = Constants.OBJECT_MAPPER.readValue(file, LogFile.class);
         } catch (IOException e) {
             Log.e(LOG_TAG, e.toString());
             logFile = new LogFile(filename);
@@ -103,6 +99,6 @@ public class JsonFileLogger extends AbstractFileLogger {
     public void close() throws IOException {
         super.close();
         currentLogSession = null;
-        mapper.writeValue(file, logFile);
+        Constants.OBJECT_MAPPER.writeValue(file, logFile);
     }
 }

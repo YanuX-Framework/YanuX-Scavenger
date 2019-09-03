@@ -16,7 +16,6 @@ import android.content.Context;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,7 +27,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Utilities;
 public class JsonSreamFileLogger extends AbstractFileLogger {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + JsonSreamFileLogger.class.getSimpleName();
     private final JsonFactory jsonFactory;
-    private final ObjectMapper objectMapper;
     private JsonGenerator jsonGenerator;
     private long entryIdCounter;
 
@@ -36,7 +34,6 @@ public class JsonSreamFileLogger extends AbstractFileLogger {
     public JsonSreamFileLogger(Context context, String directory, String filename, StorageType storageType) {
         super(context, directory, filename, storageType);
         jsonFactory = new JsonFactory();
-        objectMapper = new ObjectMapper();
         entryIdCounter = 0;
     }
 
@@ -80,7 +77,7 @@ public class JsonSreamFileLogger extends AbstractFileLogger {
     public void open() throws IOException {
         super.open();
         jsonGenerator = jsonFactory.createJsonGenerator(new FileOutputStream(file));
-        jsonGenerator.setCodec(objectMapper);
+        jsonGenerator.setCodec(Constants.OBJECT_MAPPER);
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("timestamp", Utilities.getUnixTimeMillis());
         jsonGenerator.writeStringField("name", getFilename());

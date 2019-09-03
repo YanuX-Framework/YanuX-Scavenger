@@ -12,9 +12,44 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Speakers {
-    private String type;
+    private SpeakersType type;
     private Integer channels;
     private Integer bitDepth;
     private Double samplingRate;
+
+    public SpeakersType getType() {
+        return type;
+    }
+
+    public void setType(SpeakersType type) {
+        this.type = type;
+    }
+
+    public Integer getChannels() {
+        return channels;
+    }
+
+    public void setChannels(Integer channels) {
+        this.channels = channels;
+    }
+
+    public Integer getBitDepth() {
+        return bitDepth;
+    }
+
+    public void setBitDepth(Integer bitDepth) {
+        this.bitDepth = bitDepth;
+    }
+
+    public Double getSamplingRate() {
+        return samplingRate;
+    }
+
+    public void setSamplingRate(Double samplingRate) {
+        this.samplingRate = samplingRate;
+    }
 }

@@ -12,14 +12,17 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Camera {
-    private String type;
-    private List<Integer> resolution;
-    private Integer bitDepth;
-    private Double refreshRate;
+public enum DeviceType {
+    @JsonProperty("smartphone")
+    SMARTPHONE,
+    @JsonProperty("tablet")
+    TABLET,
+    @JsonProperty("smartwatch")
+    SMARTWATCH,
+    @JsonProperty("other")
+    OTHER,
+    @JsonProperty("unknown")
+    UNKNOWN
 }

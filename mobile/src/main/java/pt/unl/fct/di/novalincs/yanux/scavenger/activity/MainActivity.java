@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,9 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.File;
+import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
@@ -43,6 +47,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService.MobilePersistentServiceBinder;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -82,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         permissionManager = new PermissionManager(this);
-        permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissionManager.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE});
         preferences = new Preferences(this);
 
         Uri data = getIntent().getData();
@@ -161,6 +169,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         capabilities = new Capabilities(this);
+        try {
+            capabilities.saveToFile(new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "YanuX-Scavenger-Capabilities.json"));
+        } catch (IOException e) {
+            Log.e("YXS_Capabilities", "Exception: " + e);
+        }
         // Bind to LocalService
         Intent intent = new Intent(this, MobilePersistentService.class);
         bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);

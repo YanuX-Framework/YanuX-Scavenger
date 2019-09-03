@@ -14,33 +14,107 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.display.DisplayManager;
+import android.media.AudioDeviceInfo;
+import android.media.AudioFormat;
+import android.media.AudioManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Capabilities {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + Capabilities.class.getSimpleName();
     private Context context;
-    private String type;
+    private DeviceType type;
     private List<Display> display;
+    private List<Speakers> speakers;
+    private List<Camera> cameras;
+    private List<Microphone> microphone;
+    private List<InputType> input;
+    private List<SensorType> sensors;
 
     public Capabilities(Context context) {
         this.context = context;
         this.display = new ArrayList<>();
+        this.speakers = new ArrayList<>();
+        this.cameras = new ArrayList<>();
+        this.microphone = new ArrayList<>();
+        this.input = new ArrayList<>();
+        this.sensors = new ArrayList<>();
         this.getCapabilitiesInformation();
     }
 
-    public String getType() {
+    public DeviceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(DeviceType type) {
         this.type = type;
+    }
+
+    public List<Display> getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(List<Display> display) {
+        this.display = display;
+    }
+
+    public List<Speakers> getSpeakers() {
+        return speakers;
+    }
+
+    public void setSpeakers(List<Speakers> speakers) {
+        this.speakers = speakers;
+    }
+
+    public List<Camera> getCameras() {
+        return cameras;
+    }
+
+    public void setCameras(List<Camera> cameras) {
+        this.cameras = cameras;
+    }
+
+    public List<Microphone> getMicrophone() {
+        return microphone;
+    }
+
+    public void setMicrophone(List<Microphone> microphone) {
+        this.microphone = microphone;
+    }
+
+    public List<InputType> getInput() {
+        return input;
+    }
+
+    public void setInput(List<InputType> input) {
+        this.input = input;
+    }
+
+    public List<SensorType> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(List<SensorType> sensors) {
+        this.sensors = sensors;
     }
 
     private void getCapabilitiesInformation() {
@@ -77,13 +151,17 @@ public class Capabilities {
 
             //Inferring the device type from the default display
             if (deviceDisplay.getDisplayId() == android.view.Display.DEFAULT_DISPLAY) {
+                // If it has feature watch than it's a watch!
+                if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH)) {
+                    setType(DeviceType.SMARTWATCH);
+                }
                 //If larger than 7 inches we consider it to be a tablet
                 if (diagonalInches >= 7.0) {
-                    setType("tablet");
+                    setType(DeviceType.TABLET);
                 }
                 // Otherwise it's a smartphone
                 else {
-                    setType("smartphone");
+                    setType(DeviceType.SMARTPHONE);
                 }
                 //Logging the Device Type
                 Log.d(LOG_TAG, "Device Type: " + getType());
@@ -176,7 +254,97 @@ public class Capabilities {
     }
 
     private void getSpeakersInformation() {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        for (AudioDeviceInfo adi : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+            Log.d(LOG_TAG, "[ Id: " + adi.getId() + " Product Name: " + adi.getProductName() + " Type: " + adi.getType() + " ]");
 
+            StringBuilder sb = new StringBuilder();
+            sb.append("Channel Counts: ");
+            for (int i = 0; i < adi.getChannelCounts().length; i++) {
+                sb.append(adi.getChannelCounts()[i]);
+                if (i < adi.getChannelCounts().length - 1) {
+                    sb.append(", ");
+                }
+            }
+            Log.d(LOG_TAG, sb.toString());
+
+            sb = new StringBuilder();
+            sb.append("Sample Rates: ");
+            for (int i = 0; i < adi.getSampleRates().length; i++) {
+                sb.append(adi.getSampleRates()[i]);
+                if (i < adi.getSampleRates().length - 1) {
+                    sb.append(", ");
+                }
+            }
+            Log.d(LOG_TAG, sb.toString());
+
+            sb = new StringBuilder();
+            sb.append("Channel Masks: ");
+            for (int i = 0; i < adi.getChannelMasks().length; i++) {
+                sb.append(adi.getChannelMasks()[i]);
+                if (i < adi.getChannelMasks().length - 1) {
+                    sb.append(", ");
+                }
+            }
+            Log.d(LOG_TAG, sb.toString());
+
+            sb = new StringBuilder();
+            sb.append("Channel Index Masks: ");
+            for (int i = 0; i < adi.getChannelIndexMasks().length; i++) {
+                sb.append(adi.getChannelIndexMasks()[i]);
+                if (i < adi.getChannelIndexMasks().length - 1) {
+                    sb.append(", ");
+                }
+            }
+            Log.d(LOG_TAG, sb.toString());
+
+            sb = new StringBuilder();
+            sb.append("Encodings: ");
+            for (int i = 0; i < adi.getEncodings().length; i++) {
+                sb.append(adi.getEncodings()[i]);
+                if (i < adi.getEncodings().length - 1) {
+                    sb.append(", ");
+                }
+            }
+            Log.d(LOG_TAG, sb.toString());
+            Speakers s = new Speakers();
+            switch (adi.getType()) {
+                case AudioDeviceInfo.TYPE_BUILTIN_SPEAKER:
+                    s.setType(SpeakersType.LOUDSPEAKER);
+                    break;
+                case AudioDeviceInfo.TYPE_WIRED_HEADSET:
+                case AudioDeviceInfo.TYPE_WIRED_HEADPHONES:
+                    s.setType(SpeakersType.HEADPHONES);
+                    break;
+                case AudioDeviceInfo.TYPE_BLUETOOTH_A2DP:
+                case AudioDeviceInfo.TYPE_BLUETOOTH_SCO:
+                    s.setType(SpeakersType.BLUETOOTH);
+                    break;
+                default:
+                    s.setType(null);
+                    break;
+            }
+            if (s.getType() != null) {
+                if (adi.getChannelCounts().length != 0) {
+                    s.setChannels(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getChannelCounts()))));
+                }
+
+                if (adi.getSampleRates().length != 0) {
+                    s.setSamplingRate(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getSampleRates()))).doubleValue());
+                }
+
+                List<Integer> encodings = Arrays.asList(ArrayUtils.toObject(adi.getEncodings()));
+                if (encodings.contains(AudioFormat.ENCODING_PCM_8BIT)) {
+                    s.setBitDepth(8);
+                } else if (encodings.contains(AudioFormat.ENCODING_PCM_16BIT)) {
+                    s.setBitDepth(16);
+                } else if (encodings.contains(AudioFormat.ENCODING_PCM_FLOAT)) {
+                    s.setBitDepth(24);
+                }
+
+                speakers.add(s);
+            }
+        }
     }
 
     private void getCameraInformation() {
@@ -193,5 +361,23 @@ public class Capabilities {
 
     private void getSensorsInformation() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        try {
+            return toJsonString();
+        } catch (JsonProcessingException e) {
+            return super.toString();
+        }
+    }
+
+    public String toJsonString() throws JsonProcessingException {
+        return Constants.OBJECT_MAPPER.writeValueAsString(this);
+    }
+
+    public void saveToFile(File file) throws IOException {
+        Constants.OBJECT_MAPPER.writeValue(file, this);
     }
 }
