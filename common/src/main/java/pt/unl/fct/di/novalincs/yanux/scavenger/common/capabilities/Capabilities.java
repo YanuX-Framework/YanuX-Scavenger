@@ -15,12 +15,19 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.params.StreamConfigurationMap;
 import android.hardware.display.DisplayManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioFormat;
 import android.media.AudioManager;
+import android.media.ImageReader;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Size;
 
 import androidx.annotation.NonNull;
 
@@ -45,7 +52,7 @@ public class Capabilities {
     private DeviceType type;
     private List<Display> display;
     private List<Speakers> speakers;
-    private List<Camera> cameras;
+    private List<Camera> camera;
     private List<Microphone> microphone;
     private List<InputType> input;
     private List<SensorType> sensors;
@@ -54,7 +61,7 @@ public class Capabilities {
         this.context = context;
         this.display = new ArrayList<>();
         this.speakers = new ArrayList<>();
-        this.cameras = new ArrayList<>();
+        this.camera = new ArrayList<>();
         this.microphone = new ArrayList<>();
         this.input = new ArrayList<>();
         this.sensors = new ArrayList<>();
@@ -85,12 +92,12 @@ public class Capabilities {
         this.speakers = speakers;
     }
 
-    public List<Camera> getCameras() {
-        return cameras;
+    public List<Camera> getCamera() {
+        return camera;
     }
 
-    public void setCameras(List<Camera> cameras) {
-        this.cameras = cameras;
+    public void setCamera(List<Camera> camera) {
+        this.camera = camera;
     }
 
     public List<Microphone> getMicrophone() {
@@ -254,60 +261,16 @@ public class Capabilities {
     }
 
     private void getSpeakersInformation() {
+        //Get the audio manager to get information about speakers.
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        //Get the information about each speaker.
         for (AudioDeviceInfo adi : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
-            Log.d(LOG_TAG, "[ Id: " + adi.getId() + " Product Name: " + adi.getProductName() + " Type: " + adi.getType() + " ]");
+            //Log the audio device information.
+            logAudioDevice(adi);
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("Channel Counts: ");
-            for (int i = 0; i < adi.getChannelCounts().length; i++) {
-                sb.append(adi.getChannelCounts()[i]);
-                if (i < adi.getChannelCounts().length - 1) {
-                    sb.append(", ");
-                }
-            }
-            Log.d(LOG_TAG, sb.toString());
-
-            sb = new StringBuilder();
-            sb.append("Sample Rates: ");
-            for (int i = 0; i < adi.getSampleRates().length; i++) {
-                sb.append(adi.getSampleRates()[i]);
-                if (i < adi.getSampleRates().length - 1) {
-                    sb.append(", ");
-                }
-            }
-            Log.d(LOG_TAG, sb.toString());
-
-            sb = new StringBuilder();
-            sb.append("Channel Masks: ");
-            for (int i = 0; i < adi.getChannelMasks().length; i++) {
-                sb.append(adi.getChannelMasks()[i]);
-                if (i < adi.getChannelMasks().length - 1) {
-                    sb.append(", ");
-                }
-            }
-            Log.d(LOG_TAG, sb.toString());
-
-            sb = new StringBuilder();
-            sb.append("Channel Index Masks: ");
-            for (int i = 0; i < adi.getChannelIndexMasks().length; i++) {
-                sb.append(adi.getChannelIndexMasks()[i]);
-                if (i < adi.getChannelIndexMasks().length - 1) {
-                    sb.append(", ");
-                }
-            }
-            Log.d(LOG_TAG, sb.toString());
-
-            sb = new StringBuilder();
-            sb.append("Encodings: ");
-            for (int i = 0; i < adi.getEncodings().length; i++) {
-                sb.append(adi.getEncodings()[i]);
-                if (i < adi.getEncodings().length - 1) {
-                    sb.append(", ");
-                }
-            }
-            Log.d(LOG_TAG, sb.toString());
+            //Init the speakers information object
             Speakers s = new Speakers();
+            //Set the speakers type accordingly
             switch (adi.getType()) {
                 case AudioDeviceInfo.TYPE_BUILTIN_SPEAKER:
                     s.setType(SpeakersType.LOUDSPEAKER);
@@ -317,42 +280,198 @@ public class Capabilities {
                     s.setType(SpeakersType.HEADPHONES);
                     break;
                 case AudioDeviceInfo.TYPE_BLUETOOTH_A2DP:
-                case AudioDeviceInfo.TYPE_BLUETOOTH_SCO:
+                    //case AudioDeviceInfo.TYPE_BLUETOOTH_SCO:
                     s.setType(SpeakersType.BLUETOOTH);
                     break;
                 default:
                     s.setType(null);
                     break;
             }
+            //If the type is set get the remaining details, otherwise don't add the speakers since they are probably "garbage"!
             if (s.getType() != null) {
+                //If there are channels counts
                 if (adi.getChannelCounts().length != 0) {
+                    //Get the maximum value and set it to the speakers object
                     s.setChannels(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getChannelCounts()))));
                 }
 
+                //If there are sample rates
                 if (adi.getSampleRates().length != 0) {
+                    //Get the maximum value and set it to the speakers object
                     s.setSamplingRate(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getSampleRates()))).doubleValue());
                 }
 
+                //Get the supported encodings
                 List<Integer> encodings = Arrays.asList(ArrayUtils.toObject(adi.getEncodings()));
-                if (encodings.contains(AudioFormat.ENCODING_PCM_8BIT)) {
-                    s.setBitDepth(8);
+                //Check if encodings contains each of the relevant PCM formats and set the bit depth accordingly.
+                if (encodings.contains(AudioFormat.ENCODING_PCM_FLOAT)) {
+                    s.setBitDepth(24);
                 } else if (encodings.contains(AudioFormat.ENCODING_PCM_16BIT)) {
                     s.setBitDepth(16);
-                } else if (encodings.contains(AudioFormat.ENCODING_PCM_FLOAT)) {
-                    s.setBitDepth(24);
+                } else if (encodings.contains(AudioFormat.ENCODING_PCM_8BIT)) {
+                    s.setBitDepth(8);
                 }
-
+                //Add the speakers object to speakers list
                 speakers.add(s);
             }
         }
     }
 
     private void getCameraInformation() {
+        //Get the camera manager
+        CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            //Iterate over each camera
+            // TODO: Add proper support to the new Multi-camera API which should enable access to physical cameras (e.g., a back camera may be composed of a main camera and a telephoto camera)
+            for (String cameraId : manager.getCameraIdList()) {
+                //Init the camera object
+                Camera c = new Camera();
+                // Get the camera characteristics
+                CameraCharacteristics cameraCharacteristics = manager.getCameraCharacteristics(cameraId);
+                // Log the camera id
+                Log.d(LOG_TAG, "[ Camera Id: " + cameraId + " ]");
+                // Check the type of camera based on where it's facing
+                Integer cameraType = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
+                // Null check on the camera type information.
+                if (cameraType != null) {
+                    //Switch on the camera type
+                    switch (cameraType) {
+                        //If it's a back facing camera
+                        case CameraCharacteristics.LENS_FACING_BACK:
+                            //Log it
+                            Log.d(LOG_TAG, "Back Camera");
+                            //And set the type
+                            c.setType(CameraType.BACK);
+                            break;
+                        //If it's a front facing camera
+                        case CameraCharacteristics.LENS_FACING_FRONT:
+                            //Log it
+                            Log.d(LOG_TAG, "Front Camera");
+                            //And set the type
+                            c.setType(CameraType.FRONT);
+                            break;
+                        //If it's an external camera
+                        case CameraCharacteristics.LENS_FACING_EXTERNAL:
+                            //Log it
+                            Log.d(LOG_TAG, "External Camera");
+                            //And set the type
+                            c.setType(CameraType.EXTERNAL);
+                            break;
+                        //Otherwise, just ignore the camera
+                        default:
+                            //But log it as unknown anyway!
+                            Log.d(LOG_TAG, "Unknown Camera");
+                            break;
+                    }
+                }
+                //Check if the camera type is set. If that's the case get the remaining details about the camera.
+                if (c.getType() != null) {
+                    //Get a map of the configurations supported by the camera to get information from it.
+                    StreamConfigurationMap streamConfigurationMap = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+                    //Get an int[] of the output format codes and convert it into a List<Integer> to make it easier to manipulate.
+                    List<Integer> outputFormats = Arrays.asList(ArrayUtils.toObject(streamConfigurationMap.getOutputFormats()));
+                    //A variable to store the code of the best/top of the line format supported by the camera among a couple of options.
+                    int preferredFormat;
+                    //Check if RAW sensor information (16-bit per channel) is supported
+                    if (outputFormats.contains(ImageFormat.RAW_SENSOR)) {
+                        //If it is, save that as the preferred format
+                        preferredFormat = ImageFormat.RAW_SENSOR;
+                        //And set the bit depth accordingly
+                        c.setBitDepth(48);
+                        //Otherwise, check if RAW 12-bit per channel is supported.
+                    } else if (outputFormats.contains(ImageFormat.RAW12)) {
+                        //If it is, save that as the preferred format
+                        preferredFormat = ImageFormat.RAW12;
+                        //And set the bit depth accordingly
+                        c.setBitDepth(36);
+                        //Otherwise, check if RAW 10-bit per channel is supported.
+                    } else if (outputFormats.contains(ImageFormat.RAW10)) {
+                        //If it is, save that as the preferred format
+                        preferredFormat = ImageFormat.RAW10;
+                        //And set the bit depth accordingly
+                        c.setBitDepth(30);
+                        //Otherwise, check if all else fails check if the JPEG format (8-bit per channel) is supported, which it should always be.
+                    } else if (outputFormats.contains(ImageFormat.JPEG)) {
+                        //If it is, save that as the preferred format
+                        preferredFormat = ImageFormat.JPEG;
+                        //And set the bit depth accordingly
+                        c.setBitDepth(24);
+                    }
 
+                    //Get the supported camera output sizes.
+                    Size[] sizes = streamConfigurationMap.getOutputSizes(ImageFormat.JPEG);
+                    //Initialize a list to store the camera resolution information.
+                    List<Integer> resolution = new ArrayList<>();
+                    //Add the width to the first position.
+                    resolution.add(sizes[0].getWidth());
+                    //Add the height to the second.
+                    resolution.add(sizes[0].getHeight());
+                    //Set the resolution of the camera object.
+                    c.setResolution(resolution);
+
+                    //Get the minimum time between camera frames in nanoseconds.
+                    long minFrameDuration = streamConfigurationMap.getOutputMinFrameDuration(ImageReader.class, sizes[0]);
+
+                    //If the value is known (different from 0)
+                    if (minFrameDuration != 0) {
+                        //Convert it to FPS (frames per second) and add it to the camera object;
+                        c.setRefreshRate(1.0e9 / streamConfigurationMap.getOutputMinFrameDuration(ImageReader.class, sizes[0]));
+                    }
+
+                    //Just log all of the information that we just gathered
+                    Log.d(LOG_TAG, "Resolution: " + c.getResolution());
+                    Log.d(LOG_TAG, "Bit Depth: " + c.getBitDepth());
+                    Log.d(LOG_TAG, "Refresh Rate : " + c.getRefreshRate());
+                    //Add the camera to the list of cameras
+                    camera.add(c);
+                }
+            }
+        } catch (CameraAccessException e) {
+            Log.e(LOG_TAG, "Camera Exception: " + e);
+        }
     }
 
     private void getMicrophoneInformation() {
+        //Get the audio manager to get information about microphones.
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        //Get the information about each microphone.
+        for (AudioDeviceInfo adi : audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS)) {
+            //Init the microphone information object
+            Microphone m = new Microphone();
+            //If the type is builtin microphone proceed. Otherwise, ignore this audio device.
+            if (adi.getType() == AudioDeviceInfo.TYPE_BUILTIN_MIC) {
+                //Log the audio device information.
+                logAudioDevice(adi);
+                //If the channel masks support stereo, then we assume that we can record stereo sound.
+                if (Arrays.asList(ArrayUtils.toObject(adi.getChannelMasks())).contains(AudioFormat.CHANNEL_IN_STEREO)) {
+                    m.setChannels(2);
+                    //Otherwise, default to mono sound.
+                } else {
+                    m.setChannels(1);
+                }
 
+                //If there are sample rates
+                if (adi.getSampleRates().length != 0) {
+                    //Get the maximum value and set it to the microphone object
+                    m.setSamplingRate(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getSampleRates()))).doubleValue());
+                }
+
+                //Get the supported encodings
+                List<Integer> encodings = Arrays.asList(ArrayUtils.toObject(adi.getEncodings()));
+                //Check if encodings contains each of the relevant PCM formats and set the bit depth accordingly.
+                if (encodings.contains(AudioFormat.ENCODING_PCM_FLOAT)) {
+                    m.setBitDepth(24);
+                } else if (encodings.contains(AudioFormat.ENCODING_PCM_16BIT)) {
+                    m.setBitDepth(16);
+                } else if (encodings.contains(AudioFormat.ENCODING_PCM_8BIT)) {
+                    m.setBitDepth(8);
+                }
+                //Add the microphone object to the microphones list
+                microphone.add(m);
+                //Exit the loop TODO: Find a more a elegant way of dealing with duplicated internal microphones. Besises, how do I access other types of microphones reliably?
+                break;
+            }
+        }
     }
 
     private void getInputInformation() {
@@ -361,6 +480,71 @@ public class Capabilities {
 
     private void getSensorsInformation() {
 
+    }
+
+    private void logAudioDevice(AudioDeviceInfo adi) {
+        //A string builder used to support logging.
+        StringBuilder sb = new StringBuilder();
+        //Log general information about speakers
+        sb.append("[ Id: " + adi.getId() + " Product Name: " + adi.getProductName() + " Type: " + adi.getType() + " ]");
+        Log.d(LOG_TAG, sb.toString());
+
+        //Log the channel counts
+        sb = new StringBuilder();
+        sb.append("Channel Counts: ");
+        for (int i = 0; i < adi.getChannelCounts().length; i++) {
+            sb.append(adi.getChannelCounts()[i]);
+            if (i < adi.getChannelCounts().length - 1) {
+                sb.append(", ");
+            }
+        }
+        Log.d(LOG_TAG, sb.toString());
+
+        //Log the supported sample rates
+        sb = new StringBuilder();
+        sb.append("Sample Rates: ");
+        for (int i = 0; i < adi.getSampleRates().length; i++) {
+            sb.append(adi.getSampleRates()[i]);
+            if (i < adi.getSampleRates().length - 1) {
+                sb.append(", ");
+            }
+        }
+        Log.d(LOG_TAG, sb.toString());
+
+        //Log the supported channel masks
+        sb = new StringBuilder();
+        sb.append("Channel Masks: ");
+        for (int i = 0; i < adi.getChannelMasks().length; i++) {
+            sb.append(adi.getChannelMasks()[i]);
+            if (i < adi.getChannelMasks().length - 1) {
+                sb.append(", ");
+            }
+        }
+        Log.d(LOG_TAG, sb.toString());
+
+        //Log the supported channel index masks
+        sb = new StringBuilder();
+        sb.append("Channel Index Masks: ");
+        for (int i = 0; i < adi.getChannelIndexMasks().length; i++) {
+            sb.append(adi.getChannelIndexMasks()[i]);
+            if (i < adi.getChannelIndexMasks().length - 1) {
+                sb.append(", ");
+            }
+        }
+        Log.d(LOG_TAG, sb.toString());
+
+        //Log supported encodings
+        sb = new StringBuilder();
+        sb.append("Encodings: ");
+        for (int i = 0; i < adi.getEncodings().length; i++) {
+            sb.append(adi.getEncodings()[i]);
+            if (i < adi.getEncodings().length - 1) {
+                sb.append(", ");
+            }
+        }
+
+        //Log the string builder
+        Log.d(LOG_TAG, sb.toString());
     }
 
     @NonNull

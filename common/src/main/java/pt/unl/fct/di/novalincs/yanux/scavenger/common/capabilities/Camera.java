@@ -18,8 +18,40 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Camera {
-    private String type;
+    private CameraType type;
     private List<Integer> resolution;
     private Integer bitDepth;
     private Double refreshRate;
+
+    public CameraType getType() {
+        return type;
+    }
+
+    public void setType(CameraType type) {
+        this.type = type;
+    }
+
+    public List<Integer> getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(List<Integer> resolution) {
+        this.resolution = resolution;
+    }
+
+    public Integer getBitDepth() {
+        return bitDepth;
+    }
+
+    public void setBitDepth(Integer bitDepth) {
+        this.bitDepth = bitDepth;
+    }
+
+    public Double getRefreshRate() {
+        return refreshRate;
+    }
+
+    public void setRefreshRate(Double refreshRate) {
+        this.refreshRate = refreshRate;
+    }
 }

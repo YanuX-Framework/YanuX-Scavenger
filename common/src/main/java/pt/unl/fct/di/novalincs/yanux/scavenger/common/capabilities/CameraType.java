@@ -12,35 +12,23 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Microphone {
-    private Integer channels;
-    private Integer bitDepth;
-    private Double samplingRate;
-
-    public Integer getChannels() {
-        return channels;
-    }
-
-    public void setChannels(Integer channels) {
-        this.channels = channels;
-    }
-
-    public Integer getBitDepth() {
-        return bitDepth;
-    }
-
-    public void setBitDepth(Integer bitDepth) {
-        this.bitDepth = bitDepth;
-    }
-
-    public Double getSamplingRate() {
-        return samplingRate;
-    }
-
-    public void setSamplingRate(Double samplingRate) {
-        this.samplingRate = samplingRate;
-    }
+public enum CameraType {
+    @JsonProperty("back")
+    BACK,
+    @JsonProperty("front")
+    FRONT,
+    @JsonProperty("external")
+    EXTERNAL,
+    @JsonProperty("telephoto")
+    TELEPHOTO,
+    @JsonProperty("wide angle")
+    WIDE_ANGLE,
+    @JsonProperty("webcam")
+    WEBCAM,
+    @JsonProperty("other")
+    OTHER,
+    @JsonProperty("unknown")
+    UNKNOWN
 }
