@@ -15,19 +15,24 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.ImageFormat;
+import android.hardware.Sensor;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.hardware.display.DisplayManager;
+import android.hardware.input.InputManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.ImageReader;
+import android.speech.SpeechRecognizer;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
+import android.view.InputDevice;
 
 import androidx.annotation.NonNull;
 
@@ -41,8 +46,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -50,21 +58,21 @@ public class Capabilities {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + Capabilities.class.getSimpleName();
     private Context context;
     private DeviceType type;
-    private List<Display> display;
-    private List<Speakers> speakers;
-    private List<Camera> camera;
-    private List<Microphone> microphone;
-    private List<InputType> input;
-    private List<SensorType> sensors;
+    private Set<Display> display;
+    private Set<Speakers> speakers;
+    private Set<Camera> camera;
+    private Set<Microphone> microphone;
+    private Set<InputType> input;
+    private Set<SensorType> sensors;
 
     public Capabilities(Context context) {
         this.context = context;
-        this.display = new ArrayList<>();
-        this.speakers = new ArrayList<>();
-        this.camera = new ArrayList<>();
-        this.microphone = new ArrayList<>();
-        this.input = new ArrayList<>();
-        this.sensors = new ArrayList<>();
+        this.display = new LinkedHashSet<>();
+        this.speakers = new LinkedHashSet<>();
+        this.camera = new LinkedHashSet<>();
+        this.microphone = new LinkedHashSet<>();
+        this.input = new LinkedHashSet<>();
+        this.sensors = new LinkedHashSet<>();
         this.getCapabilitiesInformation();
     }
 
@@ -76,51 +84,51 @@ public class Capabilities {
         this.type = type;
     }
 
-    public List<Display> getDisplay() {
+    public Set<Display> getDisplay() {
         return display;
     }
 
-    public void setDisplay(List<Display> display) {
+    public void setDisplay(Set<Display> display) {
         this.display = display;
     }
 
-    public List<Speakers> getSpeakers() {
+    public Set<Speakers> getSpeakers() {
         return speakers;
     }
 
-    public void setSpeakers(List<Speakers> speakers) {
+    public void setSpeakers(Set<Speakers> speakers) {
         this.speakers = speakers;
     }
 
-    public List<Camera> getCamera() {
+    public Set<Camera> getCamera() {
         return camera;
     }
 
-    public void setCamera(List<Camera> camera) {
+    public void setCamera(Set<Camera> camera) {
         this.camera = camera;
     }
 
-    public List<Microphone> getMicrophone() {
+    public Set<Microphone> getMicrophone() {
         return microphone;
     }
 
-    public void setMicrophone(List<Microphone> microphone) {
+    public void setMicrophone(Set<Microphone> microphone) {
         this.microphone = microphone;
     }
 
-    public List<InputType> getInput() {
+    public Set<InputType> getInput() {
         return input;
     }
 
-    public void setInput(List<InputType> input) {
+    public void setInput(Set<InputType> input) {
         this.input = input;
     }
 
-    public List<SensorType> getSensors() {
+    public Set<SensorType> getSensors() {
         return sensors;
     }
 
-    public void setSensors(List<SensorType> sensors) {
+    public void setSensors(Set<SensorType> sensors) {
         this.sensors = sensors;
     }
 
@@ -260,6 +268,9 @@ public class Capabilities {
         }
     }
 
+    //TODO: Detect when speakers/headphones/headsets/etc. are added or removed to update the current devices' capabilities automatically
+    //https://developer.android.com/reference/android/media/AudioManager.html#ACTION_AUDIO_BECOMING_NOISY
+    //https://developer.android.com/guide/topics/media-apps/volume-and-earphones#becoming-noisy
     private void getSpeakersInformation() {
         //Get the audio manager to get information about speakers.
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -271,11 +282,11 @@ public class Capabilities {
             //Init the speakers information object
             Speakers s = new Speakers();
             //Set the speakers type accordingly
+            //TODO: What other device types should I consider?
             switch (adi.getType()) {
                 case AudioDeviceInfo.TYPE_BUILTIN_SPEAKER:
                     s.setType(SpeakersType.LOUDSPEAKER);
                     break;
-                case AudioDeviceInfo.TYPE_WIRED_HEADSET:
                 case AudioDeviceInfo.TYPE_WIRED_HEADPHONES:
                     s.setType(SpeakersType.HEADPHONES);
                     break;
@@ -294,13 +305,11 @@ public class Capabilities {
                     //Get the maximum value and set it to the speakers object
                     s.setChannels(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getChannelCounts()))));
                 }
-
                 //If there are sample rates
                 if (adi.getSampleRates().length != 0) {
                     //Get the maximum value and set it to the speakers object
                     s.setSamplingRate(Collections.max(Arrays.asList(ArrayUtils.toObject(adi.getSampleRates()))).doubleValue());
                 }
-
                 //Get the supported encodings
                 List<Integer> encodings = Arrays.asList(ArrayUtils.toObject(adi.getEncodings()));
                 //Check if encodings contains each of the relevant PCM formats and set the bit depth accordingly.
@@ -431,6 +440,9 @@ public class Capabilities {
         }
     }
 
+    //TODO: Detect when microphones/headsets/etc. are added or removed to update the current devices' capabilities automatically
+    //https://developer.android.com/reference/android/media/AudioManager.html#ACTION_AUDIO_BECOMING_NOISY
+    //https://developer.android.com/guide/topics/media-apps/volume-and-earphones#becoming-noisy
     private void getMicrophoneInformation() {
         //Get the audio manager to get information about microphones.
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -439,6 +451,7 @@ public class Capabilities {
             //Init the microphone information object
             Microphone m = new Microphone();
             //If the type is builtin microphone proceed. Otherwise, ignore this audio device.
+            //TODO: What other device types should I consider?
             if (adi.getType() == AudioDeviceInfo.TYPE_BUILTIN_MIC) {
                 //Log the audio device information.
                 logAudioDevice(adi);
@@ -468,17 +481,71 @@ public class Capabilities {
                 }
                 //Add the microphone object to the microphones list
                 microphone.add(m);
-                //Exit the loop TODO: Find a more a elegant way of dealing with duplicated internal microphones. Besises, how do I access other types of microphones reliably?
+                //Exit the loop
+                //TODO: Find a more a elegant way of dealing with duplicated internal microphones. Besises, how do I access other types of microphones reliably?
                 break;
             }
         }
     }
 
+    //TODO: Detect when keyboards/mice/styluses/etc. are added or removed to update the current devices' capabilities automatically
+    //https://developer.android.com/reference/android/hardware/input/InputManager.InputDeviceListener.html
     private void getInputInformation() {
-
+        InputManager inputManager = (InputManager) context.getSystemService(Context.INPUT_SERVICE);
+        Log.d(LOG_TAG, "[ Keyboard: " + context.getResources().getConfiguration().keyboard + " Keyboard Hidden: " + context.getResources().getConfiguration().hardKeyboardHidden + " ]");
+        if (context.getResources().getConfiguration().keyboard == Configuration.KEYBOARD_QWERTY
+                && context.getResources().getConfiguration().hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
+            Log.d(LOG_TAG, "Input Type: Keyboard");
+            input.add(InputType.KEYBOARD);
+        }
+        for (int inputDevId : inputManager.getInputDeviceIds()) {
+            InputDevice inputDev = inputManager.getInputDevice(inputDevId);
+            Log.d(LOG_TAG, "[ Input Id:" + inputDev.getId() + " Name: " + inputDev.getName() + " ]");
+            if ((inputDev.getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
+                Log.d(LOG_TAG, "Input Type: Mouse");
+                input.add(InputType.MOUSE);
+            }
+            if ((inputDev.getSources() & InputDevice.SOURCE_BLUETOOTH_STYLUS) == InputDevice.SOURCE_BLUETOOTH_STYLUS) {
+                Log.d(LOG_TAG, "Input Type: Stylus");
+                input.add(InputType.STYLUS);
+            }
+            if ((inputDev.getSources() & InputDevice.SOURCE_TOUCHSCREEN) == InputDevice.SOURCE_TOUCHSCREEN) {
+                Log.d(LOG_TAG, "Input Type: Touchscreen");
+                input.add(InputType.TOUCHSCREEN);
+            }
+        }
+        if (SpeechRecognizer.isRecognitionAvailable(context)) {
+            Log.d(LOG_TAG, "Input Type: Speech Input");
+            input.add(InputType.SPEECH_INPUT);
+        }
     }
 
     private void getSensorsInformation() {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+            sensors.add(SensorType.GPS);
+        }
+        SensorCollector sensorCollector = new SensorCollector(context);
+        if (sensorCollector.getSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            sensors.add(SensorType.ACCELEROMETER);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_GYROSCOPE) != null) {
+            sensors.add(SensorType.GYROSCOPE);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
+            sensors.add(SensorType.COMPASS);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_PRESSURE) != null) {
+            sensors.add(SensorType.BAROMETER);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
+            sensors.add(SensorType.THERMOMETER);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_LIGHT) != null) {
+            sensors.add(SensorType.LIGHT);
+        }
+        if (sensorCollector.getSensor(Sensor.TYPE_PROXIMITY) != null) {
+            sensors.add(SensorType.PROXIMITY);
+        }
 
     }
 

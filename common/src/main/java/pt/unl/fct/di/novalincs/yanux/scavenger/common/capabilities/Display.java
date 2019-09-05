@@ -15,6 +15,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Display {
@@ -98,5 +99,26 @@ public class Display {
 
     public void setVirtualResolution(List<Double> virtualResolution) {
         this.virtualResolution = virtualResolution;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Display display = (Display) o;
+        return type.equals(display.type) &&
+                Objects.equals(size, display.size) &&
+                Objects.equals(orientation, display.orientation) &&
+                Objects.equals(resolution, display.resolution) &&
+                Objects.equals(bitDepth, display.bitDepth) &&
+                Objects.equals(refreshRate, display.refreshRate) &&
+                Objects.equals(pixelDensity, display.pixelDensity) &&
+                Objects.equals(pixelRatio, display.pixelRatio) &&
+                Objects.equals(virtualResolution, display.virtualResolution);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, size, orientation, resolution, bitDepth, refreshRate, pixelDensity, pixelRatio, virtualResolution);
     }
 }

@@ -15,6 +15,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Camera {
@@ -53,5 +54,21 @@ public class Camera {
 
     public void setRefreshRate(Double refreshRate) {
         this.refreshRate = refreshRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Camera camera = (Camera) o;
+        return type == camera.type &&
+                Objects.equals(resolution, camera.resolution) &&
+                Objects.equals(bitDepth, camera.bitDepth) &&
+                Objects.equals(refreshRate, camera.refreshRate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, resolution, bitDepth, refreshRate);
     }
 }

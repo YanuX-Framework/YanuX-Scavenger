@@ -25,6 +25,8 @@ public enum SensorType {
     COMPASS,
     @JsonProperty("barometer")
     BAROMETER,
+    @JsonProperty("thermometer")
+    THERMOMETER,
     @JsonProperty("light")
     LIGHT,
     @JsonProperty("proximity")

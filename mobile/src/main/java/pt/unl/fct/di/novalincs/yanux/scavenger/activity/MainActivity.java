@@ -168,9 +168,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //TODO: Instantiate the "Capabilities" class when the application is launched. However, I should probably move this to the PersistentService.
         capabilities = new Capabilities(this);
         try {
-            capabilities.saveToFile(new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "YanuX-Scavenger-Capabilities.json"));
+            capabilities.saveToFile(new File(getFilesDir(), "capabilities.json"));
+            //TODO: I'm still saving it to external storage so that I can expect the file manually.
+            capabilities.saveToFile(new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "yanux-scavenger-capabilities.json"));
         } catch (IOException e) {
             Log.e("YXS_Capabilities", "Exception: " + e);
         }

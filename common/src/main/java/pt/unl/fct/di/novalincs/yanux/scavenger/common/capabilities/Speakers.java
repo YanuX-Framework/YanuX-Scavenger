@@ -14,6 +14,8 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.capabilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Speakers {
     private SpeakersType type;
@@ -51,5 +53,21 @@ public class Speakers {
 
     public void setSamplingRate(Double samplingRate) {
         this.samplingRate = samplingRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Speakers speakers = (Speakers) o;
+        return type == speakers.type &&
+                Objects.equals(channels, speakers.channels) &&
+                Objects.equals(bitDepth, speakers.bitDepth) &&
+                Objects.equals(samplingRate, speakers.samplingRate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, channels, bitDepth, samplingRate);
     }
 }
