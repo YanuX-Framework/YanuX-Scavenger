@@ -162,7 +162,7 @@ public class Capabilities {
             double diagonalInches = Math.sqrt(sizeWidthInches * sizeWidthInches + sizeHeightInches * sizeHeightInches);
 
             //Setting the default type for the device (TODO: I may have to change the classification in the future).
-            d.setType("external");
+            d.setType(DisplayType.EXTERNAL);
 
             //Inferring the device type from the default display
             if (deviceDisplay.getDisplayId() == android.view.Display.DEFAULT_DISPLAY) {
@@ -183,14 +183,14 @@ public class Capabilities {
 
                 //If this is the default display and it is touch enabled, we consider this display to be a touch screen.
                 if (context.getApplicationContext().getPackageManager().hasSystemFeature("android.hardware.touchscreen")) {
-                    d.setType("touchscreen");
+                    d.setType(DisplayType.TOUCHSCREEN);
                 }
                 //Otherwise it's just a regular built-in display without input capabilities.
                 else {
-                    d.setType("internal");
+                    d.setType(DisplayType.INTERNAL);
                 }
             } else {
-                d.setType("external");
+                d.setType(DisplayType.EXTERNAL);
             }
             //Logging the Display Type
             Log.d(LOG_TAG, "Display Type: " + d.getType());
@@ -209,11 +209,11 @@ public class Capabilities {
             //The ORIENTATION can be 0, 90, 180, 270.
             //If the ORIENTATION mod 180 = 0 then the device is upright in portrait mode.
             if (deviceDisplay.getRotation() % 180 == 0) {
-                d.setOrientation("portrait");
+                d.setOrientation(DisplayOrientation.PORTRAIT);
             }
             //Otherwise is in landscape mode.
             else {
-                d.setOrientation("landscape");
+                d.setOrientation(DisplayOrientation.LANDSCAPE);
             }
             //Logging Display Orientation
             Log.d(LOG_TAG, "Display Orientation: " + d.getOrientation());

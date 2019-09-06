@@ -19,9 +19,9 @@ import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Display {
-    private String type;
+    private DisplayType type;
     private List<Double> size;
-    private String orientation;
+    private DisplayOrientation orientation;
     private List<Integer> resolution;
     private Integer bitDepth;
     private Double refreshRate;
@@ -29,11 +29,11 @@ public class Display {
     private Double pixelRatio;
     private List<Double> virtualResolution;
 
-    public String getType() {
+    public DisplayType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(DisplayType type) {
         this.type = type;
     }
 
@@ -45,11 +45,11 @@ public class Display {
         this.size = size;
     }
 
-    public String getOrientation() {
+    public DisplayOrientation getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public void setOrientation(DisplayOrientation orientation) {
         this.orientation = orientation;
     }
 
