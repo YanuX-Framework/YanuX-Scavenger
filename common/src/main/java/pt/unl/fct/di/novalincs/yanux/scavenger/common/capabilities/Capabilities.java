@@ -521,32 +521,49 @@ public class Capabilities {
     }
 
     private void getSensorsInformation() {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
-            sensors.add(SensorType.GPS);
+        //Check if the device supports reportins its location.
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION)) {
+            sensors.add(SensorType.LOCATION);
         }
+        //Instiate the SensorCollector that was previously developed for other purposes.
         SensorCollector sensorCollector = new SensorCollector(context);
+        //Add check if each of the sensors we are most interested in are present.
+        //If so, add them to the list of sensors.
+
+        //Accelerometer
         if (sensorCollector.getSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             sensors.add(SensorType.ACCELEROMETER);
         }
+
+        //Gyroscope
         if (sensorCollector.getSensor(Sensor.TYPE_GYROSCOPE) != null) {
             sensors.add(SensorType.GYROSCOPE);
         }
+
+        //Magnetometer
         if (sensorCollector.getSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
-            sensors.add(SensorType.COMPASS);
+            sensors.add(SensorType.MAGNETOMETER);
         }
+
+        //Barometer
         if (sensorCollector.getSensor(Sensor.TYPE_PRESSURE) != null) {
             sensors.add(SensorType.BAROMETER);
         }
+
+        //Thermometer
         if (sensorCollector.getSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
             sensors.add(SensorType.THERMOMETER);
         }
+
+        //Light
         if (sensorCollector.getSensor(Sensor.TYPE_LIGHT) != null) {
             sensors.add(SensorType.LIGHT);
         }
+
+        //Proximity
         if (sensorCollector.getSensor(Sensor.TYPE_PROXIMITY) != null) {
             sensors.add(SensorType.PROXIMITY);
         }
-
     }
 
     private void logAudioDevice(AudioDeviceInfo adi) {

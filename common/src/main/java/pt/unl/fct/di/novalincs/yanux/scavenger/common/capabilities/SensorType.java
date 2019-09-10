@@ -16,13 +16,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum SensorType {
     @JsonProperty("gps")
-    GPS,
+    LOCATION,
     @JsonProperty("accelerometer")
     ACCELEROMETER,
     @JsonProperty("gyroscope")
     GYROSCOPE,
-    @JsonProperty("compass")
-    COMPASS,
+    @JsonProperty("magnetometer")
+    MAGNETOMETER,
     @JsonProperty("barometer")
     BAROMETER,
     @JsonProperty("thermometer")
