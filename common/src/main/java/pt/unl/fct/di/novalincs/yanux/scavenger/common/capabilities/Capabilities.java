@@ -73,6 +73,8 @@ public class Capabilities {
         this.microphone = new LinkedHashSet<>();
         this.input = new LinkedHashSet<>();
         this.sensors = new LinkedHashSet<>();
+        //Set the default device's type as unknown.
+        setType(DeviceType.UNKNOWN);
         this.getCapabilitiesInformation();
     }
 
@@ -171,7 +173,7 @@ public class Capabilities {
                     setType(DeviceType.SMARTWATCH);
                 }
                 //If larger than 7 inches we consider it to be a tablet
-                if (diagonalInches >= 7.0) {
+                else if (diagonalInches >= 7.0) {
                     setType(DeviceType.TABLET);
                 }
                 // Otherwise it's a smartphone

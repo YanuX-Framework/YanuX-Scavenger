@@ -13,7 +13,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion '29.0.2'
     compileOptions {
         targetCompatibility = "8"
@@ -36,7 +36,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     api 'org.apache.commons:commons-lang3:3.9'
     api 'com.fasterxml.jackson.core:jackson-core:2.9.9'
@@ -45,7 +45,7 @@ dependencies {
     api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.9'
     api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0'
-    api 'com.squareup.okhttp3:okhttp:4.1.0'
+    api 'com.squareup.okhttp3:okhttp:4.1.1'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
