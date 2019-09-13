@@ -276,7 +276,7 @@ public class PersistentService implements GenericService {
                         jwt = Jwts.parser()
                                 .setSigningKey(EncryptionToolbox.getPublicKey(context))
                                 .parseClaimsJws(data.getString("accessToken"));
-                        String userId = (String) jwt.getBody().get("userId");
+                        String userId = (String) ((Map)jwt.getBody().get("user")).get("_id");
                         Log.d(LOG_TAG, "userId: " + userId);
                         socket.emit("get", "users", userId, new Ack() {
                             @Override
