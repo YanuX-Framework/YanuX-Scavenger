@@ -529,10 +529,12 @@ public class PersistentService implements GenericService {
                 if ("NotAuthenticated".equals(errorName)) {
                     if ("jwt expired".equals(errorMessage)) {
                         preferences.setYanuxAuthJwt(Preferences.EMPTY);
+                        authenticate();
+                    } else if ("The provided access token is not valid.".equals(errorMessage)) {
+                        exchangeRefreshToken();
+                    } else {
+                        authenticate();
                     }
-                    authenticate();
-                } else if ("The provided access token is not valid.".equals(errorMessage)) {
-                    exchangeRefreshToken();
                 }
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.toString());
