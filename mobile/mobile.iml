@@ -164,5 +164,6 @@
     <orderEntry type="library" name="Gradle: android-android-28" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="common" />
   </component>
 </module>
