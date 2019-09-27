@@ -12,6 +12,7 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.AdvertiseCallback;
 import android.bluetooth.le.AdvertiseSettings;
 import android.content.Context;
@@ -31,7 +32,7 @@ public class BeaconAdvertiser {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
     private static final String IBEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
     private final BeaconParser beaconParser;
-    private final BeaconTransmitter beaconTransmitter;
+    private BeaconTransmitter beaconTransmitter;
 
     private Context context;
     private Preferences preferences;
@@ -40,9 +41,11 @@ public class BeaconAdvertiser {
         this.context = context;
         this.preferences = new Preferences(context);
         this.beaconParser = new BeaconParser().setBeaconLayout(IBEACON_LAYOUT);
-        this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
-        this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
-        this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
+        if(BluetoothAdapter.getDefaultAdapter() != null) {
+            this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
+            this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+            this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
+        } else { Log.d(LOG_TAG, "Bluetooth Adapter NOT FOUND!"); }
     }
 
     public void start() {
@@ -56,20 +59,21 @@ public class BeaconAdvertiser {
                     .setManufacturer(0x004c)
                     .setTxPower(-59)
                     .build();
+            if(beaconTransmitter != null) {
+                beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
+                    @Override
+                    public void onStartSuccess(AdvertiseSettings settingsInEffect) {
+                        super.onStartSuccess(settingsInEffect);
+                        Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment STARTED.");
+                    }
 
-            beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
-                @Override
-                public void onStartSuccess(AdvertiseSettings settingsInEffect) {
-                    super.onStartSuccess(settingsInEffect);
-                    Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment STARTED.");
-                }
-
-                @Override
-                public void onStartFailure(int errorCode) {
-                    super.onStartFailure(errorCode);
-                    Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment could NOT be started.");
-                }
-            });
+                    @Override
+                    public void onStartFailure(int errorCode) {
+                        super.onStartFailure(errorCode);
+                        Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment could NOT be started.");
+                    }
+                });
+            }
         } else {
             Log.d(LOG_TAG, "Bluetooth Low Energy Advertisment is NOT supported.");
             Toast.makeText(context, R.string.beacon_advertiser_not_supported, Toast.LENGTH_LONG).show();
@@ -77,6 +81,8 @@ public class BeaconAdvertiser {
     }
 
     public void stop() {
-        beaconTransmitter.stopAdvertising();
+        if(beaconTransmitter != null) {
+            beaconTransmitter.stopAdvertising();
+        }
     }
 }

@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,7 @@ import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.BleNotAvailableException;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
@@ -35,6 +37,7 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -86,6 +89,9 @@ public class BeaconCollector {
         }
 
         beaconManager = BeaconManager.getInstanceForApplication(context);
+        try { beaconManager.checkAvailability(); }
+        catch(BleNotAvailableException ex) { Toast.makeText(context, R.string.beacon_bluetooth_le_not_available, Toast.LENGTH_LONG).show(); }
+
         beaconManager.getBeaconParsers().add(new BeaconParser("iBeacon").setBeaconLayout(IBEACON_LAYOUT));
         beaconManager.getBeaconParsers().add(new BeaconParser("AltBeacon").setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT));
         beaconManager.getBeaconParsers().add(new BeaconParser("Eddystone-UID").setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));

@@ -74,5 +74,6 @@
     <string name="sensor_type_rotation_wrapper">Rotation Wrapper</string>
 
     <!-- Beacon -->
+    <string name="beacon_bluetooth_le_not_available">Bluetooth Low Energy Not Available</string>
     <string name="beacon_advertiser_not_supported">Beacon advertisement is not supported</string>
 </resources>
