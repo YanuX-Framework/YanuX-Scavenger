@@ -16,9 +16,10 @@ import android.content.Context;
 import android.telephony.CellInfo;
 import android.telephony.TelephonyManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
 /*

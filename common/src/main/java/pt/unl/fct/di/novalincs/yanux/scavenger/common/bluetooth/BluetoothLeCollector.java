@@ -25,9 +25,10 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
@@ -58,13 +59,6 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_FINISHED);
         intentFilter.addAction(ACTION_BLUETOOTH_LE_SCAN_ERROR);
         handler = new Handler();
-        initBleCallback();
-        if (context instanceof AppCompatActivity) {
-            permissionManager = new PermissionManager((AppCompatActivity) context);
-        }
-    }
-
-    private void initBleCallback() {
         scanCallback = new ScanCallback() {
             /**
              * Callback when a BLE advertisement has been found.
@@ -116,10 +110,21 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
                 context.sendBroadcast(intent);
             }
         };
+        if (context instanceof AppCompatActivity) {
+            permissionManager = new PermissionManager((AppCompatActivity) context);
+        }
+    }
+
+    public boolean isBluetoothLeScannerAvailable() {
+        return bluetoothAdapter.getBluetoothLeScanner() != null;
     }
 
     @Override
-    public boolean scan() {
+    public boolean scan() throws BluetoothException {
+        super.scan();
+        if (!isBluetoothLeScannerAvailable()) {
+            throw new BluethootLeScannerNotAvailable("Bluetooth LE not available.");
+        }
         if (permissionManager != null) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
@@ -156,7 +161,11 @@ public class BluetoothLeCollector extends BluetoothCollector implements IBluetoo
     }
 
     @Override
-    public boolean cancelScan() {
+    public boolean cancelScan() throws BluetoothException {
+        super.cancelScan();
+        if (!isBluetoothLeScannerAvailable()) {
+            throw new BluethootLeScannerNotAvailable("Bluetooth LE not available.");
+        }
         if (isScanning()) {
             final BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
             scanning = false;

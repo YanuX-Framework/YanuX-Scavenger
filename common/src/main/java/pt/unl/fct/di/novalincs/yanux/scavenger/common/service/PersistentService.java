@@ -120,7 +120,11 @@ public class PersistentService implements GenericService {
                         @Override
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: YanuX Broker CONNECT");
-                            try { authenticate(); } catch (JSONException e) { handleError(e); }
+                            try {
+                                authenticate();
+                            } catch (JSONException e) {
+                                handleError(e);
+                            }
                             startBeaconScan();
                         }
                     }).on(Socket.EVENT_CONNECT_TIMEOUT, new Emitter.Listener() {
@@ -143,7 +147,11 @@ public class PersistentService implements GenericService {
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_DISCONNECT");
                             stopBeaconScan();
-                            try { authenticate(); } catch (JSONException e) { handleError(e); }
+                            try {
+                                authenticate();
+                            } catch (JSONException e) {
+                                handleError(e);
+                            }
                         }
                     }).on(Socket.EVENT_ERROR, new Emitter.Listener() {
                         @Override
@@ -169,7 +177,11 @@ public class PersistentService implements GenericService {
                         @Override
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_RECONNECT");
-                            try { authenticate(); } catch (JSONException e) { handleError(e); }
+                            try {
+                                authenticate();
+                            } catch (JSONException e) {
+                                handleError(e);
+                            }
                             startBeaconScan();
                         }
                     }).on(Socket.EVENT_RECONNECT_ATTEMPT, new Emitter.Listener() {
@@ -280,7 +292,7 @@ public class PersistentService implements GenericService {
                         jwt = Jwts.parser()
                                 .setSigningKey(EncryptionToolbox.getPublicKey(context))
                                 .parseClaimsJws(data.getString("accessToken"));
-                        String userId = (String) ((Map)jwt.getBody().get("user")).get("_id");
+                        String userId = (String) ((Map) jwt.getBody().get("user")).get("_id");
                         Log.d(LOG_TAG, "userId: " + userId);
                         socket.emit("get", "users", userId, new Ack() {
                             @Override

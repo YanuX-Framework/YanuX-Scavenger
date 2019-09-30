@@ -13,8 +13,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -43,13 +41,6 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyBZllcr3ShHH_lVMv2F6I3PgRyjtyxiqdQ" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".activity.audio.AudioActivity"
             android:label="@string/title_activity_audio"
@@ -66,6 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <activity
             android:name=".activity.bluetooth.BluetoothClassicActivity"
             android:label="@string/title_activity_bluetooth_classic"
@@ -123,7 +115,12 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
-        <service android:name=".service.MobilePersistentService" />
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="AIzaSyBZllcr3ShHH_lVMv2F6I3PgRyjtyxiqdQ" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <receiver android:name=".service.MobilePersistentServiceBroadcastReceiver">
             <intent-filter>
@@ -131,6 +128,10 @@
                 <action android:name="pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.ACTION_DISABLE_SERVICE" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.MobilePersistentService" />
     </application>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

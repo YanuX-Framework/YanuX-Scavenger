@@ -15,9 +15,10 @@ package pt.unl.fct.di.novalincs.yanux.scavenger;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Collection;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
@@ -32,10 +33,10 @@ public class MainWearActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.text);
         SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
         Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (SensorWrapper sensor : sensors) {
-            text += ">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n";
+            text.append(">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n");
         }
-        mTextView.setText(mTextView.getText() + text);
+        mTextView.setText(mTextView.getText() + text.toString());
     }
 }

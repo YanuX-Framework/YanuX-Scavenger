@@ -25,9 +25,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.DecimalFormat;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.CyclicTriggerEventListener;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
@@ -156,7 +157,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
 
     private String printSensorValues(float[] values, boolean convertRadToDeg) {
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        String valuesText = "";
+        StringBuilder valuesText = new StringBuilder();
         for (int i = 0; i < values.length; i++) {
             double value;
             if (convertRadToDeg) {
@@ -164,9 +165,9 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
             } else {
                 value = values[i];
             }
-            valuesText += "[" + i + "] => " + decimalFormat.format(value) + "\n";
+            valuesText.append("[" + i + "] => " + decimalFormat.format(value) + "\n");
         }
-        return valuesText;
+        return valuesText.toString();
     }
 
     private void fillTimestamp(long timestamp) {

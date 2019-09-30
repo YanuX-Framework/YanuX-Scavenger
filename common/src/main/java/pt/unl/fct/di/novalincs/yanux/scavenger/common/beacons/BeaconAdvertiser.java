@@ -41,11 +41,13 @@ public class BeaconAdvertiser {
         this.context = context;
         this.preferences = new Preferences(context);
         this.beaconParser = new BeaconParser().setBeaconLayout(IBEACON_LAYOUT);
-        if(BluetoothAdapter.getDefaultAdapter() != null) {
+        if (BluetoothAdapter.getDefaultAdapter() != null) {
             this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
             this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
             this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
-        } else { Log.d(LOG_TAG, "Bluetooth Adapter NOT FOUND!"); }
+        } else {
+            Log.d(LOG_TAG, "Bluetooth Adapter NOT FOUND!");
+        }
     }
 
     public void start() {
@@ -59,7 +61,7 @@ public class BeaconAdvertiser {
                     .setManufacturer(0x004c)
                     .setTxPower(-59)
                     .build();
-            if(beaconTransmitter != null) {
+            if (beaconTransmitter != null) {
                 beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
                     @Override
                     public void onStartSuccess(AdvertiseSettings settingsInEffect) {
@@ -81,7 +83,7 @@ public class BeaconAdvertiser {
     }
 
     public void stop() {
-        if(beaconTransmitter != null) {
+        if (beaconTransmitter != null) {
             beaconTransmitter.stopAdvertising();
         }
     }

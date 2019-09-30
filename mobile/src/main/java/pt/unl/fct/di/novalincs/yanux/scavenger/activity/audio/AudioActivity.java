@@ -26,9 +26,11 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
 
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.LinearChirpToneGenerator;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.audio.WaveMonoPCM16Recorder;
@@ -235,6 +237,7 @@ public class AudioActivity extends AppCompatActivity {
     }
 
     @Override
+    @NonNull
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {

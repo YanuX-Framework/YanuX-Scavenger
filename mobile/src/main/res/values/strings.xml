@@ -61,9 +61,12 @@
     <string name="beacons_log_filename">Log Filename</string>
     <string name="beacons_log_filename_default">beacons.json</string>
     <string name="beacons_log_time">Logging Time (ms)</string>
+    <string name="beacon_scanning_not_supported">Beacon scanning is not supported.</string>
 
     <string name="bluetooth_enabled">Thank you for enabling Bluetooth.</string>
     <string name="bluetooth_not_enabled">You haven\'t enabled Bluetooth. The application will not be able to use Bluetooth to improve your experience.</string>
+    <string name="bluetooth_not_supported">Your device does not support Bluetooth.</string>
+    <string name="bluetooth_le_not_available">Bluetooth Low Energy is not available.</string>
 
     <string name="bluetooth_discoverability_enabled">Thank you for enabling Bluetooth Discoverability.</string>
     <string name="bluetooth_discoverability_not_enabled">You haven\'t enabled Bluetooth Discoverability. The system will not be able to detect your device\'s presence to improve your experience.</string>

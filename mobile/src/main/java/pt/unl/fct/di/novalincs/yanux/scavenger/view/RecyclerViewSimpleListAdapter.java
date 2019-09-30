@@ -17,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 
 public class RecyclerViewSimpleListAdapter<E> extends RecyclerView.Adapter<RecyclerViewSimpleListAdapter.ViewHolder> {
@@ -32,6 +34,7 @@ public class RecyclerViewSimpleListAdapter<E> extends RecyclerView.Adapter<Recyc
 
     // Create new views (invoked by the layout manager)
     @Override
+    @NonNull
     public RecyclerViewSimpleListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                        int viewType) {
         // create a new view

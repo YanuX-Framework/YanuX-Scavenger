@@ -25,6 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.Region;
@@ -33,9 +38,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconWrapper;
@@ -94,7 +96,7 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
 
         beaconsList = findViewById(R.id.beacons_list_recycler_view);
         beaconsList.setLayoutManager(new LinearLayoutManager(this));
-        beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BeaconWrapper>());
+        beaconListAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<>());
         beaconsList.setAdapter(beaconListAdapter);
         beaconCollector = new BeaconCollector(this, new BroadcastReceiver() {
             @Override
@@ -162,7 +164,7 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PermissionManager.REQUEST_MULTIPLE_PERMISSIONS:

@@ -24,31 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/activity_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_activity_nearby_connections"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/user_nickname_label"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="@string/nearby_connection_user_nickname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_title" />
-
-        <EditText
-            android:id="@+id/user_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/nearby_connection_user_nickname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_nickname_label" />
-
         <CheckBox
             android:id="@+id/nearby_connection_advertising"
             android:layout_width="wrap_content"
@@ -67,6 +42,16 @@
             app:layout_constraintStart_toEndOf="@+id/nearby_connection_advertising"
             app:layout_constraintTop_toBottomOf="@+id/user_nickname" />
 
+        <EditText
+            android:id="@+id/user_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/nearby_connection_user_nickname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_nickname_label" />
+
         <Switch
             android:id="@+id/nearby_connection_on_off"
             android:layout_width="wrap_content"
@@ -75,6 +60,23 @@
             android:textOff="@string/off"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nearby_connection_advertising" />
+
+        <TextView
+            android:id="@+id/activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_nearby_connections"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/user_nickname_label"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/nearby_connection_user_nickname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

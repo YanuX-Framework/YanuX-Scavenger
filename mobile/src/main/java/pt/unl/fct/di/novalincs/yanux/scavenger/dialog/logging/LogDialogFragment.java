@@ -21,8 +21,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.TextValidator;
@@ -106,6 +108,7 @@ public class LogDialogFragment extends DialogFragment {
 
     // Override the Fragment.onAttach() method to instantiate the LogDialogListener
     @Override
+    @NonNull
     public void onAttach(Context context) {
         super.onAttach(context);
         // Verify that the host activity implements the callback interface

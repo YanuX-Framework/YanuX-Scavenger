@@ -20,6 +20,30 @@
     tools:context=".activity.beacons.BeaconsActivity"
     tools:showIn="@layout/activity_beacons">
 
+    <EditText
+        android:id="@+id/beacons_log_filename_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:text="@string/beacons_log_filename_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacons_log_filename_text_view" />
+
+    <EditText
+        android:id="@+id/beacons_log_time_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/beacons_record_time_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacons_log_time_text_view" />
+
     <TextView
         android:id="@+id/beacons_ranging_elapsed_time_label_text_view"
         android:layout_width="wrap_content"
@@ -49,16 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/beacons_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/beacons_log_filename_text_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacons_list_text_view" />
-
     <TextView
         android:id="@+id/beacons_log_filename_text_view"
         android:layout_width="wrap_content"
@@ -70,18 +84,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/beacons_log_filename_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:text="@string/beacons_log_filename_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacons_log_filename_text_view" />
-
     <TextView
         android:id="@+id/beacons_log_time_text_view"
         android:layout_width="wrap_content"
@@ -91,30 +93,6 @@
         android:text="@string/beacons_log_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beacons_log_filename_edit_text" />
-
-    <EditText
-        android:id="@+id/beacons_log_time_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:text="@string/beacons_record_time_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beacons_log_time_text_view" />
-
-    <ToggleButton
-        android:id="@+id/beacons_log_toggle_button"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/beacons_log_time_edit_text"
-        app:layout_constraintTop_toBottomOf="@+id/beacons_logging_text_view" />
 
     <TextView
         android:id="@+id/beacons_logging_text_view"
@@ -128,5 +106,27 @@
         app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toEndOf="@+id/beacons_log_filename_edit_text"
         app:layout_constraintTop_toTopOf="@+id/beacons_log_filename_edit_text" />
+
+    <ToggleButton
+        android:id="@+id/beacons_log_toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/beacons_log_time_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/beacons_logging_text_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/beacons_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/beacons_log_filename_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beacons_list_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

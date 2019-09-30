@@ -18,23 +18,26 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBase;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothBaseCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothDetectedDevice;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth.BluetoothException;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapter;
 
 public class BluetoothClassicActivity extends AppCompatActivity {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_BLUETOOTH_CLASSIC_ACTIVITY";
+    private static final String LOG_TAG = Constants.LOG_TAG + "_" + BluetoothClassicActivity.class.getSimpleName();
 
     private BluetoothCollector bluetoothCollector;
     private RecyclerView bluetoothDevices;
@@ -47,7 +50,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
 
         bluetoothDevices = findViewById(R.id.bluetooth_devices);
         bluetoothDevices.setLayoutManager(new LinearLayoutManager(this));
-        bluetoothDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<BluetoothDetectedDevice>());
+        bluetoothDevicesAdapter = new RecyclerViewSimpleListAdapter<>(new ArrayList<>());
         bluetoothDevices.setAdapter(bluetoothDevicesAdapter);
         bluetoothCollector = new BluetoothCollector(this, new BroadcastReceiver() {
             @Override
@@ -68,7 +71,11 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                         bluetoothDevicesAdapter.notifyDataSetChanged();
                         TextView bluetoothDiscoveryElapsedTime = findViewById(R.id.bluetooth_discovery_elapsed_time);
                         bluetoothDiscoveryElapsedTime.setText(bluetoothCollector.getScanElapsedTime() + " ms");
-                        bluetoothCollector.scan();
+                        try {
+                            bluetoothCollector.scan();
+                        } catch (BluetoothException e) {
+                            Log.e(LOG_TAG, e.toString());
+                        }
                         break;
                     default:
                         break;
@@ -76,34 +83,49 @@ public class BluetoothClassicActivity extends AppCompatActivity {
             }
         });
 
-        if (!bluetoothCollector.isEnabled()) {
-            BluetoothBase.enableBluetooth(this);
+        if (bluetoothCollector.isBluetoothSupported()) {
+            if (!bluetoothCollector.isBluetoothEnabled()) {
+                BluetoothBaseCollector.enableBluetooth(this);
+            }
+            try {
+                TextView bluetoothName = findViewById(R.id.bluetooth_name);
+                bluetoothName.setText(bluetoothCollector.getName());
+                TextView bluetoothAddress = findViewById(R.id.bluetooth_address);
+                bluetoothAddress.setText(bluetoothCollector.getAddress());
+            } catch (BluetoothException e) {
+                Log.e(LOG_TAG, e.toString());
+            }
+        } else {
+            Toast.makeText(this, R.string.bluetooth_not_supported, Toast.LENGTH_LONG).show();
         }
-
-        TextView bluetoothName = findViewById(R.id.bluetooth_name);
-        bluetoothName.setText(bluetoothCollector.getName());
-
-        TextView bluetoothAddress = findViewById(R.id.bluetooth_address);
-        bluetoothAddress.setText(bluetoothCollector.getAddress());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bluetoothCollector.scan();
+        try {
+            bluetoothCollector.scan();
+        } catch (BluetoothException e) {
+            Log.e(LOG_TAG, e.toString());
+        }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bluetoothCollector.cancelScan();
+        try {
+            bluetoothCollector.cancelScan();
+        } catch (BluetoothException e) {
+            Log.e(LOG_TAG, e.toString());
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case BluetoothBase.REQUEST_CODE_ENABLE_BLUETOOTH:
+            case BluetoothBaseCollector.REQUEST_CODE_ENABLE_BLUETOOTH:
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, R.string.bluetooth_enabled, Toast.LENGTH_SHORT).show();
                 } else {
@@ -111,7 +133,7 @@ public class BluetoothClassicActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
-            case BluetoothBase.REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY:
+            case BluetoothBaseCollector.REQUEST_CODE_ENABLE_BLUETOOTH_DISCOVERABILITY:
                 if (resultCode != RESULT_CANCELED) {
                     Toast.makeText(this, R.string.bluetooth_discoverability_enabled, Toast.LENGTH_SHORT).show();
                 } else {

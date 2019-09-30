@@ -12,20 +12,8 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.bluetooth;
 
-public interface IBluetoothCollector {
-    boolean scan() throws BluetoothException;
-
-    boolean cancelScan() throws BluetoothException;
-
-    long getScanElapsedTime();
-
-    String getName() throws BluetoothException;
-
-    String getAddress() throws BluetoothException;
-
-    boolean isBluetoothSupported();
-
-    boolean isBluetoothEnabled();
-
-    boolean isScanning();
+public class BluethootLeScannerNotAvailable extends BluetoothException {
+    public BluethootLeScannerNotAvailable(String message) {
+        super(message);
+    }
 }

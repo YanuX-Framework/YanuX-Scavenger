@@ -1,70 +1,70 @@
 {
   "type": "smartphone",
   "display": {
-      "resolution": [
-          1080,
-          2248
-      ],
-      "orientation": "portrait",
-      "pixelDensity": 402,
-      "bitDepth": 24,
-      "size": [
-          69.5,
-          142.5
-      ],
-      "refreshRate": 60
+    "resolution": [
+      1080,
+      2248
+    ],
+    "orientation": "portrait",
+    "pixelDensity": 402,
+    "bitDepth": 24,
+    "size": [
+      69.5,
+      142.5
+    ],
+    "refreshRate": 60
   },
   "speakers": {
-      "type": "loudspeaker",
-      "channels": 1,
-      "bitDepth": 16,
-      "samplingRate": 44100
+    "type": "loudspeaker",
+    "channels": 1,
+    "bitDepth": 16,
+    "samplingRate": 44100
   },
   "camera": [
-      {
-          "type": "main",
-          "resolution": [
-              4032,
-              3024
-          ],
-          "bitDepth": 24,
-          "refreshRate": 60
-      },
-      {
-          "type": "telephoto",
-          "resolution": [
-              4032,
-              3024
-          ],
-          "bitDepth": 24,
-          "refreshRate": 60
-      },
-      {
-          "type": "selfie",
-          "resolution": [
-              5184,
-              3880
-          ],
-          "bitDepth": 24,
-          "refreshRate": 60
-      }
+    {
+      "type": "main",
+      "resolution": [
+        4032,
+        3024
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    },
+    {
+      "type": "telephoto",
+      "resolution": [
+        4032,
+        3024
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    },
+    {
+      "type": "selfie",
+      "resolution": [
+        5184,
+        3880
+      ],
+      "bitDepth": 24,
+      "refreshRate": 60
+    }
   ],
   "microphone": {
-      "channels": 1,
-      "bitDepth": 16,
-      "samplingRate": 44100
+    "channels": 1,
+    "bitDepth": 16,
+    "samplingRate": 44100
   },
   "input": [
-      "touchscreen",
-      "speech recognition"
+    "touchscreen",
+    "speech recognition"
   ],
   "sensors": [
-      "gps",
-      "accelerometer",
-      "gyroscope",
-      "compass",
-      "barometer",
-      "light",
-      "proximity"
+    "gps",
+    "accelerometer",
+    "gyroscope",
+    "compass",
+    "barometer",
+    "light",
+    "proximity"
   ]
 }

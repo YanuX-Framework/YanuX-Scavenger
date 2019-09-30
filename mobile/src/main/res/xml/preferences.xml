@@ -27,14 +27,6 @@
     <PreferenceCategory
         app:key="category_beacon_scan"
         app:title="@string/preferences_category_beacon_scanning">
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_beacon_scan"
-            app:key="beacon_scan"
-            app:title="@string/preferences_title_beacon_scan" />
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_beacon_scan_realtime_updates"
-            app:key="beacon_scan_realtime_updates"
-            app:title="@string/preferences_title_beacon_scan_realtime_updates" />
         <EditTextPreference
             android:defaultValue="@string/preferences_default_beacon_matcher_parameters_uuid"
             android:key="beacon_matcher_parameters_uuid"
@@ -58,14 +50,18 @@
             android:key="beacons_inactivity_timer"
             android:title="@string/preferences_title_beacons_inactivity_timer"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_scan_realtime_updates"
+            app:key="beacon_scan_realtime_updates"
+            app:title="@string/preferences_title_beacon_scan_realtime_updates" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_scan"
+            app:key="beacon_scan"
+            app:title="@string/preferences_title_beacon_scan" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="category_beacon_advertising"
         app:title="@string/preferences_category_beacon_advertising">
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_beacon_advertise"
-            app:key="beacon_advertise"
-            app:title="@string/preferences_title_beacon_advertise" />
         <EditTextPreference
             android:defaultValue="@string/preferences_default_beacon_advertiser_parameters_uuid"
             android:key="beacon_advertiser_parameters_uuid"
@@ -82,6 +78,10 @@
             android:key="beacon_advertiser_parameters_minor"
             android:title="@string/preferences_title_beacon_advertiser_parameters_minor"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="@bool/preferences_default_beacon_advertise"
+            app:key="beacon_advertise"
+            app:title="@string/preferences_title_beacon_advertise" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="category_device"

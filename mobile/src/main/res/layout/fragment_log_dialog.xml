@@ -17,23 +17,11 @@
     android:orientation="vertical"
     tools:context=".dialog.logging.LogDialogFragment">
 
-    <TextView
-        android:id="@+id/log_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/log_name" />
-
     <EditText
         android:id="@+id/log_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true" />
-
-    <TextView
-        android:id="@+id/log_samples_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/log_samples" />
 
     <EditText
         android:id="@+id/log_samples"
@@ -41,5 +29,17 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number" />
+
+    <TextView
+        android:id="@+id/log_samples_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_samples" />
+
+    <TextView
+        android:id="@+id/log_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_name" />
 
 </LinearLayout>

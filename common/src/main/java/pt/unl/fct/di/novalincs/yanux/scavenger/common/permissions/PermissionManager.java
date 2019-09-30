@@ -16,13 +16,14 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 
@@ -50,9 +51,9 @@ public class PermissionManager {
     }
 
     public void requestPermissions(final String[] permissions, final String[] rationaleMessages, final int requestCode) {
-        String rationaleMessage = "";
+        StringBuilder rationaleMessage = new StringBuilder();
         for (String msg : rationaleMessages) {
-            rationaleMessage += msg + "\n";
+            rationaleMessage.append(msg + "\n");
         }
         final List<String> requiredPermissions = new ArrayList<>(permissions.length);
         boolean showRationale = false;
@@ -68,7 +69,7 @@ public class PermissionManager {
         }
         if (!requiredPermissions.isEmpty()) {
             if (showRationale) {
-                showPermissionRationale(rationaleMessage, new DialogInterface.OnClickListener() {
+                showPermissionRationale(rationaleMessage.toString(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);

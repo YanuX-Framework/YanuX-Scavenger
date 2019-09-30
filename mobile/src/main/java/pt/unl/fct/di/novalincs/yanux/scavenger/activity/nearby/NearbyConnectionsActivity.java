@@ -20,6 +20,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.AdvertisingOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
@@ -37,36 +41,16 @@ import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class NearbyConnectionsActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_NEARBY_CON_ACTIVITY";
     private static final String SERVICE_ID = "pt.unl.fct.di.novalincs.yanux.scavenger";
-    private PayloadCallback mPayloadCallback = new PayloadCallback() {
-        @Override
-        public void onPayloadReceived(@NonNull String endpointId, @NonNull Payload payload) {
-            if (payload.getType() == Payload.Type.BYTES) {
-                Log.i(LOG_TAG, "Bytes from " + endpointId + " endpoint: " + new String(payload.asBytes()));
-            } else if (payload.getType() == Payload.Type.FILE) {
-                Log.i(LOG_TAG, "File from : " + endpointId + " endpoint");
-            } else if (payload.getType() == Payload.Type.STREAM) {
-                Log.i(LOG_TAG, "Stream from : " + endpointId + " endpoint");
-            }
-        }
-
-        @Override
-        public void onPayloadTransferUpdate(@NonNull String s, @NonNull PayloadTransferUpdate payloadTransferUpdate) {
-            Log.i(LOG_TAG, "onPayloadTransferUpdate String: " + s + " PayloadTransferUpdate: " + payloadTransferUpdate.toString());
-        }
-    };
     private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
                 @Override
-                public void onConnectionInitiated(final String endpointId, ConnectionInfo connectionInfo) {
+                public void onConnectionInitiated(@NonNull final String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(LOG_TAG, "Connection has been initiated on the " + endpointId + " endpoint");
                     // Automatically accept the connection on both sides.
                     //getConnectionsClient().acceptConnection(endpointId, mPayloadCallback);
@@ -90,7 +74,7 @@ public class NearbyConnectionsActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onConnectionResult(String endpointId, ConnectionResolution result) {
+                public void onConnectionResult(@NonNull String endpointId, ConnectionResolution result) {
                     switch (result.getStatus().getStatusCode()) {
                         case ConnectionsStatusCodes.STATUS_OK:
                             Log.i(LOG_TAG, "We're connected to the " + endpointId + " endpoint! We can now start sending and receiving data.");
@@ -106,19 +90,38 @@ public class NearbyConnectionsActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onDisconnected(String endpointId) {
+                public void onDisconnected(@NonNull String endpointId) {
                     Log.i(LOG_TAG, "We've been disconnected from the " + endpointId + " endpoint. No more data can be sent or received.");
                 }
             };
+    private PayloadCallback mPayloadCallback = new PayloadCallback() {
+        @Override
+        public void onPayloadReceived(@NonNull String endpointId, @NonNull Payload payload) {
+            if (payload.getType() == Payload.Type.BYTES) {
+                Log.i(LOG_TAG, "Bytes from " + endpointId + " endpoint: " + new String(payload.asBytes()));
+            } else if (payload.getType() == Payload.Type.FILE) {
+                Log.i(LOG_TAG, "File from : " + endpointId + " endpoint");
+            } else if (payload.getType() == Payload.Type.STREAM) {
+                Log.i(LOG_TAG, "Stream from : " + endpointId + " endpoint");
+            }
+        }
+
+        @Override
+        public void onPayloadTransferUpdate(@NonNull String s, @NonNull PayloadTransferUpdate payloadTransferUpdate) {
+            Log.i(LOG_TAG, "onPayloadTransferUpdate String: " + s + " PayloadTransferUpdate: " + payloadTransferUpdate.toString());
+        }
+    };
     private final EndpointDiscoveryCallback mEndpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
+                @NonNull
                 public void onEndpointFound(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
                     Log.i(LOG_TAG, "The " + endpointId + " endpoint was found! DiscoveredEndpointInfo: " + discoveredEndpointInfo.toString());
                     getConnectionsClient().requestConnection(getUserNickname(), endpointId, mConnectionLifecycleCallback);
                 }
 
                 @Override
+                @NonNull
                 public void onEndpointLost(String endpointId) {
                     Log.i(LOG_TAG, "The previously discovered " + endpointId + " endpoint has gone away.");
                     getConnectionsClient().disconnectFromEndpoint(endpointId);

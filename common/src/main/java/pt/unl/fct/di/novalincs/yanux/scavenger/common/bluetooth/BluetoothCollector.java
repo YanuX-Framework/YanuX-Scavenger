@@ -21,28 +21,27 @@ import android.content.IntentFilter;
 import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 
-public class BluetoothCollector extends BluetoothBase implements IBluetoothCollector {
-
+public class BluetoothCollector extends BluetoothBaseCollector implements IBluetoothCollector {
     protected final Context context;
-    protected final BluetoothAdapter bluetoothAdapter;
     protected BroadcastReceiver broadcastReceiver;
-    protected boolean scanning;
     protected long scanStartTime;
     private PermissionManager permissionManager;
 
     public BluetoothCollector(Context context, BroadcastReceiver broadcastReceiver) {
+        super();
         this.context = context;
         this.broadcastReceiver = broadcastReceiver;
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (context instanceof AppCompatActivity) {
             permissionManager = new PermissionManager((AppCompatActivity) context);
         }
         scanning = false;
     }
 
-    public boolean scan() {
+    public boolean scan() throws BluetoothException {
+        super.scan();
         if (permissionManager != null) {
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         }
@@ -59,7 +58,8 @@ public class BluetoothCollector extends BluetoothBase implements IBluetoothColle
         }
     }
 
-    public boolean cancelScan() {
+    public boolean cancelScan() throws BluetoothException {
+        super.cancelScan();
         scanning = false;
         context.unregisterReceiver(broadcastReceiver);
         return bluetoothAdapter.cancelDiscovery();
@@ -69,19 +69,18 @@ public class BluetoothCollector extends BluetoothBase implements IBluetoothColle
         return SystemClock.elapsedRealtime() - scanStartTime;
     }
 
-    public String getName() {
+    public String getName() throws BluetoothException {
+        if (!isBluetoothSupported()) {
+            throw new BluetoothNotSupportedException("Your device does not support Bluetooth.");
+        }
         return bluetoothAdapter.getName();
     }
 
-    public String getAddress() {
+    public String getAddress() throws BluetoothException {
+        if (!isBluetoothSupported()) {
+            throw new BluetoothNotSupportedException("Your device does not support Bluetooth.");
+        }
         return bluetoothAdapter.getAddress();
     }
 
-    public boolean isEnabled() {
-        return bluetoothAdapter.isEnabled();
-    }
-
-    public boolean isScanning() {
-        return scanning;
-    }
 }

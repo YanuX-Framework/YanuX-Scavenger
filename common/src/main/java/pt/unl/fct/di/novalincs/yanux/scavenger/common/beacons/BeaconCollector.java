@@ -89,8 +89,11 @@ public class BeaconCollector {
         }
 
         beaconManager = BeaconManager.getInstanceForApplication(context);
-        try { beaconManager.checkAvailability(); }
-        catch(BleNotAvailableException ex) { Toast.makeText(context, R.string.beacon_bluetooth_le_not_available, Toast.LENGTH_LONG).show(); }
+        try {
+            beaconManager.checkAvailability();
+        } catch (BleNotAvailableException ex) {
+            Toast.makeText(context, R.string.beacon_bluetooth_le_not_available, Toast.LENGTH_LONG).show();
+        }
 
         beaconManager.getBeaconParsers().add(new BeaconParser("iBeacon").setBeaconLayout(IBEACON_LAYOUT));
         beaconManager.getBeaconParsers().add(new BeaconParser("AltBeacon").setBeaconLayout(BeaconParser.ALTBEACON_LAYOUT));

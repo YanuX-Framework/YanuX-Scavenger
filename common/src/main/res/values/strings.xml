@@ -14,7 +14,7 @@
     <string name="app_name">YanuX Scavenger Common</string>
 
     <!-- Generic -->
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -74,6 +74,6 @@
     <string name="sensor_type_rotation_wrapper">Rotation Wrapper</string>
 
     <!-- Beacon -->
-    <string name="beacon_bluetooth_le_not_available">Bluetooth Low Energy Not Available</string>
-    <string name="beacon_advertiser_not_supported">Beacon advertisement is not supported</string>
+    <string name="beacon_bluetooth_le_not_available">Bluetooth Low Energy not available.</string>
+    <string name="beacon_advertiser_not_supported">Beacon advertisement is not supported.</string>
 </resources>
