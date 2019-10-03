@@ -74,6 +74,8 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_beacons);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         permissionManager = new PermissionManager(this);
         permissionManager.requestPermissions(REQUIRED_PERMISSIONS);
 
@@ -108,7 +110,7 @@ public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer
                         beaconListAdapter.notifyDataSetChanged();
                         TextView rangingElapsedTimeText = findViewById(R.id.beacons_ranging_elapsed_time_text_view);
                         rangingElapsedTimeText.setText(beaconCollector.getRangingElapsedTime() + " ms");
-                        if (Utilities.getUnixTimeMillis() > loggingStartTime + Integer.parseInt(beaconsLogTimeEditText.getText().toString())) {
+                        if (!beaconsLogTimeEditText.getText().toString().isEmpty() && Utilities.getUnixTimeMillis() > loggingStartTime + Integer.parseInt(beaconsLogTimeEditText.getText().toString())) {
                             stopLogging();
                         }
                         if (beaconsLogToggleButton.isChecked() && logger.isOpen()) {
