@@ -13,11 +13,11 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -33,12 +33,12 @@ public class PermissionManager {
     public static final int REQUEST_PERMISSION_LOCATION = 2;
 
 
-    private final AppCompatActivity activity;
+    private final Activity context;
     private final Preferences preferences;
 
-    public PermissionManager(AppCompatActivity activity) {
-        this.activity = activity;
-        this.preferences = new Preferences(activity);
+    public PermissionManager(Activity context) {
+        this.context = context;
+        this.preferences = new Preferences(context);
     }
 
     public static boolean werePermissionsGranted(int[] grantResults) {
@@ -58,9 +58,9 @@ public class PermissionManager {
         final List<String> requiredPermissions = new ArrayList<>(permissions.length);
         boolean showRationale = false;
         for (final String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
                 if (preferences.shouldShowRequestPermissionRationale(permission)
-                        || ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                        || ActivityCompat.shouldShowRequestPermissionRationale(context, permission)) {
                     preferences.setShouldShowRequestRationale(permission, false);
                     showRationale = true;
                 }
@@ -72,11 +72,11 @@ public class PermissionManager {
                 showPermissionRationale(rationaleMessage.toString(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
+                        ActivityCompat.requestPermissions(context, requiredPermissions.toArray(new String[0]), requestCode);
                     }
                 });
             } else {
-                ActivityCompat.requestPermissions(activity, requiredPermissions.toArray(new String[0]), requestCode);
+                ActivityCompat.requestPermissions(context, requiredPermissions.toArray(new String[0]), requestCode);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PermissionManager {
 
     public void requestPermissions(final String[] permissions) {
         requestPermissions(permissions,
-                new String[]{activity.getString(R.string.multiple_permissions_rationale)},
+                new String[]{context.getString(R.string.multiple_permissions_rationale)},
                 REQUEST_MULTIPLE_PERMISSIONS);
     }
 
@@ -96,11 +96,11 @@ public class PermissionManager {
         final int requestCode;
         switch (permission) {
             case Manifest.permission.ACCESS_FINE_LOCATION:
-                rationaleMessage = activity.getString(R.string.permission_rationale_location);
+                rationaleMessage = context.getString(R.string.permission_rationale_location);
                 requestCode = REQUEST_PERMISSION_LOCATION;
                 break;
             default:
-                rationaleMessage = activity.getString(R.string.permission_rationale_generic);
+                rationaleMessage = context.getString(R.string.permission_rationale_generic);
                 requestCode = REQUEST_PERMISSION_GENERIC;
                 break;
         }
@@ -117,13 +117,14 @@ public class PermissionManager {
     }
 
     public boolean hasPermission(final String permission) {
-        return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void showPermissionRationale(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(activity).setMessage(message)
+        new AlertDialog.Builder(context).setMessage(message)
                 .setPositiveButton(R.string.ok, okListener)
                 .setNegativeButton(R.string.cancel, null)
-                .create().show();
+                .create()
+                .show();
     }
 }

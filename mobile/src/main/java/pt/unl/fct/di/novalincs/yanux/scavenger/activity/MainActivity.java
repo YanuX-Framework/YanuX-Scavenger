@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -83,15 +84,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MobilePersistentService.start(this);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         permissionManager = new PermissionManager(this);
-        permissionManager.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE});
+        /* TODO:
+        Develop a proper solution that asks for permission when the application is first
+        launched and only then enables the service. In fact, the service should probably check
+        for permissions every time it takes an action that needs a certain permission and then
+        using somethign similar to this solution
+        (https://github.com/mvglasow/satstat/blob/master/src/com/vonglasow/michael/satstat/utils/PermissionHelper.java)
+        ask for the permission it needs on-the-fly.
+        */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissionManager.requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE});
+        } else {
+            permissionManager.requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE});
+        }
         preferences = new Preferences(this);
+
+        MobilePersistentService.start(this);
 
         Uri data = getIntent().getData();
         if (data != null) {
