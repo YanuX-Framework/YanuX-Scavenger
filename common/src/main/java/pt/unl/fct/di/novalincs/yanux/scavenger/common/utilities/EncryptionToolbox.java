@@ -16,6 +16,7 @@ import android.content.Context;
 
 import org.spongycastle.jce.provider.BouncyCastleProvider;
 import org.spongycastle.util.io.pem.PemObject;
+import org.spongycastle.util.io.pem.PemReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,13 +30,18 @@ import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
+//TODO: Test if everything works with Bouncy Castle in place of Spongy Castle
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import org.bouncycastle.util.io.pem.PemObject;
+//import org.bouncycastle.util.io.pem.PemReader;
+
 public class EncryptionToolbox {
     public static PublicKey getPublicKey(Context ctx) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
         Security.addProvider(new BouncyCastleProvider());
         String certPath = "public.pem";
         InputStream inputStream = ctx.getAssets().open(certPath);
         Reader reader = new InputStreamReader(inputStream);
-        PemObject pemObject = new org.spongycastle.util.io.pem.PemReader(reader).readPemObject();
+        PemObject pemObject = new PemReader(reader).readPemObject();
         PublicKey key = KeyFactory.getInstance("RSA", BouncyCastleProvider.PROVIDER_NAME).generatePublic(new X509EncodedKeySpec(pemObject.getContent()));
         return key;
     }
