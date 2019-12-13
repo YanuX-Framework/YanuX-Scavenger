@@ -14,9 +14,9 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities;
 
 import android.content.Context;
 
-import org.spongycastle.jce.provider.BouncyCastleProvider;
-import org.spongycastle.util.io.pem.PemObject;
-import org.spongycastle.util.io.pem.PemReader;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,15 +31,17 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 //TODO: Test if everything works with Bouncy Castle in place of Spongy Castle
-//import org.bouncycastle.jce.provider.BouncyCastleProvider;
-//import org.bouncycastle.util.io.pem.PemObject;
-//import org.bouncycastle.util.io.pem.PemReader;
 
 public class EncryptionToolbox {
-    public static PublicKey getPublicKey(Context ctx) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
+    private static String CERT_PATH = "public.pem";
+
+    static {
+        Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
         Security.addProvider(new BouncyCastleProvider());
-        String certPath = "public.pem";
-        InputStream inputStream = ctx.getAssets().open(certPath);
+    }
+
+    public static PublicKey getPublicKey(Context ctx) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
+        InputStream inputStream = ctx.getAssets().open(CERT_PATH);
         Reader reader = new InputStreamReader(inputStream);
         PemObject pemObject = new PemReader(reader).readPemObject();
         PublicKey key = KeyFactory.getInstance("RSA", BouncyCastleProvider.PROVIDER_NAME).generatePublic(new X509EncodedKeySpec(pemObject.getContent()));
