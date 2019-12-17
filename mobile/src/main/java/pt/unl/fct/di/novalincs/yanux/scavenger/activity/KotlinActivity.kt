@@ -10,31 +10,15 @@
  * You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package pt.unl.fct.di.novalincs.yanux.scavenger.activity
 
-buildscript {
-    ext.kotlin_version = '1.3.61'
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import pt.unl.fct.di.novalincs.yanux.scavenger.R
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
+class KotlinActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_kotlin)
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

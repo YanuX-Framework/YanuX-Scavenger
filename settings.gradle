@@ -11,3 +11,4 @@
  */
 
 include ':mobile', ':wear', ':common'
+rootProject.name='YanuX Scavenger'

@@ -32,6 +32,7 @@
     <string name="action_nearby_messages">Nearby Messages</string>
     <string name="action_sensors">Sensors</string>
     <string name="action_wifi">Wi-Fi</string>
+    <string name="action_kotlin_activity">Kotlin Activity</string>
     <string name="action_preferences">Preferences</string>
 
     <string name="no_ui_activity">This Activity has no UI. All the magic happens in the Logcat.</string>

@@ -167,6 +167,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
+            case R.id.action_kotlin_activity: {
+                Intent intent = new Intent(this, KotlinActivity.class);
+                startActivity(intent);
+                return true;
+            }
             case R.id.action_preferences: {
                 Intent intent = new Intent(this, PreferencesActivity.class);
                 startActivity(intent);
