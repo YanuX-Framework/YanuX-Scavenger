@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -52,12 +52,8 @@ dependencies {
     api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'org.bouncycastle:bcpkix-jdk15on:1.64'
     //This is needed for the project to compile with Bouncy Castle instead of with Spongy Castle
-    implementation('junit:junit') {
-        version {
-            strictly '4.12'
-        }
-    }
-    api 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation('junit:junit') { version { strictly '4.13' } }
+    api 'com.squareup.okhttp3:okhttp:4.3.1'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
@@ -67,7 +63,7 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.7'
     api 'org.altbeacon:android-beacon-library:2.16.3'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
