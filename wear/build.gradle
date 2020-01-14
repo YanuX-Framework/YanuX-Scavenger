@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -56,5 +56,6 @@ dependencies {
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.wear:wear:1.0.0'
     compileOnly 'com.google.android.wearable:wearable:2.5.0'
 }

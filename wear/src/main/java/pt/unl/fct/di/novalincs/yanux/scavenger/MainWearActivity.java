@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -24,19 +24,19 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
 
 public class MainWearActivity extends AppCompatActivity {
 
-    private TextView mTextView;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wear);
-        mTextView = findViewById(R.id.text);
+        textView = findViewById(R.id.textView);
         SensorCollector sensorCollector = new SensorCollector(MainWearActivity.this);
         Collection<SensorWrapper> sensors = sensorCollector.getAllSensors();
         StringBuilder text = new StringBuilder();
         for (SensorWrapper sensor : sensors) {
             text.append(">> [" + sensor.getDescription() + " | " + sensor.getName() + " | " + sensor.getVendor() + "]\n");
         }
-        mTextView.setText(mTextView.getText() + text.toString());
+        textView.setText(textView.getText() + text.toString());
     }
 }
