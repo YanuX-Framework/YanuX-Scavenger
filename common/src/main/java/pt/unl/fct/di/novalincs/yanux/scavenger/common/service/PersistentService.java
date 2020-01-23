@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -460,6 +460,7 @@ public class PersistentService implements GenericService {
         try {
             JSONObject deviceJSON = new JSONObject();
             deviceJSON.put("deviceUuid", preferences.getDeviceUuid());
+            deviceJSON.put("name", preferences.getDeviceName());
 
             JSONArray beaconValues = new JSONArray();
             beaconValues.put(preferences.getBeaconAdvertiserParametersUuid());
@@ -469,9 +470,6 @@ public class PersistentService implements GenericService {
             deviceJSON.put("beaconValues", beaconValues);
 
             JSONObject capabilities = new JSONObject();
-            //TODO: Remove the support the basic view/control capabilities system!
-            capabilities.put("view", preferences.hasViewCapabilities());
-            capabilities.put("control", preferences.hasControlCapabilities());
             /* TODO:
              * I'm using a static JSON file on the assets folder.
              * I should implement automatic capability detection along with a user interface  that

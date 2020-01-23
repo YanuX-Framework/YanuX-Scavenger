@@ -25,6 +25,19 @@
             app:title="@string/preferences_title_allow_zeroconf" />
     </PreferenceCategory>
     <PreferenceCategory
+        app:key="category_device"
+        app:title="@string/preferences_category_device">
+        <EditTextPreference
+            android:defaultValue="@string/preferences_default_device_name"
+            android:key="device_name"
+            android:title="@string/preferences_title_device_name"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:key="device_uuid"
+            android:title="@string/preferences_title_device_uuid"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:key="category_beacon_scan"
         app:title="@string/preferences_category_beacon_scanning">
         <EditTextPreference
@@ -82,22 +95,6 @@
             android:defaultValue="@bool/preferences_default_beacon_advertise"
             app:key="beacon_advertise"
             app:title="@string/preferences_title_beacon_advertise" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        app:key="category_device"
-        app:title="@string/preferences_category_device">
-        <EditTextPreference
-            android:key="device_uuid"
-            android:title="@string/preferences_title_device_uuid"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_device_capabilities_view"
-            app:key="device_capabilities_view"
-            app:title="@string/preferences_title_device_capabilities_view" />
-        <SwitchPreferenceCompat
-            android:defaultValue="@bool/preferences_default_device_capabilities_control"
-            app:key="device_capabilities_control"
-            app:title="@string/preferences_title_device_capabilities_control" />
     </PreferenceCategory>
     <PreferenceCategory
         app:key="category_http_server"

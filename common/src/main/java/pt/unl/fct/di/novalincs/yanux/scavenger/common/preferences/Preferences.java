@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -34,6 +34,8 @@ public class Preferences {
     public static final boolean SHOULD_BEACON_SCAN_REAL_TIME_UPDATES_DEFAULT = false;
     public static final String SHOULD_BEACON_ADVERTISE = "beacon_advertise";
     public static final boolean SHOULD_BEACON_ADVERTISE_DEFAULT = false;
+    public static final String PREFERENCE_DEVICE_NAME = "device_name";
+    public static final String PREFERENCE_DEVICE_NAME_DEFAULT = "Android";
     public static final String PREFERENCE_DEVICE_UUID = "device_uuid";
     public static final String PREFERENCE_DEVICE_UUID_DEFAULT = EMPTY;
     public static final String PREFERENCE_BEACON_MATCHER_PARAMETERS_UUID = "beacon_matcher_parameters_uuid";
@@ -52,10 +54,6 @@ public class Preferences {
     public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT = Integer.toString(1000);
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER = "beacons_inactivity_timer";
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER_DEFAULT = Integer.toString(1000);
-    public static final String PREFERENCE_DEVICE_CAPABILITIES_VIEW = "device_capabilities_view";
-    public static final boolean PREFERENCE_DEVICE_CAPABILITIES_VIEW_DEFAULT = false;
-    public static final String PREFERENCE_DEVICE_CAPABILITIES_CONTROL = "device_capabilities_control";
-    public static final boolean PREFERENCE_DEVICE_CAPABILITIES_CONTROL_DEFAULT = false;
     public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL = "yanux_auth_oauth2_authorization_server_url";
     public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT = "http://localhost:3001/";
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID = "yanux_auth_client_id";
@@ -160,6 +158,14 @@ public class Preferences {
         preferencesEditor.putBoolean(SHOULD_BEACON_ADVERTISE, shouldBeaconAdvertise).apply();
     }
 
+    public String getDeviceName() {
+        return preferences.getString(PREFERENCE_DEVICE_NAME, PREFERENCE_DEVICE_NAME_DEFAULT);
+    }
+
+    public void setDeviceName(String deviceName) {
+        preferencesEditor.putString(PREFERENCE_DEVICE_NAME, deviceName).apply();
+    }
+
     public String getDeviceUuid() {
         return preferences.getString(PREFERENCE_DEVICE_UUID, PREFERENCE_DEVICE_UUID_DEFAULT);
     }
@@ -226,22 +232,6 @@ public class Preferences {
 
     public void setBeaconsInactivityTimer(int beaconsInactivityTimer) {
         preferencesEditor.putString(PREFERENCE_BEACONS_INACTIVITY_TIMER, String.valueOf(beaconsInactivityTimer)).apply();
-    }
-
-    public boolean hasViewCapabilities() {
-        return preferences.getBoolean(PREFERENCE_DEVICE_CAPABILITIES_VIEW, PREFERENCE_DEVICE_CAPABILITIES_VIEW_DEFAULT);
-    }
-
-    public void setHasViewCapabilities(boolean viewCapabilities) {
-        preferencesEditor.putBoolean(PREFERENCE_DEVICE_CAPABILITIES_VIEW, viewCapabilities).apply();
-    }
-
-    public boolean hasControlCapabilities() {
-        return preferences.getBoolean(PREFERENCE_DEVICE_CAPABILITIES_CONTROL, PREFERENCE_DEVICE_CAPABILITIES_CONTROL_DEFAULT);
-    }
-
-    public void setHasControlCapabilities(boolean controlCapabilities) {
-        preferencesEditor.putBoolean(PREFERENCE_DEVICE_CAPABILITIES_CONTROL, controlCapabilities).apply();
     }
 
     public String getYanuxAuthOauth2AuthorizationServerUrl() {

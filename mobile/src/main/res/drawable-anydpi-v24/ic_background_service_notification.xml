@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2019 Pedro Albuquerque Santos.
+  ~ Copyright (c) 2020 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
   ~
@@ -13,9 +13,14 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
-    <filename
-        android:fillColor="#FF000000"
-        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zm1,15h-2v-6h2v6zm0,-8h-2V7h2v2z" />
+    android:tint="#FFFFFF"
+    android:viewportWidth="26.086956"
+    android:viewportHeight="26.086956">
+    <group
+        android:translateX="1.0434783"
+        android:translateY="1.0434783">
+        <path
+            android:fillColor="#FF000000"
+            android:pathData="M13.5,0.67s0.74,2.65 0.74,4.8c0,2.06 -1.35,3.73 -3.41,3.73 -2.07,0 -3.63,-1.67 -3.63,-3.73l0.03,-0.36C5.21,7.51 4,10.62 4,14c0,4.42 3.58,8 8,8s8,-3.58 8,-8C20,8.61 17.41,3.8 13.5,0.67zM11.71,19c-1.78,0 -3.22,-1.4 -3.22,-3.14 0,-1.62 1.05,-2.76 2.81,-3.12 1.77,-0.36 3.6,-1.21 4.62,-2.58 0.39,1.29 0.59,2.65 0.59,4.04 0,2.65 -2.15,4.8 -4.8,4.8z" />
+    </group>
 </vector>

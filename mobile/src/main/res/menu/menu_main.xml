@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2019 Pedro Albuquerque Santos.
+  ~ Copyright (c) 2020 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
   ~
@@ -14,6 +14,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pt.unl.fct.di.novalincs.scavenger.MainActivity">
+    <item
+        android:id="@+id/action_preferences"
+        android:icon="@drawable/ic_preferences"
+        android:orderInCategory="100"
+        android:title="@string/action_preferences"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_audio"
         android:orderInCategory="100"
@@ -35,6 +41,11 @@
         android:title="@string/action_bluetooth_le"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_kotlin_activity"
+        android:orderInCategory="100"
+        android:title="@string/action_kotlin_activity"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_nearby_connections"
         android:orderInCategory="100"
         android:title="@string/action_nearby_connections"
@@ -53,15 +64,5 @@
         android:id="@+id/action_wifi"
         android:orderInCategory="100"
         android:title="@string/action_wifi"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_kotlin_activity"
-        android:orderInCategory="100"
-        android:title="@string/action_kotlin_activity"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_preferences"
-        android:orderInCategory="100"
-        android:title="@string/action_preferences"
         app:showAsAction="never" />
 </menu>
