@@ -42,7 +42,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     api 'androidx.appcompat:appcompat:1.1.0'
-    api 'androidx.core:core-ktx:1.1.0'
+    api 'androidx.core:core-ktx:1.2.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     api 'org.apache.commons:commons-lang3:3.9'
     api 'com.fasterxml.jackson.core:jackson-core:2.10.2'
@@ -52,9 +52,9 @@ dependencies {
     api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'com.squareup.okhttp3:okhttp:4.3.1'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
-    api 'io.jsonwebtoken:jjwt-api:0.10.7'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.7'
+    api 'io.jsonwebtoken:jjwt-api:0.11.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.0'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
