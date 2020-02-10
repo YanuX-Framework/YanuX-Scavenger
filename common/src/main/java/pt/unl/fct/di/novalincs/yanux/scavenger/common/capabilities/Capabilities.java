@@ -143,6 +143,9 @@ public class Capabilities {
         getSensorsInformation();
     }
 
+    //TODO: Listen to events and update the capabilities accordingly:
+    //https://developer.android.com/reference/android/hardware/display/DisplayManager.html#registerDisplayListener(android.hardware.display.DisplayManager.DisplayListener,%20android.os.Handler)
+    //https://developer.android.com/reference/android/hardware/display/DisplayManager.DisplayListener.html
     private void getDisplayInformation() {
         //Get the display manager.
         DisplayManager displayManager = (DisplayManager) context.getApplicationContext().getSystemService(Context.DISPLAY_SERVICE);
@@ -328,12 +331,16 @@ public class Capabilities {
         }
     }
 
+    //TODO: Listen to events and update the capabilities accordingly:
+    //https://developer.android.com/reference/android/hardware/camera2/CameraManager.html#registerAvailabilityCallback(android.hardware.camera2.CameraManager.AvailabilityCallback,%20android.os.Handler)
+    //https://developer.android.com/reference/android/hardware/camera2/CameraManager.AvailabilityCallback.html
     private void getCameraInformation() {
         //Get the camera manager
         CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         try {
             //Iterate over each camera
-            // TODO: Add proper support to the new Multi-camera API which should enable access to physical cameras (e.g., a back camera may be composed of a main camera and a telephoto camera)
+            //TODO: Add proper support to the new Multi-camera API which should enable access to physical cameras (e.g., a back camera may be composed of a main camera and a telephoto camera):
+            //https://source.android.com/devices/camera/multi-camera#examples_and_sources
             for (String cameraId : manager.getCameraIdList()) {
                 //Init the camera object
                 Camera c = new Camera();
@@ -491,6 +498,7 @@ public class Capabilities {
     }
 
     //TODO: Detect when keyboards/mice/styluses/etc. are added or removed to update the current devices' capabilities automatically
+    //https://developer.android.com/reference/android/hardware/input/InputManager.html#registerInputDeviceListener(android.hardware.input.InputManager.InputDeviceListener,%20android.os.Handler)
     //https://developer.android.com/reference/android/hardware/input/InputManager.InputDeviceListener.html
     private void getInputInformation() {
         InputManager inputManager = (InputManager) context.getSystemService(Context.INPUT_SERVICE);
@@ -522,6 +530,9 @@ public class Capabilities {
         }
     }
 
+    //TODO: Listen to events and update the capabilities accordingly:
+    //https://developer.android.com/reference/android/hardware/SensorManager.html#registerDynamicSensorCallback(android.hardware.SensorManager.DynamicSensorCallback)
+    //https://developer.android.com/reference/android/hardware/SensorManager.DynamicSensorCallback.html
     private void getSensorsInformation() {
         //Check if the device supports reportins its location.
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION)) {

@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //TODO: Instantiate the "Capabilities" class when the application is launched. However, I should probably move this to the PersistentService.
+        //TODO: Dynamically update the capabilities when there are changes to the connected/available displays, speakers, microphones, etc.
         capabilities = new Capabilities(this);
         try {
             capabilities.saveToFile(new File(getFilesDir(), "capabilities.json"));
