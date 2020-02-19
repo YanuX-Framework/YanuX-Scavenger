@@ -50,7 +50,7 @@ dependencies {
     api 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
     api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.10.2'
     api 'com.googlecode.json-simple:json-simple:1.1.1'
-    api 'com.squareup.okhttp3:okhttp:4.3.1'
+    api 'com.squareup.okhttp3:okhttp:4.4.0'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api 'io.jsonwebtoken:jjwt-api:0.11.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.0'
