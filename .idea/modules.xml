@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/Scavenger-YanuX Scavenger.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/Scavenger-YanuX Scavenger.iml" />
-      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" />
-      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" />
-      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" />
+      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/Scavenger-YanuX Scavenger.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/Scavenger-YanuX Scavenger.iml" group="YanuX Scavenger" />
+      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/common/common.iml" group="YanuX Scavenger/common" />
+      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/mobile/mobile.iml" group="YanuX Scavenger/mobile" />
+      <module fileurl="file:///mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" filepath="/mnt/data/Users/Pedro/Development/YanuX/Scavenger/wear/wear.iml" group="YanuX Scavenger/wear" />
     </modules>
   </component>
 </project>
