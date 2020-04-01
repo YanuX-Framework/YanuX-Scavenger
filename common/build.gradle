@@ -44,7 +44,7 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.core:core-ktx:1.2.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    api 'org.apache.commons:commons-lang3:3.9'
+    api 'org.apache.commons:commons-lang3:3.10'
     api 'com.fasterxml.jackson.core:jackson-core:2.10.3'
     api 'com.fasterxml.jackson.core:jackson-annotations:2.10.3'
     api 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
