@@ -45,12 +45,12 @@ dependencies {
     api 'androidx.core:core-ktx:1.2.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     api 'org.apache.commons:commons-lang3:3.10'
-    api 'com.fasterxml.jackson.core:jackson-core:2.10.3'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.10.3'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
-    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.10.3'
+    api 'com.fasterxml.jackson.core:jackson-core:2.11.0'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.11.0'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.11.0'
     api 'com.googlecode.json-simple:json-simple:1.1.1'
-    api 'com.squareup.okhttp3:okhttp:4.5.0'
+    api 'com.squareup.okhttp3:okhttp:4.6.0'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api 'io.jsonwebtoken:jjwt-api:0.11.1'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1'
@@ -59,7 +59,7 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
-    api 'org.altbeacon:android-beacon-library:2.16.4'
+    api 'org.altbeacon:android-beacon-library:2.17'
     api 'org.bouncycastle:bcpkix-jdk15on:1.65'
     //This is needed for the project to compile with Bouncy Castle instead of with Spongy Castle
     implementation 'junit:junit:4.13'
