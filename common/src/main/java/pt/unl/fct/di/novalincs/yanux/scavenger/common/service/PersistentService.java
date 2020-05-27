@@ -289,8 +289,10 @@ public class PersistentService implements GenericService {
                     Log.d(LOG_TAG, "Data: " + data);
                     Jws<Claims> jwt;
                     try {
-                        jwt = Jwts.parser()
+                        //TODO: Implemente JWK(S) support using  like here: https://github.com/jwtk/jjwt/issues/236#issuecomment-341519715
+                        jwt = Jwts.parserBuilder()
                                 .setSigningKey(EncryptionToolbox.getPublicKey(context))
+                                .build()
                                 .parseClaimsJws(data.getString("accessToken"));
                         String userId = (String) ((Map) jwt.getBody().get("user")).get("_id");
                         Log.d(LOG_TAG, "userId: " + userId);
