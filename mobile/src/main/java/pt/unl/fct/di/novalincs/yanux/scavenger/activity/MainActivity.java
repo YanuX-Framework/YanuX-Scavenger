@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -20,7 +20,6 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
@@ -28,9 +27,6 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.io.File;
-import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
@@ -48,8 +44,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService;
 import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService.MobilePersistentServiceBinder;
-
-import static android.os.Environment.getExternalStoragePublicDirectory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -192,16 +186,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //TODO: Instantiate the "Capabilities" class when the application is launched. However, I should probably move this to the PersistentService.
-        //TODO: Dynamically update the capabilities when there are changes to the connected/available displays, speakers, microphones, etc.
-        capabilities = new Capabilities(this);
-        try {
-            capabilities.saveToFile(new File(getFilesDir(), "capabilities.json"));
-            //TODO: I'm still saving it to external storage so that I can expect the file manually.
-            capabilities.saveToFile(new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "yanux-scavenger-capabilities.json"));
-        } catch (IOException e) {
-            Log.e("YXS_Capabilities", "Exception: " + e);
-        }
         // Bind to LocalService
         Intent intent = new Intent(this, MobilePersistentService.class);
         bindService(intent, mobilePersistentServiceConnection, Context.BIND_AUTO_CREATE);

@@ -18,6 +18,7 @@
     <string name="title_activity_beacons">Beacons</string>
     <string name="title_activity_bluetooth_classic">Bluetooth Classic</string>
     <string name="title_activity_bluetooth_le">Bluetooth Low Energy</string>
+    <string name="title_activity_kotlin">Kotlin</string>
     <string name="title_activity_nearby_connections">Nearby Connections</string>
     <string name="title_activity_nearby_messages">Nearby Messages</string>
     <string name="title_activity_sensors">Sensors</string>

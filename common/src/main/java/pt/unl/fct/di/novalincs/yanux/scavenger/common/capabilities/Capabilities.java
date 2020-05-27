@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pedro Albuquerque Santos.
+ * Copyright (c) 2020 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -40,6 +40,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +51,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
@@ -652,6 +656,10 @@ public class Capabilities {
         } catch (JsonProcessingException e) {
             return super.toString();
         }
+    }
+
+    public JSONObject toJsonObject() throws JsonProcessingException, ParseException {
+        return new JSONObject((Map) (new JSONParser()).parse(toJsonString()));
     }
 
     public String toJsonString() throws JsonProcessingException {
