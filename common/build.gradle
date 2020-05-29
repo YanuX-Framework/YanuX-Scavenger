@@ -53,14 +53,15 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:4.7.2'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api 'io.jsonwebtoken:jjwt-api:0.11.1'
-    api 'com.auth0:jwks-rsa:0.11.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.1'
+    api 'com.auth0:jwks-rsa:0.11.0'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
     api 'org.altbeacon:android-beacon-library:2.17'
+    //Bouncy Castle should no longer be needed, unless I need to support PS256, PS384 and PS512 signatures.
     api 'org.bouncycastle:bcpkix-jdk15on:1.65'
     //This is needed for the project to compile with Bouncy Castle instead of with Spongy Castle
     implementation 'junit:junit:4.13'
