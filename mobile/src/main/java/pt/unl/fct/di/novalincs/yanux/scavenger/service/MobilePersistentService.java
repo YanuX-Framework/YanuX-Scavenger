@@ -19,11 +19,9 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -92,16 +90,6 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration config) {
-        super.onConfigurationChanged(config);
-        if (persistentService != null) {
-            //TODO: This is the first dynamic capabilities update I have implemented. I'll need to detect more changes and react accordingly.
-            Log.d(LOG_TAG, "Change in Orientation? " + config.orientation);
-            persistentService.registerDevices();
-        }
     }
 
     @Override

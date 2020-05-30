@@ -12,8 +12,10 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.service;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
@@ -59,9 +61,15 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.JwkKeyResolver;
 
 public class PersistentService implements GenericService {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
+
     private static final String REGION_UUID = "cc83a39c-075d-4f9d-b78a-a94d66d57b97";
 
-    private final BeaconConsumer beaconConsumer;
+    private static final String ACTION_CONFIGURATION_CHANGED = "android.intent.action.CONFIGURATION_CHANGED";
+    private static final String ACTION_HEADSET_PLUG = "android.intent.action.HEADSET_PLUG";
+    private static final String ACTION_USB_DEVICE_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
+    private static final String ACTION_USB_DEVICE_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
+
+
     private final Context context;
     private final Handler mainHandler;
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
@@ -74,11 +82,18 @@ public class PersistentService implements GenericService {
     private final OkHttpClient httpClient;
     private Socket socket;
     private JSONObject user;
+    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(LOG_TAG, "Broadcast Receiver: " + intent.getAction());
+            //Toast.makeText(context, "Broadcast Receiver: "+intent.getAction(), Toast.LENGTH_SHORT).show();
+            PersistentService.this.registerDevices();
+        }
+    };
     private boolean started;
     private boolean hasAskedForUserAuthorization;
 
     public PersistentService(BeaconConsumer beaconConsumer) {
-        this.beaconConsumer = beaconConsumer;
         this.context = (Context) beaconConsumer;
         this.mainHandler = new PersistentServiceMainLooperHandler(context);
         this.sharedPreferenceChangeListener = new PersistentServiceSharedPreferenceChangeListener(this);
@@ -118,6 +133,8 @@ public class PersistentService implements GenericService {
                         @Override
                         public void call(Object... args) {
                             Log.d(LOG_TAG, "MobileService: YanuX Broker CONNECT");
+                            Message message = mainHandler.obtainMessage(PersistentServiceMainLooperHandler.HANDLE_SHOW_TOAST, context.getString(R.string.persistent_service_connected));
+                            message.sendToTarget();
                             try {
                                 authenticate();
                             } catch (JSONException e) {
@@ -146,7 +163,9 @@ public class PersistentService implements GenericService {
                             Log.d(LOG_TAG, "MobileService: YanuX Broker EVENT_DISCONNECT");
                             stopBeaconScan();
                             try {
-                                if(isStarted()) { authenticate(); }
+                                if (isStarted()) {
+                                    authenticate();
+                                }
                             } catch (JSONException e) {
                                 handleError(e);
                             }
@@ -226,6 +245,15 @@ public class PersistentService implements GenericService {
                     socket.connect();
                     /* BLE */
                     startBeaconAdvertisement();
+
+                    /* Register Broadcast Receiver */
+                    IntentFilter filter = new IntentFilter();
+                    filter.addAction(ACTION_CONFIGURATION_CHANGED);
+                    filter.addAction(ACTION_HEADSET_PLUG);
+                    filter.addAction(ACTION_USB_DEVICE_ATTACHED);
+                    filter.addAction(ACTION_USB_DEVICE_DETACHED);
+                    context.registerReceiver(broadcastReceiver, filter);
+
                     // Mark the service as started.
                     started = true;
                 } else {
@@ -250,6 +278,11 @@ public class PersistentService implements GenericService {
         if (socket != null) {
             tidyUpBeacons();
             socket.disconnect();
+        }
+        try {
+            context.unregisterReceiver(broadcastReceiver);
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Can't unregister receiver: " + e.getMessage());
         }
         started = false;
         hasAskedForUserAuthorization = false;

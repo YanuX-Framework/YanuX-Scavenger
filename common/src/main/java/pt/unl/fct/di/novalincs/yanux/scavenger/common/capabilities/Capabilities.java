@@ -151,6 +151,7 @@ public class Capabilities {
     //https://developer.android.com/reference/android/hardware/display/DisplayManager.html#registerDisplayListener(android.hardware.display.DisplayManager.DisplayListener,%20android.os.Handler)
     //https://developer.android.com/reference/android/hardware/display/DisplayManager.DisplayListener.html
     private void getDisplayInformation() {
+        Log.d(LOG_TAG, "Getting Display Information");
         //Get the display manager.
         DisplayManager displayManager = (DisplayManager) context.getApplicationContext().getSystemService(Context.DISPLAY_SERVICE);
         //For each of the displays in the display manager...
@@ -281,6 +282,7 @@ public class Capabilities {
     //https://developer.android.com/reference/android/media/AudioManager.html#ACTION_AUDIO_BECOMING_NOISY
     //https://developer.android.com/guide/topics/media-apps/volume-and-earphones#becoming-noisy
     private void getSpeakersInformation() {
+        Log.d(LOG_TAG, "Getting Speakers Information");
         //Get the audio manager to get information about speakers.
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         //Get the information about each speaker.
@@ -297,6 +299,7 @@ public class Capabilities {
                     s.setType(SpeakersType.LOUDSPEAKER);
                     break;
                 case AudioDeviceInfo.TYPE_WIRED_HEADPHONES:
+                case AudioDeviceInfo.TYPE_WIRED_HEADSET:
                     s.setType(SpeakersType.HEADPHONES);
                     break;
                 case AudioDeviceInfo.TYPE_BLUETOOTH_A2DP:
@@ -339,6 +342,7 @@ public class Capabilities {
     //https://developer.android.com/reference/android/hardware/camera2/CameraManager.html#registerAvailabilityCallback(android.hardware.camera2.CameraManager.AvailabilityCallback,%20android.os.Handler)
     //https://developer.android.com/reference/android/hardware/camera2/CameraManager.AvailabilityCallback.html
     private void getCameraInformation() {
+        Log.d(LOG_TAG, "Getting Camera Information");
         //Get the camera manager
         CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         try {
@@ -457,15 +461,17 @@ public class Capabilities {
     //https://developer.android.com/reference/android/media/AudioManager.html#ACTION_AUDIO_BECOMING_NOISY
     //https://developer.android.com/guide/topics/media-apps/volume-and-earphones#becoming-noisy
     private void getMicrophoneInformation() {
+        Log.d(LOG_TAG, "Getting Microphone Information");
         //Get the audio manager to get information about microphones.
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         //Get the information about each microphone.
+        int count = 0;
         for (AudioDeviceInfo adi : audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS)) {
             //Init the microphone information object
             Microphone m = new Microphone();
             //If the type is builtin microphone proceed. Otherwise, ignore this audio device.
             //TODO: What other device types should I consider?
-            if (adi.getType() == AudioDeviceInfo.TYPE_BUILTIN_MIC) {
+            if (adi.getType() == AudioDeviceInfo.TYPE_BUILTIN_MIC || adi.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
                 //Log the audio device information.
                 logAudioDevice(adi);
                 //If the channel masks support stereo, then we assume that we can record stereo sound.
@@ -495,8 +501,8 @@ public class Capabilities {
                 //Add the microphone object to the microphones list
                 microphone.add(m);
                 //Exit the loop
-                //TODO: Find a more a elegant way of dealing with duplicated internal microphones. Besises, how do I access other types of microphones reliably?
-                break;
+                //TODO: Find a more a elegant way of dealing with duplicated internal microphones. Besides, how do I access other types of microphones reliably?
+                //break;
             }
         }
     }
@@ -505,6 +511,7 @@ public class Capabilities {
     //https://developer.android.com/reference/android/hardware/input/InputManager.html#registerInputDeviceListener(android.hardware.input.InputManager.InputDeviceListener,%20android.os.Handler)
     //https://developer.android.com/reference/android/hardware/input/InputManager.InputDeviceListener.html
     private void getInputInformation() {
+        Log.d(LOG_TAG, "Getting Input Information");
         InputManager inputManager = (InputManager) context.getSystemService(Context.INPUT_SERVICE);
         Log.d(LOG_TAG, "[ Keyboard: " + context.getResources().getConfiguration().keyboard + " Keyboard Hidden: " + context.getResources().getConfiguration().hardKeyboardHidden + " ]");
         if (context.getResources().getConfiguration().keyboard == Configuration.KEYBOARD_QWERTY
@@ -538,6 +545,7 @@ public class Capabilities {
     //https://developer.android.com/reference/android/hardware/SensorManager.html#registerDynamicSensorCallback(android.hardware.SensorManager.DynamicSensorCallback)
     //https://developer.android.com/reference/android/hardware/SensorManager.DynamicSensorCallback.html
     private void getSensorsInformation() {
+        Log.d(LOG_TAG, "Getting Sensors Information");
         //Check if the device supports reportins its location.
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION)) {
             sensors.add(SensorType.LOCATION);
@@ -587,7 +595,7 @@ public class Capabilities {
         //A string builder used to support logging.
         StringBuilder sb = new StringBuilder();
         //Log general information about speakers
-        sb.append("[ Id: " + adi.getId() + " Product Name: " + adi.getProductName() + " Type: " + adi.getType() + " ]");
+        sb.append("[ Audio Device Id: " + adi.getId() + " Product Name: " + adi.getProductName() + " Type: " + adi.getType() + " ]");
         Log.d(LOG_TAG, sb.toString());
 
         //Log the channel counts

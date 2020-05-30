@@ -55,7 +55,7 @@ public class Preferences {
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER = "beacons_inactivity_timer";
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER_DEFAULT = Integer.toString(1000);
     public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL = "yanux_auth_oauth2_authorization_server_url";
-    public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT = "http://localhost:3001/";
+    public static final String PREFERENCE_YANUX_AUTH_OAUTH2_AUTHORIZATION_SERVER_URL_DEFAULT = "https://yanux-auth.herokuapp.com/"; //"http://localhost:3001/";
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID = "yanux_auth_client_id";
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_ID_DEFAULT = "yanux-mobile-client";
     public static final String PREFERENCE_YANUX_AUTH_CLIENT_SECRET = "yanux_auth_client_secret";
@@ -71,7 +71,7 @@ public class Preferences {
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI = "yanux_auth_redirect_uri";
     public static final String PREFERENCE_YANUX_AUTH_REDIRECT_URI_DEFAULT = EMPTY;
     public static final String PREFERENCE_YANUX_BROKER_URL = "yanux_broker_url";
-    public static final String PREFERENCE_YANUX_BROKER_URL_DEFAULT = "http://localhost:3002/";
+    public static final String PREFERENCE_YANUX_BROKER_URL_DEFAULT = "https://yanux-broker.herokuapp.com/"; //"http://localhost:3002/";
     public static final String PREFERENCE_HTTP_SERVER_PORT = "http_server_port";
     public static final String PREFERENCE_HTTP_SERVER_PORT_DEFAULT = "8080";
     private static final String SHOW_RATIONALE_PREFERENCE_PREFIX = "SHOW_RATIONALE:";
