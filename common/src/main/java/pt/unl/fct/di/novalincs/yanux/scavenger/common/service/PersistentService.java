@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -61,14 +62,7 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.JwkKeyResolver;
 
 public class PersistentService implements GenericService {
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + PersistentService.class.getSimpleName();
-
     private static final String REGION_UUID = "cc83a39c-075d-4f9d-b78a-a94d66d57b97";
-
-    private static final String ACTION_CONFIGURATION_CHANGED = "android.intent.action.CONFIGURATION_CHANGED";
-    private static final String ACTION_HEADSET_PLUG = "android.intent.action.HEADSET_PLUG";
-    private static final String ACTION_USB_DEVICE_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
-    private static final String ACTION_USB_DEVICE_DETACHED = "android.hardware.usb.action.USB_DEVICE_DETACHED";
-
 
     private final Context context;
     private final Handler mainHandler;
@@ -85,6 +79,13 @@ public class PersistentService implements GenericService {
     public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            //TODO:
+            //The filter should have been enough to make this broadcast receiver run only when it matters.
+            //However, the ACTION_HEADSET_PLUG gets triggered whenever the service starts.
+            //Perhaps I should also keep track of what's changed and what's not.
+            //In the case of the ACTION_HEADSET_PLUG I can look into the state changed like this:
+            //https://stackoverflow.com/a/17998116
+            //https://developer.android.com/reference/android/media/AudioManager#ACTION_HEADSET_PLUG
             Log.d(LOG_TAG, "Broadcast Receiver: " + intent.getAction());
             //Toast.makeText(context, "Broadcast Receiver: "+intent.getAction(), Toast.LENGTH_SHORT).show();
             PersistentService.this.registerDevices();
@@ -248,10 +249,10 @@ public class PersistentService implements GenericService {
 
                     /* Register Broadcast Receiver */
                     IntentFilter filter = new IntentFilter();
-                    filter.addAction(ACTION_CONFIGURATION_CHANGED);
-                    filter.addAction(ACTION_HEADSET_PLUG);
-                    filter.addAction(ACTION_USB_DEVICE_ATTACHED);
-                    filter.addAction(ACTION_USB_DEVICE_DETACHED);
+                    filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+                    filter.addAction(Intent.ACTION_HEADSET_PLUG);
+                    filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+                    filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
                     context.registerReceiver(broadcastReceiver, filter);
 
                     // Mark the service as started.
