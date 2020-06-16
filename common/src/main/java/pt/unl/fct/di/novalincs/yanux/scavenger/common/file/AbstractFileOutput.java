@@ -94,27 +94,22 @@ public abstract class AbstractFileOutput implements IFileOutput {
         return directory;
     }
 
-    @Override
     public void setDirectory(String directory) {
         this.directory = directory;
     }
 
-    @Override
     public String getFilename() {
         return filename;
     }
 
-    @Override
     public void setFilename(String filename) {
         this.filename = filename;
     }
 
-    @Override
     public StorageType getStorageType() {
         return storageType;
     }
 
-    @Override
     public void setStorageType(StorageType storageType) throws IOException {
         if (isOpen()) {
             throw new IOException("The file is currently open. Please close it before changing the storage type.");
@@ -123,7 +118,6 @@ public abstract class AbstractFileOutput implements IFileOutput {
         }
     }
 
-    @Override
     public String getPath() {
         if (directory != null && !directory.isEmpty()) {
             return directory + "/" + filename;
@@ -132,27 +126,28 @@ public abstract class AbstractFileOutput implements IFileOutput {
         }
     }
 
-    @Override
     public String getStorageDirectory() {
         if (directory != null && !directory.isEmpty()) {
             switch (storageType) {
                 case EXTERNAL:
+                    //TODO: Replace legacy storage model
                     return Environment.getExternalStorageDirectory() + "/" + directory;
                 case INTERNAL:
                     return context.getFilesDir() + "/" + directory;
                 case CACHE:
-                    return context.getFilesDir() + "/" + directory;
+                    return context.getCacheDir() + "/" + directory;
                 default:
                     return "";
             }
         } else {
             switch (storageType) {
                 case EXTERNAL:
+                    //TODO: Replace legacy storage model
                     return Environment.getExternalStorageDirectory().getPath();
                 case INTERNAL:
                     return context.getFilesDir().getPath();
                 case CACHE:
-                    return context.getFilesDir().getPath();
+                    return context.getCacheDir().getPath();
                 default:
                     return "";
             }

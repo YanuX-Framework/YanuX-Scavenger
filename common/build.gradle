@@ -16,7 +16,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    buildToolsVersion '30.0.0'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -26,6 +26,7 @@ android {
     }
     defaultConfig {
         minSdkVersion 23
+        //TODO: Target SDK 30 after replacing legacy storage model
         targetSdkVersion 29
         versionCode 1
         versionName '1.0'
@@ -52,15 +53,15 @@ dependencies {
     api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'com.squareup.okhttp3:okhttp:4.7.2'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
-    api 'io.jsonwebtoken:jjwt-api:0.11.1'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.1'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.1'
+    api 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     api 'com.auth0:jwks-rsa:0.11.0'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
-    api 'org.altbeacon:android-beacon-library:2.17'
+    api 'org.altbeacon:android-beacon-library:2.17.1'
     //Bouncy Castle should no longer be needed, unless I need to support PS256, PS384 and PS512 signatures.
     api 'org.bouncycastle:bcpkix-jdk15on:1.65'
     //This is needed for the project to compile with Bouncy Castle instead of with Spongy Castle
