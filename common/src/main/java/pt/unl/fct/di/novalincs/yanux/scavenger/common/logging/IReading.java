@@ -18,12 +18,12 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
  * also can't remember why I added the annotation in the first place. If any issues arise, uncomment
  * it and check if it solves the problem.
  */
-/*
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.MINIMAL_CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = "@class")
-*/
 public interface IReading {
 }

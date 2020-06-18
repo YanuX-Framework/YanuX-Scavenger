@@ -24,8 +24,11 @@ public class WifiResult {
     private int signalStrength;
     private int frequency;
 
+    public WifiResult() {
+    }
 
     public WifiResult(ScanResult scanResult) {
+        this();
         update(scanResult);
     }
 

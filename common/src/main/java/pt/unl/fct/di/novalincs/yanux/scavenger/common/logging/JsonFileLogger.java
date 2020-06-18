@@ -15,6 +15,7 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
@@ -73,13 +74,13 @@ public class JsonFileLogger extends AbstractFileLogger {
 
     @Override
     public void open() throws IOException {
-        super.open();
         try {
-            logFile = Constants.OBJECT_MAPPER.readValue(file, LogFile.class);
+            logFile = Constants.OBJECT_MAPPER.readValue(new File(getStoragePath()), LogFile.class);
         } catch (IOException e) {
             Log.e(LOG_TAG, e.toString());
             logFile = new LogFile(filename);
         }
+        super.open();
         //Add new session
         currentLogSession = new LogSession();
         logFile.getSessions().add(currentLogSession);
@@ -97,8 +98,8 @@ public class JsonFileLogger extends AbstractFileLogger {
 
     @Override
     public void close() throws IOException {
-        super.close();
         currentLogSession = null;
-        Constants.OBJECT_MAPPER.writeValue(file, logFile);
+        Constants.OBJECT_MAPPER.writeValue(fileOutputStream, logFile);
+        super.close();
     }
 }

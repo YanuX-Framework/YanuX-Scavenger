@@ -76,7 +76,7 @@ public class JsonSreamFileLogger extends AbstractFileLogger {
     @Override
     public void open() throws IOException {
         super.open();
-        jsonGenerator = jsonFactory.createJsonGenerator(new FileOutputStream(file));
+        jsonGenerator = jsonFactory.createGenerator(fileOutputStream);
         jsonGenerator.setCodec(Constants.OBJECT_MAPPER);
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("timestamp", Utilities.getUnixTimeMillis());
@@ -87,13 +87,13 @@ public class JsonSreamFileLogger extends AbstractFileLogger {
 
     @Override
     public void close() throws IOException {
-        super.close();
         if (jsonGenerator != null && !jsonGenerator.isClosed()) {
             jsonGenerator.writeEndArray();
             jsonGenerator.writeEndObject();
             jsonGenerator.writeEndObject();
             jsonGenerator.close();
         }
+        super.close();
     }
 
     @Override

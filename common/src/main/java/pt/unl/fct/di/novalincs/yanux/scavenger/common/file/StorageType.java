@@ -15,5 +15,6 @@ package pt.unl.fct.di.novalincs.yanux.scavenger.common.file;
 public enum StorageType {
     EXTERNAL,
     INTERNAL,
-    CACHE
+    CACHE,
+    ANDROID_URI
 }

@@ -13,20 +13,26 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.List;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.activity.audio.AudioActivity;
@@ -48,6 +54,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.service.MobilePersistentService.M
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = Constants.LOG_TAG + "_MAIN_ACTIVITY";
+    private static final int PICK_STORAGE_DIRECTORY = 1;
+
     private PermissionManager permissionManager;
     private Preferences preferences;
     private Capabilities capabilities;
@@ -112,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "YanuX Auth Authorization Code: " + authorizationCode);
             preferences.setYanuxAuthAuthorizationCode(authorizationCode);
         }
+
+        chooseStorageDirectory();
     }
 
     @Override
@@ -197,4 +207,37 @@ public class MainActivity extends AppCompatActivity {
         unbindService(mobilePersistentServiceConnection);
         mobilePersistentServiceBound = false;
     }
+
+    public void chooseStorageDirectory() {
+        List<UriPermission> uriPermissions = getContentResolver().getPersistedUriPermissions();
+        for(UriPermission uriPermission : uriPermissions) {
+            Log.d(LOG_TAG, "URI Permission: "+uriPermission.getUri()+
+                    " Is Readable: "+uriPermission.isReadPermission()+
+                    " Is Writeable: "+uriPermission.isWritePermission());
+        }
+        if(uriPermissions.isEmpty()) {
+            //Toast.makeText(this, R.string.permission_rationale_storage_directory, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivityForResult(intent, PICK_STORAGE_DIRECTORY);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if (requestCode == PICK_STORAGE_DIRECTORY && resultCode == Activity.RESULT_OK) {
+            if (resultData != null && resultData.getData() != null) {
+                final Uri uri = resultData.getData();
+                final int takeFlags = resultData.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                // Perform operations on the document using its URI.
+                Log.d(LOG_TAG, "Selected Directory URI: "+uri);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, resultData);
+    }
+
+
 }

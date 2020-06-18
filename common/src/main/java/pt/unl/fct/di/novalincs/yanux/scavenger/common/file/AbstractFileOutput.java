@@ -13,12 +13,23 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.file;
 
 import android.content.Context;
+import android.content.UriPermission;
+import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public abstract class AbstractFileOutput implements IFileOutput {
+    private static final String LOG_TAG = Constants.LOG_TAG + "_ABS_FILE_OUT";
     public static final String DEFAULT_DIRECTORY = "YanuX";
     public static final String DEFAULT_FILENAME = "file.out";
     public static final StorageType DEFAULT_STORAGE_TYPE = StorageType.EXTERNAL;
@@ -28,7 +39,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
     protected String filename;
     protected StorageType storageType;
     protected boolean open;
-    protected File file;
+    protected FileOutputStream fileOutputStream;
 
     public AbstractFileOutput(Context context, String directory, String filename, StorageType storageType) {
         this.context = context;
@@ -36,14 +47,21 @@ public abstract class AbstractFileOutput implements IFileOutput {
         this.filename = filename;
         this.storageType = storageType;
 
-        if (context == null || storageType == null) {
-            this.storageType = StorageType.EXTERNAL;
+        if (storageType == null) {
+            this.storageType = DEFAULT_STORAGE_TYPE;
         }
         if (directory == null) {
             this.directory = DEFAULT_DIRECTORY;
         }
         if (filename == null) {
             this.filename = DEFAULT_FILENAME;
+        }
+
+        if(storageType == StorageType.ANDROID_URI) {
+            List<UriPermission> uriPermissions = context.getContentResolver().getPersistedUriPermissions();
+            if(!uriPermissions.isEmpty()) {
+                this.directory = Uri.decode(uriPermissions.get(uriPermissions.size()-1).getUri().toString());
+            }
         }
 
         open = false;
@@ -130,7 +148,6 @@ public abstract class AbstractFileOutput implements IFileOutput {
         if (directory != null && !directory.isEmpty()) {
             switch (storageType) {
                 case EXTERNAL:
-                    //TODO: Replace legacy storage model
                     return Environment.getExternalStorageDirectory() + "/" + directory;
                 case INTERNAL:
                     return context.getFilesDir() + "/" + directory;
@@ -142,7 +159,6 @@ public abstract class AbstractFileOutput implements IFileOutput {
         } else {
             switch (storageType) {
                 case EXTERNAL:
-                    //TODO: Replace legacy storage model
                     return Environment.getExternalStorageDirectory().getPath();
                 case INTERNAL:
                     return context.getFilesDir().getPath();
@@ -164,15 +180,22 @@ public abstract class AbstractFileOutput implements IFileOutput {
         if (isOpen()) {
             throw new IOException("The file is already open.");
         }
-        File directory = new File(getStorageDirectory());
-        if (!directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Couldn't create the directory");
-        }
-        if (storageType == StorageType.EXTERNAL) {
-            if (isExternalStorageWritable()) {
-                file = new File(getStoragePath());
-            } else {
-                throw new IOException("External storage is not writable.");
+        if(storageType == StorageType.ANDROID_URI) {
+            Uri uri = Uri.parse(directory+"/"+filename);
+            Log.d(LOG_TAG, "Opening File Descriptor: "+uri);
+            FileDescriptor fd = context.getContentResolver().openFileDescriptor(uri, "w").getFileDescriptor();
+            fileOutputStream = new FileOutputStream(fd);
+        } else {
+            File directory = new File(getStorageDirectory());
+            if (!directory.exists() && !directory.mkdirs()) {
+                throw new IOException("Couldn't create the directory");
+            }
+            if (storageType == StorageType.EXTERNAL) {
+                if (isExternalStorageWritable()) {
+                    fileOutputStream = new FileOutputStream(getStoragePath(), false);
+                } else {
+                    throw new IOException("External storage is not writable.");
+                }
             }
         }
         open = true;
@@ -182,6 +205,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
     public void close() throws IOException {
         if (isOpen()) {
             open = false;
+            fileOutputStream.close();
         } else {
             throw new IOException("The file is already closed.");
         }

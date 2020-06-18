@@ -121,7 +121,7 @@ public class WaveMonoPCM16Recorder extends AbstractFileOutput {
     @Override
     public void open() throws IOException {
         super.open();
-        fileChannel = new FileOutputStream(file, false).getChannel();
+        fileChannel = fileOutputStream.getChannel();
     }
 
     @Override
