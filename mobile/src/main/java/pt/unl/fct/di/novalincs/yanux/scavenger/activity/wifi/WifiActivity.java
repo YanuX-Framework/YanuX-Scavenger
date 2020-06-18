@@ -12,7 +12,6 @@
 
 package pt.unl.fct.di.novalincs.yanux.scavenger.activity.wifi;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +39,6 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.IFileLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.JsonFileLogger;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.SensorListener;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.logging.WifiReading;
-import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionManager;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.preferences.Preferences;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.sensors.SensorWrapper;
@@ -59,7 +57,8 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     private Switch logSwitch;
     private TextView sampleCounterText;
 
-    private PermissionManager permissionManager;
+    //TODO: This was part of the old legacy storage system. Remove it in the future.
+    //private PermissionManager permissionManager;
     private Preferences preferences;
     private WifiCollector wifiCollector;
     private BroadcastReceiver broadcastReceiver;
@@ -99,9 +98,10 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         //Sample Counter
         sampleCounterText = findViewById(R.id.log_sample_counter);
 
+        //TODO: This was part of the old legacy storage system. Remove it in the future.
         //Permission Manager
-        permissionManager = new PermissionManager(this);
-        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        //permissionManager = new PermissionManager(this);
+        //permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         //PreferencesActivity
         preferences = new Preferences(this);
@@ -160,7 +160,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
     }
 
     @Override
-    protected void onResume() {
+    protected void onStart() {
         super.onResume();
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI_RTT)) {
             Toast.makeText(this, R.string.wifi_supports_rtt, Toast.LENGTH_LONG).show();
@@ -176,6 +176,8 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
         disableLogging();
     }
 
+    //TODO: This was part of the old legacy storage system. Remove it in the future.
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -200,6 +202,7 @@ public class WifiActivity extends AppCompatActivity implements LogDialogFragment
                 break;
         }
     }
+    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

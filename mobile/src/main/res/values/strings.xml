@@ -42,6 +42,8 @@
     <string name="on_off">On/Off</string>
     <string name="off_on">Off/On</string>
 
+    <string name="permission_rationale_storage_directory">Please select where you want the application to store its files.</string>
+
     <string name="audio_tone_cycle">Tone Cycle</string>
     <string name="audio_tone_frequency0">Frequency 0</string>
     <string name="audio_tone_frequency1">Frequency 1</string>
@@ -145,7 +147,6 @@
     <string name="preferences_category_yanux_auth">YanuX Auth</string>
     <string name="preferences_title_yanux_auth_oauth2_authorization_server_url">OAuth 2.0 Authorization Server URL</string>
     <string name="preferences_default_yanux_auth_oauth2_authorization_server_url">https://yanux-auth.herokuapp.com/</string>
-    <!-- <string name="preferences_default_yanux_auth_oauth2_authorization_server_url">http://localhost:3001/</string> -->
 
     <string name="preferences_title_yanux_auth_client_id">Client ID</string>
     <string name="preferences_default_yanux_auth_client_id">yanux-mobile-client</string>
@@ -159,7 +160,6 @@
     <string name="preferences_category_yanux_broker">YanuX Broker</string>
     <string name="preferences_title_yanux_broker_url">URL</string>
     <string name="preferences_default_yanux_broker_url">https://yanux-broker.herokuapp.com/</string>
-    <!-- <string name="preferences_default_yanux_broker_url">http://localhost:3002/</string> -->
 
     <!-- Notifications -->
     <string name="notication_action_disable_persistent_service">Disable persistent service</string>

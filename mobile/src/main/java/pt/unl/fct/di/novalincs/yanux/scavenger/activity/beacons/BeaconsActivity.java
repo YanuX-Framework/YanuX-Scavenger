@@ -52,7 +52,8 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.view.RecyclerViewSimpleListAdapte
 public class BeaconsActivity extends AppCompatActivity implements BeaconConsumer {
     public static final String[] REQUIRED_PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            //TODO: This was part of the old legacy storage system. Remove it in the future.
+            //Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     private static final String REGION_UUID = "60138f39-4ba0-409e-a833-9abe47db4472";

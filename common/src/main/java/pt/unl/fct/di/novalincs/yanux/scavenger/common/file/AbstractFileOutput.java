@@ -16,12 +16,12 @@ import android.content.Context;
 import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +32,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
     private static final String LOG_TAG = Constants.LOG_TAG + "_ABS_FILE_OUT";
     public static final String DEFAULT_DIRECTORY = "YanuX";
     public static final String DEFAULT_FILENAME = "file.out";
-    public static final StorageType DEFAULT_STORAGE_TYPE = StorageType.EXTERNAL;
+    public static final StorageType DEFAULT_STORAGE_TYPE = StorageType.ANDROID_URI;
 
     protected Context context;
     protected String directory;
@@ -154,7 +154,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
                 case CACHE:
                     return context.getCacheDir() + "/" + directory;
                 default:
-                    return "";
+                    return directory;
             }
         } else {
             switch (storageType) {
@@ -172,7 +172,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
 
     @Override
     public String getStoragePath() {
-        return getStorageDirectory() + "/" + filename;
+        return getStorageDirectory().endsWith(":") ? filename : getStorageDirectory() + "/" + filename;
     }
 
     @Override
@@ -181,9 +181,14 @@ public abstract class AbstractFileOutput implements IFileOutput {
             throw new IOException("The file is already open.");
         }
         if(storageType == StorageType.ANDROID_URI) {
-            Uri uri = Uri.parse(directory+"/"+filename);
-            Log.d(LOG_TAG, "Opening File Descriptor: "+uri);
-            FileDescriptor fd = context.getContentResolver().openFileDescriptor(uri, "w").getFileDescriptor();
+            Uri directoryUri = Uri.parse(getStorageDirectory());
+            Log.d(LOG_TAG, "Directory Uri: " + directoryUri);
+            DocumentFile folder = DocumentFile.fromTreeUri(context, directoryUri);
+            DocumentFile file = folder.findFile(filename);
+            if (file == null) {
+                file = folder.createFile("application/octet-stream", filename);
+            }
+            FileDescriptor fd = context.getContentResolver().openFileDescriptor(file.getUri(), "w").getFileDescriptor();
             fileOutputStream = new FileOutputStream(fd);
         } else {
             File directory = new File(getStorageDirectory());

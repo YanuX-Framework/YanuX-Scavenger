@@ -13,10 +13,12 @@
 package pt.unl.fct.di.novalincs.yanux.scavenger.common.logging;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
@@ -75,8 +77,16 @@ public class JsonFileLogger extends AbstractFileLogger {
     @Override
     public void open() throws IOException {
         try {
-            logFile = Constants.OBJECT_MAPPER.readValue(new File(getStoragePath()), LogFile.class);
-        } catch (IOException e) {
+            if (storageType == StorageType.ANDROID_URI) {
+                Uri uri = Uri.parse(getStoragePath());
+                Log.d(LOG_TAG, "Open Existing Log:" + uri);
+                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                logFile = Constants.OBJECT_MAPPER.readValue(inputStream, LogFile.class);
+                inputStream.close();
+            } else {
+                logFile = Constants.OBJECT_MAPPER.readValue(new File(getStoragePath()), LogFile.class);
+            }
+        } catch (Exception e) {
             Log.e(LOG_TAG, e.toString());
             logFile = new LogFile(filename);
         }

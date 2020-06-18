@@ -38,8 +38,11 @@ import pt.unl.fct.di.novalincs.yanux.scavenger.common.permissions.PermissionMana
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public class AudioActivity extends AppCompatActivity {
-    public static final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public static final String[] REQUIRED_PERMISSIONS = new String[]{
+            Manifest.permission.RECORD_AUDIO,
+            //TODO: This was part of the old legacy storage system. Remove it in the future.
+            //Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     private static final String LOG_TAG = Constants.LOG_TAG + "_AUDIO_ACTIVITY";
     private PermissionManager permissionManager;
     private LinearChirpToneGenerator toneGenerator;

@@ -17,7 +17,6 @@ import android.content.Context;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.file.StorageType;

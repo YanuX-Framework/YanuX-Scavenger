@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -102,13 +101,17 @@ public class MainActivity extends AppCompatActivity {
             permissionManager.requestPermissions(new String[]{
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE});
+                    //TODO: This was part of the old legacy storage system. Remove it in the future.
+                    //Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    //Manifest.permission.READ_EXTERNAL_STORAGE
+            });
         } else {
             permissionManager.requestPermissions(new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE});
+                    //TODO: This was part of the old legacy storage system. Remove it in the future.
+                    //Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    //Manifest.permission.READ_EXTERNAL_STORAGE
+            });
         }
         preferences = new Preferences(this);
 
@@ -211,12 +214,12 @@ public class MainActivity extends AppCompatActivity {
     public void chooseStorageDirectory() {
         List<UriPermission> uriPermissions = getContentResolver().getPersistedUriPermissions();
         for(UriPermission uriPermission : uriPermissions) {
-            Log.d(LOG_TAG, "URI Permission: "+uriPermission.getUri()+
-                    " Is Readable: "+uriPermission.isReadPermission()+
-                    " Is Writeable: "+uriPermission.isWritePermission());
+            Log.d(LOG_TAG, "URI Permission: " + uriPermission.getUri() +
+                    " Readable: " + uriPermission.isReadPermission() +
+                    " Writeable: " + uriPermission.isWritePermission());
         }
         if(uriPermissions.isEmpty()) {
-            //Toast.makeText(this, R.string.permission_rationale_storage_directory, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.permission_rationale_storage_directory, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -238,6 +241,4 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, resultData);
     }
-
-
 }
