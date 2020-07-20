@@ -25,6 +25,8 @@
     <!-- Persistent Service -->
     <string name="persistent_service_authentication_warning">Please authenticate with YanuX Auth to continue.</string>
     <string name="persistent_service_connected">Connected to YanuX Broker.</string>
+    <string name="persistent_service_started_scanning_for_beacons">Started Scanning for Beacons.</string>
+
 
     <!-- Permissions -->
     <string name="multiple_permissions_rationale">Please allow the application to access these permission. They are needed in order to provide you the full experience.</string>

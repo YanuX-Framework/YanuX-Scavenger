@@ -108,6 +108,10 @@ public class BeaconCollector {
          */
         //Beacon.setDistanceCalculator(new CustomDistanceCalculator());
         beaconManager.setBackgroundMode(false);
+        beaconManager.setForegroundScanPeriod(100);
+        beaconManager.setForegroundBetweenScanPeriod(0);
+        beaconManager.setBackgroundScanPeriod(100);
+        beaconManager.setBackgroundBetweenScanPeriod(0);
         beaconManager.bind(this.beaconConsumer);
 
         //Monitor Notifier
@@ -228,8 +232,8 @@ public class BeaconCollector {
         try {
             if (!ranging) {
                 ranging = true;
-                beaconManager.startRangingBeaconsInRegion(region);
                 context.registerReceiver(broadcastReceiver, intentFilter);
+                beaconManager.startRangingBeaconsInRegion(region);
             }
         } catch (RemoteException e) {
             Log.e(LOG_TAG, e.toString());

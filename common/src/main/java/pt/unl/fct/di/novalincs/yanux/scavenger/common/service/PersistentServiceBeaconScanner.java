@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Identifier;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ import java.util.Set;
 
 import io.socket.client.Ack;
 import io.socket.client.Socket;
+import pt.unl.fct.di.novalincs.yanux.scavenger.common.R;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconCollector;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.BeaconWrapper;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.beacons.YanuxBrokerBeacon;
@@ -50,6 +52,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
     private boolean realtimeUpdates;
     private int refreshInterval;
     private int inactivityTimer;
+    private boolean isFirstScan;
 
     public PersistentServiceBeaconScanner(PersistentService service) {
         this.service = service;
@@ -58,6 +61,7 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
         this.beaconsToRemove = new HashSet<>();
         this.beaconRefreshHandler = new Handler();
         this.beaconRefresher = new BeaconRefresherRunnable();
+        this.isFirstScan = true;
     }
 
     public void start(int refreshInterval, int inactivityTimer) {
@@ -74,20 +78,19 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
 
     public void stop() {
         this.beaconRefreshHandler.removeCallbacks(beaconRefresher);
+        this.isFirstScan = true;
     }
 
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction()) {
             case BeaconCollector.ACTION_BEACON_RANGE_BEACONS:
                 if (service.getBeaconCollector() != null) {
-                    List<BeaconWrapper> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (BeaconWrapper b : beaconsArrayList) {
-                        stringBuilder.append("\n");
-                        stringBuilder.append(b.toString());
+                    if (this.isFirstScan) {
+                        Toast.makeText(context, R.string.persistent_service_started_scanning_for_beacons, Toast.LENGTH_LONG).show();
+                        this.isFirstScan = false;
                     }
-                    Log.d(LOG_TAG, //"\n" + "Beacons: " + stringBuilder + "\n" +
-                            "Ranging Elapsed Time: " + service.getBeaconCollector().getRangingElapsedTime() + " ms");
+                    List<BeaconWrapper> beaconsArrayList = intent.getParcelableArrayListExtra(BeaconCollector.EXTRA_BEACONS);
+                    Log.d(LOG_TAG, "Ranging Elapsed Time: " + service.getBeaconCollector().getRangingElapsedTime() + " ms | Beacons Found: " + beaconsArrayList.size());
                     update(beaconsArrayList);
                 }
                 break;
@@ -129,9 +132,9 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                     beaconsCreated.remove(beaconKey);
                     beaconsUpdated.put(beaconKey, beaconObject);
                     if (realtimeUpdates) {
-                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
-                        JSONObject query = new JSONObject();
                         try {
+                            JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
+                            JSONObject query = new JSONObject();
                             query.put("user", userId);
                             query.put("deviceUuid", deviceUuid);
                             query.put("beaconKey", beaconKey);
@@ -149,21 +152,29 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                             service.handleError(e);
                         }
                     }
-
                 } else {
                     beaconsCreated.put(beaconKey, beaconObject);
                     if (realtimeUpdates) {
-                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
-                        socket.emit("create", "beacons", beaconJson, new Ack() {
-                            @Override
-                            public void call(Object... args) {
-                                if (args[0] == null) {
-                                    Log.d(LOG_TAG, "Beacon Created: " + args[1]);
-                                } else service.handleError(args[0]);
-                            }
-                        });
+                        try {
+                            JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(beaconObject, JSONObject.class);
+                            JSONObject query = new JSONObject();
+                            query.put("user", userId);
+                            query.put("deviceUuid", deviceUuid);
+                            query.put("beaconKey", beaconKey);
+                            socket.emit("patch", "beacons", null, beaconJson, query, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    if (args[0] == null) {
+                                        Log.d(LOG_TAG, "Beacon Created: " + args[1]);
+                                    } else {
+                                        service.handleError(args[0]);
+                                    }
+                                }
+                            });
+                        } catch (JSONException e) {
+                            service.handleError(e);
+                        }
                     }
-
                 }
             }
         }
@@ -225,15 +236,25 @@ public class PersistentServiceBeaconScanner extends BroadcastReceiver {
                  */
                 if (!realtimeUpdates) {
                     for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsCreated.entrySet()) {
-                        JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(entry.getValue(), JSONObject.class);
-                        socket.emit("create", "beacons", beaconJson, new Ack() {
-                            @Override
-                            public void call(Object... args) {
-                                if (args[0] == null) {
-                                    Log.d(LOG_TAG, "Beacon Created: " + args[1]);
-                                } else service.handleError(args[0]);
-                            }
-                        });
+                        try {
+                            JSONObject beaconJson = Constants.OBJECT_MAPPER.convertValue(entry.getValue(), JSONObject.class);
+                            JSONObject query = new JSONObject();
+                            query.put("user", userId);
+                            query.put("deviceUuid", deviceUuid);
+                            query.put("beaconKey", entry.getKey());
+                            socket.emit("patch", "beacons", null, beaconJson, query, new Ack() {
+                                @Override
+                                public void call(Object... args) {
+                                    if (args[0] == null) {
+                                        Log.d(LOG_TAG, "Beacon Created: " + args[1]);
+                                    } else {
+                                        service.handleError(args[0]);
+                                    }
+                                }
+                            });
+                        } catch (JSONException e) {
+                            service.handleError(e);
+                        }
                     }
                     for (Map.Entry<String, YanuxBrokerBeacon> entry : beaconsUpdated.entrySet()) {
                         try {
