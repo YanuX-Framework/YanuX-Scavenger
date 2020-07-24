@@ -436,7 +436,9 @@ public class Capabilities {
                     c.setResolution(resolution);
 
                     //Get the minimum time between camera frames in nanoseconds.
-                    long minFrameDuration = streamConfigurationMap.getOutputMinFrameDuration(ImageReader.class, sizes[0]);
+                    long minFrameDuration = 0;
+                    try { minFrameDuration = streamConfigurationMap.getOutputMinFrameDuration(ImageReader.class, sizes[0]); }
+                    catch (IllegalArgumentException e) { Log.d(LOG_TAG, "Camera: getOutputMinFrameDuration => "+e.getMessage()); }
 
                     //If the value is known (different from 0)
                     if (minFrameDuration != 0) {

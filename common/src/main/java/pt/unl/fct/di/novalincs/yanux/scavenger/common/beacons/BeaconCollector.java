@@ -112,7 +112,7 @@ public class BeaconCollector {
         beaconManager.setForegroundBetweenScanPeriod(0);
         beaconManager.setBackgroundScanPeriod(100);
         beaconManager.setBackgroundBetweenScanPeriod(0);
-        beaconManager.bind(this.beaconConsumer);
+        //beaconManager.bind(this.beaconConsumer);
 
         //Monitor Notifier
         setMonitorNotifier(new MonitorNotifier() {
@@ -274,14 +274,18 @@ public class BeaconCollector {
     }
 
     public void bind() {
-        if (!beaconManager.isBound(beaconConsumer)) {
+        if (!isBound()) {
             beaconManager.bind(beaconConsumer);
         }
     }
 
     public void unbind() {
-        if (beaconManager.isBound(beaconConsumer)) {
+        if (isBound()) {
             beaconManager.unbind(beaconConsumer);
         }
+    }
+
+    public boolean isBound() {
+        return beaconManager.isBound(beaconConsumer);
     }
 }

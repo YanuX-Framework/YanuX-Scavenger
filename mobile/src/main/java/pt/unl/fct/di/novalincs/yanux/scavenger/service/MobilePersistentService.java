@@ -64,6 +64,8 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
         if (persistentService == null) {
             persistentService = new PersistentService(this);
         }
+        persistentService.bindBeaconCollector();
+        persistentService.registerSharedPreferenceChangeListener();
     }
 
     @Override
@@ -76,8 +78,9 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(NOTIFICATION_ID, getNotification());
-        persistentService.start();
-        persistentService.registerSharedPreferenceChangeListener();
+        if(!persistentService.isStarted()) {
+            persistentService.start();
+        }
         if (persistentService.isStarted()) {
             return START_STICKY;
         } else {
@@ -94,9 +97,7 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-        if (persistentService == null) {
-            persistentService = new PersistentService(this);
-        }
+        persistentService.startBeaconScan();
     }
 
     public PersistentService getPersistentService() {

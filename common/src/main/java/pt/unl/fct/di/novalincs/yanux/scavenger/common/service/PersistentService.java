@@ -141,7 +141,7 @@ public class PersistentService implements GenericService {
                             } catch (JSONException e) {
                                 handleError(e);
                             }
-                            startBeaconScan();
+                            //startBeaconScan();
                         }
                     }).on(Socket.EVENT_CONNECT_TIMEOUT, new Emitter.Listener() {
                         @Override
@@ -440,10 +440,15 @@ public class PersistentService implements GenericService {
         preferences.setYanuxAuthJwt(Preferences.EMPTY);
     }
 
-    public void startBeaconScan() {
+    public void bindBeaconCollector() {
         if (preferences.isPersistentServiceAllowed() && preferences.shouldBeaconScan()) {
-            beaconScanner.start(preferences.shouldBeaconScanRealtimeUpdates(), preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
             beaconCollector.bind();
+        }
+    }
+
+    public void startBeaconScan() {
+        if (beaconCollector.isBound() && preferences.isPersistentServiceAllowed() && preferences.shouldBeaconScan()) {
+            beaconScanner.start(preferences.shouldBeaconScanRealtimeUpdates(), preferences.getBeaconsRefreshInterval(), preferences.getBeaconsInactivityTimer());
             String uuid = preferences.getBeaconMatcherParametersUuid();
             int major = preferences.getBeaconMatcherParametersMajor();
             int minor = preferences.getBeaconMatcherParametersMinor();
