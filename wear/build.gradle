@@ -15,8 +15,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '30.0.1'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -27,8 +27,7 @@ android {
     defaultConfig {
         applicationId "pt.unl.fct.di.novalincs.yanux.scavenger"
         minSdkVersion 25
-        //TODO: Target SDK 30 after replacing legacy storage model
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName '1.0'
     }

@@ -32,8 +32,8 @@ android {
             }
         }
     }
-    compileSdkVersion 29
-    buildToolsVersion '30.0.1'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,8 +44,7 @@ android {
     defaultConfig {
         applicationId 'pt.unl.fct.di.novalincs.yanux.scavenger'
         minSdkVersion 23
-        //TODO: Target SDK 30 after replacing legacy storage model
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName '1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -73,13 +72,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.google.android.gms:play-services-nearby:17.0.0'
     implementation 'com.google.android.gms:play-services-wearable:17.0.0'
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     wearApp project(':wear')
 }
