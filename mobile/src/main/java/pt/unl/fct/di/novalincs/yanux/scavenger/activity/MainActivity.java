@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.documentfile.provider.DocumentFile;
 
 import java.util.List;
 
@@ -124,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
             preferences.setYanuxAuthAuthorizationCode(authorizationCode);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         chooseStorageDirectory();
     }
 
@@ -212,13 +218,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseStorageDirectory() {
+        boolean releasedPermission = false;
         List<UriPermission> uriPermissions = getContentResolver().getPersistedUriPermissions();
-        for(UriPermission uriPermission : uriPermissions) {
+        for (UriPermission uriPermission : uriPermissions) {
             Log.d(LOG_TAG, "URI Permission: " + uriPermission.getUri() +
                     " Readable: " + uriPermission.isReadPermission() +
                     " Writeable: " + uriPermission.isWritePermission());
+            DocumentFile permissionDirectory = DocumentFile.fromTreeUri(this, uriPermission.getUri());
+            if (!permissionDirectory.exists()) {
+                getContentResolver().releasePersistableUriPermission(uriPermission.getUri(),
+                        (uriPermission.isReadPermission() ? Intent.FLAG_GRANT_READ_URI_PERMISSION : 0) |
+                                (uriPermission.isWritePermission() ? Intent.FLAG_GRANT_WRITE_URI_PERMISSION : 0)
+                );
+                releasedPermission = true;
+            }
         }
-        if(uriPermissions.isEmpty()) {
+        if (uriPermissions.isEmpty() || releasedPermission) {
             Toast.makeText(this, R.string.permission_rationale_storage_directory, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);

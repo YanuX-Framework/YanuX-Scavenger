@@ -188,6 +188,9 @@ public abstract class AbstractFileOutput implements IFileOutput {
             if (file == null) {
                 file = folder.createFile("application/octet-stream", filename);
             }
+            if (file == null) {
+                throw new IOException("Couldn't find or create the required the file. The probable cause is that the directory in which the file was supposed to be saved no longer exists.");
+            }
             FileDescriptor fd = context.getContentResolver().openFileDescriptor(file.getUri(), "w").getFileDescriptor();
             fileOutputStream = new FileOutputStream(fd);
         } else {
