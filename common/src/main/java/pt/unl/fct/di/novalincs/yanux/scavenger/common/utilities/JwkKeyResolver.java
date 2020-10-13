@@ -54,16 +54,23 @@ public class JwkKeyResolver extends SigningKeyResolverAdapter {
             if (jku != null && jku.startsWith(baseUrl)) {
                 JwkProvider keyStore = new UrlJwkProvider(new URL(jku));
                 String keyId = jwsHeader.getKeyId();
-                try { return keyStore.get(keyId).getPublicKey(); }
-                catch (NoSuchMethodError e) { return getPublicKey(keyStore.get(keyId)); }
-            } else { throw new RuntimeException("'JKU' is missing or cannot be trusted."); }
+                try {
+                    return keyStore.get(keyId).getPublicKey();
+                } catch (NoSuchMethodError e) {
+                    return getPublicKey(keyStore.get(keyId));
+                }
+            } else {
+                throw new RuntimeException("'JKU' is missing or cannot be trusted.");
+            }
         } catch (JwkException | MalformedURLException e) {
             throw new RuntimeException("Could not load JWK.", e);
         }
     }
 
     private PublicKey getPublicKey(Jwk jwk) throws InvalidPublicKeyException {
-        if (!PUBLIC_KEY_ALGORITHM.equalsIgnoreCase(jwk.getType())) { throw new InvalidPublicKeyException("The key is not of type RSA", null); }
+        if (!PUBLIC_KEY_ALGORITHM.equalsIgnoreCase(jwk.getType())) {
+            throw new InvalidPublicKeyException("The key is not of type RSA", null);
+        }
         try {
             KeyFactory kf = KeyFactory.getInstance(PUBLIC_KEY_ALGORITHM);
             BigInteger modulus = new BigInteger(1, Base64.decode(
@@ -75,8 +82,10 @@ public class JwkKeyResolver extends SigningKeyResolverAdapter {
                     Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE)
             );
             return kf.generatePublic(new RSAPublicKeySpec(modulus, exponent));
+        } catch (InvalidKeySpecException e) {
+            throw new InvalidPublicKeyException("Invalid public key", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new InvalidPublicKeyException("Invalid algorithm to generate key", e);
         }
-        catch (InvalidKeySpecException e) { throw new InvalidPublicKeyException("Invalid public key", e); }
-        catch (NoSuchAlgorithmException e) { throw new InvalidPublicKeyException("Invalid algorithm to generate key", e); }
     }
 }

@@ -46,17 +46,17 @@ dependencies {
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     api 'androidx.documentfile:documentfile:1.0.1'
     api 'org.apache.commons:commons-lang3:3.11'
-    api 'com.fasterxml.jackson.core:jackson-core:2.11.2'
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.11.2'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
-    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.11.2'
+    api 'com.fasterxml.jackson.core:jackson-core:2.11.3'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.11.3'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.11.3'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.11.3'
     api 'com.googlecode.json-simple:json-simple:1.1.1'
     api 'com.squareup.okhttp3:okhttp:4.9.0'
     api 'org.nanohttpd:nanohttpd-webserver:2.3.1'
     api 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    api 'com.auth0:jwks-rsa:0.13.0'
+    api 'com.auth0:jwks-rsa:0.14.0'
     api('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
@@ -65,7 +65,7 @@ dependencies {
     //Bouncy Castle should no longer be needed, unless I need to support PS256, PS384 and PS512 signatures.
     api 'org.bouncycastle:bcprov-jdk15to18:1.66'
     //This is needed for the project to compile with Bouncy Castle instead of with Spongy Castle
-    implementation 'junit:junit:4.13'
+    implementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

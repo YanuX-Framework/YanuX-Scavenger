@@ -29,11 +29,10 @@ import java.util.List;
 import pt.unl.fct.di.novalincs.yanux.scavenger.common.utilities.Constants;
 
 public abstract class AbstractFileOutput implements IFileOutput {
-    private static final String LOG_TAG = Constants.LOG_TAG + "_ABS_FILE_OUT";
     public static final String DEFAULT_DIRECTORY = "YanuX";
     public static final String DEFAULT_FILENAME = "file.out";
     public static final StorageType DEFAULT_STORAGE_TYPE = StorageType.ANDROID_URI;
-
+    private static final String LOG_TAG = Constants.LOG_TAG + "_ABS_FILE_OUT";
     protected Context context;
     protected String directory;
     protected String filename;
@@ -57,10 +56,10 @@ public abstract class AbstractFileOutput implements IFileOutput {
             this.filename = DEFAULT_FILENAME;
         }
 
-        if(storageType == StorageType.ANDROID_URI) {
+        if (storageType == StorageType.ANDROID_URI) {
             List<UriPermission> uriPermissions = context.getContentResolver().getPersistedUriPermissions();
-            if(!uriPermissions.isEmpty()) {
-                this.directory = Uri.decode(uriPermissions.get(uriPermissions.size()-1).getUri().toString());
+            if (!uriPermissions.isEmpty()) {
+                this.directory = Uri.decode(uriPermissions.get(uriPermissions.size() - 1).getUri().toString());
             }
         }
 
@@ -180,7 +179,7 @@ public abstract class AbstractFileOutput implements IFileOutput {
         if (isOpen()) {
             throw new IOException("The file is already open.");
         }
-        if(storageType == StorageType.ANDROID_URI) {
+        if (storageType == StorageType.ANDROID_URI) {
             Uri directoryUri = Uri.parse(getStorageDirectory());
             Log.d(LOG_TAG, "Directory Uri: " + directoryUri);
             DocumentFile folder = DocumentFile.fromTreeUri(context, directoryUri);

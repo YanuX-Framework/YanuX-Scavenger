@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 final int takeFlags = resultData.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 getContentResolver().takePersistableUriPermission(uri, takeFlags);
                 // Perform operations on the document using its URI.
-                Log.d(LOG_TAG, "Selected Directory URI: "+uri);
+                Log.d(LOG_TAG, "Selected Directory URI: " + uri);
             }
         }
         super.onActivityResult(requestCode, resultCode, resultData);

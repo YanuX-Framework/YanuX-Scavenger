@@ -78,7 +78,7 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(NOTIFICATION_ID, getNotification());
-        if(!persistentService.isStarted()) {
+        if (!persistentService.isStarted()) {
             persistentService.start();
         }
         if (persistentService.isStarted()) {

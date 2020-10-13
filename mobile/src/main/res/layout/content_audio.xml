@@ -124,7 +124,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/audio_recording_filename_text_view" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/audio_tone_cycle_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Scavenger-YanuX Scavenger.iml" filepath="$PROJECT_DIR$/Scavenger-YanuX Scavenger.iml" group="YanuX Scavenger" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YanuX_Scavenger.iml" filepath="$PROJECT_DIR$/.idea/modules/YanuX_Scavenger.iml" group="YanuX_Scavenger" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" group="YanuX Scavenger/common" />
-      <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" group="YanuX Scavenger/mobile" />
-      <module fileurl="file://$PROJECT_DIR$/wear/wear.iml" filepath="$PROJECT_DIR$/wear/wear.iml" group="YanuX Scavenger/wear" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YanuX_Scavenger.iml" filepath="$PROJECT_DIR$/.idea/modules/YanuX_Scavenger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/YanuX_Scavenger.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/YanuX_Scavenger.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mobile/YanuX_Scavenger.mobile.iml" filepath="$PROJECT_DIR$/.idea/modules/mobile/YanuX_Scavenger.mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/YanuX_Scavenger.wear.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/YanuX_Scavenger.wear.iml" />
     </modules>
   </component>
 </project>

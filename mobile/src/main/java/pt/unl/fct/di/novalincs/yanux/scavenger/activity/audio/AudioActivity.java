@@ -23,11 +23,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import java.io.IOException;
 
@@ -51,7 +50,7 @@ public class AudioActivity extends AppCompatActivity {
     private AudioTrack audioTrack;
     private WaveMonoPCM16Recorder wavRecorder;
 
-    private Switch toneSwitch;
+    private SwitchCompat toneSwitch;
     private EditText toneFrequency0EditText;
     private EditText toneFrequency1EditText;
     private EditText toneDurationEditText;
@@ -240,7 +239,6 @@ public class AudioActivity extends AppCompatActivity {
     }
 
     @Override
-    @NonNull
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {

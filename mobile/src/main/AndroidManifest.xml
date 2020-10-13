@@ -12,6 +12,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.unl.fct.di.novalincs.yanux.scavenger">
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
