@@ -123,7 +123,7 @@
 
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyBZllcr3ShHH_lVMv2F6I3PgRyjtyxiqdQ" />
+            android:value="@string/google_api_key" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

@@ -69,3 +69,5 @@ fastlane/readme.md
 # Others
 .DS_Store
 .cxx
+
+mobile/src/main/res/values/secrets.xml
