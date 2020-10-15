@@ -18,7 +18,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -41,6 +44,7 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     private SensorCollector sensorCollector;
     private SensorWrapper selectedSensor;
     private CyclicTriggerEventListener triggerEventListener;
+    private Display display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,9 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
         selectSensorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectSensorSpinner.setAdapter(selectSensorSpinnerAdapter);
         selectSensorSpinner.setOnItemSelectedListener(this);
+
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        display = wm.getDefaultDisplay();
     }
 
     @Override
@@ -132,18 +139,35 @@ public class SensorsActivity extends AppCompatActivity implements OnItemSelected
     private void fillValues(SensorEvent event) {
         TextView sensorValues = findViewById(R.id.sensor_values);
         String valuesText = "";
-        float[] values;
         if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR
                 || event.sensor.getType() == Sensor.TYPE_GAME_ROTATION_VECTOR
                 || event.sensor.getType() == Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) {
             float[] rotationMatrix = new float[9];
             SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
+            float[] rotationMatrixAdjusted = new float[9];
+            switch (display.getRotation()) {
+                case Surface.ROTATION_0:
+                default:
+                    rotationMatrixAdjusted = rotationMatrix.clone();
+                    break;
+                case Surface.ROTATION_90:
+                    SensorManager.remapCoordinateSystem(rotationMatrix, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, rotationMatrixAdjusted);
+                    break;
+                case Surface.ROTATION_180:
+                    SensorManager.remapCoordinateSystem(rotationMatrix, SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y, rotationMatrixAdjusted);
+                    break;
+                case Surface.ROTATION_270:
+                    SensorManager.remapCoordinateSystem(rotationMatrix, SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, rotationMatrixAdjusted);
+                    break;
+            }
             float[] orientation = new float[3];
-            SensorManager.getOrientation(rotationMatrix, orientation);
+            SensorManager.getOrientation(rotationMatrixAdjusted, orientation);
             valuesText += printSensorValues(event.values);
             valuesText += "Rotation Matrix:\n";
             valuesText += printSensorValues(rotationMatrix);
-            valuesText += "Orientation: \n";
+            valuesText += "Rotation Matrix Adjusted:\n";
+            valuesText += printSensorValues(rotationMatrixAdjusted);
+            valuesText += "Orientation:\n";
             valuesText += printSensorValues(orientation, true);
         } else {
             valuesText += printSensorValues(event.values);
