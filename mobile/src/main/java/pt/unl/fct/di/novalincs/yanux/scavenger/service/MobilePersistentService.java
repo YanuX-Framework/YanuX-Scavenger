@@ -37,7 +37,7 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     public static final String NOTIFICATION_TITLE = "YanuX Scavenger Background Service";
     public static final String NOTIFICATION_CONTENT = "Improving your user experience at the cost of your battery";
     public static final String NOTIFICATION_CHANNEL_ID = "pt.unl.fct.di.novalincs.yanux.scavenger.NOTIFICATION_CHANNEL.SILENT";
-    public static final String NOTIFICATION_CHANNEL_NAME = "Background GenericService";
+    public static final String NOTIFICATION_CHANNEL_NAME = "Mobile Persistent Service";
     private static final String LOG_TAG = Constants.LOG_TAG + "_" + MobilePersistentService.class.getSimpleName();
     // Binder given to clients
     private final IBinder binder = new MobilePersistentServiceBinder();
@@ -118,12 +118,14 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
                 .setContentTitle(NOTIFICATION_TITLE)
                 .setContentText(NOTIFICATION_CONTENT)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setVibrate(null)
                 .addAction(R.drawable.ic_disable_persistent_service, getString(R.string.notication_action_disable_persistent_service), disablePendingIntent)
                 .setContentIntent(pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            channel.enableVibration(false);
             notificationManager.createNotificationChannel(channel);
         }
         return mBuilder.build();
