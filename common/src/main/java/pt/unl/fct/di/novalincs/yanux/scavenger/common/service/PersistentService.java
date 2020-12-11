@@ -501,7 +501,7 @@ public class PersistentService implements GenericService {
             deviceJSON.put("name", preferences.getDeviceName());
 
             JSONArray beaconValues = new JSONArray();
-            beaconValues.put(preferences.getBeaconAdvertiserParametersUuid());
+            beaconValues.put(preferences.getBeaconAdvertiserParametersUuid().toLowerCase());
             beaconValues.put(preferences.getBeaconAdvertiserParametersMajor());
             beaconValues.put(preferences.getBeaconAdvertiserParametersMinor());
 
