@@ -43,6 +43,7 @@ public class BeaconAdvertiser {
         this.beaconParser = new BeaconParser().setBeaconLayout(IBEACON_LAYOUT);
         if (BluetoothAdapter.getDefaultAdapter() != null) {
             this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
+            //TODO: Allow setting TX Power Lovel and Adversite Mode through preferences
             this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
             this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
         } else {
