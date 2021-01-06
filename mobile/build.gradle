@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Pedro Albuquerque Santos.
+ * Copyright (c) 2021 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -12,7 +12,6 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
@@ -43,6 +42,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding true
     }
     defaultConfig {
         applicationId 'pt.unl.fct.di.novalincs.yanux.scavenger'

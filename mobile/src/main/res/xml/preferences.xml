@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2020 Pedro Albuquerque Santos.
+  ~ Copyright (c) 2021 Pedro Albuquerque Santos.
   ~
   ~ This file is part of YanuX Scavenger.
   ~
@@ -90,6 +90,13 @@
             android:defaultValue="@integer/preferences_default_beacon_advertiser_parameters_minor"
             android:key="beacon_advertiser_parameters_minor"
             android:title="@string/preferences_title_beacon_advertiser_parameters_minor"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:defaultValue="@string/preferences_beacon_advertiser_power_level_value_high"
+            android:entries="@array/beacon_advertiser_power_levels_labels"
+            android:entryValues="@array/beacon_advertiser_power_levels_values"
+            android:key="beacon_advertiser_power_level"
+            android:title="@string/preferences_title_beacon_advertiser_power_level"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreferenceCompat
             android:defaultValue="@bool/preferences_default_beacon_advertise"

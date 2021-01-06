@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 Pedro Albuquerque Santos.
+  ~
+  ~ This file is part of YanuX Scavenger.
+  ~
+  ~ YanuX Scavenger is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~
+  ~ YanuX Scavenger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with YanuX Scavenger. If not, see <https://www.gnu.org/licenses/gpl.html>
+  -->
+
+<resources>
+    <array name="beacon_advertiser_power_levels_labels">
+        <item>@string/preferences_beacon_advertiser_power_level_label_high</item>
+        <item>@string/preferences_beacon_advertiser_power_level_label_medium</item>
+        <item>@string/preferences_beacon_advertiser_power_level_label_low</item>
+        <item>@string/preferences_beacon_advertiser_power_level_label_ultra_low</item>
+    </array>
+    <array name="beacon_advertiser_power_levels_values">
+        <item>@string/preferences_beacon_advertiser_power_level_value_high</item>
+        <item>@string/preferences_beacon_advertiser_power_level_value_medium</item>
+        <item>@string/preferences_beacon_advertiser_power_level_value_low</item>
+        <item>@string/preferences_beacon_advertiser_power_level_value_ultra_low</item>
+    </array>
+</resources>

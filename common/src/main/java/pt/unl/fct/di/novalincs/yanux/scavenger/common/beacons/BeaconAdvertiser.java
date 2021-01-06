@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Pedro Albuquerque Santos.
+ * Copyright (c) 2021 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -34,8 +34,8 @@ public class BeaconAdvertiser {
     private final BeaconParser beaconParser;
     private BeaconTransmitter beaconTransmitter;
 
-    private Context context;
-    private Preferences preferences;
+    private final Context context;
+    private final Preferences preferences;
 
     public BeaconAdvertiser(Context context) {
         this.context = context;
@@ -44,7 +44,27 @@ public class BeaconAdvertiser {
         if (BluetoothAdapter.getDefaultAdapter() != null) {
             this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
             //TODO: Allow setting TX Power Lovel and Adversite Mode through preferences
-            this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+            switch (this.preferences.getBeaconAdvertiserPowerLevel()) {
+                case "HIGH":
+                    this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+                    break;
+            }
+
+            switch (this.preferences.getBeaconAdvertiserPowerLevel()) {
+                case "MEDIUM":
+                    this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_MEDIUM);
+                    break;
+                case "LOW":
+                    this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_LOW);
+                    break;
+                case "ULTRA_LOW":
+                    this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_ULTRA_LOW);
+                    break;
+                default:
+                    this.beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+                    break;
+            }
+
             this.beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY);
         } else {
             Log.d(LOG_TAG, "Bluetooth Adapter NOT FOUND!");

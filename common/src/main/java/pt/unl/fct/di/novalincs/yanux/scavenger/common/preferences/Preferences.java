@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Pedro Albuquerque Santos.
+ * Copyright (c) 2021 Pedro Albuquerque Santos.
  *
  * This file is part of YanuX Scavenger.
  *
@@ -50,6 +50,8 @@ public class Preferences {
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MAJOR_DEFAULT = "0";
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR = "beacon_advertiser_parameters_minor";
     public static final String PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR_DEFAULT = "0";
+    public static final String PREFERENCE_BEACON_ADVERTISER_POWER_LEVEL = "beacon_advertiser_power_level";
+    public static final String PPREFERENCE_BEACON_ADVERTISER_POWER_LEVEL_DEFAULT = "HIGH";
     public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL = "beacons_refresh_interval";
     public static final String PREFERENCE_BEACONS_REFRESH_INTERVAL_DEFAULT = Integer.toString(1000);
     public static final String PREFERENCE_BEACONS_INACTIVITY_TIMER = "beacons_inactivity_timer";
@@ -216,6 +218,14 @@ public class Preferences {
 
     public void setBeaconAdvertiserParameterMinor(int beaconAdvertiserParametersMinor) {
         preferencesEditor.putString(PREFERENCE_BEACON_ADVERTISER_PARAMETERS_MINOR, String.valueOf(beaconAdvertiserParametersMinor)).apply();
+    }
+
+    public String getBeaconAdvertiserPowerLevel() {
+        return preferences.getString(PREFERENCE_BEACON_ADVERTISER_POWER_LEVEL, PPREFERENCE_BEACON_ADVERTISER_POWER_LEVEL_DEFAULT);
+    }
+
+    public void setBeaconAdvertiserParametersPowerLevel(String beaconAdvertiserPowerLevel) {
+        preferencesEditor.putString(PREFERENCE_BEACON_ADVERTISER_POWER_LEVEL, beaconAdvertiserPowerLevel).apply();
     }
 
     public int getBeaconsRefreshInterval() {
