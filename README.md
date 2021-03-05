@@ -1,11 +1,14 @@
 # YanuX Scavenger
-A project which explores what kind of contextual information can an Android device provide in order to build pervasive applications.
+This respository was started to create an application that explored what kind of contextual information can an Android device provide in order to build pervasive applications.
 
-It also serves as the YanuX Android/Mobile Client, at least until the day comes that a separate project is created just for that purpose.
+It also served as an initial testing ground for an __Indoor Positioning Solution__ since it integrated directly with the [__YanuX Broker__](https://github.com/YanuX-Framework/YanuX-Broker) before a separate initiative lead to the creation of the [__Indoor Positioning Server__](https://github.com/YanuX-Framework/YanuX-IPSServer) and the respective clients.
 
-## Bluetooth Low Energy Beacons
-- UUID: 113069EC-6E64-4BD3-6810-DE01B36E8A3E
-	- The default was B9407F30-F5F8-466E-AFF9-25556B57FE6D:41273:22347 since we have been working with [Estimote Beacons](http://estimote.com/))
-	
+Currently its main purpose is to serve has the counterpart of the [__YanuX Desktop Client__](https://github.com/YanuX-Framework/YanuX-DesktopClient) by taking upon itself the functions of the __YanuX Orchestrator__ for [__Android__](https://www.android.com/). Currently, those functions are limited to the gathering of information about the device where it runs and submits that information to the [__YanuX Broker__](https://github.com/YanuX-Framework/YanuX-Broker).
+
+## Documentation
+- Requires Android 6.0 (tested up to Android 10)
+- Requires Wi-Fi and Bluetooth Low Energy support
+	- The scanning of Bluetooth Low Energy Beacons (iBeacon) is achieved thanks to the [__Android Beacon Library__](https://github.com/AltBeacon/android-beacon-library)
+
 ## License
-This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
+This work is licensed under [__GNU General Public License Version 3__](LICENSE)
