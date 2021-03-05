@@ -1,7 +1,7 @@
 # YanuX Scavenger
-This is part of the [__YanuX Frameworl__](https://yanux-framework.github.io/).
+This is part of the [__YanuX Framework__](https://yanux-framework.github.io/).
 
-This respository was started to create an application that explored what kind of contextual information can an Android device provide in order to build pervasive applications.
+This repository was started to create an application that explored what kind of contextual information can an Android device provide in order to build pervasive applications.
 
 It also served as an initial testing ground for an __Indoor Positioning Solution__ since it integrated directly with the [__YanuX Broker__](https://github.com/YanuX-Framework/YanuX-Broker) before a separate initiative lead to the creation of the [__Indoor Positioning Server__](https://github.com/YanuX-Framework/YanuX-IPSServer) and the respective clients.
 
