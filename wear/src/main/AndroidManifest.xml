@@ -32,7 +32,8 @@
             android:value="true" />
         <activity
             android:name="pt.unl.fct.di.novalincs.yanux.scavenger.MainWearActivity"
-            android:label="@string/title_activity_main_wear">
+            android:label="@string/title_activity_main_wear"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
