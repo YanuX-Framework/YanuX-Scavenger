@@ -107,11 +107,11 @@ public class MobilePersistentService extends Service implements BeaconConsumer {
     private Notification getNotification() {
         Intent homeIntent = new Intent(this, MainActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, homeIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, homeIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Intent disableIntent = new Intent(this, MobilePersistentServiceBroadcastReceiver.class);
         disableIntent.setAction(MobilePersistentServiceBroadcastReceiver.ACTION_DISABLE_SERVICE);
-        PendingIntent disablePendingIntent = PendingIntent.getBroadcast(this, 0, disableIntent, 0);
+        PendingIntent disablePendingIntent = PendingIntent.getBroadcast(this, 0, disableIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_background_service_notification)

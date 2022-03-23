@@ -15,7 +15,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 31
-    buildToolsVersion '31.0.0'
+    //buildToolsVersion '31.0.0'
     compileOptions {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled true
@@ -60,7 +60,7 @@ dependencies {
     api 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    api 'com.auth0:jwks-rsa:0.20.0'
+    api 'com.auth0:jwks-rsa:0.20.2'
     api('io.socket:socket.io-client:1.0.1') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
